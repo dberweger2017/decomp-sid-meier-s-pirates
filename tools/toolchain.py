@@ -6,6 +6,7 @@ import json
 import subprocess
 import shutil
 import gzip
+import re
 import sys
 import tarfile
 import urllib.request
@@ -14,6 +15,50 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.util import ToolError, load_json, write_json, sha256
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def import_runtime(directory):
+    """Verify a CI archive and revalidate its receiving-host image identity."""
+    directory = Path(directory).resolve()
+    exported = load_json(directory / 'runtime-export.json')
+    archive = directory / 'runtime-image.tar.gz'
+    if not exported.get('validated') or sha256(archive) != exported.get('sha256'):
+        raise ToolError('Compiler archive is unvalidated or its SHA-256 differs')
+    if exported.get('sources_lock_sha256') != sha256(ROOT / 'toolchain/sources.lock.json'):
+        raise ToolError('Compiler archive uses a different source lock')
+    cache = ROOT / 'build/toolchain'
+    write_json(cache / 'runtime.json', {'validated': False, 'reason': 'Imported runtime probes have not completed'})
+    loaded = subprocess.run(['docker', 'load', '-i', str(archive)], check=True, capture_output=True, text=True)
+    identities = set(re.findall(r'Loaded image ID: (sha256:[0-9a-f]{64})', loaded.stdout))
+    if len(identities) != 1:
+        raise ToolError('Expected one immutable compiler image from Docker load')
+    image = identities.pop()
+    metadata = json.loads(subprocess.run(['docker', 'image', 'inspect', image], check=True, capture_output=True, text=True).stdout)[0]
+    if metadata.get('Architecture') != 'amd64' or metadata.get('Os') != 'linux':
+        raise ToolError('Imported compiler image must be Linux amd64')
+    manifest = subprocess.run(['docker', 'run', '--rm', '--platform', 'linux/amd64', '--network', 'none', image,
+                               'cat', '/opt/pirates/provenance/installed-artifacts.json'], check=True, capture_output=True).stdout
+    if hashlib.sha256(manifest).hexdigest() != exported.get('artifacts_manifest_sha256'):
+        raise ToolError('Imported compiler artifact manifest differs')
+    profile = load_json(ROOT / 'config/compiler.json')
+    from tools.pirates.compiler import profile_digest
+    supplied = load_json(directory / 'compiler.json')
+    if supplied.get('template_sha256') and supplied['template_sha256'] != profile_digest(profile):
+        raise ToolError('Compiler artifact profile differs from the local template')
+    profile['template_sha256'] = profile_digest(profile)
+    profile['template_path'] = 'config/compiler.json'
+    profile['container'] = {'image': image, 'compiler': '/opt/pirates/bin/llvm-g++'}
+    path = 'build/toolchain/compiler.json'
+    write_json(ROOT / path, profile)
+    from tools.validate_compiler import validate
+    validate(ROOT, path)
+    validation = load_json(ROOT / profile['validation'])
+    if validation['probe_sha256'] != load_json(directory / 'validation.json').get('probe_sha256'):
+        write_json(ROOT / profile['validation'], {'validated': False, 'reason': 'Receiving-host probes differ from exported probes'})
+        raise ToolError('Receiving-host compiler probes differ from CI')
+    write_json(cache / 'runtime.json', {**exported, 'image': image, 'exported_image': exported['image'], 'validated': True})
+    print('Imported and revalidated compiler. Use: python configure.py --profile ' + path)
+    return 0
 
 
 def export():
@@ -155,7 +200,8 @@ def build():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['fetch', 'build', 'package', 'export', 'status'])
+    parser.add_argument('action', choices=['fetch', 'build', 'package', 'export', 'import', 'status'])
+    parser.add_argument('--artifact', type=Path, help='Directory containing an exported compiler artifact')
     args = parser.parse_args()
     if args.action == 'status':
         result = load_json(ROOT / 'toolchain/feasibility.json')
@@ -174,6 +220,10 @@ def main():
         return package()
     if args.action == 'export':
         return export()
+    if args.action == 'import':
+        if not args.artifact:
+            raise ToolError('Compiler import requires --artifact <directory>')
+        return import_runtime(args.artifact)
     return build()
 
 

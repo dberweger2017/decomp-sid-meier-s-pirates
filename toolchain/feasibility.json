@@ -60,6 +60,11 @@
       "stage": "native Linux CI complete pipeline",
       "result": "validated",
       "evidence": "Source recipe, immutable runtime packaging, C/C++ ARM/Thumb deterministic probes, Docker export, historical Ninja match/header-edit/lost-match regression all passed in run 37693756924."
+    },
+    {
+      "stage": "native Linux artifact import on Apple Silicon",
+      "result": "validated",
+      "evidence": "Archive SHA-256 and installed-artifact manifest verified. Docker 29 assigned a converted local image ID; receiving-host ARM/Thumb C/C++ probe hashes equal native CI. Import pins and validates the receiving-host identity."
     }
   ],
   "remaining": [
@@ -83,5 +88,7 @@
   },
   "probe_architecture_flag": "-march=armv7-a",
   "native_linux_ci_validated": true,
-  "native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924"
+  "native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924",
+  "native_artifact_revalidated_on_macos_arm64": true,
+  "native_artifact_archive_sha256": "b79b5b29e93ac6f69c93605d9c59c7765db91cffdc5abf838c3172eca1a882d0"
 }

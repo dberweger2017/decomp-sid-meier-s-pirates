@@ -10,7 +10,7 @@ The frontend experiment starts with Apple’s [llvmgcc42-2336.9 source](https://
 
 The experiment ran Linux amd64 under Docker on a macOS arm64 host. The base image is pinned by digest; the installed package inventory is locked and checked. Compiler source archives are pinned by commit and SHA-256 in `toolchain/sources.lock.json`.
 
-[Native Linux validation run](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924) passed the complete source recipe, runtime probes, image export, and historical incremental regression smoke test. Recorded stages in `toolchain/feasibility.json`:
+[Native Linux validation run](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924) passed the complete source recipe, runtime probes, image export, and historical incremental regression smoke test. The exported CI archive was SHA-256 verified and imported on macOS ARM64; receiving-host C/C++ ARM/Thumb object hashes equal native CI’s hashes. Recorded stages in `toolchain/feasibility.json`:
 
 1. CMake failed on stale source lists (`ModuleProvider.cpp`) and an absent test directory. Switched to the documented configure/make route.
 2. GCC 5 exposed missing host includes for `ptrdiff_t` and `lseek64`. Explicit host include flags fixed these errors. The archived module-link rule used `-module`; a recorded host-only change uses Linux `-shared` instead.
@@ -43,7 +43,14 @@ After the frontend and assembler build, `python tools/toolchain.py package` pack
 
 `python tools/toolchain.py build` performs these stages together. The CI workflow caches source and build directories using source, dependency, and build-script hashes; make checks their dependencies. No runtime is marked valid merely because the backend or frontend compiled.
 
-After probes succeed, `python tools/toolchain.py export` writes an ignored Docker archive plus its SHA-256 manifest. The native Linux workflow uploads this validated toolchain separately from diagnostics. This permits local `docker load -i runtime-image.tar.gz` on Linux or macOS without publishing a registry image. Verify the archive SHA-256 from `runtime-export.json`, install the supplied profile as `build/toolchain/compiler.json`, then rerun `tools/validate_compiler.py build/toolchain/compiler.json` on the receiving host before selecting it. Apple Silicon uses amd64 emulation.
+After probes succeed, `python tools/toolchain.py export` writes an ignored Docker archive plus its SHA-256 manifest. The native Linux workflow uploads this validated toolchain separately from diagnostics. Download and extract that artifact, then import it on Linux or macOS without publishing a registry image:
+
+```sh
+python tools/toolchain.py import --artifact /path/to/extracted-artifact
+python configure.py --profile build/toolchain/compiler.json
+```
+
+Import verifies the archive SHA-256, source lock, platform and installed-artifact manifest. Docker versions may assign different image IDs when loading an archive; import pins the receiving host’s immutable ID, reruns the compiler probes, and requires their hashes to equal CI’s hashes. Apple Silicon uses amd64 emulation.
 
 The packager writes `build/toolchain/compiler.json` with an immutable local image ID. After successful validation, select it:
 
