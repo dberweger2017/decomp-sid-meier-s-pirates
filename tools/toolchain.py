@@ -117,10 +117,10 @@ def build():
     out = ROOT / 'build/toolchain'
     result = {'validated': False, 'sources_lock_sha256': sha256(ROOT / 'toolchain/sources.lock.json'), 'stage': 'environment', 'returncode': None}
     commands = [(['docker', 'build', '--platform', 'linux/amd64', '-f', 'toolchain/Dockerfile.feasibility', '-t', 'pirates-compiler-feasibility', '.'], 'environment'),
-                (['docker', 'run', '--rm', '--platform', 'linux/amd64', '-v', str(ROOT) + ':/work', 'pirates-compiler-feasibility',
-                  '/bin/sh', 'toolchain/build-legacy.sh'], 'legacy-build'),
                 (['docker', 'run', '--rm', '--platform', 'linux/amd64', '--network', 'none', '-v', str(ROOT) + ':/work',
-                  'pirates-compiler-feasibility', '/bin/sh', 'toolchain/build-assembler.sh'], 'assembler-build')]
+                  'pirates-compiler-feasibility', '/bin/sh', 'toolchain/build-assembler.sh'], 'assembler-build'),
+                (['docker', 'run', '--rm', '--platform', 'linux/amd64', '--network', 'none', '-v', str(ROOT) + ':/work', 'pirates-compiler-feasibility',
+                  '/bin/sh', 'toolchain/build-legacy.sh'], 'legacy-build')]
     for cmd, stage in commands:
         result['stage'] = stage
         result['returncode'] = None

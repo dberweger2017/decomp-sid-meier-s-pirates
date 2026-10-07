@@ -45,6 +45,11 @@
       "stage": "bundled LLVM core",
       "result": "built on native Linux; frontend configuration failed at installation boundary",
       "evidence": "Native CI built bundled ARM backend, libraries and tools. install-libs omitted llc and llvm-config; frontend rejected installed prefix as invalid. Recipe now installs these tools explicitly."
+    },
+    {
+      "stage": "C/C++ frontend and compiler-only installation",
+      "result": "built on Linux under Apple Silicon emulation; probes pending",
+      "evidence": "cc1, cc1plus and drivers built. Driver reports GCC 4.2.1 / LLVM build 2336.9. Default all-gcc also attempts libgcc and Darwin crt3 requiring SDK headers; compiler-only make flags omit those linking/runtime artifacts. Host source logic and ARM code generation are unchanged."
     }
   ],
   "remaining": [
@@ -56,5 +61,6 @@
     "Investigate original per-unit flags and compiler revisions"
   ],
   "assembler_thumb_macho_probe": true,
-  "bundled_llvm_core_built": true
+  "bundled_llvm_core_built": true,
+  "frontend_built": true
 }
