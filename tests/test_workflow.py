@@ -147,6 +147,17 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(result['status'], 'unresolved')
         self.assertTrue(any('Compiler fingerprint changed' in reason for reason in result['reasons']))
 
+    def test_explicit_profile_switch_uses_existing_verified_inputs(self):
+        self.build()
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        profile['flags'] += ['-O0']
+        write_json(self.root / 'config/other-compiler.json', profile)
+        configure(self.root, profile='config/other-compiler.json')
+        self.assertEqual(load_json(self.root / 'build/config.json')['profile_path'], 'config/other-compiler.json')
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'different')
+        configure(self.root)
+        self.assertEqual(load_json(self.root / 'build/config.json')['profile_path'], 'config/other-compiler.json')
+
     def test_shared_compiler_change_cannot_silently_reset_existing_candidate_baseline(self):
         path = 'config/fixture-compiler.json'
         profile = load_json(self.root / path)

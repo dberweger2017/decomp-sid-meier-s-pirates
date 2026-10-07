@@ -16,7 +16,7 @@ def ninja_path(path):
     return text.replace('$', '$$').replace(' ', '$ ').replace(':', '$:')
 
 
-def configure(root, ipa=None, fixture=None, candidates='config/candidates.json', profile='config/compiler.json', sdk=None):
+def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=None):
     root = Path(root).resolve()
     old_path = root / 'build/config.json'
     if ipa:
@@ -33,8 +33,11 @@ def configure(root, ipa=None, fixture=None, candidates='config/candidates.json',
         from .inventory import recover
         from .macho import MachO
         inventory = recover(MachO((root / provenance['input']).read_bytes()))
-        candidates, profile = old['candidates_path'], old['profile_path']
+        candidates = candidates or old['candidates_path']
+        profile = profile or old['profile_path']
         sdk = sdk or old.get('sdk')
+    candidates = candidates or 'config/candidates.json'
+    profile = profile or 'config/compiler.json'
     cpath, ppath = local_path(root, candidates), local_path(root, profile)
     manifest, compiler = load_json(cpath), load_json(ppath)
     if manifest.get('version') != 1 or not isinstance(manifest.get('units'), list):
@@ -114,8 +117,8 @@ def main(root):
     inputs = parser.add_mutually_exclusive_group()
     inputs.add_argument('--ipa', type=Path)
     inputs.add_argument('--fixture', type=Path, help='Synthetic tests/demo only; never counts as game progress')
-    parser.add_argument('--candidates', default='config/candidates.json')
-    parser.add_argument('--profile', default='config/compiler.json')
+    parser.add_argument('--candidates')
+    parser.add_argument('--profile')
     parser.add_argument('--sdk', type=Path, help='Locally supplied iPhoneOS5.1.sdk')
     args = parser.parse_args()
     try:
