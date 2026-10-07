@@ -1,18 +1,20 @@
 import copy
 import json
+import os
 import shutil
 import subprocess
 import sys
 import tempfile
 import time
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from tools.pirates.macho import MachO
 from tools.pirates.inventory import recover
 from tools.pirates.configure import configure
 from tools.pirates.build import comparisons
 from tools.pirates.report import regression, objdiff_adapter
-from tools.pirates.util import write_json, load_json, ToolError
+from tools.pirates.util import write_json, load_json, ToolError, ninja_command
 from tools.ci import compiler_profile_failure
 from tests.fixtures import reference
 
@@ -131,6 +133,11 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('compiler profile changed', compiler_profile_failure(self.root, profile, path))
         write_json(self.root / 'config/candidates.json', {'version': 1, 'units': []})
         self.assertIsNone(compiler_profile_failure(self.root, profile, path))
+
+    def test_internal_ninja_is_pinned_independently_of_shell_path(self):
+        with patch.dict(os.environ, {'PATH': '/nonexistent-pirates-tools'}):
+            run = subprocess.run(ninja_command() + ['--version'], capture_output=True, text=True, check=True)
+        self.assertTrue(run.stdout.startswith('1.11.1'), run.stdout)
 
     def test_adapter_has_proto_json_types_and_linking_stays_zero(self):
         report, _ = self.build()

@@ -43,6 +43,21 @@ def local_path(root, value):
     return path
 
 
+def ninja_command():
+    """Use the hash-pinned Python package, even without shell activation."""
+    import importlib.metadata
+    try:
+        if importlib.metadata.version('ninja') != '1.11.1.3':
+            raise ToolError('Install the pinned Ninja package from requirements.txt')
+        import ninja
+        binary = Path(ninja.BIN_DIR) / 'ninja'
+        if not binary.is_file():
+            raise ToolError('Pinned Ninja binary is missing')
+        return [str(binary)]
+    except (ImportError, importlib.metadata.PackageNotFoundError) as e:
+        raise ToolError('Missing Ninja. Install requirements.txt in a virtual environment.') from e
+
+
 def depfile_paths(path):
     import shlex
     path = Path(path)

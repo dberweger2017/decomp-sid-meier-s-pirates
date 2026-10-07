@@ -10,7 +10,7 @@ import time
 import urllib.parse
 from pathlib import Path
 from .build import comparisons, configuration
-from .util import load_json, ToolError, local_path, write_json, depfile_paths
+from .util import load_json, ToolError, local_path, write_json, depfile_paths, ninja_command
 
 EDITABLE = {'.c', '.cc', '.cpp', '.cxx', '.m', '.mm', '.h', '.hh', '.hpp', '.hxx', '.inc'}
 IGNORED = {'.git', '.venv', 'build', 'research', 'node_modules', '.sdk'}
@@ -93,11 +93,11 @@ class Watcher:
         self.building = True
         self.emit('building')
         try:
-            self.process = subprocess.Popen(['ninja'], cwd=self.root, stdout=subprocess.PIPE,
+            self.process = subprocess.Popen(ninja_command(), cwd=self.root, stdout=subprocess.PIPE,
                                             stderr=subprocess.STDOUT, text=True, errors='replace')
             output, _ = self.process.communicate(timeout=600)
             self.output, self.returncode = output, self.process.returncode
-        except (OSError, subprocess.TimeoutExpired) as e:
+        except (OSError, ToolError, subprocess.TimeoutExpired) as e:
             if self.process:
                 self.process.kill()
                 self.process.communicate()

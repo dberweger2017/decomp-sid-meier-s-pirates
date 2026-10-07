@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.configure import configure
 from tools.pirates.report import regression, summary
-from tools.pirates.util import load_json, write_json, ToolError
+from tools.pirates.util import load_json, write_json, ToolError, ninja_command
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -56,7 +56,7 @@ def build_one(root, ipa, sdk, output):
     output.mkdir(parents=True, exist_ok=True)
     try:
         configure(root, ipa=ipa, profile='config/ci-compiler.json', sdk=sdk)
-        process = subprocess.run(['ninja'], cwd=root, capture_output=True, text=True)
+        process = subprocess.run(ninja_command(), cwd=root, capture_output=True, text=True)
         (output / 'build.log').write_text(process.stdout + process.stderr)
         code = process.returncode
     except (ToolError, OSError, ValueError, KeyError) as e:
@@ -126,11 +126,11 @@ def demo(output):
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         fixture_workspace(root)
-        subprocess.run(['ninja'], cwd=root, check=True)
+        subprocess.run(ninja_command(), cwd=root, check=True)
         output.mkdir(parents=True, exist_ok=True)
         shutil.copy(root / 'build/report.json', output / 'base.json')
         (root / 'src/value.h').write_text('#define VALUE 42\n')
-        subprocess.run(['ninja'], cwd=root, check=True)
+        subprocess.run(ninja_command(), cwd=root, check=True)
         shutil.copy(root / 'build/report.json', output / 'head.json')
         delta = compare(output / 'base.json', output / 'head.json', output)
         print('Deliberate regression detected: ' + str(bool(delta['failures'])))

@@ -10,7 +10,7 @@ Choose a function, edit its candidate source, rebuild with Ninja, and inspect AR
 
 ## Setup
 
-Python 3.9 or newer and a C++ editor are sufficient to inspect the original inventory. Use the virtual environment so the pinned Ninja and Capstone versions are on PATH:
+Python 3.9 or newer and a C++ editor are sufficient to inspect the original inventory. Use the virtual environment so the pinned Ninja and Capstone versions are on PATH. The watcher and CI runner invoke the installed pinned Ninja directly, even when another system Ninja is present:
 
 ```sh
 python3 -m venv .venv

@@ -2,7 +2,6 @@
 import argparse
 import importlib.metadata
 import json
-import shutil
 import subprocess
 import sys
 import webbrowser
@@ -10,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.build import comparisons, configuration
 from tools.pirates.compiler import fingerprint
-from tools.pirates.util import ToolError, load_json
+from tools.pirates.util import ToolError, load_json, ninja_command
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -23,7 +22,11 @@ def doctor(root):
             checks.append({'name': name, 'ok': actual == version, 'detail': actual + ' (required ' + version + ')'})
         except importlib.metadata.PackageNotFoundError:
             checks.append({'name': name, 'ok': False, 'detail': 'Missing. Install requirements.txt in a virtual environment.'})
-    checks.append({'name': 'ninja command', 'ok': bool(shutil.which('ninja')), 'detail': shutil.which('ninja') or 'not on PATH'})
+    try:
+        binary = ninja_command()[0]
+        checks.append({'name': 'ninja command', 'ok': True, 'detail': binary})
+    except ToolError as e:
+        checks.append({'name': 'ninja command', 'ok': False, 'detail': str(e)})
     try:
         config = configuration(root)
         checks.append({'name': 'original inputs', 'ok': True, 'detail': config['provenance']['executable_sha256']})
