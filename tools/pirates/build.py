@@ -46,6 +46,7 @@ def compile_unit(root, uid):
     allowed, error = permitted(current)
     flags = compile_flags(config, unit)
     result = {'id': uid, 'source': unit['source'], 'flags': flags, 'compiler': info,
+              'sdk_required': bool(unit.get('sdk_required', config['compiler'].get('sdk_required'))),
               'status': 'compile_error', 'object': f'build/units/{uid}.o', 'object_sha256': None,
               'source_sha256': None, 'dependencies': {}, 'diagnostics': f'build/units/{uid}.diagnostics.txt'}
     diagnostics = error or ''
@@ -53,7 +54,7 @@ def compile_unit(root, uid):
     try:
         source = local_path(root, unit['source'])
         result['source_sha256'] = sha256(source)
-        if config['compiler'].get('sdk_required') and (not config.get('sdk') or not Path(config['sdk']).is_dir()):
+        if unit.get('sdk_required', config['compiler'].get('sdk_required')) and (not config.get('sdk') or not Path(config['sdk']).is_dir()):
             allowed = False
             diagnostics += '\nSupply a local iPhoneOS5.1.sdk with configure.py --sdk <path>'
         if allowed:
@@ -112,7 +113,8 @@ def comparisons(root, details_id=None):
                 raise ToolError('Candidate compilation failed; see unit diagnostics')
             if result['compiler'] != info:
                 raise ToolError('Compiler fingerprint changed; reconfigure and rebuild')
-            if result['flags'] != compile_flags(config, unit, normalized=True) or result['source'] != unit['source']:
+            if (result['flags'] != compile_flags(config, unit, normalized=True) or result['source'] != unit['source']
+                    or result.get('sdk_required') != bool(unit.get('sdk_required', config['compiler'].get('sdk_required')))):
                 raise ToolError('Candidate compile configuration changed; rebuild')
             if result['source_sha256'] != sha256(local_path(root, unit['source'])):
                 raise ToolError('Candidate source changed since compilation; rebuild')

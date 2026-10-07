@@ -6,7 +6,7 @@ Choose a function, edit its candidate source, rebuild with Ninja, and inspect AR
 
 **Current status:** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. There are no game candidates: **0 matched functions and 0 matched bytes**. Unity compilation units remain intact. This milestone does not decompile game functions or link a replacement game.
 
-**Historical compiler limitation:** the LLVM core built in a pinned Linux amd64 research environment, but the LLVM-GCC frontend and ARMv7 Mach-O cross-build have **not been validated**. Docker terminated during the next build attempt. The research image is not a working matching toolchain. The source tag and backend are hypotheses, and the original flags remain unknown. [Compiler evidence and next steps](docs/toolchain.md) describe the concrete results. Modern Clang is used only for synthetic tests; real-game candidates require historical validation.
+**Historical compiler:** Apple’s open-source LLVM-GCC 2336.9 now builds and passes C/C++ ARM and Thumb Mach-O probes on native Linux and through Docker emulation on Apple Silicon. The pinned container also passes the synthetic Ninja match/header-edit/regression loop. Exact equivalence to the shipped Xcode compiler and original flags remains unproven. SDK-dependent candidates and Objective-C frontends are not validated. [Compiler evidence](docs/toolchain.md) records the results. Modern Clang supplies synthetic fixtures and editor indexing only.
 
 ## Setup
 
@@ -30,7 +30,16 @@ python tools/dev.py doctor
 python -m unittest discover -v
 ```
 
-`doctor` currently exits unsuccessfully because the historical compiler and local iOS 5.1 SDK are unavailable. Inventory browsing and the synthetic development loop work independently.
+Build and select the historical compiler before adding candidates (Docker must be running):
+
+```sh
+python tools/toolchain.py build
+python configure.py --profile build/toolchain/compiler.json
+ninja
+python tools/dev.py doctor
+```
+
+Alternatively, load the validated compiler artifact from the compiler CI workflow as described in [toolchain setup](docs/toolchain.md). The generated profile pins the local image by immutable ID. `doctor` checks that profile and its validation fingerprint. A local iPhoneOS 5.1 SDK is still needed for SDK-dependent candidates; inventory browsing and freestanding probes work without it.
 
 The importer checks the recorded IPA and executable SHA-256, bundle/version/build metadata, ARMv7 architecture, encryption status, and inventory coverage. It extracts only the executable into `build/inputs/`. The provenance is explicit: this is an archival upload, not an authenticated Apple CDN original. See [config/identity.json](config/identity.json) and the existing research records.
 
@@ -52,9 +61,11 @@ The importer checks the recorded IPA and executable SHA-256, bundle/version/buil
 }
 ```
 
-This is a configuration example, not recovered game source or evidence of original flags. A source file must be supplied before building. Flags in [config/compiler.json](config/compiler.json) are an investigation profile; record optimization flags, defines, include paths, and mode flags explicitly per unit. `compile_commands.json` is generated for editor integration. If the compiler is unavailable, it records the intended LLVM-GCC command; it does not select Clang as a matching compiler.
+This is a configuration example, not recovered game source or evidence of original flags. A source file must be supplied before building. Flags in [config/compiler.json](config/compiler.json) are an investigation profile; record optimization flags, defines, include paths, and mode flags explicitly per unit. `compile_commands.json` uses the explicitly labelled Clang syntax/indexing command for local editors. Ninja compiles matching candidates with the selected historical container. The editor compiler never supplies matching objects or compiler validation.
 
 A function can map to a different candidate symbol with `"functions": {"<function-id>": {"symbol": "<candidate-symbol>"}}`. Use `candidate_address` only to select an otherwise ambiguous candidate symbol. Ambiguous original boundaries still prevent verification. Explicit `placements.symbols` and `placements.sections` can supply proven original addresses for otherwise unresolved references; document that evidence with the unit. Unimplemented functions remain missing even when another function in the same unit has source.
+
+For a freestanding C/C++ unit that needs no SDK headers, explicitly set `"sdk_required": false` on that unit. Other units inherit the profile’s SDK requirement. C and C++ are validated; Objective-C/Objective-C++ currently require further compiler work.
 
 Supply SDK files locally with `python configure.py --sdk /path/to/iPhoneOS5.1.sdk` after importing inputs. [SDK setup](docs/sdk.md) explains obtaining it from old Xcode; no phone is needed. SDKs, IPA files, executable bytes, toolchain caches, and generated outputs are ignored by Git. Do not commit or upload them.
 
@@ -66,7 +77,7 @@ Supply SDK files locally with `python configure.py --sdk /path/to/iPhoneOS5.1.sd
 
 [Matching semantics](docs/matching.md) describe supported relocations and conservative unresolved cases. Full-game linking measures remain zero and are explicitly marked unsupported.
 
-[CI configuration](docs/ci.md) runs synthetic tests on macOS and Linux, checks a fixed report digest on both hosts, and builds PR base/head with a shared verified IPA and profile. Previously verified matches, compilation health, and inventory coverage are regression gates. Native reports, adapters, summaries, and diagnostics are retained on failure; original inputs and SDKs are excluded from uploads. A separate manual workflow reproduces the compiler feasibility experiment.
+[CI configuration](docs/ci.md) runs synthetic tests on macOS and Linux, checks a fixed report digest on both hosts, and builds PR base/head with a shared verified IPA and profile. Previously verified matches, compilation health, and inventory coverage are regression gates. Native reports, adapters, summaries, and diagnostics are retained on failure; original inputs and SDKs are excluded from uploads. The compiler workflow runs on relevant PR changes and manual dispatch, caches the pinned source build, validates the historical loop, and exports a compiler image. Candidate-progress CI provisions the same compiler when source units are present and retains reports if provisioning fails.
 
 To inspect a deliberate synthetic regression locally:
 

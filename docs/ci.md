@@ -16,11 +16,11 @@ Job summaries show matched bytes/functions, missing source, unresolved compariso
 
 ## Historical compiler and SDK boundary
 
-There is no validated historical runtime image yet. The progress job says so explicitly and does not invoke Clang as a fallback. Empty game candidates can report inventory/zero progress; adding game candidates without a validated toolchain fails compilation and CI.
+The historical C/C++ runtime has passed native Linux source-build validation and ARM/Thumb probes, plus the synthetic historical match/header-regression loop. Empty game candidates report inventory/zero progress. When either base or head has source units, the progress job builds and validates the pinned compiler recipe using cached sources and build outputs. It does not substitute Clang. Provisioning failures fail CI after preserving reports and diagnostics.
 
-Once a working immutable Linux amd64 image is pinned in `config/compiler.json`, the same job runs historical validation probes and candidate compilation through Docker. A local SDK may be supplied through the runner’s `PIRATES_SDK_PATH` repository variable/path, or through `tools/ci.py build --sdk`. The default hosted Linux runner has no iOS 5.1 SDK. SDK-dependent candidate CI therefore requires provisioning that local input or adapting the runner setup; the workflow does not fetch SDKs from Apple accounts, commit them, or upload them.
+An explicitly configured immutable Linux amd64 image is validated directly; otherwise provisioning generates `build/toolchain/compiler.json` with its local immutable image ID. Both source revisions use that profile through Docker. Generated profiles retain the canonical template hash, so provisioning cannot bypass the compiler-baseline guard. Editor-only settings do not alter that baseline. A local SDK may be supplied through the runner’s `PIRATES_SDK_PATH` repository variable/path, or through `tools/ci.py build --sdk`. The default hosted Linux runner has no iOS 5.1 SDK. SDK-dependent candidate CI therefore requires provisioning that local input or adapting the runner setup; the workflow does not fetch SDKs from Apple accounts, commit them, or upload them. Freestanding C/C++ units may explicitly set `sdk_required: false`; other units inherit the profile requirement.
 
-`.github/workflows/compiler-feasibility.yml` runs on compiler-tooling PR changes and can also be dispatched manually. It builds the pinned sources on native Linux, validates C/C++ ARM/Thumb Mach-O output and repeated object hashes, and exercises a historical synthetic match/header-edit/regression loop. It remains an unvalidated investigation until these checks pass. Logs and diagnostics remain available on failure. On success it exports a separate compiler-image artifact containing the compiler sources, licenses and fingerprints; that artifact contains no original game inputs or SDK files.
+`.github/workflows/compiler-feasibility.yml` runs on compiler-tooling PR changes and can also be dispatched manually. It builds the pinned sources on native Linux, validates C/C++ ARM/Thumb Mach-O output and repeated object hashes, and exercises a historical synthetic match/header-edit/regression loop. These checks have passed on native Linux and Apple Silicon Docker emulation. Exact equivalence to the shipped compiler and original flags is still unproven. Objective-C frontends and SDK-dependent candidates remain unvalidated. Logs and diagnostics remain available on failure. On success it exports a separate compiler-image artifact containing the compiler sources, licenses and fingerprints; that artifact contains no original game inputs or SDK files.
 
 ## Local commands
 
@@ -30,7 +30,8 @@ python tools/ci.py compare --base path/to/base.json --head path/to/head.json
 
 # Build two source checkouts using the same original and compiler:
 python tools/ci.py build --base /path/to/base --head "$PWD" \
-  --ipa /path/to/pirates.ipa --output build/ci-artifacts
+  --ipa /path/to/pirates.ipa --output build/ci-artifacts \
+  --profile build/toolchain/compiler.json --validation build/toolchain/validation.json
 
 # Deliberately lose a verified synthetic match (expected exit code 1):
 python tools/ci.py demo-regression

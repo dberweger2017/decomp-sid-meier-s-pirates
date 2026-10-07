@@ -1,6 +1,6 @@
 # Historical compiler feasibility
 
-The LLVM-GCC hypothesis now has a **validated C/C++ ARMv7 cross-build**, tested in a pinned Linux amd64 container under Apple Silicon emulation. ARM and Thumb Mach-O probes, included-header dependencies, repeated object hashes, and the historical Ninja match/header-regression loop pass. Exact equivalence to the app's shipped compiler remains unproven. `config/compiler.json` is a template with a null image; `tools/toolchain.py build` generates a locally pinned, validated profile in `build/toolchain/compiler.json`. No modern compiler substitutes for matching compilation.
+The LLVM-GCC hypothesis now has a **validated C/C++ ARMv7 cross-build**, tested on native Linux CI and in a pinned Linux amd64 container under Apple Silicon emulation. ARM and Thumb Mach-O probes, included-header dependencies, repeated object hashes, and the historical Ninja match/header-regression loop pass. Exact equivalence to the app's shipped compiler remains unproven. `config/compiler.json` is a template with a null image; `tools/toolchain.py build` generates a locally pinned, validated profile in `build/toolchain/compiler.json`. No modern compiler substitutes for matching compilation.
 
 ## Evidence
 
@@ -10,13 +10,13 @@ The frontend experiment starts with Apple’s [llvmgcc42-2336.9 source](https://
 
 The experiment ran Linux amd64 under Docker on a macOS arm64 host. The base image is pinned by digest; the installed package inventory is locked and checked. Compiler source archives are pinned by commit and SHA-256 in `toolchain/sources.lock.json`.
 
-Recorded stages in `toolchain/feasibility.json`:
+[Native Linux validation run](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924) passed the complete source recipe, runtime probes, image export, and historical incremental regression smoke test. Recorded stages in `toolchain/feasibility.json`:
 
 1. CMake failed on stale source lists (`ModuleProvider.cpp`) and an absent test directory. Switched to the documented configure/make route.
 2. GCC 5 exposed missing host includes for `ptrdiff_t` and `lseek64`. Explicit host include flags fixed these errors. The archived module-link rule used `-module`; a recorded host-only change uses Linux `-shared` instead.
 3. The LLVM ARM backend, libraries, `llc`, `llvm-config`, and unit-test binaries built. `install-libs` avoids documentation generation requiring `groff`.
 4. One attempt ended with Docker’s `error waiting for container: unexpected EOF`, followed by disappearance of the daemon socket. The user reported closing Docker; after restarting it, the cached build resumed.
-5. The GCC frontend's bridge ignores configured CXXFLAGS. Passing host C++ includes through make's CXX command repairs missing `ptrdiff_t`; `-fpermissive` permits old constructor expressions in the never-called library link helper. Missing flex/bison inputs require pinned parser generators. The frontend retry remains unvalidated.
+5. The GCC frontend's bridge ignores configured CXXFLAGS. Passing host C++ includes through make's CXX command repairs missing `ptrdiff_t`; `-fpermissive` permits old constructor expressions in the never-called library link helper. Missing flex/bison inputs require pinned parser generators. The frontend subsequently passed compilation and probes using the bundled backend.
 6. Source inspection confirms assembly-file emission. The pinned Linux port of cctools 845's ARM GAS built with GCC host compilation, explicit port visibility definitions and little-endian host flags. An independent Thumb-2 probe produced a valid ARMv7 Mach-O object with the expected Thumb symbol. Its revision is an assembler hypothesis, not evidence of the assembler shipped with Xcode 4.3.2.
 7. The frontend reached compilation of its LLVM bridge and rejected the separate backend's missing APIs. The build now selects the frontend archive's bundled core, without target-code patches.
 8. Native Linux built the bundled core but exposed omitted tool installation; `llc` and `llvm-config` are now installed explicitly. The resumed frontend on Linux exposed an old `mempcpy` declaration conflicting with glibc. A host-only `__GLIBC__` guard uses the system declaration without changing helper logic or target generation.
@@ -33,13 +33,13 @@ python tools/toolchain.py build
 python tools/toolchain.py status
 ```
 
-`fetch` verifies the frontend, backend, and assembler archives. `build` creates the pinned research environment and invokes `toolchain/build-legacy.sh` then `toolchain/build-assembler.sh`, retaining logs and a failure record. After these succeed, it packages installed artifacts into `/opt/pirates` in a Linux image and runs the compiler validator. A failed stage keeps validation false. A GitHub workflow runs the same experiment on native Linux for compiler-tooling PR changes. To retry only the frontend inside the research container after the bundled core is installed, pass `frontend` to `build-legacy.sh`.
+`fetch` verifies the frontend, backend, and assembler archives. `build` creates the pinned research environment and builds the assembler and invokes `toolchain/build-legacy.sh`, retaining logs and a failure record. After these succeed, it packages installed artifacts into `/opt/pirates` in a Linux image and runs the compiler validator. A failed stage keeps validation false. A GitHub workflow runs the same experiment on native Linux for compiler-tooling PR changes. To retry only the frontend inside the research container after the bundled core is installed, pass `frontend` to `build-legacy.sh`.
 
-The build script tests the frontend after LLVM installation, then builds the pinned Darwin ARM assembler. Its integration with the GCC driver still needs validation. A freestanding C/C++ smoke probe can establish the basic cross-build before any SDK-dependent game work. UIKit/Foundation/C++ SDK headers must be supplied locally when candidates require them.
+The assembler integrates with the GCC driver through installed relative symlinks. Freestanding C/C++ probes establish object compilation before SDK-dependent game work. UIKit/Foundation/C++ SDK headers must be supplied locally when candidates require them.
 
-## Validation and eventual runtime image
+## Validation and runtime image
 
-After a working frontend and assembler are available, `python tools/toolchain.py package` packages their installed artifacts and pinned host libraries into a Linux amd64 image and validates it. The compiler lives at `/opt/pirates`, outside the mounted workspace. The package includes pinned source archives with licenses, build scripts and host patches, package inventory, and hashes of installed files. It contains no SDK or game inputs.
+After the frontend and assembler build, `python tools/toolchain.py package` packages their installed artifacts and pinned host libraries into a Linux amd64 image and validates it. The compiler lives at `/opt/pirates`, outside the mounted workspace. The package includes pinned source archives with licenses, build scripts and host patches, package inventory, and hashes of installed files. It contains no SDK or game inputs.
 
 `python tools/toolchain.py build` performs these stages together. The CI workflow caches source and build directories using source, dependency, and build-script hashes; make checks their dependencies. No runtime is marked valid merely because the backend or frontend compiled.
 

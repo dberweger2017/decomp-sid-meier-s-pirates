@@ -55,10 +55,14 @@
       "stage": "historical container and incremental loop",
       "result": "validated on Linux amd64 under Apple Silicon emulation",
       "evidence": "C/C++ ARM/Thumb Mach-O probes and included-header depfiles passed; repeated object hashes are identical. Synthetic Ninja function verified at 4 bytes, then header edit rebuilt it and produced a lost-match regression. Explicit armv7-a is required: plain armv7 lacks FL_NOTM in the source architecture table."
+    },
+    {
+      "stage": "native Linux CI complete pipeline",
+      "result": "validated",
+      "evidence": "Source recipe, immutable runtime packaging, C/C++ ARM/Thumb deterministic probes, Docker export, historical Ninja match/header-edit/lost-match regression all passed in run 37693756924."
     }
   ],
   "remaining": [
-    "Complete native Linux CI validation of the final recipe",
     "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates",
     "Objective-C/Objective-C++ frontends are not built or validated",
     "Investigate exact shipped compiler revision and original per-unit flags",
@@ -77,5 +81,7 @@
     "cpp/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
     "cpp/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba"
   },
-  "probe_architecture_flag": "-march=armv7-a"
+  "probe_architecture_flag": "-march=armv7-a",
+  "native_linux_ci_validated": true,
+  "native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924"
 }

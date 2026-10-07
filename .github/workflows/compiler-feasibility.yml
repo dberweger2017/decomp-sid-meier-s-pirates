@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'toolchain/**'
+      - 'config/compiler.json'
       - 'tools/toolchain.py'
       - 'tools/validate_compiler.py'
       - 'tools/historical_smoke.py'

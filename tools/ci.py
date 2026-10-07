@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.configure import configure
+from tools.pirates.compiler import profile_digest
 from tools.pirates.report import regression, summary
 from tools.pirates.util import load_json, write_json, ToolError, ninja_command
 
@@ -76,10 +77,10 @@ def build_one(root, ipa, sdk, output):
 
 
 def compiler_profile_failure(base, profile, profile_path):
-    baseline = Path(base) / profile_path
+    baseline = Path(base) / profile.get('template_path', profile_path)
     candidates = Path(base) / 'config/candidates.json'
     if baseline.is_file() and candidates.is_file() and load_json(candidates).get('units'):
-        if load_json(baseline) != profile:
+        if profile_digest(load_json(baseline)) != profile.get('template_sha256', profile_digest(profile)):
             return 'Shared compiler profile changed with existing candidates; establish a separate compiler baseline before comparing source progress'
     return None
 

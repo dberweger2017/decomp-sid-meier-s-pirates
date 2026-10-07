@@ -7,6 +7,11 @@ from pathlib import Path
 from .util import ToolError, load_json, sha256
 
 
+def profile_digest(profile):
+    settings = {k: v for k, v in profile.items() if k not in ('editor_command', 'editor_description')}
+    return hashlib.sha256(json.dumps(settings, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
 def language_flags(source):
     """Select the unit language even when the configured driver is g++."""
     suffix = Path(source).suffix

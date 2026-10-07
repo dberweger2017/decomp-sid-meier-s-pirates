@@ -69,6 +69,9 @@ def package():
     image = subprocess.run(['docker', 'image', 'inspect', 'pirates-llvmgcc42', '--format', '{{.Id}}'],
                            check=True, capture_output=True, text=True).stdout.strip()
     profile = load_json(ROOT / 'config/compiler.json')
+    from tools.pirates.compiler import profile_digest
+    profile['template_sha256'] = profile_digest(profile)
+    profile['template_path'] = 'config/compiler.json'
     profile['container'] = {'image': image, 'compiler': '/opt/pirates/bin/llvm-g++'}
     path = 'build/toolchain/compiler.json'
     write_json(ROOT / path, profile)

@@ -57,6 +57,8 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
             raise ToolError('Candidates must be C/C++/Objective-C source, not assembly or original bytes')
         if not isinstance(unit.get('flags', []), list) or not all(isinstance(x, str) for x in unit.get('flags', [])):
             raise ToolError('Unit flags must be a string array')
+        if 'sdk_required' in unit and not isinstance(unit['sdk_required'], bool):
+            raise ToolError('Unit sdk_required must be a boolean')
         for fid in unit.get('functions', {}):
             if function_groups.get(fid) != gid:
                 raise ToolError('Function mapping must belong to its original object group: ' + fid)
@@ -93,11 +95,13 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
         dependencies.append(output)
         lines += [f'build {output}: compile {ninja_path(unit["source"])} | build/config.json {implicit}',
                   f'  unit = {uid}', f'  source = {ninja_path(unit["source"])}', f'  depfile = build/units/{uid}.d']
-        flags = language_flags(unit['source']) + compiler['flags'] + unit['flags']
+        language = language_flags(unit['source'])
+        editor_flags = ['-std=gnu++98' if language[1] in ('c++', 'objective-c++') else '-std=gnu89'] if compiler.get('editor_command') else []
+        flags = language + editor_flags + compiler['flags'] + unit['flags']
         if sdk:
             flags += ['-isysroot', sdk]
         try:
-            editor_command = command(compiler, root, sdk)
+            editor_command = compiler.get('editor_command') or command(compiler, root, sdk)
         except ToolError:
             editor_command = ['llvm-g++']  # Intended historical command; Ninja records the concrete compiler failure.
         compile_commands.append({'directory': str(root), 'file': str(local_path(root, unit['source'])),

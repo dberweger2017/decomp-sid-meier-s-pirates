@@ -1,6 +1,8 @@
 {
   "name": "llvmgcc42-2336.9-hypothesis",
   "family": "llvmgcc42",
+  "editor_command": ["clang++", "--target=armv7-apple-ios4.2"],
+  "editor_description": "Clang syntax/indexing only. Ninja matching compilation uses the validated LLVM-GCC container.",
   "flags": [
     "-march=armv7-a",
     "-mfloat-abi=softfp",

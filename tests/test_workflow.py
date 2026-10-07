@@ -14,6 +14,7 @@ from tools.pirates.macho import MachO
 from tools.pirates.inventory import recover
 from tools.pirates.configure import configure
 from tools.pirates.build import comparisons
+from tools.pirates.compiler import profile_digest
 from tools.pirates.report import regression, objdiff_adapter
 from tools.pirates.util import write_json, load_json, ToolError, ninja_command
 from tools.ci import compiler_profile_failure
@@ -138,6 +139,18 @@ class WorkflowTests(unittest.TestCase):
         editor = load_json(self.root / 'compile_commands.json')[0]['arguments']
         self.assertEqual(editor[1:3], ['-x', 'c'])
 
+    def test_editor_command_cannot_replace_matching_compiler(self):
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        profile['editor_command'] = ['syntax-editor-only', '--target=armv7-apple-ios4.2']
+        write_json(self.root / 'config/fixture-compiler.json', profile)
+        configure(self.root)
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+        editor = load_json(self.root / 'compile_commands.json')[0]['arguments']
+        self.assertEqual(editor[0], 'syntax-editor-only')
+        self.assertIn('-std=gnu89', editor)
+        original = {k: v for k, v in profile.items() if k != 'editor_command'}
+        self.assertEqual(profile_digest(original), profile_digest(profile))
+
     def test_changed_driver_arguments_invalidate_stale_match(self):
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
         profile = load_json(self.root / 'config/fixture-compiler.json')
@@ -184,6 +197,28 @@ class WorkflowTests(unittest.TestCase):
         check = next(c for c in doctor(self.root) if c['name'] == 'iOS SDK 5.1')
         self.assertFalse(check['ok'])
         self.assertIn('Malformed', check['detail'])
+
+    def test_generated_runtime_retains_template_baseline_guard(self):
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        generated = {**profile, 'template_path': 'config/fixture-compiler.json', 'template_sha256': profile_digest(profile)}
+        generated['command'] = ['a-generated-immutable-runtime']
+        self.assertIsNone(compiler_profile_failure(self.root, generated, 'build/generated.json'))
+        generated['template_sha256'] = profile_digest({**profile, 'flags': ['-O0']})
+        self.assertIn('compiler profile changed', compiler_profile_failure(self.root, generated, 'build/generated.json'))
+
+    def test_freestanding_unit_can_explicitly_omit_sdk(self):
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        profile['sdk_required'] = True
+        write_json(self.root / 'config/fixture-compiler.json', profile)
+        self.assertEqual(self.build(ok=False)[0]['functions'][0]['status'], 'compile_error')
+        manifest = load_json(self.root / 'config/candidates.json')
+        manifest['units'][0]['sdk_required'] = False
+        write_json(self.root / 'config/candidates.json', manifest)
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+        manifest['units'][0]['sdk_required'] = True
+        write_json(self.root / 'config/candidates.json', manifest)
+        configure(self.root)
+        self.assertEqual(comparisons(self.root, self.fid)['status'], 'unresolved')
 
     def test_internal_ninja_is_pinned_independently_of_shell_path(self):
         with patch.dict(os.environ, {'PATH': '/nonexistent-pirates-tools'}):
