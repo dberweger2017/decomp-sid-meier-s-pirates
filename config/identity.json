@@ -1,0 +1,14 @@
+{
+  "app_store_id": 499794670,
+  "bundle_id": "com.2kchina.piratesitouch",
+  "version": "1.1.2",
+  "ipa_sha256": "9da0cc5038f14acac0537695a43952a336035d3286ec171a615e6fac9869a048",
+  "executable_sha256": "0e1f1ef80636463821d6431ece18da6b269b69d7e9e11991b73f654812fd3c9e",
+  "executable_path": "Payload/Pirates!.app/Pirates!",
+  "plist_path": "Payload/Pirates!.app/Info.plist",
+  "expected_functions": 9177,
+  "expected_groups": 268,
+  "provenance": "Archival user upload, cryptid=0. Hashes identify this archive, not an authenticated Apple CDN original.",
+  "source": "https://archive.org/details/Sid_Meier_s_Pirates__1.1.2_ios_4.2",
+  "observed_build": {"compiler": "com.apple.compilers.llvmgcc42", "xcode": "0432", "xcode_build": "4E2002", "sdk": "iphoneos5.1", "sdk_build": "9B176"}
+}
