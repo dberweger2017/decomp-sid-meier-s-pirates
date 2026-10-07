@@ -43,7 +43,7 @@ python configure.py
 python tools/dev.py doctor
 ```
 
-The validator rejects Clang and plain GCC. It requires LLVM-GCC 4.2.1 / LLVM build 2336.9 identification, actual C++ compilation, ARM and Thumb Mach-O output, an included-header depfile, and identical object hashes from two build directories. A failed validator leaves validation false or absent. Its generated evidence is tied to the compiler image/binary fingerprint and invocation; source-build feasibility still does not prove byte-for-byte equivalence with the app’s historical compiler.
+The validator rejects Clang and plain GCC. It requires LLVM-GCC 4.2.1 / LLVM build 2336.9 identification, actual C and C++ compilation, ARM and Thumb Mach-O output, an included-header depfile, and identical object hashes from two build directories. A failed validator leaves validation false or absent. Its generated evidence is tied to the compiler image/binary fingerprint and invocation; source-build feasibility still does not prove byte-for-byte equivalence with the app’s historical compiler.
 
 The prepared container adapter mounts the project at `/work`, an optional local SDK at `/sdk`, and selects `linux/amd64`. Docker supports this on Linux and macOS; Apple Silicon requires emulation. This adapter has not been exercised with a validated historical image. Validation evidence can be supplied to the CI runner with `--validation`.
 

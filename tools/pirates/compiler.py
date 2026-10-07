@@ -49,7 +49,7 @@ def fingerprint(profile, root, sdk=None):
         invocation = profile.get('container') or profile['command']
         if validation.get('command_sha256') != hashlib.sha256(json.dumps(invocation, sort_keys=True, separators=(',', ':')).encode()).hexdigest():
             raise ToolError('Validation belongs to a different compiler invocation')
-        if not all(validation.get(k) for k in ('arm_probe', 'thumb_probe', 'reproducible_objects', 'cxx_probe')):
+        if not all(validation.get(k) for k in ('arm_probe', 'thumb_probe', 'reproducible_objects', 'c_probe', 'cxx_probe')):
             raise ToolError('Historical compiler smoke probes are incomplete')
         if 'LLVM' not in result['version'] or '2336.9' not in result['version'] or '4.2.1' not in result['version']:
             raise ToolError('Historical compiler version does not match 2336.9 hypothesis')
