@@ -27,7 +27,7 @@
       "sha256": "23b1a3d7577426a0fe1c8f945ff9614356e1c616f4ff8c1babb5a93d446f2c42"
     }
   ],
-  "backend_provenance": "llvmCore-2326.12 is a separate backend hypothesis. Neither it nor the bundled llvmCore is established as the Xcode 4.3.2 app compiler backend.",
+  "backend_provenance": "Use llvmCore bundled in the llvmgcc42-2336.9 archive. The separate llvmCore-2326.12 hypothesis is rejected: it lacks LinkerPrivateWeakLinkage and Type::getIntNTy required by this frontend. Neither revision is established as the shipped Xcode 4.3.2 app backend.",
   "objdiff_schema": {
     "repository": "https://github.com/encounter/objdiff",
     "path": "objdiff-core/protos/report.proto",

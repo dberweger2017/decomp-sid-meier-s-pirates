@@ -6,7 +6,7 @@ The matching compiler is **not validated**. A reproducible Linux environment and
 
 The archive’s Info.plist names LLVM-GCC 4.2, Xcode 4.3.2 (4E2002), and iOS SDK 5.1 (9B176). This identifies the app target’s compiler family. It does not prove the compiler patch, backend revision, per-unit flags, or compilers used for linked static libraries.
 
-The frontend experiment starts with Apple’s [llvmgcc42-2336.9 source](https://github.com/apple-oss-distributions/llvmgcc42/tree/llvmgcc42-2336.9), commit `c92700f7f0438a4bd5084145b9f351de63256e66`. The tested backend hypothesis is the separately published [llvmCore-2326.12](https://github.com/apple-oss-distributions/llvmCore/tree/llvmCore-2326.12), commit `a250b96ad7af34aa6099535d78dc0a71d57d856e`. The frontend archive also contains a bundled LLVM core; the relationship to the shipped Xcode backend has not been established. Neither source choice proves exact compiler equivalence.
+The frontend experiment starts with Apple’s [llvmgcc42-2336.9 source](https://github.com/apple-oss-distributions/llvmgcc42/tree/llvmgcc42-2336.9), commit `c92700f7f0438a4bd5084145b9f351de63256e66`, and now uses the LLVM core bundled in that archive. The separately published [llvmCore-2326.12](https://github.com/apple-oss-distributions/llvmCore/tree/llvmCore-2326.12), commit `a250b96ad7af34aa6099535d78dc0a71d57d856e`, built but failed frontend integration: it lacks `GlobalValue::LinkerPrivateWeakLinkage` and `Type::getIntNTy`. The bundled core contains both required APIs. Its relationship to the shipped Xcode backend has not been established; source-build feasibility does not prove exact compiler equivalence.
 
 The experiment ran Linux amd64 under Docker on a macOS arm64 host. The base image is pinned by digest; the installed package inventory is locked and checked. Compiler source archives are pinned by commit and SHA-256 in `toolchain/sources.lock.json`.
 
@@ -18,6 +18,7 @@ Recorded stages in `toolchain/feasibility.json`:
 4. One attempt ended with Docker’s `error waiting for container: unexpected EOF`, followed by disappearance of the daemon socket. The user reported closing Docker; after restarting it, the cached build resumed.
 5. The GCC frontend's bridge ignores configured CXXFLAGS. Passing host C++ includes through make's CXX command repairs missing `ptrdiff_t`; `-fpermissive` permits old constructor expressions in the never-called library link helper. Missing flex/bison inputs require pinned parser generators. The frontend retry remains unvalidated.
 6. Source inspection confirms assembly-file emission. The pinned Linux port of cctools 845's ARM GAS built with GCC host compilation, explicit port visibility definitions and little-endian host flags. An independent Thumb-2 probe produced a valid ARMv7 Mach-O object with the expected Thumb symbol. Its revision is an assembler hypothesis, not evidence of the assembler shipped with Xcode 4.3.2.
+7. The frontend reached compilation of its LLVM bridge and rejected the separate backend's missing APIs. The build now selects the frontend archive's bundled core, without target-code patches.
 
 The scripts preserve these host portability changes. They do not modify ARM code generation. Build logs are in the ignored local `build/toolchain/` cache; concise evidence is tracked separately. Do not infer feasibility of the full cross-build from the LLVM core build alone.
 
@@ -29,7 +30,7 @@ python tools/toolchain.py build
 python tools/toolchain.py status
 ```
 
-`fetch` verifies the frontend, backend, and assembler archives. `build` creates the pinned research environment and invokes `toolchain/build-legacy.sh` then `toolchain/build-assembler.sh`, retaining logs and a failure record. It does not silently install a replacement compiler or mark a toolchain validated. A manual GitHub workflow runs the same experiment on native Linux. To retry only the frontend inside the research container after the core is installed, pass `frontend` to `build-legacy.sh`.
+`fetch` verifies the frontend, backend, and assembler archives. `build` creates the pinned research environment and invokes `toolchain/build-legacy.sh` then `toolchain/build-assembler.sh`, retaining logs and a failure record. After these succeed, it packages installed artifacts into `/opt/pirates` in a Linux image and runs the compiler validator. A failed stage keeps validation false. A GitHub workflow runs the same experiment on native Linux for compiler-tooling PR changes. To retry only the frontend inside the research container after the bundled core is installed, pass `frontend` to `build-legacy.sh`.
 
 The build script tests the frontend after LLVM installation, then builds the pinned Darwin ARM assembler. Its integration with the GCC driver still needs validation. A freestanding C/C++ smoke probe can establish the basic cross-build before any SDK-dependent game work. UIKit/Foundation/C++ SDK headers must be supplied locally when candidates require them.
 

@@ -1,4 +1,4 @@
-name: Historical compiler feasibility (unvalidated)
+name: Historical compiler feasibility
 on:
   workflow_dispatch:
   pull_request:
@@ -20,11 +20,18 @@ jobs:
           python-version: '3.13.16'
       - name: Reproduce pinned Linux source-build experiment
         run: python tools/toolchain.py build
-      - name: Record validation limitation
+      - name: Record compiler validation result
         if: always()
         run: |
           echo '## Historical compiler feasibility' >> "$GITHUB_STEP_SUMMARY"
-          echo 'An LLVM core build alone does not validate LLVM-GCC ARMv7 Mach-O compilation. Review build logs and pass tools/validate_compiler.py before pinning a runtime image.' >> "$GITHUB_STEP_SUMMARY"
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          p = Path('build/toolchain/attempt.json')
+          d = json.loads(p.read_text()) if p.exists() else {}
+          print('Validated cross-build: **%s**; stage: `%s`.' % (d.get('validated', False), d.get('stage', 'not started')))
+          print('Exact equivalence to the app compiler and original flags remain unproven.')
+          PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:
@@ -34,4 +41,9 @@ jobs:
             build/toolchain/environment.log
             build/toolchain/legacy-build.log
             build/toolchain/assembler-build.log
+            build/toolchain/runtime-build.log
+            build/toolchain/runtime.json
+            build/toolchain/compiler.json
+            build/toolchain/validation.json
+            build/toolchain/probes/**/diagnostics.txt
           if-no-files-found: warn

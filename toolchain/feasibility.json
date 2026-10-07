@@ -33,13 +33,18 @@
     },
     {
       "stage": "resumed GCC frontend",
-      "result": "in progress",
-      "evidence": "Docker restarted after user reported closing it. Make CXX overrides repair missing ptrdiff_t and old constructor expressions; pinned flex and bison added for gengtype generation."
+      "result": "failed: incompatible separate backend",
+      "evidence": "Docker restarted after user reported closing it. Make CXX overrides repair missing ptrdiff_t and old constructor expressions; pinned flex and bison added for gengtype generation. Frontend bridge requires missing GlobalValue::LinkerPrivateWeakLinkage and Type::getIntNTy APIs. Both exist in the frontend archive bundled core, now selected without target-code patches."
     },
     {
       "stage": "legacy ARM assembler",
       "result": "built and independently probed",
       "evidence": "Pinned cctools-port 845 ARM GAS built with GCC 5; visibility and endian host definitions supplied. A Thumb-2 add.w/bx probe produced a parsed ARMv7 Mach-O object with the expected Thumb symbol. Full LLVM-GCC pipeline remains unvalidated."
+    },
+    {
+      "stage": "bundled LLVM core",
+      "result": "in progress",
+      "evidence": "Rebuilding bundled core from pinned llvmgcc42-2336.9 archive; separate llvmCore-2326.12 backend is rejected."
     }
   ],
   "remaining": [

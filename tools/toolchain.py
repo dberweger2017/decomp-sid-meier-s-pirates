@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import subprocess
+import shutil
 import sys
 import tarfile
 import urllib.request
@@ -12,6 +13,51 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.util import ToolError, load_json, write_json, sha256
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def package():
+    """Pin a local runtime only after validating its installed artifacts."""
+    fetch()
+    cache = ROOT / 'build/toolchain'
+    write_json(cache / 'runtime.json', {'validated': False, 'reason': 'Runtime packaging and probes have not completed'})
+    install = cache / 'legacy/install'
+    for required in ('bin/llvm-g++', 'libexec/as/arm/as', 'arm-apple-darwin11/bin/as'):
+        if not (install / required).is_file():
+            raise ToolError('Historical installation is incomplete: ' + required)
+    context = cache / 'runtime-context'
+    shutil.rmtree(context, ignore_errors=True)
+    shutil.copytree(install, context / 'install', symlinks=True)
+    provenance = context / 'provenance'
+    shutil.copytree(ROOT / 'toolchain', provenance)
+    sources = provenance / 'sources'
+    sources.mkdir()
+    lock = load_json(ROOT / 'toolchain/sources.lock.json')
+    for source in lock['sources']:
+        shutil.copyfile(cache / (source['name'] + '.tar.gz'), sources / (source['name'] + '.tar.gz'))
+    artifacts = {}
+    for path in sorted(install.rglob('*')):
+        key = str(path.relative_to(install))
+        if path.is_symlink():
+            artifacts[key] = {'link': str(path.readlink())}
+        elif path.is_file():
+            artifacts[key] = {'sha256': sha256(path)}
+    write_json(provenance / 'installed-artifacts.json', artifacts)
+    with (cache / 'runtime-build.log').open('w') as log:
+        subprocess.run(['docker', 'build', '--platform', 'linux/amd64', '-f', str(ROOT / 'toolchain/Dockerfile.runtime'),
+                        '-t', 'pirates-llvmgcc42', str(context)], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
+    image = subprocess.run(['docker', 'image', 'inspect', 'pirates-llvmgcc42', '--format', '{{.Id}}'],
+                           check=True, capture_output=True, text=True).stdout.strip()
+    profile = load_json(ROOT / 'config/compiler.json')
+    profile['container'] = {'image': image, 'compiler': '/opt/pirates/bin/llvm-g++'}
+    path = 'build/toolchain/compiler.json'
+    write_json(ROOT / path, profile)
+    from tools.validate_compiler import validate
+    validate(ROOT, path)
+    write_json(cache / 'runtime.json', {'image': image, 'platform': 'linux/amd64',
+               'sources_lock_sha256': sha256(ROOT / 'toolchain/sources.lock.json'),
+               'artifacts_manifest_sha256': sha256(provenance / 'installed-artifacts.json'), 'validated': True})
+    print('Use: python configure.py --profile ' + path)
+    return 0
 
 
 def fetch():
@@ -69,26 +115,45 @@ def build():
         if result['returncode']:
             print(f'UNVALIDATED: {stage} failed. See build/toolchain/{stage}.log', file=sys.stderr)
             return 1
-    print('Build finished; still UNVALIDATED until Mach-O/reproducibility probes pass.', file=sys.stderr)
-    return 1
+    result['stage'] = 'runtime-validation'
+    result['returncode'] = None
+    write_json(out / 'attempt.json', result)
+    try:
+        code = package()
+    except (ToolError, OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
+        result.update(returncode=1, reason=str(e))
+        write_json(out / 'attempt.json', result)
+        raise
+    result.update(validated=True, returncode=code)
+    write_json(out / 'attempt.json', result)
+    return code
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['fetch', 'build', 'status'])
+    parser.add_argument('action', choices=['fetch', 'build', 'package', 'status'])
     args = parser.parse_args()
     if args.action == 'status':
-        print(json.dumps(load_json(ROOT / 'toolchain/feasibility.json'), indent=2))
-        return 1
+        result = load_json(ROOT / 'toolchain/feasibility.json')
+        runtime = ROOT / 'build/toolchain/runtime.json'
+        if runtime.exists():
+            result['local_runtime'] = load_json(runtime)
+            if result['local_runtime'].get('validated'):
+                from tools.pirates.compiler import fingerprint
+                result['local_runtime']['compiler'] = fingerprint(load_json(ROOT / 'build/toolchain/compiler.json'), ROOT)
+        print(json.dumps(result, indent=2))
+        return 0 if result.get('local_runtime', {}).get('compiler', {}).get('validated') else 1
     if args.action == 'fetch':
         fetch()
         return 0
+    if args.action == 'package':
+        return package()
     return build()
 
 
 if __name__ == '__main__':
     try:
         sys.exit(main())
-    except (ToolError, OSError, ValueError) as e:
+    except (ToolError, OSError, ValueError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
         print(str(e), file=sys.stderr)
         sys.exit(1)
