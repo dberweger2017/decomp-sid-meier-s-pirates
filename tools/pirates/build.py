@@ -3,7 +3,6 @@ import json
 import os
 from pathlib import Path
 from .macho import MachO
-from .compare import compare_function
 from .compiler import command, fingerprint, permitted
 from .report import native_report, objdiff_adapter
 from .util import load_json, write_json, ToolError, sha256, local_path, depfile_paths
@@ -96,6 +95,7 @@ def compile_unit(root, uid):
 
 
 def comparisons(root, details_id=None):
+    from .compare import compare_function
     root = Path(root)
     config = configuration(root)
     inventory = load_json(root / 'build/inventory.json')

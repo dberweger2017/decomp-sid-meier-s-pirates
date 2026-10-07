@@ -74,4 +74,4 @@ To inspect a deliberate synthetic regression locally:
 python tools/ci.py demo-regression
 ```
 
-It intentionally exits with status 1 and writes the before/after reports and summary under `build/ci-demo/`. No hosted decomp.dev registration, push, publication, or PR is part of this milestone.
+It intentionally exits with status 1 and writes the before/after reports and summary under `build/ci-demo/`. Hosted decomp.dev registration is outside this milestone.

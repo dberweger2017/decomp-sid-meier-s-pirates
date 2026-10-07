@@ -114,6 +114,14 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(result['status'], 'unresolved')
         self.assertTrue(any('compile configuration changed' in reason for reason in result['reasons']))
 
+    def test_doctor_reports_missing_dependencies_without_import_failure(self):
+        run = subprocess.run([sys.executable, '-S', 'tools/dev.py', 'doctor', '--json'],
+                             cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run.returncode, 1, run.stderr)
+        checks = {c['name']: c for c in json.loads(run.stdout)}
+        self.assertFalse(checks['capstone']['ok'])
+        self.assertIn('Install requirements.txt', checks['capstone']['detail'])
+
     def test_adapter_has_proto_json_types_and_linking_stays_zero(self):
         report, _ = self.build()
         adapter = objdiff_adapter(report)
