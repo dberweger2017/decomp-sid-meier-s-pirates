@@ -5,6 +5,7 @@ import hashlib
 import json
 import subprocess
 import shutil
+import gzip
 import sys
 import tarfile
 import urllib.request
@@ -13,6 +14,26 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.util import ToolError, load_json, write_json, sha256
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def export():
+    cache = ROOT / 'build/toolchain'
+    runtime = load_json(cache / 'runtime.json')
+    if not runtime.get('validated'):
+        raise ToolError('Refusing to export an unvalidated runtime')
+    from tools.pirates.compiler import fingerprint
+    info = fingerprint(load_json(cache / 'compiler.json'), ROOT)
+    if not info['validated']:
+        raise ToolError('Refusing to export an unvalidated runtime')
+    archive = cache / 'runtime-image.tar'
+    subprocess.run(['docker', 'image', 'save', '-o', str(archive), runtime['image']], check=True)
+    compressed = archive.with_suffix('.tar.gz')
+    with archive.open('rb') as source, compressed.open('wb') as output:
+        with gzip.GzipFile(fileobj=output, mode='wb', mtime=0) as target:
+            shutil.copyfileobj(source, target)
+    archive.unlink()
+    write_json(cache / 'runtime-export.json', {**runtime, 'archive': compressed.name, 'sha256': sha256(compressed)})
+    return 0
 
 
 def package():
@@ -131,7 +152,7 @@ def build():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['fetch', 'build', 'package', 'status'])
+    parser.add_argument('action', choices=['fetch', 'build', 'package', 'export', 'status'])
     args = parser.parse_args()
     if args.action == 'status':
         result = load_json(ROOT / 'toolchain/feasibility.json')
@@ -148,6 +169,8 @@ def main():
         return 0
     if args.action == 'package':
         return package()
+    if args.action == 'export':
+        return export()
     return build()
 
 

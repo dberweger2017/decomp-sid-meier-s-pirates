@@ -15,3 +15,6 @@ class ToolchainTests(unittest.TestCase):
                 with self.assertRaisesRegex(ToolError, 'Historical installation is incomplete'):
                     toolchain.package()
             self.assertFalse(load_json(root / 'build/toolchain/runtime.json')['validated'])
+            with patch.object(toolchain, 'ROOT', root):
+                with self.assertRaisesRegex(ToolError, 'Refusing to export an unvalidated runtime'):
+                    toolchain.export()

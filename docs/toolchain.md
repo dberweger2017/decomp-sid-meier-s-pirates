@@ -36,13 +36,16 @@ The build script tests the frontend after LLVM installation, then builds the pin
 
 ## Validation and eventual runtime image
 
-After a working frontend and assembler are available, package their complete installed artifacts and runtime libraries into a Linux amd64 image. Keep the installation paths used by the compiler. The runtime must include the historical frontend/backend/assembler, not a modern Clang substitution. Retain compiler source, licenses, source/patch hashes, and binary fingerprints with the package.
+After a working frontend and assembler are available, `python tools/toolchain.py package` packages their installed artifacts and pinned host libraries into a Linux amd64 image and validates it. The compiler lives at `/opt/pirates`, outside the mounted workspace. The package includes pinned source archives with licenses, build scripts and host patches, package inventory, and hashes of installed files. It contains no SDK or game inputs.
 
-Pin `config/compiler.json`’s `container.image` to an immutable image digest, supply the declared compiler path, and run:
+`python tools/toolchain.py build` performs these stages together. The CI workflow caches source and build directories using source, dependency, and build-script hashes; make checks their dependencies. No runtime is marked valid merely because the backend or frontend compiled.
+
+After probes succeed, `python tools/toolchain.py export` writes an ignored Docker archive plus its SHA-256 manifest. The native Linux workflow uploads this validated toolchain separately from diagnostics. This permits local `docker load -i runtime-image.tar.gz` on Linux or macOS without publishing a registry image. Verify the archive SHA-256 from `runtime-export.json`, install the supplied profile as `build/toolchain/compiler.json`, then rerun `tools/validate_compiler.py build/toolchain/compiler.json` on the receiving host before selecting it. Apple Silicon uses amd64 emulation.
+
+The packager writes `build/toolchain/compiler.json` with an immutable local image ID. After successful validation, select it:
 
 ```sh
-python tools/validate_compiler.py
-python configure.py
+python configure.py --profile build/toolchain/compiler.json
 python tools/dev.py doctor
 ```
 
