@@ -1,0 +1,19 @@
+{
+  "name": "llvmgcc42-2336.9-hypothesis",
+  "family": "llvmgcc42",
+  "editor_command": ["clang++", "--target=armv7-apple-ios4.2"],
+  "editor_description": "Clang syntax/indexing only. Ninja matching compilation uses the validated LLVM-GCC container.",
+  "flags": [
+    "-march=armv7-a",
+    "-mfloat-abi=softfp",
+    "-miphoneos-version-min=4.2"
+  ],
+  "validation": "build/toolchain/validation.json",
+  "sdk_required": true,
+  "flags_provenance": "Initial investigation profile only. Optimization, defines, and per-library compilers are unknown. Every candidate must record its flags.",
+  "container": {
+    "image": null,
+    "compiler": "/work/build/toolchain/legacy/install/bin/llvm-g++"
+  },
+  "sdk_compile_path": "/sdk"
+}

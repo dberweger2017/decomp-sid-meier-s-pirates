@@ -1,0 +1,11 @@
+/build/
+/.venv/
+/build.ninja
+/compile_commands.json
+/.ninja_*
+*.ipa
+*.sdk/
+__pycache__/
+*.py[cod]
+research/Pirates-executable
+research/Info.plist

@@ -1,0 +1,158 @@
+name: Build and report
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pirates-build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tooling:
+    name: Synthetic tooling (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13.16'
+          cache: pip
+      - name: Install hash-pinned tooling
+        run: python -m pip install --require-hashes -r requirements.txt
+      - name: Parser, relocations, watcher, builds, deterministic reports, and regression tests
+        run: python -m unittest discover -v
+      - name: Prove deliberate regression fails the CI checker
+        shell: bash
+        run: |
+          if python tools/ci.py demo-regression --output build/ci-demo; then
+            echo 'ERROR: deliberate regression was accepted'
+            exit 1
+          fi
+          python -c 'import json; d=json.load(open("build/ci-demo/delta.json")); assert any("Verified match regressed" in x for x in d["failures"])'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: synthetic-regression-${{ matrix.os }}
+          path: |
+            build/ci-demo/*.json
+            build/ci-demo/summary.md
+          if-no-files-found: warn
+  game-progress:
+    name: ARMv7 inventory and historical candidate progress
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: head
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.base.sha || (github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || github.sha }}
+          path: base
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13.16'
+          cache: pip
+          cache-dependency-path: head/requirements.txt
+      - name: Install hash-pinned tooling
+        run: python -m pip install --require-hashes -r head/requirements.txt
+      - name: Obtain one shared verified original input
+        shell: bash
+        run: |
+          mkdir -p inputs
+          curl --fail --location --retry 3 'https://archive.org/download/Sid_Meier_s_Pirates__1.1.2_ios_4.2/Sid_Meier_s_Pirates__1.1.2_ios_4.2.ipa' -o inputs/pirates.ipa
+          echo '9da0cc5038f14acac0537695a43952a336035d3286ec171a615e6fac9869a048  inputs/pirates.ipa' | sha256sum --check
+      - name: Detect historical compilation requirements
+        id: candidates
+        shell: bash
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          units = any(json.loads(p.read_text()).get('units') for p in [Path('base/config/candidates.json'), Path('head/config/candidates.json')] if p.is_file())
+          print('present=' + str(units).lower())
+          PY
+      - uses: actions/cache/restore@0400d5f644dc74513175e3cd8d07132dd4860809 # v4.2.4
+        if: steps.candidates.outputs.present == 'true'
+        id: candidate-compiler-cache
+        with:
+          path: |
+            head/build/toolchain/legacy
+            head/build/toolchain/llvmgcc42-*
+            head/build/toolchain/llvmCore-*
+            head/build/toolchain/cctools-port-*
+            head/build/toolchain/llvmgcc42.tar.gz
+            head/build/toolchain/llvmCore.tar.gz
+            head/build/toolchain/cctools-port.tar.gz
+          key: game-legacy-linux-amd64-${{ hashFiles('head/toolchain/sources.lock.json', 'head/toolchain/package-versions.lock') }}-${{ hashFiles('head/toolchain/build-legacy.sh', 'head/toolchain/build-assembler.sh') }}
+          restore-keys: game-legacy-linux-amd64-${{ hashFiles('head/toolchain/sources.lock.json', 'head/toolchain/package-versions.lock') }}-
+      - name: Provision and validate historical candidate compiler
+        id: compiler-prep
+        continue-on-error: true
+        working-directory: head
+        shell: bash
+        run: |
+          status=0
+          if python -c 'import json,sys; p=json.load(open("config/compiler.json")); sys.exit(0 if p.get("container",{}).get("image") else 1)'; then
+            python tools/validate_compiler.py || status=$?
+          elif [[ '${{ steps.candidates.outputs.present }}' == 'true' ]]; then
+            python tools/toolchain.py build || status=$?
+          else
+            echo 'No game source candidates configured. Historical cross-build validation runs in the compiler workflow.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [[ -f build/toolchain/compiler.json ]]; then
+            echo 'profile=build/toolchain/compiler.json' >> "$GITHUB_OUTPUT"
+          else
+            echo 'profile=config/compiler.json' >> "$GITHUB_OUTPUT"
+          fi
+          exit "$status"
+      - name: Incremental base/head builds with one engine, original input and compiler profile
+        shell: bash
+        env:
+          PIRATES_SDK_PATH: ${{ vars.PIRATES_SDK_PATH }}
+        run: |
+          sdk_args=()
+          if [[ -n "$PIRATES_SDK_PATH" ]]; then sdk_args=(--sdk "$PIRATES_SDK_PATH"); fi
+          python head/tools/ci.py build --base base --head head --ipa inputs/pirates.ipa --output artifacts --profile '${{ steps.compiler-prep.outputs.profile }}' --validation head/build/toolchain/validation.json "${sdk_args[@]}"
+      - uses: actions/cache/save@0400d5f644dc74513175e3cd8d07132dd4860809 # v4.2.4
+        if: always() && steps.candidates.outputs.present == 'true' && steps.candidate-compiler-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            head/build/toolchain/legacy
+            head/build/toolchain/llvmgcc42-*
+            head/build/toolchain/llvmCore-*
+            head/build/toolchain/cctools-port-*
+            head/build/toolchain/llvmgcc42.tar.gz
+            head/build/toolchain/llvmCore.tar.gz
+            head/build/toolchain/cctools-port.tar.gz
+          key: ${{ steps.candidate-compiler-cache.outputs.cache-primary-key }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: pirates-progress
+          path: |
+            artifacts/base/report.json
+            artifacts/base/objdiff-report.json
+            artifacts/base/build.log
+            artifacts/base/diagnostics/
+            artifacts/head/report.json
+            artifacts/head/objdiff-report.json
+            artifacts/head/build.log
+            artifacts/head/diagnostics/
+            artifacts/delta.json
+            artifacts/build-status.json
+            artifacts/summary.md
+            head/build/toolchain/attempt.json
+            head/build/toolchain/environment.log
+            head/build/toolchain/legacy-build.log
+            head/build/toolchain/assembler-build.log
+            head/build/toolchain/runtime-build.log
+          if-no-files-found: warn
+      - name: Fail on compiler provisioning failure after preserving reports
+        if: always() && steps.compiler-prep.outcome == 'failure'
+        run: exit 1

@@ -1,0 +1,6 @@
+# Research image: NOT a validated matching compiler.
+FROM --platform=linux/amd64 ubuntu:16.04@sha256:1f1a2d56de1d604801a9671f301190704c25d604a416f59e03c04f5c6ffee0d6
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential cmake python curl ca-certificates libgmp-dev libmpfr-dev zlib1g-dev flex bison autoconf automake libtool libssl-dev uuid-dev && rm -rf /var/lib/apt/lists/*
+COPY toolchain/package-versions.lock /tmp/package-versions.lock
+RUN dpkg-query -W -f='${Package}=${Version}\n' > /tmp/installed.lock && diff -u /tmp/package-versions.lock /tmp/installed.lock
+WORKDIR /work

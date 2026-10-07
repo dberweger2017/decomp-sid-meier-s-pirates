@@ -1,0 +1,94 @@
+{
+  "validated": true,
+  "compiler_family": "llvmgcc42-2336.9",
+  "compiler_commit": "c92700f7f0438a4bd5084145b9f351de63256e66",
+  "host": "Linux amd64 through Docker emulation on macOS arm64",
+  "llvm_core_built": true,
+  "frontend_cross_build_validated": true,
+  "arm_macho_probe": true,
+  "thumb_macho_probe": true,
+  "cxx_probe": true,
+  "reproducible_objects": true,
+  "runtime_image_pinned": true,
+  "attempts": [
+    {
+      "stage": "CMake configuration",
+      "result": "failed",
+      "evidence": "Apple llvmCore release has stale CMake source lists (ModuleProvider.cpp) and no test directory."
+    },
+    {
+      "stage": "configure/make LLVM core",
+      "result": "failed then repaired",
+      "evidence": "GCC 5 required explicit cstddef, unistd.h, and _LARGEFILE64_SOURCE host includes. Linux loadable module flags used unsupported -module; changed to -shared."
+    },
+    {
+      "stage": "LLVM core and tools",
+      "result": "built",
+      "evidence": "Release-Asserts ARM backend, llc, llvm-config, libraries, and unit test binaries built. install-libs avoids documentation dependency on groff."
+    },
+    {
+      "stage": "GCC cross-build attempt",
+      "result": "interrupted",
+      "evidence": "Docker returned error waiting for container: unexpected EOF; backend/daemon stopped. No LLVM-GCC compiler or ARMv7 Mach-O output was validated."
+    },
+    {
+      "stage": "resumed GCC frontend",
+      "result": "failed: incompatible separate backend",
+      "evidence": "Docker restarted after user reported closing it. Make CXX overrides repair missing ptrdiff_t and old constructor expressions; pinned flex and bison added for gengtype generation. Frontend bridge requires missing GlobalValue::LinkerPrivateWeakLinkage and Type::getIntNTy APIs. Both exist in the frontend archive bundled core, now selected without target-code patches."
+    },
+    {
+      "stage": "legacy ARM assembler",
+      "result": "built and independently probed",
+      "evidence": "Pinned cctools-port 845 ARM GAS built with GCC 5; visibility and endian host definitions supplied. A Thumb-2 add.w/bx probe produced a parsed ARMv7 Mach-O object with the expected Thumb symbol. Full LLVM-GCC pipeline remains unvalidated."
+    },
+    {
+      "stage": "bundled LLVM core",
+      "result": "built on native Linux; frontend configuration failed at installation boundary",
+      "evidence": "Native CI built bundled ARM backend, libraries and tools. install-libs omitted llc and llvm-config; frontend rejected installed prefix as invalid. Recipe now installs these tools explicitly."
+    },
+    {
+      "stage": "C/C++ frontend and compiler-only installation",
+      "result": "built on Linux under Apple Silicon emulation; probes pending",
+      "evidence": "cc1, cc1plus and drivers built. Driver reports GCC 4.2.1 / LLVM build 2336.9. Default all-gcc also attempts libgcc and Darwin crt3 requiring SDK headers; compiler-only make flags omit those linking/runtime artifacts. Host source logic and ARM code generation are unchanged."
+    },
+    {
+      "stage": "historical container and incremental loop",
+      "result": "validated on Linux amd64 under Apple Silicon emulation",
+      "evidence": "C/C++ ARM/Thumb Mach-O probes and included-header depfiles passed; repeated object hashes are identical. Synthetic Ninja function verified at 4 bytes, then header edit rebuilt it and produced a lost-match regression. Explicit armv7-a is required: plain armv7 lacks FL_NOTM in the source architecture table."
+    },
+    {
+      "stage": "native Linux CI complete pipeline",
+      "result": "validated",
+      "evidence": "Source recipe, immutable runtime packaging, C/C++ ARM/Thumb deterministic probes, Docker export, historical Ninja match/header-edit/lost-match regression all passed in run 37693756924."
+    },
+    {
+      "stage": "native Linux artifact import on Apple Silicon",
+      "result": "validated",
+      "evidence": "Archive SHA-256 and installed-artifact manifest verified. Docker 29 assigned a converted local image ID; receiving-host ARM/Thumb C/C++ probe hashes equal native CI. Import pins and validates the receiving-host identity."
+    }
+  ],
+  "remaining": [
+    "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates",
+    "Objective-C/Objective-C++ frontends are not built or validated",
+    "Investigate exact shipped compiler revision and original per-unit flags",
+    "Full-game linking and target runtime construction are outside this milestone"
+  ],
+  "assembler_thumb_macho_probe": true,
+  "bundled_llvm_core_built": true,
+  "frontend_built": true,
+  "exact_original_compiler_equivalence": false,
+  "sdk_dependent_candidates_validated": false,
+  "historical_incremental_loop_verified": true,
+  "compiler_version": "llvm-g++ (GCC) 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.9)\nCopyright (C) 2007 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "probe_sha256": {
+    "c/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
+    "c/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba",
+    "cpp/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
+    "cpp/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba"
+  },
+  "probe_architecture_flag": "-march=armv7-a",
+  "native_linux_ci_validated": true,
+  "native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924",
+  "native_artifact_revalidated_on_macos_arm64": true,
+  "native_artifact_archive_sha256": "b79b5b29e93ac6f69c93605d9c59c7765db91cffdc5abf838c3172eca1a882d0"
+}
