@@ -75,6 +75,15 @@ def build_one(root, ipa, sdk, output):
     return code
 
 
+def compiler_profile_failure(base, profile, profile_path):
+    baseline = Path(base) / profile_path
+    candidates = Path(base) / 'config/candidates.json'
+    if baseline.is_file() and candidates.is_file() and load_json(candidates).get('units'):
+        if load_json(baseline) != profile:
+            return 'Shared compiler profile changed with existing candidates; establish a separate compiler baseline before comparing source progress'
+    return None
+
+
 def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json', validation=None):
     base, head, ipa, output = map(lambda p: Path(p).resolve(), (base, head, ipa, output))
     output.mkdir(parents=True, exist_ok=True)
@@ -83,6 +92,7 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
         shutil.rmtree(stage_root)
     stage_root.mkdir(parents=True)
     profile = load_json(head / profile_path)
+    profile_failure = compiler_profile_failure(base, profile, profile_path)
     status = {}
     for name, checkout in (('base', base), ('head', head)):
         dest = stage_root / name
@@ -91,6 +101,8 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
     write_json(output / 'build-status.json', status)
     if all((output / name / 'report.json').is_file() for name in ('base', 'head')):
         delta = compare(output / 'base/report.json', output / 'head/report.json', output)
+        if profile_failure:
+            delta['failures'].append(profile_failure)
         for name, code in status.items():
             if code:
                 delta['failures'].append(name.title() + ' candidate build failed; see diagnostics/build.log')
@@ -98,9 +110,9 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
         # Compare-only summaries and build status share the same generated file.
         markdown = summary(load_json(output / 'base/report.json'), load_json(output / 'head/report.json'), delta)
         (output / 'summary.md').write_text(markdown)
-        if any(status.values()) and os.environ.get('GITHUB_STEP_SUMMARY'):
+        if (any(status.values()) or profile_failure) and os.environ.get('GITHUB_STEP_SUMMARY'):
             with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
-                f.write('\nBuild failure: see uploaded diagnostics.\n')
+                f.write('\n' + (profile_failure or 'Build failure: see uploaded diagnostics.') + '\n')
         return 1 if delta['failures'] else 0
     publish_summary(output, '## Pirates! build failed\n\nConfiguration or input verification failed. See uploaded base/head build.log. No original inputs are uploaded.\n')
     return 1

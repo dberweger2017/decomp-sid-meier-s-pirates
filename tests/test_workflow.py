@@ -13,6 +13,7 @@ from tools.pirates.configure import configure
 from tools.pirates.build import comparisons
 from tools.pirates.report import regression, objdiff_adapter
 from tools.pirates.util import write_json, load_json, ToolError
+from tools.ci import compiler_profile_failure
 from tests.fixtures import reference
 
 REPO = Path(__file__).resolve().parents[1]
@@ -121,6 +122,15 @@ class WorkflowTests(unittest.TestCase):
         checks = {c['name']: c for c in json.loads(run.stdout)}
         self.assertFalse(checks['capstone']['ok'])
         self.assertIn('Install requirements.txt', checks['capstone']['detail'])
+
+    def test_shared_compiler_change_cannot_silently_reset_existing_candidate_baseline(self):
+        path = 'config/fixture-compiler.json'
+        profile = load_json(self.root / path)
+        self.assertIsNone(compiler_profile_failure(self.root, profile, path))
+        profile['flags'] += ['-O0']
+        self.assertIn('compiler profile changed', compiler_profile_failure(self.root, profile, path))
+        write_json(self.root / 'config/candidates.json', {'version': 1, 'units': []})
+        self.assertIsNone(compiler_profile_failure(self.root, profile, path))
 
     def test_adapter_has_proto_json_types_and_linking_stays_zero(self):
         report, _ = self.build()
