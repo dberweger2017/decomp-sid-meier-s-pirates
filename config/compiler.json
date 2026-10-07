@@ -1,0 +1,17 @@
+{
+  "name": "llvmgcc42-2336.9-hypothesis",
+  "family": "llvmgcc42",
+  "flags": [
+    "-march=armv7",
+    "-mfloat-abi=softfp",
+    "-miphoneos-version-min=4.2"
+  ],
+  "validation": "build/toolchain/validation.json",
+  "sdk_required": true,
+  "flags_provenance": "Initial investigation profile only. Optimization, defines, and per-library compilers are unknown. Every candidate must record its flags.",
+  "container": {
+    "image": null,
+    "compiler": "/work/build/toolchain/legacy/install/bin/llvm-g++"
+  },
+  "sdk_compile_path": "/sdk"
+}

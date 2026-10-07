@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "validated": false,
+  "validated_image": null,
+  "platform": "linux/amd64",
+  "base_image": "ubuntu:16.04@sha256:1f1a2d56de1d604801a9671f301190704c25d604a416f59e03c04f5c6ffee0d6",
+  "sources": [
+    {
+      "name": "llvmgcc42",
+      "tag": "llvmgcc42-2336.9",
+      "commit": "c92700f7f0438a4bd5084145b9f351de63256e66",
+      "url": "https://codeload.github.com/apple-oss-distributions/llvmgcc42/tar.gz/c92700f7f0438a4bd5084145b9f351de63256e66",
+      "sha256": "06aecbd292d72c08c7a87f9c96017494cb1ca0de9bd9e30fd43a51028b3fe112"
+    },
+    {
+      "name": "llvmCore",
+      "tag": "llvmCore-2326.12",
+      "commit": "a250b96ad7af34aa6099535d78dc0a71d57d856e",
+      "url": "https://codeload.github.com/apple-oss-distributions/llvmCore/tar.gz/a250b96ad7af34aa6099535d78dc0a71d57d856e",
+      "sha256": "90ff6d312ca06470e3ac710db967f6390e8fe679567201dec8d9622dc466138c"
+    }
+  ],
+  "backend_provenance": "llvmCore-2326.12 is a separate backend hypothesis. Neither it nor the bundled llvmCore is established as the Xcode 4.3.2 app compiler backend.",
+  "objdiff_schema": {
+    "repository": "https://github.com/encounter/objdiff",
+    "path": "objdiff-core/protos/report.proto",
+    "commit": "eed74b99c4e94dd154882259931201badc6fdbd1",
+    "sha256": "4d7054364f87dd2495439606baa427f45d21ce1c0bc8e2b95827a11d571790ab"
+  }
+}
