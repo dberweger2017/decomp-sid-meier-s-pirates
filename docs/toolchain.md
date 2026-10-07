@@ -1,6 +1,6 @@
 # Historical compiler feasibility
 
-The matching compiler is **not validated**. A reproducible Linux environment and source-build experiment are present; a validated compiler/runtime image is not. `config/compiler.json` deliberately has a null container image. `doctor` reports this limitation, and candidate builds cannot receive verified-match status through a fallback compiler.
+The LLVM-GCC hypothesis now has a **validated C/C++ ARMv7 cross-build**, tested in a pinned Linux amd64 container under Apple Silicon emulation. ARM and Thumb Mach-O probes, included-header dependencies, repeated object hashes, and the historical Ninja match/header-regression loop pass. Exact equivalence to the app's shipped compiler remains unproven. `config/compiler.json` is a template with a null image; `tools/toolchain.py build` generates a locally pinned, validated profile in `build/toolchain/compiler.json`. No modern compiler substitutes for matching compilation.
 
 ## Evidence
 
@@ -21,6 +21,7 @@ Recorded stages in `toolchain/feasibility.json`:
 7. The frontend reached compilation of its LLVM bridge and rejected the separate backend's missing APIs. The build now selects the frontend archive's bundled core, without target-code patches.
 8. Native Linux built the bundled core but exposed omitted tool installation; `llc` and `llvm-config` are now installed explicitly. The resumed frontend on Linux exposed an old `mempcpy` declaration conflicting with glibc. A host-only `__GLIBC__` guard uses the system declaration without changing helper logic or target generation.
 9. C/C++ frontends and drivers built and installed. Default `all-gcc` also attempts target libgcc and Darwin crt3, which require SDK headers. Compiler-only make flags omit those runtime/linking artifacts. This milestone validates `-c` object compilation; it provides no target runtime, SDK, linker, or full-game link. The current recipe enables C and C++; Objective-C frontends are not validated.
+10. The container passed C/C++ ARM and Thumb Mach-O, header-dependency, and repeated-object probes. Its compiler source's plain `armv7` architecture omits ARM mode capability (`FL_NOTM`); explicit `armv7-a` works. This is an investigation flag, not a recovered original flag. The historical Ninja loop verified a synthetic four-byte function, rebuilt on a header edit, and detected its lost match.
 
 The scripts preserve these host portability changes. They do not modify ARM code generation. Build logs are in the ignored local `build/toolchain/` cache; concise evidence is tracked separately. Do not infer feasibility of the full cross-build from the LLVM core build alone.
 
@@ -53,6 +54,6 @@ python tools/dev.py doctor
 
 The validator rejects Clang and plain GCC. It requires LLVM-GCC 4.2.1 / LLVM build 2336.9 identification, actual C and C++ compilation, ARM and Thumb Mach-O output, an included-header depfile, and identical object hashes from two build directories. A failed validator leaves validation false or absent. Its generated evidence is tied to the compiler image/binary fingerprint and invocation; source-build feasibility still does not prove byte-for-byte equivalence with the app’s historical compiler.
 
-The prepared container adapter mounts the project at `/work`, an optional local SDK at `/sdk`, and selects `linux/amd64`. Docker supports this on Linux and macOS; Apple Silicon requires emulation. This adapter has not been exercised with a validated historical image. Validation evidence can be supplied to the CI runner with `--validation`.
+The container adapter mounts the project at `/work`, an optional local SDK at `/sdk`, and selects `linux/amd64`. It has been exercised with the validated historical image under Apple Silicon emulation. Validation evidence can be supplied to the CI runner with `--validation`. Native Linux CI validates the complete source recipe independently; SDK-dependent candidates still require a local SDK and remain untested here.
 
 Apple’s GCC frontend is distributed under GPLv2-family terms; LLVM has its own open-source license and notices. SDK files have separate terms and are not bundled in this repository or its artifacts. No Apple account credentials are accessed by these tools.

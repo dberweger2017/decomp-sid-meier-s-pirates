@@ -1,15 +1,15 @@
 {
-  "validated": false,
+  "validated": true,
   "compiler_family": "llvmgcc42-2336.9",
   "compiler_commit": "c92700f7f0438a4bd5084145b9f351de63256e66",
   "host": "Linux amd64 through Docker emulation on macOS arm64",
   "llvm_core_built": true,
-  "frontend_cross_build_validated": false,
-  "arm_macho_probe": false,
-  "thumb_macho_probe": false,
-  "cxx_probe": false,
-  "reproducible_objects": false,
-  "runtime_image_pinned": false,
+  "frontend_cross_build_validated": true,
+  "arm_macho_probe": true,
+  "thumb_macho_probe": true,
+  "cxx_probe": true,
+  "reproducible_objects": true,
+  "runtime_image_pinned": true,
   "attempts": [
     {
       "stage": "CMake configuration",
@@ -50,17 +50,32 @@
       "stage": "C/C++ frontend and compiler-only installation",
       "result": "built on Linux under Apple Silicon emulation; probes pending",
       "evidence": "cc1, cc1plus and drivers built. Driver reports GCC 4.2.1 / LLVM build 2336.9. Default all-gcc also attempts libgcc and Darwin crt3 requiring SDK headers; compiler-only make flags omit those linking/runtime artifacts. Host source logic and ARM code generation are unchanged."
+    },
+    {
+      "stage": "historical container and incremental loop",
+      "result": "validated on Linux amd64 under Apple Silicon emulation",
+      "evidence": "C/C++ ARM/Thumb Mach-O probes and included-header depfiles passed; repeated object hashes are identical. Synthetic Ninja function verified at 4 bytes, then header edit rebuilt it and produced a lost-match regression. Explicit armv7-a is required: plain armv7 lacks FL_NOTM in the source architecture table."
     }
   ],
   "remaining": [
-    "Validate GCC frontend against the backend hypothesis",
-    "Validate frontend integration with the pinned cctools ARM assembler",
-    "Pass C/C++, ARM/Thumb, dependency-file and reproducibility probes",
-    "Package validated artifacts in an immutable Linux image",
+    "Complete native Linux CI validation of the final recipe",
     "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates",
-    "Investigate original per-unit flags and compiler revisions"
+    "Objective-C/Objective-C++ frontends are not built or validated",
+    "Investigate exact shipped compiler revision and original per-unit flags",
+    "Full-game linking and target runtime construction are outside this milestone"
   ],
   "assembler_thumb_macho_probe": true,
   "bundled_llvm_core_built": true,
-  "frontend_built": true
+  "frontend_built": true,
+  "exact_original_compiler_equivalence": false,
+  "sdk_dependent_candidates_validated": false,
+  "historical_incremental_loop_verified": true,
+  "compiler_version": "llvm-g++ (GCC) 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.9)\nCopyright (C) 2007 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "probe_sha256": {
+    "c/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
+    "c/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba",
+    "cpp/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
+    "cpp/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba"
+  },
+  "probe_architecture_flag": "-march=armv7-a"
 }

@@ -45,7 +45,7 @@ def validate(root, profile_path):
                 source = 'probe.' + extension
                 (folder / source).write_text('#include "value.h"\n' + body + '\n')
                 relative = str(folder.relative_to(root))
-                args = ['-x', language, '-march=armv7', '-mfloat-abi=softfp', '-O2', '-ffreestanding',
+                args = ['-x', language, '-march=armv7-a', '-mfloat-abi=softfp', '-O2', '-ffreestanding',
                         '-mthumb' if mode == 'thumb' else '-marm', '-MMD', '-MF', relative + '/probe.d']
                 if language == 'c++':
                     args += ['-fno-exceptions', '-fno-rtti']
