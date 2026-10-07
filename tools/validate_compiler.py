@@ -23,8 +23,9 @@ def validate(root, profile_path):
     profile = load_json(root / profile_path)
     if profile['family'] != 'llvmgcc42':
         raise ToolError('Only the historical LLVM-GCC hypothesis may be validated')
+    write_json(root / profile['validation'], {'validated': False, 'reason': 'Validation has not completed'})
     cmd = command(profile, root)
-    version = subprocess.run(cmd + ['--version'], cwd=root, check=True, capture_output=True, text=True).stdout
+    version = subprocess.run(cmd + ['--version'], cwd=root, check=True, capture_output=True, text=True, timeout=60).stdout
     if not all(v in version for v in ('4.2.1', 'LLVM', '2336.9')) or 'clang' in version.lower():
         raise ToolError('Expected LLVM-GCC 4.2.1 / LLVM build 2336.9, not Clang or plain GCC')
     validation = {'validated': False, 'version': version.strip(), 'source_commit_hypothesis': 'c92700f7f0438a4bd5084145b9f351de63256e66'}
@@ -49,7 +50,7 @@ def validate(root, profile_path):
                 if language == 'c++':
                     args += ['-fno-exceptions', '-fno-rtti']
                 args += ['-c', relative + '/' + source, '-o', relative + '/probe.o']
-                run = subprocess.run(cmd + args, cwd=root, capture_output=True, text=True)
+                run = subprocess.run(cmd + args, cwd=root, capture_output=True, text=True, timeout=300)
                 (folder / 'diagnostics.txt').write_text(run.stdout + run.stderr)
                 if run.returncode:
                     raise ToolError('Historical ' + mode + ' ' + language + ' Mach-O compilation failed; see ' + relative + '/diagnostics.txt')
@@ -71,6 +72,6 @@ def validate(root, profile_path):
 if __name__ == '__main__':
     try:
         validate(ROOT, sys.argv[1] if len(sys.argv) > 1 else 'config/compiler.json')
-    except (ToolError, OSError, subprocess.CalledProcessError) as e:
+    except (ToolError, OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
         print('UNVALIDATED: ' + str(e), file=sys.stderr)
         sys.exit(1)
