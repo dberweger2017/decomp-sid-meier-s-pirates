@@ -3,7 +3,7 @@ import json
 import os
 from pathlib import Path
 from .macho import MachO
-from .compiler import command, fingerprint, permitted
+from .compiler import command, fingerprint, permitted, language_flags
 from .report import native_report, objdiff_adapter
 from .util import load_json, write_json, ToolError, sha256, local_path, depfile_paths
 
@@ -18,7 +18,7 @@ def configuration(root):
 
 
 def compile_flags(config, unit, normalized=False):
-    flags = config['compiler']['flags'] + unit['flags']
+    flags = language_flags(unit['source']) + config['compiler']['flags'] + unit['flags']
     if config.get('sdk'):
         flags += ['-isysroot', config['compiler'].get('sdk_compile_path', config['sdk'])]
         if normalized:

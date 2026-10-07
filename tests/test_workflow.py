@@ -125,6 +125,28 @@ class WorkflowTests(unittest.TestCase):
         self.assertFalse(checks['capstone']['ok'])
         self.assertIn('Install requirements.txt', checks['capstone']['detail'])
 
+    def test_c_source_retains_c_abi_with_cxx_driver(self):
+        driver = shutil.which('clang++')
+        if not driver:
+            self.skipTest('clang++ is required')
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        profile['command'] = [driver]
+        write_json(self.root / 'config/fixture-compiler.json', profile)
+        configure(self.root)
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+        editor = load_json(self.root / 'compile_commands.json')[0]['arguments']
+        self.assertEqual(editor[1:3], ['-x', 'c'])
+
+    def test_changed_driver_arguments_invalidate_stale_match(self):
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        profile['command'] += ['-DVALUE=99']
+        write_json(self.root / 'config/fixture-compiler.json', profile)
+        configure(self.root)
+        result = comparisons(self.root, self.fid)
+        self.assertEqual(result['status'], 'unresolved')
+        self.assertTrue(any('Compiler fingerprint changed' in reason for reason in result['reasons']))
+
     def test_shared_compiler_change_cannot_silently_reset_existing_candidate_baseline(self):
         path = 'config/fixture-compiler.json'
         profile = load_json(self.root / path)

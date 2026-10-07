@@ -4,7 +4,7 @@ import hashlib
 import shlex
 import sys
 from pathlib import Path
-from .compiler import fingerprint, command
+from .compiler import fingerprint, command, language_flags
 from .inputs import import_ipa, import_fixture
 from .util import load_json, write_json, ToolError, local_path, sha256
 
@@ -90,7 +90,7 @@ def configure(root, ipa=None, fixture=None, candidates='config/candidates.json',
         dependencies.append(output)
         lines += [f'build {output}: compile {ninja_path(unit["source"])} | build/config.json {implicit}',
                   f'  unit = {uid}', f'  source = {ninja_path(unit["source"])}', f'  depfile = build/units/{uid}.d']
-        flags = compiler['flags'] + unit['flags']
+        flags = language_flags(unit['source']) + compiler['flags'] + unit['flags']
         if sdk:
             flags += ['-isysroot', sdk]
         try:

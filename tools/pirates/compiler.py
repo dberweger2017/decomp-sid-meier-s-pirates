@@ -7,6 +7,13 @@ from pathlib import Path
 from .util import ToolError, load_json, sha256
 
 
+def language_flags(source):
+    """Select the unit language even when the configured driver is g++."""
+    suffix = Path(source).suffix
+    language = {'.c': 'c', '.m': 'objective-c', '.mm': 'objective-c++'}
+    return ['-x', language.get(suffix, 'c++')]
+
+
 def command(profile, root, sdk=None):
     if 'container' in profile:
         image = profile['container'].get('image')
@@ -24,6 +31,8 @@ def command(profile, root, sdk=None):
 def fingerprint(profile, root, sdk=None):
     result = {'family': profile['family'], 'profile': profile['name'], 'validated': False,
               'version': None, 'sha256': None, 'reason': None}
+    invocation = profile.get('container') or profile['command']
+    result['command_sha256'] = hashlib.sha256(json.dumps(invocation, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
     try:
         cmd = command(profile, root, sdk)
         container = profile.get('container')
@@ -46,8 +55,7 @@ def fingerprint(profile, root, sdk=None):
         validation = load_json(Path(root) / profile['validation'])
         if not validation.get('validated') or validation.get('compiler_sha256') != result['sha256']:
             raise ToolError('Compiler has no matching validation fingerprint')
-        invocation = profile.get('container') or profile['command']
-        if validation.get('command_sha256') != hashlib.sha256(json.dumps(invocation, sort_keys=True, separators=(',', ':')).encode()).hexdigest():
+        if validation.get('command_sha256') != result['command_sha256']:
             raise ToolError('Validation belongs to a different compiler invocation')
         if not all(validation.get(k) for k in ('arm_probe', 'thumb_probe', 'reproducible_objects', 'c_probe', 'cxx_probe')):
             raise ToolError('Historical compiler smoke probes are incomplete')
