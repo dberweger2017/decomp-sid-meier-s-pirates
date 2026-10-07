@@ -20,7 +20,7 @@ There is no validated historical runtime image yet. The progress job says so exp
 
 Once a working immutable Linux amd64 image is pinned in `config/compiler.json`, the same job runs historical validation probes and candidate compilation through Docker. A local SDK may be supplied through the runner’s `PIRATES_SDK_PATH` repository variable/path, or through `tools/ci.py build --sdk`. The default hosted Linux runner has no iOS 5.1 SDK. SDK-dependent candidate CI therefore requires provisioning that local input or adapting the runner setup; the workflow does not fetch SDKs from Apple accounts, commit them, or upload them.
 
-`.github/workflows/compiler-feasibility.yml` is a manual native Linux attempt using the pinned source/environment experiment. Until the cross-build and object probes succeed it remains an unvalidated investigation, not a release toolchain build. Its logs remain available on failure. This manual compiler investigation has not been run on hosted CI from this session.
+`.github/workflows/compiler-feasibility.yml` runs on compiler-tooling PR changes and can also be dispatched manually. It builds the pinned sources on native Linux, validates C/C++ ARM/Thumb Mach-O output and repeated object hashes, and exercises a historical synthetic match/header-edit/regression loop. It remains an unvalidated investigation until these checks pass. Logs and diagnostics remain available on failure. On success it exports a separate compiler-image artifact containing the compiler sources, licenses and fingerprints; that artifact contains no original game inputs or SDK files.
 
 ## Local commands
 

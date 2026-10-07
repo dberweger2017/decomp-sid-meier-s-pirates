@@ -2,10 +2,12 @@
 import argparse
 import importlib.metadata
 import json
+import plistlib
 import subprocess
 import sys
 import webbrowser
 from pathlib import Path
+from xml.parsers.expat import ExpatError
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.build import comparisons, configuration
 from tools.pirates.compiler import fingerprint
@@ -40,8 +42,19 @@ def doctor(root):
                        'detail': info['version'] if info['validated'] else 'UNVALIDATED: ' + (info['reason'] or 'no evidence')})
         if config['compiler'].get('sdk_required'):
             sdk = Path(config.get('sdk') or 'missing-sdk')
-            ok = sdk.is_dir() and (sdk / 'SDKSettings.plist').is_file()
-            checks.append({'name': 'iOS SDK 5.1', 'ok': ok, 'detail': str(sdk) if ok else 'Supply locally with configure.py --sdk <iPhoneOS5.1.sdk>'})
+            ok, detail = False, 'Supply locally with configure.py --sdk <iPhoneOS5.1.sdk>; see docs/sdk.md'
+            if (sdk / 'SDKSettings.plist').is_file():
+                try:
+                    settings = plistlib.loads((sdk / 'SDKSettings.plist').read_bytes())
+                    if not isinstance(settings, dict):
+                        raise ValueError('Expected a settings dictionary')
+                    version = settings.get('Version')
+                    name = settings.get('CanonicalName', 'iphoneos5.1')
+                    ok = version == '5.1' and name == 'iphoneos5.1'
+                    detail = str(sdk) if ok else f'Expected iphoneos5.1 SDK version 5.1; found {name} / {version}'
+                except (OSError, ValueError, plistlib.InvalidFileException, ExpatError) as error:
+                    detail = 'Malformed SDKSettings.plist: ' + str(error)
+            checks.append({'name': 'iOS SDK 5.1', 'ok': ok, 'detail': detail})
     except (OSError, ValueError, KeyError) as e:
         checks.append({'name': 'configuration', 'ok': False, 'detail': str(e)})
     return checks

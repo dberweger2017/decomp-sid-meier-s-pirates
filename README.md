@@ -56,7 +56,7 @@ This is a configuration example, not recovered game source or evidence of origin
 
 A function can map to a different candidate symbol with `"functions": {"<function-id>": {"symbol": "<candidate-symbol>"}}`. Use `candidate_address` only to select an otherwise ambiguous candidate symbol. Ambiguous original boundaries still prevent verification. Explicit `placements.symbols` and `placements.sections` can supply proven original addresses for otherwise unresolved references; document that evidence with the unit. Unimplemented functions remain missing even when another function in the same unit has source.
 
-Supply SDK files locally with `python configure.py --sdk /path/to/iPhoneOS5.1.sdk` after importing inputs. SDKs, IPA files, executable bytes, toolchain caches, and generated outputs are ignored by Git. Do not commit or upload them.
+Supply SDK files locally with `python configure.py --sdk /path/to/iPhoneOS5.1.sdk` after importing inputs. [SDK setup](docs/sdk.md) explains obtaining it from old Xcode; no phone is needed. SDKs, IPA files, executable bytes, toolchain caches, and generated outputs are ignored by Git. Do not commit or upload them.
 
 ## Reports and CI
 

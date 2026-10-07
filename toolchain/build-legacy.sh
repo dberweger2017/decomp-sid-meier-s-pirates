@@ -21,6 +21,9 @@ cd "$OUT/core-bundled"
 "$CORE/configure" --enable-targets=arm --enable-optimized --disable-assertions --disable-docs --prefix="$OUT/install" CXXFLAGS='-std=gnu++98 -include cstddef -include unistd.h -D_LARGEFILE64_SOURCE'
 make -j2 CXXFLAGS='-std=gnu++98 -include cstddef -include unistd.h -D_LARGEFILE64_SOURCE'
 make install-libs CXXFLAGS='-std=gnu++98 -include cstddef -include unistd.h -D_LARGEFILE64_SOURCE'
+# The frontend configure checks llc; install-libs omits executables.
+make -C tools/llc install CXXFLAGS='-std=gnu++98 -include cstddef -include unistd.h -D_LARGEFILE64_SOURCE'
+make -C tools/llvm-config install CXXFLAGS='-std=gnu++98 -include cstddef -include unistd.h -D_LARGEFILE64_SOURCE'
 printf '%s\n' "$CORE" > "$OUT/backend-source.txt"
 fi
 test -x "$OUT/install/bin/llvm-config"

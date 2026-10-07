@@ -43,8 +43,8 @@
     },
     {
       "stage": "bundled LLVM core",
-      "result": "in progress",
-      "evidence": "Rebuilding bundled core from pinned llvmgcc42-2336.9 archive; separate llvmCore-2326.12 backend is rejected."
+      "result": "built on native Linux; frontend configuration failed at installation boundary",
+      "evidence": "Native CI built bundled ARM backend, libraries and tools. install-libs omitted llc and llvm-config; frontend rejected installed prefix as invalid. Recipe now installs these tools explicitly."
     }
   ],
   "remaining": [
@@ -55,5 +55,6 @@
     "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates",
     "Investigate original per-unit flags and compiler revisions"
   ],
-  "assembler_thumb_macho_probe": true
+  "assembler_thumb_macho_probe": true,
+  "bundled_llvm_core_built": true
 }

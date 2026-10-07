@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import plistlib
 import shutil
 import subprocess
 import sys
@@ -166,6 +167,23 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('compiler profile changed', compiler_profile_failure(self.root, profile, path))
         write_json(self.root / 'config/candidates.json', {'version': 1, 'units': []})
         self.assertIsNone(compiler_profile_failure(self.root, profile, path))
+
+    def test_doctor_rejects_wrong_or_malformed_sdk_metadata(self):
+        from tools.dev import doctor
+        sdk = self.root / 'local.sdk'
+        sdk.mkdir()
+        profile = load_json(self.root / 'config/fixture-compiler.json')
+        profile['sdk_required'] = True
+        write_json(self.root / 'config/fixture-compiler.json', profile)
+        configure(self.root, sdk=sdk)
+        for version, expected in [('5.2', False), ('5.1', True)]:
+            (sdk / 'SDKSettings.plist').write_bytes(plistlib.dumps({'Version': version, 'CanonicalName': 'iphoneos' + version}))
+            check = next(c for c in doctor(self.root) if c['name'] == 'iOS SDK 5.1')
+            self.assertEqual(check['ok'], expected, check)
+        (sdk / 'SDKSettings.plist').write_bytes(b'<invalid')
+        check = next(c for c in doctor(self.root) if c['name'] == 'iOS SDK 5.1')
+        self.assertFalse(check['ok'])
+        self.assertIn('Malformed', check['detail'])
 
     def test_internal_ninja_is_pinned_independently_of_shell_path(self):
         with patch.dict(os.environ, {'PATH': '/nonexistent-pirates-tools'}):

@@ -6,6 +6,7 @@ on:
       - 'toolchain/**'
       - 'tools/toolchain.py'
       - 'tools/validate_compiler.py'
+      - 'tools/historical_smoke.py'
       - '.github/workflows/compiler-feasibility.yml'
 permissions:
   contents: read
@@ -46,8 +47,14 @@ jobs:
             build/toolchain/cctools-port.tar.gz
           key: ${{ steps.legacy-cache.outputs.cache-primary-key }}
       - name: Export validated toolchain with source and fingerprints
+        id: export-runtime
         run: python tools/toolchain.py export
+      - name: Install pinned matching dependencies
+        run: python -m pip install --require-hashes -r requirements.txt
+      - name: Verify historical incremental matching and deliberate regression
+        run: python tools/historical_smoke.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always() && steps.export-runtime.outcome == 'success'
         with:
           name: validated-llvmgcc42-linux-amd64
           path: |
@@ -82,4 +89,5 @@ jobs:
             build/toolchain/compiler.json
             build/toolchain/validation.json
             build/toolchain/probes/**/diagnostics.txt
+            build/toolchain/historical-smoke-*.json
           if-no-files-found: warn
