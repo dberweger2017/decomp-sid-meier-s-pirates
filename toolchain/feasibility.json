@@ -11,10 +11,44 @@
   "reproducible_objects": false,
   "runtime_image_pinned": false,
   "attempts": [
-    {"stage": "CMake configuration", "result": "failed", "evidence": "Apple llvmCore release has stale CMake source lists (ModuleProvider.cpp) and no test directory."},
-    {"stage": "configure/make LLVM core", "result": "failed then repaired", "evidence": "GCC 5 required explicit cstddef, unistd.h, and _LARGEFILE64_SOURCE host includes. Linux loadable module flags used unsupported -module; changed to -shared."},
-    {"stage": "LLVM core and tools", "result": "built", "evidence": "Release-Asserts ARM backend, llc, llvm-config, libraries, and unit test binaries built. install-libs avoids documentation dependency on groff."},
-    {"stage": "GCC cross-build attempt", "result": "interrupted", "evidence": "Docker returned error waiting for container: unexpected EOF; backend/daemon stopped. No LLVM-GCC compiler or ARMv7 Mach-O output was validated."}
+    {
+      "stage": "CMake configuration",
+      "result": "failed",
+      "evidence": "Apple llvmCore release has stale CMake source lists (ModuleProvider.cpp) and no test directory."
+    },
+    {
+      "stage": "configure/make LLVM core",
+      "result": "failed then repaired",
+      "evidence": "GCC 5 required explicit cstddef, unistd.h, and _LARGEFILE64_SOURCE host includes. Linux loadable module flags used unsupported -module; changed to -shared."
+    },
+    {
+      "stage": "LLVM core and tools",
+      "result": "built",
+      "evidence": "Release-Asserts ARM backend, llc, llvm-config, libraries, and unit test binaries built. install-libs avoids documentation dependency on groff."
+    },
+    {
+      "stage": "GCC cross-build attempt",
+      "result": "interrupted",
+      "evidence": "Docker returned error waiting for container: unexpected EOF; backend/daemon stopped. No LLVM-GCC compiler or ARMv7 Mach-O output was validated."
+    },
+    {
+      "stage": "resumed GCC frontend",
+      "result": "in progress",
+      "evidence": "Docker restarted after user reported closing it. Make CXX overrides repair missing ptrdiff_t and old constructor expressions; pinned flex and bison added for gengtype generation."
+    },
+    {
+      "stage": "legacy ARM assembler",
+      "result": "built and independently probed",
+      "evidence": "Pinned cctools-port 845 ARM GAS built with GCC 5; visibility and endian host definitions supplied. A Thumb-2 add.w/bx probe produced a parsed ARMv7 Mach-O object with the expected Thumb symbol. Full LLVM-GCC pipeline remains unvalidated."
+    }
   ],
-  "remaining": ["Validate GCC frontend against the backend hypothesis", "Supply and pin a Darwin ARM assembler or verify LLVM-GCC object emission", "Pass C/C++, ARM/Thumb, dependency-file and reproducibility probes", "Package validated artifacts in an immutable Linux image", "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates", "Investigate original per-unit flags and compiler revisions"]
+  "remaining": [
+    "Validate GCC frontend against the backend hypothesis",
+    "Validate frontend integration with the pinned cctools ARM assembler",
+    "Pass C/C++, ARM/Thumb, dependency-file and reproducibility probes",
+    "Package validated artifacts in an immutable Linux image",
+    "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates",
+    "Investigate original per-unit flags and compiler revisions"
+  ],
+  "assembler_thumb_macho_probe": true
 }

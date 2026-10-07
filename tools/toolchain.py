@@ -51,9 +51,12 @@ def build():
     result = {'validated': False, 'sources_lock_sha256': sha256(ROOT / 'toolchain/sources.lock.json'), 'stage': 'environment', 'returncode': None}
     commands = [(['docker', 'build', '--platform', 'linux/amd64', '-f', 'toolchain/Dockerfile.feasibility', '-t', 'pirates-compiler-feasibility', '.'], 'environment'),
                 (['docker', 'run', '--rm', '--platform', 'linux/amd64', '-v', str(ROOT) + ':/work', 'pirates-compiler-feasibility',
-                  '/bin/sh', 'toolchain/build-legacy.sh'], 'legacy-build')]
+                  '/bin/sh', 'toolchain/build-legacy.sh'], 'legacy-build'),
+                (['docker', 'run', '--rm', '--platform', 'linux/amd64', '--network', 'none', '-v', str(ROOT) + ':/work',
+                  'pirates-compiler-feasibility', '/bin/sh', 'toolchain/build-assembler.sh'], 'assembler-build')]
     for cmd, stage in commands:
         result['stage'] = stage
+        result['returncode'] = None
         write_json(out / 'attempt.json', result)
         with (out / (stage + '.log')).open('w') as log:
             try:

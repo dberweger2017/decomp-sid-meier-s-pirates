@@ -15,7 +15,9 @@ Recorded stages in `toolchain/feasibility.json`:
 1. CMake failed on stale source lists (`ModuleProvider.cpp`) and an absent test directory. Switched to the documented configure/make route.
 2. GCC 5 exposed missing host includes for `ptrdiff_t` and `lseek64`. Explicit host include flags fixed these errors. The archived module-link rule used `-module`; a recorded host-only change uses Linux `-shared` instead.
 3. The LLVM ARM backend, libraries, `llc`, `llvm-config`, and unit-test binaries built. `install-libs` avoids documentation generation requiring `groff`.
-4. The next attempt ended with Docker’s `error waiting for container: unexpected EOF`, followed by disappearance of the daemon socket. No GCC frontend, ARM/Thumb Mach-O object probes, or repeatable historical candidate objects were validated.
+4. One attempt ended with Docker’s `error waiting for container: unexpected EOF`, followed by disappearance of the daemon socket. The user reported closing Docker; after restarting it, the cached build resumed.
+5. The GCC frontend's bridge ignores configured CXXFLAGS. Passing host C++ includes through make's CXX command repairs missing `ptrdiff_t`; `-fpermissive` permits old constructor expressions in the never-called library link helper. Missing flex/bison inputs require pinned parser generators. The frontend retry remains unvalidated.
+6. Source inspection confirms assembly-file emission. The pinned Linux port of cctools 845's ARM GAS built with GCC host compilation, explicit port visibility definitions and little-endian host flags. An independent Thumb-2 probe produced a valid ARMv7 Mach-O object with the expected Thumb symbol. Its revision is an assembler hypothesis, not evidence of the assembler shipped with Xcode 4.3.2.
 
 The scripts preserve these host portability changes. They do not modify ARM code generation. Build logs are in the ignored local `build/toolchain/` cache; concise evidence is tracked separately. Do not infer feasibility of the full cross-build from the LLVM core build alone.
 
@@ -27,9 +29,9 @@ python tools/toolchain.py build
 python tools/toolchain.py status
 ```
 
-`fetch` verifies both archived sources. `build` creates the pinned research environment and invokes `toolchain/build-legacy.sh`, retaining logs and a failure record. It does not silently install a replacement compiler or mark a toolchain validated. A manual GitHub workflow runs the same experiment on native Linux.
+`fetch` verifies the frontend, backend, and assembler archives. `build` creates the pinned research environment and invokes `toolchain/build-legacy.sh` then `toolchain/build-assembler.sh`, retaining logs and a failure record. It does not silently install a replacement compiler or mark a toolchain validated. A manual GitHub workflow runs the same experiment on native Linux. To retry only the frontend inside the research container after the core is installed, pass `frontend` to `build-legacy.sh`.
 
-The build script currently tests the frontend after LLVM installation. A Darwin ARM assembler/object-emission path still needs to be supplied and pinned: the GCC driver cannot be assumed to use a compatible integrated assembler, and GNU `as` is not a Mach-O assembler. A freestanding C/C++ smoke probe can establish the basic cross-build before any SDK-dependent game work. UIKit/Foundation/C++ SDK headers must be supplied locally when candidates require them.
+The build script tests the frontend after LLVM installation, then builds the pinned Darwin ARM assembler. Its integration with the GCC driver still needs validation. A freestanding C/C++ smoke probe can establish the basic cross-build before any SDK-dependent game work. UIKit/Foundation/C++ SDK headers must be supplied locally when candidates require them.
 
 ## Validation and eventual runtime image
 

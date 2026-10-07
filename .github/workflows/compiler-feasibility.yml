@@ -27,4 +27,5 @@ jobs:
             build/toolchain/attempt.json
             build/toolchain/environment.log
             build/toolchain/legacy-build.log
+            build/toolchain/assembler-build.log
           if-no-files-found: warn
