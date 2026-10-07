@@ -8,13 +8,21 @@ mkdir -p "$OUT/core-bundled" "$OUT/gcc"
 STAGE=${1:-all}
 case "$STAGE" in all|frontend) ;; *) echo 'Expected all or frontend' >&2; exit 2 ;; esac
 # Host-only fixes for this archived build system; no ARM backend edits.
-python - "$CORE/Makefile.rules" <<'PYFIX'
+python - "$CORE/Makefile.rules" "$SRC/gcc/config/darwin.c" <<'PYFIX'
 import sys
 p=sys.argv[1]
 original=open(p).read()
 s=original.replace('LD.Flags += -module', 'LD.Flags += -shared')
 if s != original:
     open(p,'w').write(s)
+p=sys.argv[2]
+original=open(p).read()
+declaration='extern char * mempcpy (char *dst, const char *src, size_t len);'
+guarded='#if !defined(__GLIBC__)\n'+declaration+'\n#endif'
+if guarded not in original:
+    if declaration not in original:
+        raise SystemExit('Unexpected Darwin host mempcpy declaration')
+    open(p,'w').write(original.replace(declaration, guarded))
 PYFIX
 if [ "$STAGE" = all ]; then
 cd "$OUT/core-bundled"
