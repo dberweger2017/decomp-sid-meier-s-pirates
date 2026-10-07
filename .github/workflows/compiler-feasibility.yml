@@ -1,6 +1,12 @@
 name: Historical compiler feasibility (unvalidated)
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'toolchain/**'
+      - 'tools/toolchain.py'
+      - 'tools/validate_compiler.py'
+      - '.github/workflows/compiler-feasibility.yml'
 permissions:
   contents: read
 jobs:
