@@ -2233,7 +2233,8 @@
         "f-1d48cfcbee087f651766",
         "f-c58938cbd51e68f04bda",
         "f-e8b74efa90ef27bb908b",
-        "f-130132f550d000969b88"
+        "f-130132f550d000969b88",
+        "f-cda8db8471839c895e12"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -2912,7 +2913,8 @@
       "implemented_functions": [
         "f-0ff207840a626c9d70d8",
         "f-77eee2d212191c3f750f",
-        "f-05d9724e77a64d4fc371"
+        "f-05d9724e77a64d4fc371",
+        "f-72776d682225e3cffc07"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -4267,7 +4269,8 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-ef41c5da5b413a194a0b"
+        "f-ef41c5da5b413a194a0b",
+        "f-7f12240a376ce2437a4d"
       ],
       "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
       "recovery_kinds": {

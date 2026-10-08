@@ -6,6 +6,7 @@ namespace ISE {
 // virtual slots, unencoded return types and remaining fields are unknown.
 class ISEVector3 {
 public:
+    ISEVector3();
     ISEVector3(float xx, float yy, float zz);
     ISEVector3 & operator=(ISEVector3 &other);
 

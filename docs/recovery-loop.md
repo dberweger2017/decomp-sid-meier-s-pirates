@@ -530,3 +530,14 @@ preserve the original separate subtract-and-load instruction sequence.
 The updated report has **1,602 exact functions / 17,900 bytes**, 49 differing
 candidates, 7,526 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Two more constructors verify exactly: ISEVector3's default constructor clears
+the three words at `+0`, `+4`, and `+8`; CFIleIO's constructor clears its first
+three state words. UicFrameAnimation::Reset adds a grounded fuzzy candidate for
+the conditional byte clear at `+0x6d` and word clears at `+0x64` and `+0x68`;
+it compares at 82.3529% because the candidate rematerializes the zero register
+before each word store.
+
+The latest report has **1,604 exact functions / 17,940 bytes**, 50 differing
+candidates, 7,523 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
