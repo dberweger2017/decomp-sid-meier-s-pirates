@@ -80,3 +80,5 @@ void FPhono::CloseStream(int stream) {
         Phono2::PAudioSystem::getSingletonPtr()->StopStream(stream);
     }
 }
+
+bool FPhono::Startup(unsigned long, long, unsigned long) { return true; }
