@@ -8673,6 +8673,42 @@
         "int",
         "int"
       ]
+    },
+    {
+      "id": "f-2d60ee1ed0ec602ee024",
+      "group_id": "o-a70c52d41737dcc20b28",
+      "symbol": "__ZN9NiKFMToolC1Eb",
+      "original_name": "NiKFMTool::NiKFMTool(bool)",
+      "target_symbol": "__ZN9NiKFMToolC2Eb",
+      "target_name": "NiKFMTool::NiKFMTool(bool)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "bool"
+      ],
+      "target_parameters": [
+        "void *",
+        "bool"
+      ]
+    },
+    {
+      "id": "f-ee611ce3b08b0c751b16",
+      "group_id": "o-a70c52d41737dcc20b28",
+      "symbol": "__ZN19NiControllerManagerC1EP10NiAVObject",
+      "original_name": "NiControllerManager::NiControllerManager(NiAVObject*)",
+      "target_symbol": "__ZN19NiControllerManagerC2EP10NiAVObject",
+      "target_name": "NiControllerManager::NiControllerManager(NiAVObject*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *"
+      ]
     }
   ]
 }

@@ -4,6 +4,17 @@
 // GNU asm labels are symbol linkage only; no instruction/byte bodies.
 // Callee implementations, full layouts and unencoded results remain separate.
 
+// f-2d60ee1ed0ec602ee024 — complete-constructor
+// NiKFMTool::NiKFMTool(bool)
+// Calls: NiKFMTool::NiKFMTool(bool)
+extern "C" void pirates_complete_constructor_2d60ee1ed0ec602ee024_target(void *, bool)
+    __asm__("__ZN9NiKFMToolC2Eb");
+extern "C" void pirates_complete_constructor_2d60ee1ed0ec602ee024(void * a0, bool a1)
+    __asm__("__ZN9NiKFMToolC1Eb");
+extern "C" void pirates_complete_constructor_2d60ee1ed0ec602ee024(void * a0, bool a1) {
+    pirates_complete_constructor_2d60ee1ed0ec602ee024_target(a0, a1);
+}
+
 // f-35873081f297a74ba8c6 — complete-destructor
 // NiKFMTool::~NiKFMTool()
 // Calls: NiKFMTool::~NiKFMTool()
@@ -101,6 +112,17 @@ extern "C" void pirates_complete_destructor_dd64a6429f39655c1e5f(void * a0)
     __asm__("__ZN19NiControllerManagerD1Ev");
 extern "C" void pirates_complete_destructor_dd64a6429f39655c1e5f(void * a0) {
     pirates_complete_destructor_dd64a6429f39655c1e5f_target(a0);
+}
+
+// f-ee611ce3b08b0c751b16 — complete-constructor
+// NiControllerManager::NiControllerManager(NiAVObject*)
+// Calls: NiControllerManager::NiControllerManager(NiAVObject*)
+extern "C" void pirates_complete_constructor_ee611ce3b08b0c751b16_target(void *, void *)
+    __asm__("__ZN19NiControllerManagerC2EP10NiAVObject");
+extern "C" void pirates_complete_constructor_ee611ce3b08b0c751b16(void * a0, void * a1)
+    __asm__("__ZN19NiControllerManagerC1EP10NiAVObject");
+extern "C" void pirates_complete_constructor_ee611ce3b08b0c751b16(void * a0, void * a1) {
+    pirates_complete_constructor_ee611ce3b08b0c751b16_target(a0, a1);
 }
 
 // f-f3ebb3760ba729989f54 — complete-destructor
