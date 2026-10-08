@@ -26,6 +26,7 @@ inline __attribute__((always_inline)) void Value(const char *&cursor, PVRTQUATER
     value.x = Scalar(cursor); value.y = Scalar(cursor); value.z = Scalar(cursor); value.w = Scalar(cursor);
 }
 inline __attribute__((always_inline)) void Value(const char *&cursor, float &value) { value = Scalar(cursor); }
+inline __attribute__((always_inline)) void Value(const char *&cursor, unsigned char &value) { value = static_cast<unsigned char>(*cursor++); }
 inline __attribute__((always_inline)) char *Name(const char *&cursor) {
     const int length = Word(cursor);
     if (length > 0) {

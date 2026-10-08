@@ -20,7 +20,8 @@ private:
     Channel<PVRTVECTOR3f> m_translation;    // +0x24
     Channel<PVRTQUATERNIONf> m_rotation;    // +0x30
     Channel<PVRTVECTOR3f> m_scale;          // +0x3c
-    unsigned char m_unrecovered48[28];  // +0x48..+0x63
+    Channel<unsigned char> m_visibility;   // +0x48, introduced in version 2
+    unsigned char m_unrecovered54[16];  // +0x54..+0x63
 };
 
 class ControllerSequence {
@@ -38,6 +39,7 @@ public:
 
     struct Node { char *name; int parent; };
 private:
+    template<int Version> static inline __attribute__((always_inline)) ControllerSequence *ReadSequence(const char *memory);
     char *m_name;                       // +0x00
     unsigned int m_unknown04;           // +0x04
     unsigned int m_unknown08;           // +0x08

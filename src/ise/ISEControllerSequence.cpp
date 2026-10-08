@@ -54,7 +54,8 @@ void ControllerSequence::GetNodeMatrix(int node, PVRTMATRIXf &matrix) {
     }
 }
 
-ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer1(const char *memory, int) {
+template<int Version>
+inline __attribute__((always_inline)) ControllerSequence *ControllerSequence::ReadSequence(const char *memory) {
     using namespace sequence_reader;
     const char *cursor = memory + 16;
     const unsigned int nameLength = Word(cursor);
@@ -86,9 +87,20 @@ ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer1(const char 
             Channel(cursor, controller.m_translation.count, controller.m_translation.times, controller.m_translation.values, false);
             Channel(cursor, controller.m_rotation.count, controller.m_rotation.times, controller.m_rotation.values, true);
             Channel(cursor, controller.m_scale.count, controller.m_scale.times, controller.m_scale.values, true);
+            if (Version >= 2)
+                Channel(cursor, controller.m_visibility.count, controller.m_visibility.times, controller.m_visibility.values, true);
         }
     }
     return sequence;
+}
+
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer1(const char *memory, int) {
+    return ReadSequence<1>(memory);
+}
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer2(const char *memory, int size) {
+    if (reinterpret_cast<const unsigned int *>(memory)[2] == 1)
+        return CreateSequenceFromMemoryVer1(memory, size);
+    return ReadSequence<2>(memory);
 }
 
 ControllerSequence *ControllerSequence::CreateSequenceFromMemory(const char *memory, int size) {
