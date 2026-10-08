@@ -388,7 +388,8 @@
         "f-e83f1bbfbbe6f4d8492e",
         "f-b3f3f0f90f1b1a380d92",
         "f-da070b6289602c02231a",
-        "f-696020a1c7f7b802c556"
+        "f-696020a1c7f7b802c556",
+        "f-ebedf9448a6dbf4874ec"
       ],
       "flags_provenance": "Investigation profile for original ARM facade calls and integer float transport. Isolated trials verify the first wrapper when post-register-allocation scheduling is disabled; enabled scheduling moves its frame-pointer setup. These are matching investigation flags, not proof of original build settings. Unencoded return types remain provisional; see FPhono.h and phono2/PAudioSystem.h."
     }

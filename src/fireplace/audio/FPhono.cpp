@@ -49,3 +49,7 @@ bool FPhono::IsSamplePlaying(int sample) {
 void FPhono::Update(float elapsed) {
     Phono2::PAudioSystem::getSingletonPtr()->Update(elapsed);
 }
+
+void FPhono::Shutdown() {
+    Phono2::PAudioSystem::getSingletonPtr()->ReGenSources();
+}
