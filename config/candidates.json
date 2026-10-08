@@ -81,9 +81,15 @@
         "f-67a9f7b44c4b3574d114",
         "f-3056ddf4a0547696fde0",
         "f-fac033c0e8e10d664bde",
-        "f-e843f6b43fac6914836a"
+        "f-e843f6b43fac6914836a",
+        "f-79ade390df66961290aa",
+        "f-e7fdf9b3c588cf30030d"
       ],
-      "flags_provenance": "Successful investigation profile; original flags remain unknown. See docs/easy-candidates.md."
+      "flags_provenance": "Successful investigation profile; original flags remain unknown. See docs/easy-candidates.md.",
+      "recovery_kinds": {
+        "f-79ade390df66961290aa": "complete-destructor",
+        "f-e7fdf9b3c588cf30030d": "method-forwarder"
+      }
     },
     {
       "group_id": "o-52bcb4cde31b44f66f8f",
