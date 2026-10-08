@@ -483,6 +483,30 @@
         "f-ffcde9de485fe9033a9d"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-fb173e414b8edec47528",
+      "source": "src/game/unity/FireIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-4829405e4c016a985d1b",
+        "f-33e00a07646d9db70bfb",
+        "f-32d6ab24197c92660536",
+        "f-6ffa7466c967bb7efb44",
+        "f-847475ed7eeb53faea3d",
+        "f-8368d62a690caa2ed43e",
+        "f-c928201e3a737985efdf",
+        "f-92f76cbdbfaac1f574a5",
+        "f-31f77c6981296e4d3ee5",
+        "f-b396b04d74c8994334cf"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     }
   ]
 }
