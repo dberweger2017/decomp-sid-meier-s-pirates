@@ -20,4 +20,14 @@ private:
     unsigned int m_renderUnitCount; // +0x104
     unsigned int m_polyCount; // +0x108
 };
+
+// Partial view of the material path observed in this object's getter.
+class ISEEntityRenderUnit {
+public:
+    void * GetMaterial();
+
+private:
+    unsigned char m_unknown_00[20];
+    void * m_materialOwner; // +0x14
+};
 } // namespace ISE

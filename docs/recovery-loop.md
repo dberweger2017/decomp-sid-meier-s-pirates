@@ -465,6 +465,12 @@ The source uses ordinary pointer arithmetic. Return types are not
 encoded in the symbols, so the partial declarations use `void*`; the complete
 types and object hierarchies remain unrecovered.
 
+Four more short ISE field-path functions now verify exactly, adding 48 bytes.
+They recover the observed load-and-adjust sequences for ISEParticles and its
+material thunk, ISEEntityRenderUnit::GetMaterial, and the TriStrip
+GetVertexNum thunk. The source records only the pointer fields and offsets used
+by these bodies; the containing class layouts remain partial.
+
 Three ISELight setters have readable source candidates but remain different at
 25% assembly similarity. The original stores `(r, g, b, 0)` at `+8` and
 `+0x18`, and `(x, y, z, 1)` at `+0x38`. The candidates express those four
@@ -473,6 +479,6 @@ and destination registers in the opposite order from the original; these three
 functions receive no exact-match credit. This is a source-level result, not a
 claim that the partial ISELight layout is complete.
 
-The resulting report has **1,583 exact functions / 17,596 bytes**, 43 differing
-candidates, 7,551 missing functions and no compile errors or unresolved
+The resulting report has **1,587 exact functions / 17,644 bytes**, 43 differing
+candidates, 7,547 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
