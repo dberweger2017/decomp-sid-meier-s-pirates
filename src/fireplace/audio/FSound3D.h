@@ -1,4 +1,5 @@
 #pragma once
+#include "../../gamebryo/NiPoint3.h"
 
 struct F3DSoundScriptData;
 
@@ -12,6 +13,11 @@ public:
     int GetStreamId();
     unsigned int GetGlobalSoundFilenameIndex();
     bool IsStreaming();
+    bool IsLooping() const;
+    bool GetPosition(NiPoint3 &position) const;
+    bool GetDistances(float &first, float &second) const;
+    bool GetCone(int &firstAngle, int &secondAngle, float &gain) const;
+    bool GetOrientation(NiPoint3 &first, NiPoint3 &second) const;
     bool IsInitialized() const;
     bool IsLoaded() const;
     bool IsPaused() const;
@@ -27,6 +33,7 @@ public:
     bool GetVolume(float &value) const;
     bool GetPitchChange(int &value) const;
     bool GetOriginalPitch(unsigned long &value) const;
+    bool GetShortCircuitScriptField(int flags);
     void SetShortCircuitScriptField(int flags);
     void ClearShortCircuitScriptField(int flags);
 
@@ -36,9 +43,20 @@ private:
     int m_streamId;                            // +0x10
     unsigned int m_globalSoundFilenameIndex;   // +0x14
     bool m_streaming;                          // +0x18
-    unsigned char m_unknown_19[47];
+    unsigned char m_unknown_19[3];
+    int m_loopCount;                           // +0x1c
+    unsigned char m_unknown_20[4];
+    NiPoint3 m_position;                       // +0x24
+    unsigned char m_unknown_30[24];
     float m_velocityMagnitude;                 // +0x48
-    unsigned char m_unknown_4c[44];
+    // Output order is observed; original axis/distance names remain unknown.
+    NiPoint3 m_firstOrientation;               // +0x4c
+    NiPoint3 m_secondOrientation;              // +0x58
+    int m_firstConeAngle;                      // +0x64
+    int m_secondConeAngle;                     // +0x68
+    float m_coneGain;                          // +0x6c
+    float m_secondDistance;                    // +0x70
+    float m_firstDistance;                     // +0x74
     float m_volume;                            // +0x78
     int m_pitchChange;                         // +0x7c
     unsigned long m_originalPitch;             // +0x80
