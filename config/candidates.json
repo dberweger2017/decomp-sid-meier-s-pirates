@@ -355,7 +355,8 @@
       "functions": {},
       "implemented_functions": [
         "f-fc283ac1897033598453",
-        "f-0db0da540cdea5a3dcda"
+        "f-0db0da540cdea5a3dcda",
+        "f-22f2dfc6417448805018"
       ],
       "flags_provenance": "Investigation profile for original ARM shared-sound field access. Original flags, missing methods and initialization payload remain unknown; see FSharedSoundData.h."
     }
