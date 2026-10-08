@@ -6,3 +6,5 @@ namespace ISE {
 
 bool ISECamera::IsPerspective() { return m_perspective; }
 } // namespace ISE
+
+#include "../recovery/abi/o-9cdb54dcd3500115b6d3.cpp"

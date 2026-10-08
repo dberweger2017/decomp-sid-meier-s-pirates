@@ -9345,6 +9345,22 @@
         "bool"
       ],
       "argument_evidence": "Nontrivial by-value argument lowered indirectly in r1. Original C2 stores r1 and dereferences that pointer; entry forwards the same existing parameter object, not a new copy. Complete type and lifetime model remain separate."
+    },
+    {
+      "id": "f-112907bd166abb68b0b8",
+      "group_id": "o-9cdb54dcd3500115b6d3",
+      "symbol": "__ZN3ISE9ISECameraC1Ev",
+      "original_name": "ISE::ISECamera::ISECamera()",
+      "target_symbol": "__ZN3ISE9ISECameraC2Ev",
+      "target_name": "ISE::ISECamera::ISECamera()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
