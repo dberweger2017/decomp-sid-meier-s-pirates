@@ -136,6 +136,28 @@ extern "C" void pirates_method_forwarder_50cc5e40c8929953fd58(void * a0, void * 
     pirates_method_forwarder_50cc5e40c8929953fd58_target(a0, a1, a2);
 }
 
+// f-5befae4d6320d4731a99 — complete-constructor
+// SpecialistUIScene::SpecialistUIScene(CPVRTString const&, UISceneComponent*)
+// Calls: SpecialistUIScene::SpecialistUIScene(CPVRTString const&, UISceneComponent*)
+extern "C" void pirates_complete_constructor_5befae4d6320d4731a99_target(void *, const void *, void *)
+    __asm__("__ZN17SpecialistUISceneC2ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_5befae4d6320d4731a99(void * a0, const void * a1, void * a2)
+    __asm__("__ZN17SpecialistUISceneC1ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_5befae4d6320d4731a99(void * a0, const void * a1, void * a2) {
+    pirates_complete_constructor_5befae4d6320d4731a99_target(a0, a1, a2);
+}
+
+// f-5c80c6c5f0d8316fce9e — complete-constructor
+// MapPieceUIScene::MapPieceUIScene(CPVRTString const&, UISceneComponent*)
+// Calls: MapPieceUIScene::MapPieceUIScene(CPVRTString const&, UISceneComponent*)
+extern "C" void pirates_complete_constructor_5c80c6c5f0d8316fce9e_target(void *, const void *, void *)
+    __asm__("__ZN15MapPieceUISceneC2ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_5c80c6c5f0d8316fce9e(void * a0, const void * a1, void * a2)
+    __asm__("__ZN15MapPieceUISceneC1ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_5c80c6c5f0d8316fce9e(void * a0, const void * a1, void * a2) {
+    pirates_complete_constructor_5c80c6c5f0d8316fce9e_target(a0, a1, a2);
+}
+
 // f-5fb90a400d6f8359d7d6 — complete-destructor
 // UicKeyboard::~UicKeyboard()
 // Calls: UicKeyboard::~UicKeyboard()
@@ -158,6 +180,17 @@ extern "C" void pirates_complete_destructor_6b72bc640587bf0ff03a(void * a0) {
     pirates_complete_destructor_6b72bc640587bf0ff03a_target(a0);
 }
 
+// f-70da9e91e9b37d2f4cab — complete-constructor
+// UicPullReefCtrl::UicPullReefCtrl(int, int, int)
+// Calls: UicPullReefCtrl::UicPullReefCtrl(int, int, int)
+extern "C" void pirates_complete_constructor_70da9e91e9b37d2f4cab_target(void *, int, int, int)
+    __asm__("__ZN15UicPullReefCtrlC2Eiii");
+extern "C" void pirates_complete_constructor_70da9e91e9b37d2f4cab(void * a0, int a1, int a2, int a3)
+    __asm__("__ZN15UicPullReefCtrlC1Eiii");
+extern "C" void pirates_complete_constructor_70da9e91e9b37d2f4cab(void * a0, int a1, int a2, int a3) {
+    pirates_complete_constructor_70da9e91e9b37d2f4cab_target(a0, a1, a2, a3);
+}
+
 // f-7e1be34bbb9d03a9b321 — complete-destructor
 // UicQuestLog::~UicQuestLog()
 // Calls: UicQuestLog::~UicQuestLog()
@@ -167,6 +200,17 @@ extern "C" void pirates_complete_destructor_7e1be34bbb9d03a9b321(void * a0)
     __asm__("__ZN11UicQuestLogD1Ev");
 extern "C" void pirates_complete_destructor_7e1be34bbb9d03a9b321(void * a0) {
     pirates_complete_destructor_7e1be34bbb9d03a9b321_target(a0);
+}
+
+// f-8992dc921f3b72c8902e — complete-constructor
+// UicKeyboard::UicKeyboard(int, int, bool (*)(char const*))
+// Calls: UicKeyboard::UicKeyboard(int, int, bool (*)(char const*))
+extern "C" void pirates_complete_constructor_8992dc921f3b72c8902e_target(void *, int, int, const void *)
+    __asm__("__ZN11UicKeyboardC2EiiPFbPKcE");
+extern "C" void pirates_complete_constructor_8992dc921f3b72c8902e(void * a0, int a1, int a2, const void * a3)
+    __asm__("__ZN11UicKeyboardC1EiiPFbPKcE");
+extern "C" void pirates_complete_constructor_8992dc921f3b72c8902e(void * a0, int a1, int a2, const void * a3) {
+    pirates_complete_constructor_8992dc921f3b72c8902e_target(a0, a1, a2, a3);
 }
 
 // f-8ee81680ac2690e11ded — complete-destructor
@@ -200,6 +244,17 @@ extern "C" void pirates_complete_destructor_95c0bb42bbee88747c9f(void * a0)
     __asm__("__ZN6NiTMapIPKciED1Ev");
 extern "C" void pirates_complete_destructor_95c0bb42bbee88747c9f(void * a0) {
     pirates_complete_destructor_95c0bb42bbee88747c9f_target(a0);
+}
+
+// f-97ee84daa13d0e51973d — complete-constructor
+// UicQuestLog::UicQuestLog(int, int)
+// Calls: UicQuestLog::UicQuestLog(int, int)
+extern "C" void pirates_complete_constructor_97ee84daa13d0e51973d_target(void *, int, int)
+    __asm__("__ZN11UicQuestLogC2Eii");
+extern "C" void pirates_complete_constructor_97ee84daa13d0e51973d(void * a0, int a1, int a2)
+    __asm__("__ZN11UicQuestLogC1Eii");
+extern "C" void pirates_complete_constructor_97ee84daa13d0e51973d(void * a0, int a1, int a2) {
+    pirates_complete_constructor_97ee84daa13d0e51973d_target(a0, a1, a2);
 }
 
 // f-a1535024acabe1dec546 — complete-destructor

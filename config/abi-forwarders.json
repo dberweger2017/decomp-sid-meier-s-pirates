@@ -8569,6 +8569,110 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-97ee84daa13d0e51973d",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN11UicQuestLogC1Eii",
+      "original_name": "UicQuestLog::UicQuestLog(int, int)",
+      "target_symbol": "__ZN11UicQuestLogC2Eii",
+      "target_name": "UicQuestLog::UicQuestLog(int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-5befae4d6320d4731a99",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN17SpecialistUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "SpecialistUIScene::SpecialistUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN17SpecialistUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "SpecialistUIScene::SpecialistUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-5c80c6c5f0d8316fce9e",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN15MapPieceUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "MapPieceUIScene::MapPieceUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN15MapPieceUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "MapPieceUIScene::MapPieceUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-8992dc921f3b72c8902e",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN11UicKeyboardC1EiiPFbPKcE",
+      "original_name": "UicKeyboard::UicKeyboard(int, int, bool (*)(char const*))",
+      "target_symbol": "__ZN11UicKeyboardC2EiiPFbPKcE",
+      "target_name": "UicKeyboard::UicKeyboard(int, int, bool (*)(char const*))",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-70da9e91e9b37d2f4cab",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN15UicPullReefCtrlC1Eiii",
+      "original_name": "UicPullReefCtrl::UicPullReefCtrl(int, int, int)",
+      "target_symbol": "__ZN15UicPullReefCtrlC2Eiii",
+      "target_name": "UicPullReefCtrl::UicPullReefCtrl(int, int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ]
     }
   ]
 }
