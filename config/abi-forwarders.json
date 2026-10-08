@@ -8511,6 +8511,64 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-c3faa21a6a15536c958d",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "__ZN8FCSVFileC1Eiib",
+      "original_name": "FCSVFile::FCSVFile(int, int, bool)",
+      "target_symbol": "__ZN8FCSVFileC2Eiib",
+      "target_name": "FCSVFile::FCSVFile(int, int, bool)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "bool"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "bool"
+      ]
+    },
+    {
+      "id": "f-551893e030490a17bac8",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "__ZN8FStringAC1EPKw",
+      "original_name": "FStringA::FStringA(wchar_t const*)",
+      "target_symbol": "__ZN8FStringAC2EPKw",
+      "target_name": "FStringA::FStringA(wchar_t const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-37622dfd7b9a2d45168f",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "__ZN10FIniParserC1EPKc",
+      "original_name": "FIniParser::FIniParser(char const*)",
+      "target_symbol": "__ZN10FIniParserC2EPKc",
+      "target_name": "FIniParser::FIniParser(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }

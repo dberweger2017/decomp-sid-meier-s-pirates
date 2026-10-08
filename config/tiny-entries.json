@@ -36,6 +36,30 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-a416f72214e5b46fbf84",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "___tcf_2",
+      "original_name": "__tcf_2",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-cd6483cec1117b00c912",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "___tcf_7",
+      "original_name": "__tcf_7",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
