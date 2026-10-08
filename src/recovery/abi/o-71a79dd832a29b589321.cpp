@@ -4,6 +4,17 @@
 // GNU asm labels are symbol linkage only; no instruction/byte bodies.
 // Callee implementations, full layouts and unencoded results remain separate.
 
+// f-12ba9d35d0d61e6e72bc — complete-constructor
+// FSoundScape::FSoundScape()
+// Calls: FSoundScape::FSoundScape()
+extern "C" void pirates_complete_constructor_12ba9d35d0d61e6e72bc_target(void *)
+    __asm__("__ZN11FSoundScapeC2Ev");
+extern "C" void pirates_complete_constructor_12ba9d35d0d61e6e72bc(void * a0)
+    __asm__("__ZN11FSoundScapeC1Ev");
+extern "C" void pirates_complete_constructor_12ba9d35d0d61e6e72bc(void * a0) {
+    pirates_complete_constructor_12ba9d35d0d61e6e72bc_target(a0);
+}
+
 // f-86b3bf0d96a6a5efcd3c — complete-destructor
 // FSoundScape::~FSoundScape()
 // Calls: FSoundScape::~FSoundScape()

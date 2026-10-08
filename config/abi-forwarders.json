@@ -9023,6 +9023,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-12ba9d35d0d61e6e72bc",
+      "group_id": "o-71a79dd832a29b589321",
+      "symbol": "__ZN11FSoundScapeC1Ev",
+      "original_name": "FSoundScape::FSoundScape()",
+      "target_symbol": "__ZN11FSoundScapeC2Ev",
+      "target_name": "FSoundScape::FSoundScape()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
