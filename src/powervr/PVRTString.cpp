@@ -10,3 +10,5 @@ unsigned long CPVRTString::length() const { return m_length; }
 unsigned long CPVRTString::size() const { return m_length; }
 
 const char &CPVRTString::operator[](unsigned long index) const { return m_buffer[index]; }
+
+char &CPVRTString::operator[](unsigned long index) { return m_buffer[index]; }
