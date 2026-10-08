@@ -9545,6 +9545,22 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-c6da5fa7fbbd4ee36e29",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "symbol": "__ZN3ISE18ControllerSequenceD1Ev",
+      "original_name": "ISE::ControllerSequence::~ControllerSequence()",
+      "target_symbol": "__ZN3ISE18ControllerSequenceD2Ev",
+      "target_name": "ISE::ControllerSequence::~ControllerSequence()",
+      "kind": "complete-destructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
