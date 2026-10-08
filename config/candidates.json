@@ -1621,6 +1621,23 @@
         "f-3e9db487b3bb5b0ddb41"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-fc47612af2366cffff71",
+      "source": "src/recovery/units/ISENodeGrouperShader.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-4fc998cfc680c9af835e",
+        "f-6a42fb57a82a4c7480b0",
+        "f-78f23497a3f5f133a60f"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
