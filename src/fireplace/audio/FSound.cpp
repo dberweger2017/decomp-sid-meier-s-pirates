@@ -4,3 +4,5 @@
 // Missing methods remain undefined; do not provide artificial stubs.
 
 int FSound::GetSampleId() { return m_sampleId; }
+
+int FSound::GetStreamId() { return m_streamId; }
