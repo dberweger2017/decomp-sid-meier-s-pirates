@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "enabled": false,
+  "scope": "replacement",
+  "entry": "_main",
+  "object_order": [],
+  "flags": [],
+  "libraries": ["-lSystem", "-lstdc++", "-lobjc", "-framework", "Foundation", "-framework", "UIKit", "-framework", "OpenGLES"],
+  "expected_imports": [],
+  "expected_libraries": [],
+  "uncertainties": ["Original linker flags, object ordering, section placement and imports must be reconstructed before enabling full-game replacement linking"]
+}

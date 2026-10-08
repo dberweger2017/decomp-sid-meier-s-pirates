@@ -1,0 +1,286 @@
+"""Pinned linker identity, structural image inspection and incremental link state.
+
+Structural linking is not runtime validation or image equality. Completion is
+credited only for a source-only replacement with full exact coverage and a
+byte-identical original image. Diagnostic subset links always have zero credit.
+"""
+import hashlib
+import json
+import os
+import re
+import struct
+import subprocess
+from pathlib import Path
+from .macho import MachO
+from .sdk import inspect_sdk
+from .util import load_json, write_json, sha256, ToolError, local_path
+
+
+def digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def command(profile, root, sdk=None):
+    if profile.get('container'):
+        image = profile['container']['image']
+        if not re.fullmatch(r'(?:[^\s]+@)?sha256:[0-9a-f]{64}', image):
+            raise ToolError('Linker container must have an immutable image digest')
+        cmd = ['docker', 'run', '--rm', '--platform', 'linux/amd64', '--network', 'none',
+               '-v', str(Path(root).resolve()) + ':/work', '-w', '/work']
+        if sdk:
+            cmd += ['-v', str(Path(sdk).resolve()) + ':/sdk:ro']
+        return cmd + [image, profile['container']['linker']]
+    return profile['command']
+
+
+def identity(profile, root, sdk=None):
+    cmd = command(profile, root, sdk)
+    run = subprocess.run(cmd + ['-v'], cwd=root, capture_output=True, text=True, timeout=30)
+    if run.returncode:
+        raise ToolError('Linker version probe failed: ' + run.stderr)
+    version = (run.stdout + run.stderr).strip()
+    if profile.get('container'):
+        container = profile['container']
+        info = subprocess.run(['docker', 'run', '--rm', '--platform', 'linux/amd64', '--network', 'none',
+                               container['image'], 'sha256sum', container['linker']], capture_output=True, text=True, check=True, timeout=30)
+        binary_hash = info.stdout.split()[0]
+    else:
+        import shutil
+        binary_hash = sha256(shutil.which(cmd[0]) or Path(root) / cmd[0])
+    return {'family': profile['family'], 'version': version, 'binary_sha256': binary_hash,
+            'invocation_sha256': digest(profile.get('container') or profile['command'])}
+
+
+def fingerprint(profile, root, sdk=None):
+    result = {'validated': False, 'reason': 'No linker profile configured', 'profile': None}
+    if not profile:
+        return result
+    result['profile'] = {k: v for k, v in profile.items() if k not in ('validation', 'command')}
+    try:
+        info = identity(profile, root, sdk)
+        result.update(info)
+        if profile['family'] == 'synthetic-linker':
+            result.update(validated=True, reason='Synthetic fixture linker; never a game linker')
+        else:
+            validation = load_json(Path(root) / profile['validation'])
+            if (not validation.get('validated') or validation.get('identity') != info
+                    or validation.get('profile_sha256') != digest(profile)
+                    or validation.get('sdk') != inspect_sdk(sdk)
+                    or len(validation.get('probes', [])) != 8):
+                raise ToolError('Linker validation is absent, stale or incomplete')
+            result.update(validated=True, reason=None)
+    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+        result['reason'] = str(error)
+    return result
+
+
+def inspect_image(data, entry=None, imports=(), libraries=(), min_version=None, sdk_version=None):
+    """Inspect linked image commands/bindings independently of object relocation.
+
+This deliberately does not reuse relocate() to validate the linker's output.
+Dyld bind bytecode is bounds checked and resolved to named library ordinals.
+"""
+    image = MachO(data)
+    if image.filetype != 2:
+        raise ToolError('Linker output is not an ARMv7 executable')
+    dylibs, segments, bind_regions = [], [], []
+    pos = 28
+    count = struct.unpack_from('<I', data, 16)[0]
+    versions = {}
+    for _ in range(count):
+        cmd, size = image.unpack('<II', pos)
+        if cmd == 1:
+            name, vmaddr, vmsize, fileoff, filesize, maxprot, prot, nsects, flags = image.unpack('<16s8I', pos + 8)
+            image.check(fileoff, filesize)
+            segments.append({'name': image.name(name), 'address': vmaddr, 'size': vmsize})
+        elif cmd in (0xc, 0x80000018, 0x8000001f, 0x80000023):
+            if size < 24:
+                raise ToolError('Truncated dylib command')
+            off = image.unpack('<I', pos + 8)[0]
+            if off < 24 or off >= size:
+                raise ToolError('Invalid dylib name offset')
+            end = data.find(b'\0', pos + off, pos + size)
+            if end < 0:
+                raise ToolError('Unterminated dylib name')
+            dylibs.append(image.name(data[pos + off:end]))
+        elif cmd == 0x25:
+            if size != 16:
+                raise ToolError('Malformed iOS deployment command')
+            versions['min'], versions['sdk'] = image.unpack('<II', pos + 8)
+        elif cmd in (0x22, 0x80000022):
+            if size != 48:
+                raise ToolError('Malformed dyld info')
+            fields = image.unpack('<10I', pos + 8)
+            for name, i in (('bind', 2), ('weak', 4), ('lazy', 6)):
+                off, length = fields[i:i + 2]
+                image.check(off, length)
+                bind_regions.append((name, off, length))
+        pos += size
+    if entry and not any(s.defined and s.name == entry for s in image.symbols):
+        raise ToolError('Linked entry symbol is absent: ' + entry)
+    bindings = []
+    for kind, off, length in bind_regions:
+        p, end = off, off + length
+        ordinal, segment, address, name = 0, None, 0, None
+
+        def leb(signed=False):
+            nonlocal p
+            value, shift = 0, 0
+            while p < end and shift < 64:
+                byte = data[p]; p += 1
+                value |= (byte & 0x7f) << shift; shift += 7
+                if byte < 128:
+                    return value - (1 << shift) if signed and byte & 64 else value
+            raise ToolError('Malformed bind LEB128')
+
+        def emit():
+            if not name or segment is None or segment >= len(segments) or address < 0 or address + 4 > segments[segment]['size']:
+                raise ToolError('Bind target outside segment or missing symbol')
+            if ordinal > len(dylibs) or ordinal < -3:
+                raise ToolError('Invalid dylib ordinal')
+            bindings.append({'kind': kind, 'symbol': name, 'ordinal': ordinal,
+                             'library': dylibs[ordinal - 1] if ordinal > 0 else None,
+                             'address': segments[segment]['address'] + address})
+
+        while p < end:
+            byte = data[p]; p += 1
+            opcode, imm = byte & 0xf0, byte & 15
+            if opcode == 0:
+                if kind != 'lazy':
+                    break
+                ordinal, segment, address, name = 0, None, 0, None
+            elif opcode == 0x10: ordinal = imm
+            elif opcode == 0x20: ordinal = leb()
+            elif opcode == 0x30: ordinal = imm - 16 if imm else 0
+            elif opcode == 0x40:
+                finish = data.find(b'\0', p, end)
+                if finish < 0: raise ToolError('Unterminated bind symbol')
+                name = image.name(data[p:finish]); p = finish + 1
+            elif opcode == 0x50:
+                if imm != 1: raise ToolError('Unsupported non-pointer binding')
+            elif opcode == 0x60: leb(True)
+            elif opcode == 0x70: segment, address = imm, leb()
+            # Dyld address arithmetic uses uintptr_t on this 32-bit image.
+            # ld64 can encode a backwards delta as a 64-bit unsigned LEB.
+            elif opcode == 0x80: address = (address + leb()) & 0xffffffff
+            elif opcode == 0x90: emit(); address = (address + 4) & 0xffffffff
+            elif opcode == 0xa0: emit(); address = (address + 4 + leb()) & 0xffffffff
+            elif opcode == 0xb0: emit(); address = (address + 4 + 4 * imm) & 0xffffffff
+            elif opcode == 0xc0:
+                n, skip = leb(), leb()
+                if n > 1000000: raise ToolError('Bind repetition resource limit')
+                for _ in range(n): emit(); address = (address + 4 + skip) & 0xffffffff
+            else: raise ToolError('Unsupported bind opcode')
+    defined_imports = {b['symbol'] for b in bindings}
+    if set(imports) - defined_imports:
+        raise ToolError('Expected imports are not bound: ' + ', '.join(sorted(set(imports) - defined_imports)))
+    if set(libraries) - set(dylibs):
+        raise ToolError('Expected dylib load commands are absent')
+    if min_version is not None and versions.get('min') != min_version:
+        raise ToolError('iOS deployment version differs')
+    if sdk_version is not None and versions.get('sdk') != sdk_version:
+        raise ToolError('iOS SDK version differs')
+    return {'architecture': 'armv7', 'libraries': dylibs, 'versions': versions, 'bindings': bindings,
+            'sections': image.section_metadata(), 'entry': entry, 'runtime_validated': False}
+
+
+def inputs(root, config):
+    values = {'configuration': digest(config), 'original': config['provenance']['executable_sha256'],
+              'sdk': inspect_sdk(config.get('sdk'))}
+    for unit in config['units']:
+        path = Path(root) / ('build/units/' + unit['id'] + '.compile.json')
+        values[unit['id']] = sha256(path) if path.exists() else None
+        obj = Path(root) / ('build/units/' + unit['id'] + '.o')
+        values[unit['id'] + '.o'] = sha256(obj) if obj.exists() else None
+        for source in [unit['source'], *load_json(path).get('dependencies', {})] if path.exists() else [unit['source']]:
+            source_path = local_path(root, source)
+            values[source] = sha256(source_path) if source_path.exists() else None
+    return values
+
+
+def run_link(root):
+    from .build import configuration, comparisons
+    root = Path(root)
+    config = configuration(root)
+    profile, manifest = config.get('linker'), config.get('link', {})
+    info = fingerprint(profile, root, config.get('sdk'))
+    out = root / 'build/link'
+    out.mkdir(parents=True, exist_ok=True)
+    image_path = out / 'Pirates'
+    image_path.unlink(missing_ok=True)
+    state = {'version': 1, 'state': 'unsupported', 'supported': info['validated'], 'profile': info,
+             'complete_code': 0, 'complete_data': 0, 'complete_units': 0, 'runtime_validated': False,
+             'scope': manifest.get('scope', 'replacement'), 'diagnostics': 'build/link/diagnostics.txt',
+             'inputs': inputs(root, config), 'reason': info['reason'], 'participating_units': []}
+    diagnostics = ''
+    try:
+        report = comparisons(root, include_link=False)
+        if not manifest.get('enabled'):
+            state.update(state='blocked', reason='Replacement linking is disabled until source coverage, object order and layout are reconstructed')
+        elif not info['validated']:
+            state.update(state='failed', reason='Configured linker is not validated: ' + str(info['reason']))
+        elif config['provenance']['kind'] == 'game' and profile['family'] != 'ld64':
+            raise ToolError('Synthetic linkers cannot link game candidates')
+        elif state['scope'] == 'replacement' and (report['metrics']['matched_functions'] != report['metrics']['total_functions']
+                or report['data_metrics']['matched_bytes'] != report['data_metrics']['total_bytes']
+                or len(config['units']) != len(report['units'])):
+            state.update(state='blocked', reason='Replacement requires all original units, functions and data allocations to have verified source candidates')
+        else:
+            if any(u['error'] for u in report['units']):
+                raise ToolError('Candidate objects are missing, stale or failed compilation')
+            order = manifest.get('object_order', [])
+            known = {u['id'] for u in config['units']}
+            if len(set(order)) != len(order) or set(order) != known or not order:
+                raise ToolError('Link manifest must order every configured source unit exactly once')
+            if state['scope'] not in ('replacement', 'diagnostic'):
+                raise ToolError('Link scope must be replacement or diagnostic')
+            sdk_root = '/sdk' if profile.get('container') else config.get('sdk')
+            flags = manifest.get('flags', [])
+            if any(x in flags for x in ('-undefined', '-r', '-dylib', '-bundle', '-o', '-syslibroot', '-arch')):
+                raise ToolError('Link manifest cannot override output, architecture, SDK or undefined-symbol policy')
+            args = ['-arch', 'armv7', '-ios_version_min', '4.2', '-sdk_version', '5.1', '-no_uuid', '-e', manifest['entry']]
+            if sdk_root:
+                args += ['-syslibroot', sdk_root]
+            args += flags + ['-o', 'build/link/Pirates'] + ['build/units/' + uid + '.o' for uid in order]
+            args += manifest.get('libraries', [])
+            process = subprocess.run(command(profile, root, config.get('sdk')) + args, cwd=root, capture_output=True, text=True,
+                                     env={**os.environ, 'LC_ALL': 'C', 'TZ': 'UTC', 'SOURCE_DATE_EPOCH': '0'}, timeout=300)
+            diagnostics = process.stdout + process.stderr
+            if process.returncode:
+                raise ToolError('Linker failed with exit code ' + str(process.returncode))
+            structure = inspect_image(image_path.read_bytes(), entry=manifest['entry'], imports=manifest.get('expected_imports', []),
+                                      libraries=manifest.get('expected_libraries', []), min_version=0x40200, sdk_version=0x50100)
+            state.update(state='linked', reason='Structurally linked; original image equality and runtime behavior are unverified',
+                         image_sha256=sha256(image_path), structure=structure, participating_units=order)
+            # No arbitrary reference hash, copied original objects, or partial
+            # unit declarations can earn full-game completion.
+            if state['scope'] == 'replacement' and state['image_sha256'] == config['provenance']['executable_sha256']:
+                state.update(state='verified', reason='Source-only replacement has full coverage and byte-identical image',
+                             complete_code=report['metrics']['matched_bytes'], complete_data=report['data_metrics']['matched_bytes'],
+                             complete_units=len(report['units']))
+    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+        state.update(state='failed', reason=str(error))
+        diagnostics += '\n' + str(error)
+        image_path.unlink(missing_ok=True)
+    (out / 'diagnostics.txt').write_text(diagnostics.replace(str(root.resolve()), '<workspace>'))
+    write_json(out / 'status.json', state)
+    print('Linking: ' + state['state'] + ' — ' + str(state['reason']))
+    return state
+
+
+def current_state(root, config):
+    info = fingerprint(config.get('linker'), root, config.get('sdk'))
+    fallback = {'state': 'unsupported' if not info['validated'] else 'blocked', 'supported': info['validated'],
+                'profile': info, 'complete_code': 0, 'complete_data': 0, 'complete_units': 0,
+                'reason': info['reason'] or 'Link step has not run', 'runtime_validated': False}
+    try:
+        state = load_json(Path(root) / 'build/link/status.json')
+        if state['inputs'] != inputs(root, config) or state['profile'] != info:
+            fallback.update(state='blocked', reason='Link inputs or linker changed; rebuild')
+            return fallback
+        if state['state'] in ('linked', 'verified'):
+            if sha256(Path(root) / 'build/link/Pirates') != state['image_sha256']:
+                raise ToolError('Linked image changed; rebuild')
+        return {k: v for k, v in state.items() if k != 'inputs'}
+    except (OSError, ValueError, KeyError) as error:
+        return {**fallback, 'reason': str(error) if config.get('link', {}).get('enabled') else fallback['reason']}

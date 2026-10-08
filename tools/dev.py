@@ -45,6 +45,10 @@ def doctor(root):
             identity = inspect_sdk(config.get('sdk'))
             checks.append({'name': 'iOS SDK 5.1', 'ok': bool(identity and identity['validated']),
                            'detail': identity if identity else 'Supply a local SDK with tools/sdk.py fetch or import'})
+        from tools.pirates.linking import fingerprint as linker_fingerprint
+        linker = linker_fingerprint(config.get('linker'), root, config.get('sdk'))
+        checks.append({'name': 'ARMv7 Mach-O linker', 'ok': linker['validated'] or not config.get('link', {}).get('enabled'),
+                       'detail': linker.get('version') if linker['validated'] else 'Unavailable: ' + str(linker['reason'])})
 
     except (OSError, ValueError, KeyError) as e:
         checks.append({'name': 'configuration', 'ok': False, 'detail': str(e)})
@@ -70,14 +74,14 @@ def main():
                 print(json.dumps(checks, indent=2))
             else:
                 for c in checks:
-                    print(('OK   ' if c['ok'] else 'FAIL ') + c['name'] + ': ' + c['detail'])
+                    print(('OK   ' if c['ok'] else 'FAIL ') + c['name'] + ': ' + str(c['detail']))
             return 0 if all(c['ok'] for c in checks) else 1
         if args.command == 'diff':
             result = comparisons(ROOT, details_id=args.function_id)
             if args.json:
                 print(json.dumps(result, indent=2))
                 return 0
-            print(f'{result["id"]}  {result["symbol"]}\n{result["status"].upper()} · 0x{result["address"]:08x} · {result["mode"]} · {result["size"]} bytes')
+            print(f'{result["id"]}  {result["symbol"]}\n{result["status"].upper()} · 0x{result["address"]:08x} · {result.get("mode", "data")} · {result["size"]} bytes')
             print('Verified byte equality: ' + str(result['byte_verified']) + '; assembly similarity: ' + str(result['similarity']))
             for reason in result['reasons']:
                 print('Reason: ' + reason)
@@ -85,6 +89,9 @@ def main():
                 print(result['diagnostic_text'])
             print(f'{"ORIGINAL":<65} CANDIDATE')
             for row in result['rows']:
+                if result['id'].startswith('d-'):
+                    print(f'+{row["offset"]:04x}  {row["original"]:<65} {row["candidate"]}' + (' [bytes]' if row['different'] else ''))
+                    continue
                 def format_row(value):
                     if not value:
                         return ''

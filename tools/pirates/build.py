@@ -15,6 +15,8 @@ def configuration(root):
         raise ToolError('Imported original executable hash mismatch; reimport the verified IPA')
     if sha256(Path(root) / 'build/inventory.json') != config['inventory_sha256']:
         raise ToolError('Generated inventory changed without configuring')
+    if config.get('data_inventory_sha256') and sha256(Path(root) / 'build/data-inventory.json') != config['data_inventory_sha256']:
+        raise ToolError('Generated data inventory changed without configuring')
     return config
 
 
@@ -100,7 +102,7 @@ def compile_unit(root, uid):
     return result
 
 
-def comparisons(root, details_id=None):
+def comparisons(root, details_id=None, include_link=True):
     from .compare import compare_function
     root = Path(root)
     config = configuration(root)
@@ -138,6 +140,33 @@ def comparisons(root, details_id=None):
             objects[uid] = MachO(objpath.read_bytes())
         except (OSError, ToolError, ValueError) as e:
             unit_errors[uid] = str(e)
+    from .data import recover_data, compare_data
+    data_inventory = recover_data(original, inventory)
+    data_results = []
+    for record in data_inventory['records']:
+        if details_id and details_id != record['id']:
+            continue
+        uid = record['group_id']
+        for mapped_uid, unit in unit_configs.items():
+            if record['id'] in unit.get('data', {}):
+                uid = mapped_uid
+                break
+        unit = unit_configs.get(uid, {})
+        # A partial source unit must opt in to data explicitly.
+        implemented = ('implemented_functions' not in unit or record['id'] in unit.get('data', {}))
+        data = compare_data(original, inventory, record, objects.get(uid) if implemented else None,
+                            unit.get('data', {}).get(record['id']), unit.get('placements'), bool(details_id))
+        if implemented and uid in unit_errors:
+            data.update(status='compile_error' if compile_results.get(uid, {}).get('status') != 'compiled' else 'unresolved',
+                        reasons=data['reasons'] + [unit_errors[uid]], byte_verified=False)
+        data.update(candidate_source=unit.get('source') if implemented else None, candidate_group_id=uid)
+        if details_id:
+            data['compiler'] = info
+            data['compile'] = compile_results.get(uid)
+            if data['compile']:
+                data['diagnostic_text'] = (root / data['compile']['diagnostics']).read_text()
+            return data
+        data_results.append(data)
     results = []
     for f in inventory['functions']:
         if details_id and f['id'] != details_id:
@@ -173,8 +202,26 @@ def comparisons(root, details_id=None):
         units.append({**g, 'source': u.get('source'), 'flags': u.get('flags', []),
                       'compile': compile_results.get(g['id']), 'error': unit_errors.get(g['id'])})
     native = native_report(inventory, config, results, units, info)
+    from .report import data_metrics
+    native['data_inventory_sha256'] = config.get('data_inventory_sha256')
+    native['data_coverage'] = data_inventory['coverage']
+    native['data_scope'] = data_inventory['scope']
+    native['data_sections'] = data_inventory['sections']
+    native['data'] = data_results
+    native['data_metrics'] = data_metrics(data_results)
+    for unit in units:
+        from .report import metrics
+        unit['metrics'] = metrics([f for f in results if f['group_id'] == unit['id']])
+        unit['data_metrics'] = data_metrics([d for d in data_results if d['group_id'] == unit['id']])
     if sdk:
         native['sdk'] = sdk
+    if include_link:
+        from .linking import current_state
+        native['linking'] = current_state(root, config)
+        for unit in units:
+            verified = native['linking']['state'] == 'verified' and unit['id'] in native['linking'].get('participating_units', [])
+            unit['linking'] = {'complete_units': int(verified), 'complete_code': unit['metrics']['matched_bytes'] if verified else 0,
+                               'complete_data': unit['data_metrics']['matched_bytes'] if verified else 0}
     return native
 
 
@@ -185,4 +232,4 @@ def report(root):
     m = result['metrics']
     print(f'{m["matched_functions"]}/{m["total_functions"]} verified functions; {m["matched_bytes"]} matched bytes; '
           f'{m["missing_candidates"]} missing; {m["unresolved_comparisons"]} unresolved; {m["compile_errors"]} compile errors')
-    return 1 if m['compile_errors'] or any(u['error'] for u in result['units']) else 0
+    return 1 if m['compile_errors'] or result['data_metrics']['compile_errors'] or any(u['error'] for u in result['units']) or result['linking']['state'] == 'failed' else 0

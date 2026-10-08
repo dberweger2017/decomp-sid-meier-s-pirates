@@ -133,8 +133,9 @@ class AddressResolver:
 
 def relocate(macho, symbol, size, original_address, resolver):
     section = macho.section(symbol.section)
-    begin = (symbol.value & ~1) - section.address
-    data = bytearray(macho.bytes_at(symbol.value & ~1, size, symbol.section))
+    address = symbol.value & ~1 if symbol.thumb else symbol.value
+    begin = address - section.address
+    data = bytearray(macho.bytes_at(address, size, symbol.section))
     events, errors, occupied = [], [], set()
     relocs = section.relocations
     i = 0

@@ -64,6 +64,8 @@ class Watcher:
             return set()
         paths = {self.root / config['candidates_path'], self.root / config['profile_path'],
                  self.root / config['provenance']['input'], self.root / 'configure.py'}
+        paths.update(self.root / value for value in (config.get('linker_path'), config.get('link_path'),
+                     config['compiler'].get('validation'), (config.get('linker') or {}).get('validation')) if value)
         if config.get('sdk'):
             paths.update(Path(config['sdk']).rglob('*'))
         for unit in config['units']:

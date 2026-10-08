@@ -17,7 +17,7 @@ def ninja_path(path):
     return text.replace('$', '$$').replace(' ', '$ ').replace(':', '$:')
 
 
-def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=None):
+def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=None, linker=None, link=None):
     root = Path(root).resolve()
     old_path = root / 'build/config.json'
     if ipa:
@@ -37,6 +37,8 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
         candidates = candidates or old['candidates_path']
         profile = profile or old['profile_path']
         sdk = sdk or old.get('sdk')
+        linker = linker or old.get('linker_path')
+        link = link or old.get('link_path')
     candidates = candidates or 'config/candidates.json'
     profile = profile or 'config/compiler.json'
     cpath, ppath = local_path(root, candidates), local_path(root, profile)
@@ -46,6 +48,11 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
     if compiler['family'] == 'clang-fixture' and provenance['kind'] != 'synthetic' and manifest['units']:
         raise ToolError('Modern Clang candidates are restricted to synthetic inputs')
     group_ids = {g['id'] for g in inventory['groups']}
+    from .data import recover_data
+    from .macho import MachO
+    data_inventory = recover_data(MachO((root / provenance['input']).read_bytes()), inventory)
+    data_ids = {d['id']: d['group_id'] for d in data_inventory['records']}
+    mapped_data = set()
     function_groups = {f['id']: f['group_id'] for f in inventory['functions']}
     units, seen = [], set()
     for unit in manifest['units']:
@@ -63,6 +70,12 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
         for fid in unit.get('functions', {}):
             if function_groups.get(fid) != gid:
                 raise ToolError('Function mapping must belong to its original object group: ' + fid)
+        for did, mapping in unit.get('data', {}).items():
+            if did not in data_ids or data_ids[did] not in (gid, 'unowned-data') or did in mapped_data:
+                raise ToolError('Unknown, duplicate or incorrectly owned data mapping: ' + did)
+            if not isinstance(mapping, dict) or not isinstance(mapping.get('symbol'), str):
+                raise ToolError('Data mappings require a candidate symbol')
+            mapped_data.add(did)
         if 'implemented_functions' in unit:
             implemented = unit['implemented_functions']
             if (not isinstance(implemented, list) or not all(isinstance(fid, str) for fid in implemented)
@@ -81,13 +94,24 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
     config = {'version': 1, 'provenance': provenance, 'candidates_path': str(cpath.relative_to(root)),
               'profile_path': str(ppath.relative_to(root)), 'compiler': compiler, 'sdk': sdk,
               'compiler_fingerprint': fingerprint(compiler, root, sdk), 'units': sorted(units, key=lambda u: u['id'])}
+    linker = linker or ('build/linker/linker.json' if (root / 'build/linker/linker.json').is_file() else
+                        'config/linker.json' if (root / 'config/linker.json').is_file() else None)
+    link = link or ('config/link.json' if (root / 'config/link.json').is_file() else None)
+    config['linker_path'] = linker
+    config['link_path'] = link
+    config['linker'] = load_json(local_path(root, linker)) if linker else None
+    config['link'] = load_json(local_path(root, link)) if link else {'version': 1, 'enabled': False, 'scope': 'replacement'}
+    if config['link'].get('version') != 1 or not isinstance(config['link'].get('enabled'), bool):
+        raise ToolError('Link manifest requires version 1 and a boolean enabled field')
     if provenance['kind'] == 'game':
         lock = load_json(root / 'config/inventory-lock.json')
         digest = hashlib.sha256((json.dumps(inventory, indent=2, sort_keys=True, ensure_ascii=True) + '\n').encode()).hexdigest()
         if digest != lock['inventory_sha256'] or provenance['executable_sha256'] != lock['input_sha256']:
             raise ToolError('Inventory differs from the verified inventory lock; investigate missing records or changed boundaries')
     write_json(root / 'build/inventory.json', inventory)
+    write_json(root / 'build/data-inventory.json', data_inventory)
     config['inventory_sha256'] = sha256(root / 'build/inventory.json')
+    config['data_inventory_sha256'] = sha256(root / 'build/data-inventory.json')
     write_json(old_path, config)
     compile_commands = []
     py = shlex.quote(sys.executable).replace('$', '$$')
@@ -97,6 +121,7 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
              '  depfile = $depfile', '  deps = gcc', '  restat = 1', 'rule report',
              f'  command = {py} {script} report', '  description = COMPARE + REPORT', '  restat = 1',
              'rule configure', f'  command = {py} configure.py', '  generator = 1', '  restat = 1']
+    lines += ['rule link', f'  command = {py} {script} link', '  description = LINK + VALIDATE', '  restat = 1']
     tool_files = sorted([p.relative_to(root) for p in (root / 'tools/pirates').glob('*.py')] + [Path('tools/build.py')])
     implicit = ' '.join(ninja_path(p) for p in tool_files)
     dependencies = []
@@ -125,10 +150,15 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
             editor_command = ['llvm-g++']  # Intended historical command; Ninja records the concrete compiler failure.
         compile_commands.append({'directory': str(root), 'file': str(local_path(root, unit['source'])),
                                  'arguments': editor_command + flags + ['-c', unit['source'], '-o', f'build/units/{uid}.o']})
-    lines += ['build build/report.json build/objdiff-report.json: report build/inventory.json build/config.json build/inputs/Pirates '
+    validation_inputs = [compiler.get('validation'), (config.get('linker') or {}).get('validation')]
+    implicit += ' ' + ' '.join(ninja_path(p) for p in validation_inputs if p and (root / p).is_file())
+    lines += ['build build/link/status.json: link build/config.json build/inventory.json build/data-inventory.json build/inputs/Pirates '
+              + ' '.join(dependencies) + ' | ' + implicit,
+              'build build/report.json build/objdiff-report.json: report build/inventory.json build/data-inventory.json build/config.json build/inputs/Pirates build/link/status.json '
               + ' '.join(dependencies) + ' | ' + implicit,
               'build build.ninja: configure ' + ninja_path(config['candidates_path']) + ' ' + ninja_path(config['profile_path'])
               + ' configure.py tools/pirates/configure.py config/identity.json'
+              + ''.join(' ' + ninja_path(p) for p in (linker, link) if p)
               + (' config/inventory-lock.json' if provenance['kind'] == 'game' else ''), 'default build/report.json']
     (root / 'build.ninja').write_text('\n'.join(lines) + '\n')
     write_json(root / 'compile_commands.json', compile_commands)
@@ -143,6 +173,8 @@ def main(root):
     parser.add_argument('--candidates')
     parser.add_argument('--profile')
     parser.add_argument('--sdk', type=Path, help='Locally supplied iPhoneOS5.1.sdk')
+    parser.add_argument('--linker', help='Pinned linker profile (separate from matching compiler)')
+    parser.add_argument('--link', help='Replacement or diagnostic linking manifest')
     args = parser.parse_args()
     try:
         config, inventory = configure(root, **vars(args))

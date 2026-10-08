@@ -76,3 +76,27 @@ def text(data, address=0, relocations=()):
 def reference(data, mode='arm', address=0x1000, name='_probe', extras=(), extra_sections=()):
     funcs = [(name, address, len(data), mode, 'unity')]
     return macho([text(data, address), *extra_sections], executable_symbols(funcs, extras), filetype=2)
+
+
+def append_commands(data, commands):
+    """Add independently encoded commands, adjusting existing file offsets."""
+    old = bytearray(data)
+    count, size = struct.unpack_from('<II', old, 16)
+    added = b''.join(commands)
+    pos = 28
+    for _ in range(count):
+        cmd, length = struct.unpack_from('<II', old, pos)
+        if cmd == 1:
+            n = struct.unpack_from('<I', old, pos + 48)[0]
+            for i in range(n):
+                p = pos + 56 + i * 68
+                for off in (40, 48):
+                    value = struct.unpack_from('<I', old, p + off)[0]
+                    if value: struct.pack_into('<I', old, p + off, value + len(added))
+        elif cmd == 2:
+            for off in (8, 16):
+                value = struct.unpack_from('<I', old, pos + off)[0]
+                struct.pack_into('<I', old, pos + off, value + len(added))
+        pos += length
+    struct.pack_into('<II', old, 16, count + len(commands), size + len(added))
+    return bytes(old[:28 + size]) + added + bytes(old[28 + size:])

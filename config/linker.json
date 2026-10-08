@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "family": "ld64",
+  "name": "cctools-845-ld64-134.9-linux",
+  "source_commit": "92671d64f56fb903e000b88fb97f13fccbdf413a",
+  "source_sha256": "23b1a3d7577426a0fe1c8f945ff9614356e1c616f4ff8c1babb5a93d446f2c42",
+  "command": ["ld64"],
+  "validation": "build/linker/validation.json"
+}

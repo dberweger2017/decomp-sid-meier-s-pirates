@@ -5,6 +5,9 @@ let unitIndex = new Map();
 let report, selected = decodeURIComponent(location.hash.slice(1)), selectedFile = '', previousSource = '', dirty = false, requestNumber = 0;
 const openGroups = new Set();
 const number = n => n.toLocaleString();
+const percent = n => n === null || n === undefined ? "N/A" : n.toFixed(4) + "%";
+const records = () => $("record-kind").value === "data" ? (report.data || []) : report.functions;
+const selectedRecord = () => [...report.functions, ...(report.data || [])].find(f => f.id === selected);
 const el = (tag, text, cls) => { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; };
 async function api(path, options) {
   const response = await fetch(path, options);
@@ -19,14 +22,25 @@ function state(building, code = 0) {
 }
 function renderMetrics() {
   const m = report.metrics;
-  $('matched-bytes').textContent = number(m.matched_bytes);
-  $('total-bytes').textContent = `of ${number(m.total_function_bytes)} recovered function bytes`;
-  $('matched-functions').textContent = number(m.matched_functions);
-  $('total-functions').textContent = `of ${number(m.total_functions)} function records`;
+  $('matched-bytes').textContent = percent(m.matched_code_percent);
+  $('total-bytes').textContent = `${number(m.matched_bytes)} / ${number(m.total_function_bytes)} function bytes`;
+  $('matched-functions').textContent = percent(m.matched_functions_percent);
+  $('total-functions').textContent = `${number(m.matched_functions)} / ${number(m.total_functions)} records`;
   $('missing').textContent = number(m.missing_candidates);
   $('unresolved').textContent = number(m.unresolved_comparisons);
   $('errors').textContent = `${number(m.compile_errors)} compile errors`;
-  $('similarity').textContent = m.compared_similarity_percent === null ? '—' : `${m.compared_similarity_percent.toFixed(1)}%`;
+  $('similarity').textContent = percent(m.similarity_percent);
+  $('compared-similarity').textContent = `Compared candidates: ${percent(m.compared_similarity_percent)}`;
+  const dm = report.data_metrics;
+  $('matched-data').textContent = percent(dm?.matched_percent);
+  $('total-data').textContent = dm ? `${number(dm.matched_bytes)} / ${number(dm.total_bytes)} bytes · ${number(dm.unresolved)} unresolved` : 'Not inventoried';
+  const link = report.linking;
+  $('linked-units').textContent = `${link.complete_units || 0} / ${report.units.length}`;
+  $('link-state').textContent = link.state || 'unsupported';
+  $('link-footer').textContent = `Full-game linking: ${link.state || 'unsupported'} · ${link.complete_units || 0} complete units`;
+  $('link-reason').textContent = link.reason;
+  $('link-details').textContent = JSON.stringify(link, null, 2);
+  $('progress-scope').textContent = 'Code: recovered function ranges, including literal pools. Missing source contributes zero fuzzy progress. Data: whole non-code allocations, including padding and zero-fill. Structural linking and verified image equality are separate.';
   $('input-hash').textContent = `INPUT SHA-256 ${report.input_sha256.slice(0, 16)}…`;
   $('group-count').textContent = `${report.units.length} groups`;
   $('notice').textContent = report.kind === 'synthetic' ? 'SYNTHETIC FIXTURE · Modern Clang tests the tooling. These matches are not game source progress.' : report.compiler.validated ? 'Historical cross-build validated. Exact original compiler revision and flags remain unproven.' : 'HISTORICAL COMPILER UNVALIDATED · ' + (report.compiler.reason || 'Missing validation evidence') + ' · Source-matching progress starts at zero.';
@@ -36,7 +50,7 @@ function renderTree() {
   const byGroup = new Map();
   if (!q && status === 'all' && !source) report.units.forEach(u => byGroup.set(u.id, []));
   let count = 0;
-  for (const f of report.functions) {
+  for (const f of records()) {
     const u = unitIndex.get(f.group_id);
     const haystack = `${f.symbol} ${u?.name || ''} ${u?.object_path || ''}`.toLowerCase();
     const paths = `${f.source_path} ${f.candidate_source || ''} ${u?.source_path || ''}`.toLowerCase();
@@ -44,14 +58,19 @@ function renderTree() {
     if (!byGroup.has(f.group_id)) byGroup.set(f.group_id, []);
     byGroup.get(f.group_id).push(f); count++;
   }
-  $('result-count').textContent = `${number(count)} functions in ${byGroup.size} original objects`;
+  $('result-count').textContent = `${number(count)} ${$("record-kind").value === "data" ? "data allocations" : "functions"} in ${byGroup.size} groups`;
   const tree = $('tree'); tree.replaceChildren();
-  for (const unit of report.units) {
+  for (const unit of [...report.units, {id: "unowned-data", name: "Unattributed data", object_path: "Original section allocations without unique STABS ownership"}]) {
     const funcs = byGroup.get(unit.id); if (!funcs) continue;
     const group = el('details', undefined, 'object'); group.dataset.groupId = unit.id;
     group.open = openGroups.has(unit.id) || (q && byGroup.size <= 12);
     const summary = el('summary', unit.name); summary.title = unit.object_path;
     summary.append(el('span', number(funcs.length))); group.append(summary);
+    const m = unit.metrics, dm = unit.data_metrics;
+    if (m) { const progress = el('div', undefined, 'unit-progress');
+      const bar = el('progress'); bar.max = 100; bar.value = m.matched_code_percent || 0;
+      bar.title = `Exact code: ${percent(m.matched_code_percent)} · Fuzzy code: ${percent(m.similarity_percent)}`;
+      progress.append(bar, el('small', `Exact ${percent(m.matched_code_percent)} · Fuzzy ${percent(m.similarity_percent)} · Data ${percent(dm?.matched_percent)}`)); group.append(progress); }
     const children = el('div'); group.append(children);
     let rendered = false;
     function fill() {
@@ -78,7 +97,7 @@ async function selectFunction(id) {
     error('Save your source changes before selecting another function.'); return;
   }
   selected = id; history.replaceState(null, '', '#' + encodeURIComponent(id));
-  const f = report.functions.find(f => f.id === id);
+  const f = [...report.functions, ...(report.data || [])].find(f => f.id === id);
   if (f) openGroups.add(f.group_id);
   renderTree();
   await renderFunction();
@@ -105,48 +124,56 @@ async function renderFunction() {
     const unit = report.units.find(u => u.id === f.group_id);
     $('function-group').textContent = `${unit?.name || f.group_id} / ${f.id}`;
     $('function-name').textContent = f.symbol;
-    $('function-meta').textContent = `0x${f.address.toString(16).padStart(8, '0')} · ${f.mode.toUpperCase()} · ${f.size} bytes · Verified equality: ${f.byte_verified ? 'yes' : 'no'} · Similarity: ${f.similarity === null ? 'not compared' : f.similarity + '%'}`;
+    $('function-meta').textContent = `0x${f.address.toString(16).padStart(8, '0')} · ${(f.mode || (f.zerofill ? 'zero-fill data' : 'data')).toUpperCase()} · ${f.size} bytes · Verified equality: ${f.byte_verified ? 'yes' : 'no'} · Similarity: ${f.similarity === null ? 'not compared' : f.similarity + '%'}`;
     $('function-status').textContent = labels[f.status]; $('function-status').className = `badge ${f.status}`;
     $('reasons').textContent = f.reasons.join(' · ');
     $('original-size').textContent = `${f.size} bytes`;
     $('candidate-size').textContent = f.candidate_size === null ? 'Missing' : `${f.candidate_size} bytes`;
     const assembly = $('assembly'); assembly.replaceChildren();
-    const hasCandidate = f.rows.some(r => r.candidate);
-    f.rows.forEach((r, i) => { const row = el('div', undefined, 'asm-row');
-      row.append(asmCell(r.original, r.differences, hasCandidate, false), asmCell(r.candidate, r.differences, hasCandidate, i === 0)); assembly.append(row); });
+    if (f.id.startsWith('d-')) {
+      if (f.zerofill) assembly.append(el('pre', `Zero-fill allocation · ${f.size} bytes · alignment ${f.alignment}
+Candidate allocation: ${f.candidate_size ?? 'missing'} · equality requires full size and alignment.`));
+      else f.rows.forEach(r => { const row = el('div', undefined, 'asm-row');
+        row.append(el('div', `+0x${r.offset.toString(16)}  ${r.original}`, 'asm-cell'), el('div', r.candidate || 'No compiled candidate', 'asm-cell' + (r.different ? ' changed' : ''))); assembly.append(row); });
+      if (f.display_truncated) assembly.append(el('p', 'Display limited to 4096 bytes; equality includes the whole allocation.', 'subtle'));
+    } else {
+      const hasCandidate = f.rows.some(r => r.candidate);
+      f.rows.forEach((r, i) => { const row = el('div', undefined, 'asm-row');
+        row.append(asmCell(r.original, r.differences, hasCandidate, false), asmCell(r.candidate, r.differences, hasCandidate, i === 0)); assembly.append(row); });
+    }
     const relocations = $('relocations'); relocations.replaceChildren();
     if (f.relocations.length) { relocations.append(el('h3', 'Relocation targets · no address masking'));
       f.relocations.forEach(r => relocations.append(el('pre', `+0x${r.offset.toString(16)} · type ${r.type} · ${r.status}\n${r.target || r.reason}${r.target_address === undefined ? '' : ' → 0x' + r.target_address.toString(16)}\n${r.before || '?'} → ${r.after || '?'}`))); }
-    $('compiler').textContent = JSON.stringify({compiler: f.compiler, flags: f.compile?.flags || unit?.flags || [], source: f.candidate_source, ambiguities: f.ambiguities}, null, 2);
+    $('compiler').textContent = JSON.stringify({compiler: f.compiler, flags: f.compile?.flags || unit?.flags || [], source: f.candidate_source, ambiguities: f.ambiguities, boundary: f.boundary, alignment: f.alignment, aliases: f.aliases}, null, 2);
     $('diagnostics').textContent = f.diagnostic_text || (f.candidate_source ? 'No compiler diagnostics.' : 'No candidate compilation configured for this object.');
     await loadFiles(f);
   } catch (e) { if (serial === requestNumber) error(e.message); }
 }
 async function loadFiles(f) {
-  const files = await api('/api/files?unit=' + encodeURIComponent(f.group_id));
+  const files = await api('/api/files?unit=' + encodeURIComponent(f.candidate_group_id || f.group_id));
   if (f.id !== selected) return;
   $('no-source').hidden = files.length > 0; $('editor').hidden = files.length === 0;
   if (!files.length) return;
   const selector = $('source-file'); selector.replaceChildren();
   files.forEach(path => { const option = el('option', path); option.value = path; selector.append(option); });
   selector.value = files.includes(selectedFile) ? selectedFile : files.includes(f.candidate_source) ? f.candidate_source : files[0];
-  if (!dirty) await loadSource(f.group_id, selector.value);
+  if (!dirty) await loadSource(f.candidate_group_id || f.group_id, selector.value);
 }
 async function loadSource(unit, path) {
   try { const data = await api(`/api/source?unit=${encodeURIComponent(unit)}&path=${encodeURIComponent(path)}`);
-    if (!report.functions.some(f => f.id === selected && f.group_id === unit) || $('source-file').value !== path) return;
+    if (!selectedRecord() || (selectedRecord().candidate_group_id || selectedRecord().group_id) !== unit || $('source-file').value !== path) return;
     selectedFile = path; previousSource = data.content; $('source-content').value = data.content; dirty = false; $('save-status').textContent = '';
   } catch (e) { error(e.message); }
 }
 $('source-content').addEventListener('input', () => { dirty = true; $('save-status').textContent = 'Unsaved changes'; });
 $('source-file').addEventListener('change', () => {
   if (dirty) { $('source-file').value = selectedFile; error('Save your source changes before opening another file.'); return; }
-  const f = report.functions.find(f => f.id === selected); loadSource(f.group_id, $('source-file').value);
+  const f = selectedRecord(); loadSource(f.candidate_group_id || f.group_id, $('source-file').value);
 });
 $('save').onclick = async () => {
-  const f = report.functions.find(f => f.id === selected), content = $('source-content').value;
+  const f = selectedRecord(), content = $('source-content').value;
   try { await api('/api/source', {method: 'POST', headers: {'Content-Type': 'application/json', 'X-Pirates-Token': window.editToken},
-    body: JSON.stringify({unit: f.group_id, path: selectedFile, content, previous: previousSource})});
+    body: JSON.stringify({unit: f.candidate_group_id || f.group_id, path: selectedFile, content, previous: previousSource})});
     previousSource = content; dirty = false; $('save-status').textContent = 'Saved · rebuild queued';
   } catch (e) { $('save-status').textContent = e.message; }
 };
@@ -155,10 +182,12 @@ for (const button of document.querySelectorAll('[data-tab]')) button.onclick = (
     tab.setAttribute('aria-selected', String(active)); $(tab.dataset.tab + '-panel').hidden = !active; }
 };
 for (const id of ['search', 'status', 'source-filter']) $(id).addEventListener('input', renderTree);
+$('show-linking').onclick = () => { $('linking-panel').hidden = !$('linking-panel').hidden; };
+$('record-kind').onchange = () => { if (dirty) { $('record-kind').value = selected.startsWith('d-') ? 'data' : 'code'; error('Save your source changes before changing views.'); return; } selected = ''; renderTree(); $('function-view').hidden = true; $('empty').hidden = false; };
 async function refresh() {
   try { report = await api('/api/report'); unitIndex = new Map(report.units.map(u => [u.id, u])); renderMetrics();
-    if (!report.functions.some(f => f.id === selected)) selected = report.functions[0]?.id || '';
-    const f = report.functions.find(f => f.id === selected); if (f) openGroups.add(f.group_id);
+    if (!selectedRecord()) selected = records()[0]?.id || '';
+    const f = selectedRecord(); if (f) { $('record-kind').value = f.id.startsWith('d-') ? 'data' : 'code'; openGroups.add(f.group_id); }
     renderTree(); await renderFunction();
   } catch (e) { error(e.message); }
 }
