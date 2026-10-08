@@ -1,0 +1,36 @@
+{
+  "candidate_groups": [
+    "o-4c02a151f7f55c33fc5c",
+    "o-1f9e1182f8fd5b86d0bb",
+    "o-4268c237f42393c8bef0",
+    "o-22e9019c653c60382da6",
+    "o-b2988598bdd8217340d1",
+    "o-b9afd2a4c28d8e343b6a"
+  ],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__Z14GameAudio_InitPKc",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": [
+      "o-4c02a151f7f55c33fc5c",
+      "o-1f9e1182f8fd5b86d0bb",
+      "o-4268c237f42393c8bef0",
+      "o-22e9019c653c60382da6",
+      "o-b2988598bdd8217340d1",
+      "o-b9afd2a4c28d8e343b6a"
+    ],
+    "libraries": [
+      "-lSystem"
+    ],
+    "expected_imports": [],
+    "expected_libraries": [
+      "/usr/lib/libSystem.B.dylib"
+    ],
+    "sdk_objects": [],
+    "flags": [],
+    "provenance": "Recovered GameAudio, PowerVR accessors, 2D/3D FireSound and FAudioManager accessors/setters only. Partial types remain uninstantiated; direct function entry validates structure, not iOS process startup or runtime behavior. No replacement credit."
+  }
+}
