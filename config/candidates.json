@@ -410,6 +410,32 @@
         "f-ffec8911d04144bacb61"
       ],
       "flags_provenance": "Investigation profile for original ARM facade calls and integer float transport. Isolated trials verify the first wrapper when post-register-allocation scheduling is disabled; enabled scheduling moves its frame-pointer setup. These are matching investigation flags, not proof of original build settings. Unencoded return types remain provisional; see FPhono.h and phono2/PAudioSystem.h."
+    },
+    {
+      "group_id": "o-67cbdb66049bec401875",
+      "source": "src/fireplace/audio/FKnob.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [],
+      "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header."
+    },
+    {
+      "group_id": "o-71a79dd832a29b589321",
+      "source": "src/fireplace/audio/FSoundScape.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [],
+      "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header."
     }
   ]
 }
