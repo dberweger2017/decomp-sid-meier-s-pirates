@@ -6,6 +6,8 @@
 // return types, pointees, signedness and field names remain hypotheses.
 class NiKFMTool {
 public:
+    class Animation;
+    class LayerGroup;
     unsigned char m_unknown_00[12];
     const char * m_avObjectName; // +0x0c
 };

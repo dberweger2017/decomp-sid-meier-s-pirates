@@ -10,7 +10,9 @@ class ISEPSysEmitter {
 public:
     unsigned char m_unknown_00[24];
     float m_speed; // +0x18
-    unsigned char m_unknown_1c[12];
+    unsigned char m_unknown_1c[4];
+    float m_declination; // +0x20
+    unsigned char m_unknown_24[4];
     float m_planarAngle; // +0x28
     unsigned char m_unknown_2c[20];
     float m_initialRadius; // +0x40

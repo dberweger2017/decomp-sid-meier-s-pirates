@@ -6,6 +6,7 @@
 // the mangled symbol does not encode it. No instances or complete vtable emitted.
 class FAudioSystem {
 public:
+    enum ESoundType { ESoundTypeUnknown = -1 };
     virtual ~FAudioSystem();
     bool Update(float elapsed);
     void SetAudioSystemType();
