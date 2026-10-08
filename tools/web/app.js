@@ -1,3 +1,4 @@
+(() => {
 'use strict';
 const $ = id => document.getElementById(id);
 const hosted = window.piratesHosted === true;
@@ -253,3 +254,4 @@ refresh(); api('/api/status').then(s => state(s.building, s.returncode)).catch(e
   }
   checkSnapshot(); setInterval(checkSnapshot, 30000);
 }
+})();
