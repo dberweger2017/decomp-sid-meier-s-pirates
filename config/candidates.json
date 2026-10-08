@@ -218,7 +218,9 @@
       ],
       "sdk_required": false,
       "functions": {},
-      "implemented_functions": [],
+      "implemented_functions": [
+        "f-8d30e647ced703f85b50"
+      ],
       "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
     }
   ]
