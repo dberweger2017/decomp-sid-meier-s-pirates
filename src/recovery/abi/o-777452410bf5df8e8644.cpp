@@ -25,3 +25,17 @@ extern "C" void pirates_method_forwarder_74fb71cf0948aa199802(void * a0, void * 
 extern "C" void pirates_method_forwarder_74fb71cf0948aa199802(void * a0, void * a1) {
     pirates_method_forwarder_74fb71cf0948aa199802_target(a0, a1);
 }
+
+// f-ed736ac1b35e7c2971f8 — registration-forwarder
+// _GLOBAL__I__ZN3ISE23ISEPSysEmitterSpeedCtlrC2EPKcPNS_12ISEFloatDataE
+// Calls: ISE::ISEFloatKey::RegisterLoader()
+extern "C" void pirates_registration_forwarder_ed736ac1b35e7c2971f8_target(void)
+    __asm__("__ZN3ISE11ISEFloatKey14RegisterLoaderEv");
+static void pirates_registration_forwarder_ed736ac1b35e7c2971f8(void)
+    __asm__("__GLOBAL__I__ZN3ISE23ISEPSysEmitterSpeedCtlrC2EPKcPNS_12ISEFloatDataE");
+static void pirates_registration_forwarder_ed736ac1b35e7c2971f8(void) {
+    pirates_registration_forwarder_ed736ac1b35e7c2971f8_target();
+}
+
+// Source-emission reference only; no original data or lifetime-registration credit.
+extern "C" void (* const pirates_registration_forwarder_ed736ac1b35e7c2971f8_source_reference)(void) = pirates_registration_forwarder_ed736ac1b35e7c2971f8;
