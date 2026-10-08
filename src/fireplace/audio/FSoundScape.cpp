@@ -6,3 +6,5 @@
 bool FSoundScape::IsInitialized() const { return m_initialized; }
 
 int FSoundScape::GetScriptId() { return m_scriptId; }
+
+#include "../../recovery/abi/o-71a79dd832a29b589321.cpp"

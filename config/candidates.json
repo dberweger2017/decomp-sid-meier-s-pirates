@@ -448,9 +448,13 @@
       "functions": {},
       "implemented_functions": [
         "f-d762ce0d7f8208a3566f",
-        "f-c5f8dd3caffca7c9c66d"
+        "f-c5f8dd3caffca7c9c66d",
+        "f-86b3bf0d96a6a5efcd3c"
       ],
-      "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header."
+      "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header.",
+      "recovery_kinds": {
+        "f-86b3bf0d96a6a5efcd3c": "complete-destructor"
+      }
     },
     {
       "group_id": "o-692e206382b21043c376",
