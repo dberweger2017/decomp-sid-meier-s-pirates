@@ -7,3 +7,5 @@
 #include "../../../src/fireplace/ui/FxWidget.cpp"
 
 #include "../../gamebryo/maps/FireIncludeCpp2Maps.cpp"
+
+#include "../../recovery/FireIncludeCpp2ReleaseFunctions.cpp"
