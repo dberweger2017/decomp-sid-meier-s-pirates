@@ -8941,6 +8941,24 @@
         "void *",
         "void *"
       ]
+    },
+    {
+      "id": "f-f7a1eca6d095a1fe5a12",
+      "group_id": "o-d01697ba6ce58203311d",
+      "symbol": "__ZN15DanceConfigFileC1ERKSs",
+      "original_name": "DanceConfigFile::DanceConfigFile(std::string const&)",
+      "target_symbol": "__ZN15DanceConfigFileC2ERKSs",
+      "target_name": "DanceConfigFile::DanceConfigFile(std::string const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }
