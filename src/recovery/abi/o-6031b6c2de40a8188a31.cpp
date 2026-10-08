@@ -323,6 +323,17 @@ extern "C" void pirates_method_forwarder_3f893e48c528ca8d8073(void * a0, void * 
     pirates_method_forwarder_3f893e48c528ca8d8073_target(a0, a1);
 }
 
+// f-40271b22482ede67c4a0 — complete-constructor
+// NiPropertyState::NiPropertyState(NiPropertyState const&)
+// Calls: NiPropertyState::NiPropertyState(NiPropertyState const&)
+extern "C" void pirates_complete_constructor_40271b22482ede67c4a0_target(void *, const void *)
+    __asm__("__ZN15NiPropertyStateC2ERKS_");
+extern "C" void pirates_complete_constructor_40271b22482ede67c4a0(void * a0, const void * a1)
+    __asm__("__ZN15NiPropertyStateC1ERKS_");
+extern "C" void pirates_complete_constructor_40271b22482ede67c4a0(void * a0, const void * a1) {
+    pirates_complete_constructor_40271b22482ede67c4a0_target(a0, a1);
+}
+
 // f-40c9995be4523e1ba9d5 — method-forwarder
 // NiTexture::SaveBinary(NiStream&)
 // Calls: NiObjectNET::SaveBinary(NiStream&)
@@ -774,6 +785,17 @@ extern "C" void pirates_complete_destructor_89b5fe3217b846811507(void * a0) {
     pirates_complete_destructor_89b5fe3217b846811507_target(a0);
 }
 
+// f-8a76a00b5f6794decc2b — complete-constructor
+// NiPixelData::NiPixelData(NiPixelData const&)
+// Calls: NiPixelData::NiPixelData(NiPixelData const&)
+extern "C" void pirates_complete_constructor_8a76a00b5f6794decc2b_target(void *, const void *)
+    __asm__("__ZN11NiPixelDataC2ERKS_");
+extern "C" void pirates_complete_constructor_8a76a00b5f6794decc2b(void * a0, const void * a1)
+    __asm__("__ZN11NiPixelDataC1ERKS_");
+extern "C" void pirates_complete_constructor_8a76a00b5f6794decc2b(void * a0, const void * a1) {
+    pirates_complete_constructor_8a76a00b5f6794decc2b_target(a0, a1);
+}
+
 // f-8bc8db824ad330af287d — complete-destructor
 // NiTMapBase<NiTPointerAllocator<unsigned int>, NiObject const*, unsigned int>::~NiTMapBase()
 // Calls: NiTMapBase<NiTPointerAllocator<unsigned int>, NiObject const*, unsigned int>::~NiTMapBase()
@@ -1071,6 +1093,17 @@ extern "C" void pirates_method_forwarder_bc9fcc5f47d3edfb8415(void * a0, void * 
     pirates_method_forwarder_bc9fcc5f47d3edfb8415_target(a0, a1);
 }
 
+// f-be30c7e4e94cae81bf09 — complete-constructor
+// NiStream::NiStream()
+// Calls: NiStream::NiStream()
+extern "C" void pirates_complete_constructor_be30c7e4e94cae81bf09_target(void *)
+    __asm__("__ZN8NiStreamC2Ev");
+extern "C" void pirates_complete_constructor_be30c7e4e94cae81bf09(void * a0)
+    __asm__("__ZN8NiStreamC1Ev");
+extern "C" void pirates_complete_constructor_be30c7e4e94cae81bf09(void * a0) {
+    pirates_complete_constructor_be30c7e4e94cae81bf09_target(a0);
+}
+
 // f-c1156641810abdbb8dda — method-forwarder
 // NiProperty::IsEqual(NiObject*)
 // Calls: NiObjectNET::IsEqual(NiObject*)
@@ -1091,6 +1124,17 @@ extern "C" void pirates_complete_destructor_c45ad761399b7c30bd4a(void * a0)
     __asm__("__ZN15NiTextureEffectD1Ev");
 extern "C" void pirates_complete_destructor_c45ad761399b7c30bd4a(void * a0) {
     pirates_complete_destructor_c45ad761399b7c30bd4a_target(a0);
+}
+
+// f-c8995533f3905598d8e0 — complete-constructor
+// NiTexturingProperty::NiTexturingProperty()
+// Calls: NiTexturingProperty::NiTexturingProperty()
+extern "C" void pirates_complete_constructor_c8995533f3905598d8e0_target(void *)
+    __asm__("__ZN19NiTexturingPropertyC2Ev");
+extern "C" void pirates_complete_constructor_c8995533f3905598d8e0(void * a0)
+    __asm__("__ZN19NiTexturingPropertyC1Ev");
+extern "C" void pirates_complete_constructor_c8995533f3905598d8e0(void * a0) {
+    pirates_complete_constructor_c8995533f3905598d8e0_target(a0);
 }
 
 // f-c8a2f1dfe8b38722d58c — complete-destructor

@@ -88,3 +88,5 @@ void *FPhono::GetDirectSoundObject() { return 0; }
 void FPhono::SetDistanceFactor(float) {}
 
 void FPhono::SetRolloffFactor(float) {}
+
+#include "../../recovery/leaves/o-78c5a9284f33537c011b.cpp"

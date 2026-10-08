@@ -84,3 +84,7 @@
 #include "../../gamebryo/NiParticleSystemSmall_TempIncludeCpp5.cpp"
 
 #include "../../recovery/abi/o-d483319aef7bde0860fd.cpp"
+
+#include "../../recovery/leaves/o-d483319aef7bde0860fd.cpp"
+
+#include "../../recovery/OSOutputDebugString.cpp"

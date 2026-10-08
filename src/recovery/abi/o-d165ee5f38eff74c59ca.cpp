@@ -15,6 +15,17 @@ extern "C" void * pirates_method_forwarder_0c29fd2f905390f47626(void * a0, void 
     return pirates_method_forwarder_0c29fd2f905390f47626_target();
 }
 
+// f-94d1e0525992370f9ae9 — complete-constructor
+// FAudioSystemPhono::FAudioSystemPhono()
+// Calls: FAudioSystemPhono::FAudioSystemPhono()
+extern "C" void pirates_complete_constructor_94d1e0525992370f9ae9_target(void *)
+    __asm__("__ZN17FAudioSystemPhonoC2Ev");
+extern "C" void pirates_complete_constructor_94d1e0525992370f9ae9(void * a0)
+    __asm__("__ZN17FAudioSystemPhonoC1Ev");
+extern "C" void pirates_complete_constructor_94d1e0525992370f9ae9(void * a0) {
+    pirates_complete_constructor_94d1e0525992370f9ae9_target(a0);
+}
+
 // f-e104097d5d6d00d6eba4 — complete-destructor
 // FAudioSystemPhono::~FAudioSystemPhono()
 // Calls: FAudioSystemPhono::~FAudioSystemPhono()

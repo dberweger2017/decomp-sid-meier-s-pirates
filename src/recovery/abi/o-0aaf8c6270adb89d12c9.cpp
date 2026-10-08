@@ -4,6 +4,17 @@
 // GNU asm labels are symbol linkage only; no instruction/byte bodies.
 // Callee implementations, full layouts and unencoded results remain separate.
 
+// f-017fbd46b57da1d0f83f — complete-constructor
+// Shipwright::Shipwright(int, int)
+// Calls: Shipwright::Shipwright(int, int)
+extern "C" void pirates_complete_constructor_017fbd46b57da1d0f83f_target(void *, int, int)
+    __asm__("__ZN10ShipwrightC2Eii");
+extern "C" void pirates_complete_constructor_017fbd46b57da1d0f83f(void * a0, int a1, int a2)
+    __asm__("__ZN10ShipwrightC1Eii");
+extern "C" void pirates_complete_constructor_017fbd46b57da1d0f83f(void * a0, int a1, int a2) {
+    pirates_complete_constructor_017fbd46b57da1d0f83f_target(a0, a1, a2);
+}
+
 // f-05a159c450b97b923274 — complete-destructor
 // AudioQueue::~AudioQueue()
 // Calls: AudioQueue::~AudioQueue()
@@ -13,6 +24,17 @@ extern "C" void pirates_complete_destructor_05a159c450b97b923274(void * a0)
     __asm__("__ZN10AudioQueueD1Ev");
 extern "C" void pirates_complete_destructor_05a159c450b97b923274(void * a0) {
     pirates_complete_destructor_05a159c450b97b923274_target(a0);
+}
+
+// f-0c9240d445cc55045918 — complete-constructor
+// BattleGrid::BattleGrid()
+// Calls: BattleGrid::BattleGrid()
+extern "C" void pirates_complete_constructor_0c9240d445cc55045918_target(void *)
+    __asm__("__ZN10BattleGridC2Ev");
+extern "C" void pirates_complete_constructor_0c9240d445cc55045918(void * a0)
+    __asm__("__ZN10BattleGridC1Ev");
+extern "C" void pirates_complete_constructor_0c9240d445cc55045918(void * a0) {
+    pirates_complete_constructor_0c9240d445cc55045918_target(a0);
 }
 
 // f-0cf5f9f7713a7e80182f — function-forwarder
@@ -69,6 +91,20 @@ extern "C" void pirates_complete_destructor_1c013762039ef83f0b2d(void * a0)
 extern "C" void pirates_complete_destructor_1c013762039ef83f0b2d(void * a0) {
     pirates_complete_destructor_1c013762039ef83f0b2d_target(a0);
 }
+
+// f-246beee04fff1fe31475 — destruction-callback
+// __tcf_1
+// Calls: agentz_manager::Clean()
+extern "C" void pirates_destruction_callback_246beee04fff1fe31475_target(void)
+    __asm__("__ZN14agentz_manager5CleanEv");
+static void pirates_destruction_callback_246beee04fff1fe31475(void * a0)
+    __asm__("___tcf_1");
+static void pirates_destruction_callback_246beee04fff1fe31475(void * a0) {
+    pirates_destruction_callback_246beee04fff1fe31475_target();
+}
+
+// Source-emission reference only; no original data or lifetime-registration credit.
+extern "C" void (* const pirates_destruction_callback_246beee04fff1fe31475_source_reference)(void *) = pirates_destruction_callback_246beee04fff1fe31475;
 
 // f-25d108778847f994b7db — complete-destructor
 // UicAnimator::~UicAnimator()
@@ -136,6 +172,28 @@ extern "C" void pirates_method_forwarder_4b13347d448010c37039(void * a0, void * 
     pirates_method_forwarder_4b13347d448010c37039_target(a0, a1, a2);
 }
 
+// f-4c1ac6090cca33f5b26f — complete-constructor
+// MenuScreen::MenuScreen()
+// Calls: MenuScreen::MenuScreen()
+extern "C" void pirates_complete_constructor_4c1ac6090cca33f5b26f_target(void *)
+    __asm__("__ZN10MenuScreenC2Ev");
+extern "C" void pirates_complete_constructor_4c1ac6090cca33f5b26f(void * a0)
+    __asm__("__ZN10MenuScreenC1Ev");
+extern "C" void pirates_complete_constructor_4c1ac6090cca33f5b26f(void * a0) {
+    pirates_complete_constructor_4c1ac6090cca33f5b26f_target(a0);
+}
+
+// f-4fe1329e6c81895ed69c — complete-constructor
+// TopTenPiratesUIScene::TopTenPiratesUIScene(CPVRTString const&, UISceneComponent*)
+// Calls: TopTenPiratesUIScene::TopTenPiratesUIScene(CPVRTString const&, UISceneComponent*)
+extern "C" void pirates_complete_constructor_4fe1329e6c81895ed69c_target(void *, const void *, void *)
+    __asm__("__ZN20TopTenPiratesUISceneC2ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_4fe1329e6c81895ed69c(void * a0, const void * a1, void * a2)
+    __asm__("__ZN20TopTenPiratesUISceneC1ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_4fe1329e6c81895ed69c(void * a0, const void * a1, void * a2) {
+    pirates_complete_constructor_4fe1329e6c81895ed69c_target(a0, a1, a2);
+}
+
 // f-51a4b29dc0fdd32e110f — complete-destructor
 // FStringMap<int>::~FStringMap()
 // Calls: FStringMap<int>::~FStringMap()
@@ -156,6 +214,17 @@ extern "C" void pirates_complete_destructor_5581c01b694f6bd5d07a(void * a0)
     __asm__("__ZN18FleetStatusUISceneD1Ev");
 extern "C" void pirates_complete_destructor_5581c01b694f6bd5d07a(void * a0) {
     pirates_complete_destructor_5581c01b694f6bd5d07a_target(a0);
+}
+
+// f-5ddd41cfdbbbca96d795 — complete-constructor
+// Wake::Wake(ISE::ISEPointer<ISE::ISEEntity>, float)
+// Calls: Wake::Wake(ISE::ISEPointer<ISE::ISEEntity>, float)
+extern "C" void pirates_complete_constructor_5ddd41cfdbbbca96d795_target(void *, void *, float)
+    __asm__("__ZN4WakeC2EN3ISE10ISEPointerINS0_9ISEEntityEEEf");
+extern "C" void pirates_complete_constructor_5ddd41cfdbbbca96d795(void * a0, void * a1, float a2)
+    __asm__("__ZN4WakeC1EN3ISE10ISEPointerINS0_9ISEEntityEEEf");
+extern "C" void pirates_complete_constructor_5ddd41cfdbbbca96d795(void * a0, void * a1, float a2) {
+    pirates_complete_constructor_5ddd41cfdbbbca96d795_target(a0, a1, a2);
 }
 
 // f-681d2124e4d491617774 — complete-destructor
@@ -200,6 +269,17 @@ extern "C" void pirates_complete_destructor_92c036cc9a71419d04bc(void * a0)
     __asm__("__ZN5WorldD1Ev");
 extern "C" void pirates_complete_destructor_92c036cc9a71419d04bc(void * a0) {
     pirates_complete_destructor_92c036cc9a71419d04bc_target(a0);
+}
+
+// f-a25b3ec52d90e41e3242 — complete-constructor
+// DanceReflector::DanceReflector()
+// Calls: DanceReflector::DanceReflector()
+extern "C" void pirates_complete_constructor_a25b3ec52d90e41e3242_target(void *)
+    __asm__("__ZN14DanceReflectorC2Ev");
+extern "C" void pirates_complete_constructor_a25b3ec52d90e41e3242(void * a0)
+    __asm__("__ZN14DanceReflectorC1Ev");
+extern "C" void pirates_complete_constructor_a25b3ec52d90e41e3242(void * a0) {
+    pirates_complete_constructor_a25b3ec52d90e41e3242_target(a0);
 }
 
 // f-a90018bcd0fc324b1f1c — complete-destructor
@@ -266,6 +346,17 @@ extern "C" void pirates_complete_destructor_d29576bba16946a09915(void * a0)
     __asm__("__ZN10BattleGridD1Ev");
 extern "C" void pirates_complete_destructor_d29576bba16946a09915(void * a0) {
     pirates_complete_destructor_d29576bba16946a09915_target(a0);
+}
+
+// f-d2aa7dca780e78ca91ec — complete-constructor
+// FleetStatusUIScene::FleetStatusUIScene(CPVRTString const&, UISceneComponent*)
+// Calls: FleetStatusUIScene::FleetStatusUIScene(CPVRTString const&, UISceneComponent*)
+extern "C" void pirates_complete_constructor_d2aa7dca780e78ca91ec_target(void *, const void *, void *)
+    __asm__("__ZN18FleetStatusUISceneC2ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_d2aa7dca780e78ca91ec(void * a0, const void * a1, void * a2)
+    __asm__("__ZN18FleetStatusUISceneC1ERK11CPVRTStringP16UISceneComponent");
+extern "C" void pirates_complete_constructor_d2aa7dca780e78ca91ec(void * a0, const void * a1, void * a2) {
+    pirates_complete_constructor_d2aa7dca780e78ca91ec_target(a0, a1, a2);
 }
 
 // f-d308ec448c7971ac02b6 — complete-destructor

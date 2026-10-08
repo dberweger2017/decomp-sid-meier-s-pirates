@@ -4,6 +4,20 @@
 // GNU asm labels are symbol linkage only; no instruction/byte bodies.
 // Callee implementations, full layouts and unencoded results remain separate.
 
+// f-1d573d92aab8c210cc4d — registration-forwarder
+// _GLOBAL__I__ZN3ISE18ISEAlphaController6UpdateEf
+// Calls: ISE::ISEFloatKey::RegisterLoader()
+extern "C" void pirates_registration_forwarder_1d573d92aab8c210cc4d_target(void)
+    __asm__("__ZN3ISE11ISEFloatKey14RegisterLoaderEv");
+static void pirates_registration_forwarder_1d573d92aab8c210cc4d(void)
+    __asm__("__GLOBAL__I__ZN3ISE18ISEAlphaController6UpdateEf");
+static void pirates_registration_forwarder_1d573d92aab8c210cc4d(void) {
+    pirates_registration_forwarder_1d573d92aab8c210cc4d_target();
+}
+
+// Source-emission reference only; no original data or lifetime-registration credit.
+extern "C" void (* const pirates_registration_forwarder_1d573d92aab8c210cc4d_source_reference)(void) = pirates_registration_forwarder_1d573d92aab8c210cc4d;
+
 // f-2343a191fd82aec74a56 — method-forwarder
 // ISE::ISEAlphaController::LinkObject(ISE::ISEParticleEntity&)
 // Calls: ISE::ISEFloatController::LinkObject(ISE::ISEParticleEntity&)

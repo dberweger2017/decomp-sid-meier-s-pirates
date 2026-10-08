@@ -5,3 +5,5 @@
 void UicFrameAnimation::UpdatePos(float x, float y) { m_x = x; m_y = y; }
 
 #include "../../recovery/abi/o-b5a90cc041122ccd1748.cpp"
+
+#include "../../recovery/leaves/o-b5a90cc041122ccd1748.cpp"

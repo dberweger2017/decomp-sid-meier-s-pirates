@@ -37,6 +37,17 @@ extern "C" void pirates_complete_destructor_2bd91fb88789890421d5(void * a0) {
     pirates_complete_destructor_2bd91fb88789890421d5_target(a0);
 }
 
+// f-37622dfd7b9a2d45168f — complete-constructor
+// FIniParser::FIniParser(char const*)
+// Calls: FIniParser::FIniParser(char const*)
+extern "C" void pirates_complete_constructor_37622dfd7b9a2d45168f_target(void *, const void *)
+    __asm__("__ZN10FIniParserC2EPKc");
+extern "C" void pirates_complete_constructor_37622dfd7b9a2d45168f(void * a0, const void * a1)
+    __asm__("__ZN10FIniParserC1EPKc");
+extern "C" void pirates_complete_constructor_37622dfd7b9a2d45168f(void * a0, const void * a1) {
+    pirates_complete_constructor_37622dfd7b9a2d45168f_target(a0, a1);
+}
+
 // f-38a3e39e32eb3fa97069 — function-forwarder
 // DefaultPrinter(char*, int)
 // Calls: OS_OutputDebugString(char const*)
@@ -46,6 +57,17 @@ extern "C" void pirates_function_forwarder_38a3e39e32eb3fa97069(const void * a0,
     __asm__("__ZL14DefaultPrinterPci");
 extern "C" void pirates_function_forwarder_38a3e39e32eb3fa97069(const void * a0, int a1) {
     pirates_function_forwarder_38a3e39e32eb3fa97069_target(a0);
+}
+
+// f-551893e030490a17bac8 — complete-constructor
+// FStringA::FStringA(wchar_t const*)
+// Calls: FStringA::FStringA(wchar_t const*)
+extern "C" void pirates_complete_constructor_551893e030490a17bac8_target(void *, const void *)
+    __asm__("__ZN8FStringAC2EPKw");
+extern "C" void pirates_complete_constructor_551893e030490a17bac8(void * a0, const void * a1)
+    __asm__("__ZN8FStringAC1EPKw");
+extern "C" void pirates_complete_constructor_551893e030490a17bac8(void * a0, const void * a1) {
+    pirates_complete_constructor_551893e030490a17bac8_target(a0, a1);
 }
 
 // f-5b790adf59ea416ccc36 — complete-destructor
@@ -134,6 +156,17 @@ extern "C" void pirates_complete_destructor_ad04facbb94931e47696(void * a0)
     __asm__("__ZN10FIniParserD1Ev");
 extern "C" void pirates_complete_destructor_ad04facbb94931e47696(void * a0) {
     pirates_complete_destructor_ad04facbb94931e47696_target(a0);
+}
+
+// f-c3faa21a6a15536c958d — complete-constructor
+// FCSVFile::FCSVFile(int, int, bool)
+// Calls: FCSVFile::FCSVFile(int, int, bool)
+extern "C" void pirates_complete_constructor_c3faa21a6a15536c958d_target(void *, int, int, bool)
+    __asm__("__ZN8FCSVFileC2Eiib");
+extern "C" void pirates_complete_constructor_c3faa21a6a15536c958d(void * a0, int a1, int a2, bool a3)
+    __asm__("__ZN8FCSVFileC1Eiib");
+extern "C" void pirates_complete_constructor_c3faa21a6a15536c958d(void * a0, int a1, int a2, bool a3) {
+    pirates_complete_constructor_c3faa21a6a15536c958d_target(a0, a1, a2, a3);
 }
 
 // f-c525a2353be8ca5127a0 — complete-destructor

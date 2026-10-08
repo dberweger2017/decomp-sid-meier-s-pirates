@@ -18,3 +18,5 @@ void FKnob::AddKnob(FKnob *knob) {
     } while (current);
     last->m_next=knob;
 }
+
+#include "../../recovery/leaves/o-67cbdb66049bec401875.cpp"

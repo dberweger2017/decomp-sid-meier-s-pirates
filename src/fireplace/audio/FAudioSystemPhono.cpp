@@ -11,3 +11,5 @@ bool FAudioSystemPhono::SetSoundPan(FAudioSystem::ESoundType type, int id, float
 #include "FAudioSystemPhonoSmall_FAudioSystemPhono.cpp"
 
 #include "../../recovery/abi/o-d165ee5f38eff74c59ca.cpp"
+
+#include "../../recovery/leaves/o-d165ee5f38eff74c59ca.cpp"

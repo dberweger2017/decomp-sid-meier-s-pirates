@@ -191,6 +191,17 @@ extern "C" void pirates_complete_destructor_5d7c87537001683d0296(void * a0) {
     pirates_complete_destructor_5d7c87537001683d0296_target(a0);
 }
 
+// f-62433b6113501fe9d007 — destructor-cleanup
+// FAStar::~FAStar()
+// Calls: FAStar::DeInit()
+extern "C" void pirates_destructor_cleanup_62433b6113501fe9d007_target(void *)
+    __asm__("__ZN6FAStar6DeInitEv");
+extern "C" void pirates_destructor_cleanup_62433b6113501fe9d007(void * a0)
+    __asm__("__ZN6FAStarD1Ev");
+extern "C" void pirates_destructor_cleanup_62433b6113501fe9d007(void * a0) {
+    pirates_destructor_cleanup_62433b6113501fe9d007_target(a0);
+}
+
 // f-68c2dbb8e453e5c285a7 — complete-destructor
 // FTextFile::~FTextFile()
 // Calls: FTextFile::~FTextFile()
@@ -433,6 +444,17 @@ extern "C" void * pirates_method_forwarder_cca65309e1b70d0704fd(void * a0) {
     return pirates_method_forwarder_cca65309e1b70d0704fd_target();
 }
 
+// f-cd29cae33d5713a3438b — complete-constructor
+// FShadowManager::FShadowManager(NiCamera*, NiColorA&)
+// Calls: FShadowManager::FShadowManager(NiCamera*, NiColorA&)
+extern "C" void pirates_complete_constructor_cd29cae33d5713a3438b_target(void *, void *, void *)
+    __asm__("__ZN14FShadowManagerC2EP8NiCameraR8NiColorA");
+extern "C" void pirates_complete_constructor_cd29cae33d5713a3438b(void * a0, void * a1, void * a2)
+    __asm__("__ZN14FShadowManagerC1EP8NiCameraR8NiColorA");
+extern "C" void pirates_complete_constructor_cd29cae33d5713a3438b(void * a0, void * a1, void * a2) {
+    pirates_complete_constructor_cd29cae33d5713a3438b_target(a0, a1, a2);
+}
+
 // f-cd3c04e96377dd5ea117 — complete-destructor
 // NiTPointerMap<char const*, NiPointer<NiTexture>>::~NiTPointerMap()
 // Calls: NiTPointerMap<char const*, NiPointer<NiTexture>>::~NiTPointerMap()
@@ -541,6 +563,17 @@ extern "C" void pirates_complete_destructor_e092a619ea08573b2114(void * a0)
     __asm__("__ZN6NiTMapIPKc9NiPointerI20NiControllerSequenceEED1Ev");
 extern "C" void pirates_complete_destructor_e092a619ea08573b2114(void * a0) {
     pirates_complete_destructor_e092a619ea08573b2114_target(a0);
+}
+
+// f-ea0433df05d72775f76f — complete-constructor
+// FTerrainMesh::FTerrainMesh(unsigned int, unsigned int, unsigned int)
+// Calls: FTerrainMesh::FTerrainMesh(unsigned int, unsigned int, unsigned int)
+extern "C" void pirates_complete_constructor_ea0433df05d72775f76f_target(void *, unsigned int, unsigned int, unsigned int)
+    __asm__("__ZN12FTerrainMeshC2Ejjj");
+extern "C" void pirates_complete_constructor_ea0433df05d72775f76f(void * a0, unsigned int a1, unsigned int a2, unsigned int a3)
+    __asm__("__ZN12FTerrainMeshC1Ejjj");
+extern "C" void pirates_complete_constructor_ea0433df05d72775f76f(void * a0, unsigned int a1, unsigned int a2, unsigned int a3) {
+    pirates_complete_constructor_ea0433df05d72775f76f_target(a0, a1, a2, a3);
 }
 
 // f-eaea8224dc53201db21e — complete-destructor

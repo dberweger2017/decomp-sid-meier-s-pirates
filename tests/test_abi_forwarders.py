@@ -70,6 +70,32 @@ class SelectionTests(unittest.TestCase):
         with self.assertRaises(ToolError):
             validate(spec, inv, original)
 
+    def test_import_forwarder_requires_independently_decoded_unique_stub(self):
+        from tests.test_import_stubs import imported_image
+        code = bytes.fromhex('80402de90d70a0e1fc0300eb8080bde8')
+        original = MachO(imported_image(code=code))
+        inv = recover(original)
+        _, _, spec = fixture()
+        e = spec['entries'][0]
+        e.update(id=inv['functions'][0]['id'], group_id=inv['functions'][0]['group_id'],
+                 symbol='_probe', target_symbol='_import', kind='function-forwarder')
+        validate(spec, inv, original)
+        for image in (imported_image(code=code, opcode=0xe1a00000),
+                      imported_image(('_import', '_import'), code=code)):
+            with self.assertRaises(ToolError):
+                validate(spec, recover(MachO(image)), MachO(image))
+
+    def test_registration_entries_have_local_source_and_no_implicit_registration(self):
+        _, inv, spec = fixture()
+        e = spec['entries'][0]
+        e.update(symbol='__GLOBAL__I_probe', kind='registration-forwarder', parameters=[], target_parameters=[])
+        text = render([e], e['group_id'])
+        self.assertIn('static void pirates_registration_forwarder_', text)
+        self.assertNotIn('__attribute__((used))', text)
+        self.assertIn('_source_reference', text)
+        self.assertNotIn('__attribute__((constructor))', text)
+        self.assertNotIn('new ', text)
+
     @unittest.skipUnless(shutil.which('clang++'), 'Modern Clang required for synthetic ABI fixture only')
     def test_compiled_wrapper_cannot_match_wrong_relocation_target(self):
         original, inv, spec = fixture()

@@ -6,3 +6,5 @@
 bool FAudioSystem::Update(float) { return true; }
 
 void FAudioSystem::SetAudioSystemType() {}
+
+#include "../../recovery/leaves/o-8d47cdfc0a7351af6cc0.cpp"

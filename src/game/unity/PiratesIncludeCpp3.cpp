@@ -12,3 +12,5 @@
 #include "../../recovery/PiratesIncludeCpp3ReleaseFunctions.cpp"
 
 #include "../../recovery/abi/o-998eb75b8a8db9671b6e.cpp"
+
+#include "../../recovery/leaves/o-998eb75b8a8db9671b6e.cpp"

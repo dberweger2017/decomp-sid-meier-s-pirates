@@ -24,3 +24,5 @@ unsigned int FSharedSoundData::GetTotalBufferSize() {
     }
     return total;
 }
+
+#include "../../recovery/leaves/o-ac2c3029785c947aeb95.cpp"

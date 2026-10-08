@@ -14,3 +14,14 @@ extern "C" void pirates_complete_destructor_649ff3143c53e418db03(void * a0)
 extern "C" void pirates_complete_destructor_649ff3143c53e418db03(void * a0) {
     pirates_complete_destructor_649ff3143c53e418db03_target(a0);
 }
+
+// f-9b7d5113ba1832d86c02 — complete-constructor
+// MultiPlaySeaBattleChosen::MultiPlaySeaBattleChosen()
+// Calls: MultiPlaySeaBattleChosen::MultiPlaySeaBattleChosen()
+extern "C" void pirates_complete_constructor_9b7d5113ba1832d86c02_target(void *)
+    __asm__("__ZN24MultiPlaySeaBattleChosenC2Ev");
+extern "C" void pirates_complete_constructor_9b7d5113ba1832d86c02(void * a0)
+    __asm__("__ZN24MultiPlaySeaBattleChosenC1Ev");
+extern "C" void pirates_complete_constructor_9b7d5113ba1832d86c02(void * a0) {
+    pirates_complete_constructor_9b7d5113ba1832d86c02_target(a0);
+}

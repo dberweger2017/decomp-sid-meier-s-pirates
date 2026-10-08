@@ -25,3 +25,14 @@ extern "C" void pirates_method_forwarder_30b7177e10ee3da98555(void * a0)
 extern "C" void pirates_method_forwarder_30b7177e10ee3da98555(void * a0) {
     pirates_method_forwarder_30b7177e10ee3da98555_target(a0);
 }
+
+// f-7470cb8ea9083161595e — complete-constructor
+// ISE::TriStrip::TriStrip(ISE::VertexBuffer*)
+// Calls: ISE::TriStrip::TriStrip(ISE::VertexBuffer*)
+extern "C" void pirates_complete_constructor_7470cb8ea9083161595e_target(void *, void *)
+    __asm__("__ZN3ISE8TriStripC2EPNS_12VertexBufferE");
+extern "C" void pirates_complete_constructor_7470cb8ea9083161595e(void * a0, void * a1)
+    __asm__("__ZN3ISE8TriStripC1EPNS_12VertexBufferE");
+extern "C" void pirates_complete_constructor_7470cb8ea9083161595e(void * a0, void * a1) {
+    pirates_complete_constructor_7470cb8ea9083161595e_target(a0, a1);
+}

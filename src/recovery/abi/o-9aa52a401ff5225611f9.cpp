@@ -14,3 +14,14 @@ extern "C" void pirates_complete_destructor_980135232e6c3533c03c(void * a0)
 extern "C" void pirates_complete_destructor_980135232e6c3533c03c(void * a0) {
     pirates_complete_destructor_980135232e6c3533c03c_target(a0);
 }
+
+// f-9d20148ec03f941643d1 — complete-constructor
+// UicDanceHeart::UicDanceHeart(int, int, int)
+// Calls: UicDanceHeart::UicDanceHeart(int, int, int)
+extern "C" void pirates_complete_constructor_9d20148ec03f941643d1_target(void *, int, int, int)
+    __asm__("__ZN13UicDanceHeartC2Eiii");
+extern "C" void pirates_complete_constructor_9d20148ec03f941643d1(void * a0, int a1, int a2, int a3)
+    __asm__("__ZN13UicDanceHeartC1Eiii");
+extern "C" void pirates_complete_constructor_9d20148ec03f941643d1(void * a0, int a1, int a2, int a3) {
+    pirates_complete_constructor_9d20148ec03f941643d1_target(a0, a1, a2, a3);
+}

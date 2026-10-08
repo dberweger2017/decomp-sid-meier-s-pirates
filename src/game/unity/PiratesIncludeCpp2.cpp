@@ -24,3 +24,7 @@
 #include "../../recovery/PiratesIncludeCpp2_oSmallFunctions.cpp"
 
 #include "../../recovery/abi/o-2d59da5048d3db995d0f.cpp"
+
+#include "../../recovery/leaves/o-2d59da5048d3db995d0f.cpp"
+
+#include "../../recovery/SetAlphaTestForNoSorterObjects.cpp"

@@ -92,6 +92,17 @@ extern "C" void pirates_method_forwarder_94f1f51ed0f78c9102a6(void * a0, void * 
     pirates_method_forwarder_94f1f51ed0f78c9102a6_target(a0, a1, a2);
 }
 
+// f-9d7c4625e656aca15e87 — complete-constructor
+// UicDanceStep::UicDanceStep()
+// Calls: UicDanceStep::UicDanceStep()
+extern "C" void pirates_complete_constructor_9d7c4625e656aca15e87_target(void *)
+    __asm__("__ZN12UicDanceStepC2Ev");
+extern "C" void pirates_complete_constructor_9d7c4625e656aca15e87(void * a0)
+    __asm__("__ZN12UicDanceStepC1Ev");
+extern "C" void pirates_complete_constructor_9d7c4625e656aca15e87(void * a0) {
+    pirates_complete_constructor_9d7c4625e656aca15e87_target(a0);
+}
+
 // f-a00adb7f150664abdfc9 — complete-destructor
 // CustomizationUIScene::~CustomizationUIScene()
 // Calls: CustomizationUIScene::~CustomizationUIScene()

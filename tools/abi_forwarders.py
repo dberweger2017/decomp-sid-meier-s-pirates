@@ -19,7 +19,8 @@ import capstone
 TYPES = {'void *', 'const void *', 'bool', 'char', 'signed char', 'unsigned char',
          'short', 'unsigned short', 'int', 'unsigned int', 'long', 'unsigned long', 'float'}
 RESULTS = TYPES | {'void', 'double'}
-KINDS = {'complete-destructor', 'complete-constructor', 'method-forwarder', 'function-forwarder'}
+KINDS = {'complete-destructor', 'complete-constructor', 'method-forwarder', 'function-forwarder',
+         'registration-forwarder', 'destruction-callback', 'destructor-cleanup'}
 SYMBOL = re.compile(r'_[A-Za-z_][A-Za-z_0-9]*\Z')
 ID = re.compile(r'f-[a-f0-9]{20}\Z')
 
@@ -63,9 +64,11 @@ def validate(specification, inventory, original):
                    for a, b in zip(parameters, target_parameters)):
                 raise ToolError('ABI entry changes argument representation: ' + fid)
         target_symbols = [s for s in original.symbols if s.defined and s.name == entry['target_symbol']]
-        if not target_symbols or len({s.value for s in target_symbols}) != 1:
+        targets = {s.value & ~1 for s in target_symbols}
+        targets.update(s['address'] for s in original.imported_stubs if s['symbol'] == entry['target_symbol'])
+        if len(targets) != 1:
             raise ToolError('ABI entry has no unique named original target: ' + fid)
-        target = target_symbols[0].value & ~1
+        target = next(iter(targets))
         instructions = list(cs.disasm(original.bytes_at(function['address'], 16, function['section']), function['address']))
         if (len(instructions) != 4 or instructions[0].mnemonic != 'push'
                 or instructions[0].op_str != '{r7, lr}' or instructions[1].mnemonic != 'mov'
@@ -74,6 +77,15 @@ def validate(specification, inventory, original):
                 or instructions[2].operands[0].imm != target
                 or instructions[3].mnemonic != 'pop' or instructions[3].op_str != '{r7, pc}'):
             raise ToolError('Original entry is not the reviewed direct forwarder: ' + fid)
+        if entry['kind'] == 'registration-forwarder' and (not entry['symbol'].startswith('__GLOBAL__I_')
+                or parameters or target_parameters or entry['return_type'] != 'void'):
+            raise ToolError('Registration entry must be an original zero-argument initializer: ' + fid)
+        if entry['kind'] == 'destruction-callback' and (not entry['symbol'].startswith('___tcf_')
+                or parameters != ['void *'] or target_parameters or entry['return_type'] != 'void'):
+            raise ToolError('Destruction callback requires an unused context and static cleanup target: ' + fid)
+        if entry['kind'] == 'destructor-cleanup' and ('D1E' not in entry['symbol']
+                or parameters != ['void *'] or target_parameters != parameters or entry['return_type'] != 'void'):
+            raise ToolError('Destructor cleanup requires unchanged this: ' + fid)
         if entry['kind'] in {'complete-destructor', 'complete-constructor'}:
             before, after = ('D1E', 'D2E') if entry['kind'] == 'complete-destructor' else ('C1E', 'C2E')
             if (before not in entry['symbol'] or entry['symbol'].replace(before, after) != entry['target_symbol']
@@ -101,14 +113,23 @@ def render(entries, group_id):
         target_params = ', '.join(entry['target_parameters']) or 'void'
         call = ', '.join('a' + str(i) for i in range(len(entry['target_parameters'])))
         prefix = '' if entry['return_type'] == 'void' else 'return '
+        internal = entry['kind'] in {'registration-forwarder', 'destruction-callback'}
+        linkage = 'static ' if internal else 'extern "C" '
         lines += ['// ' + entry['id'] + ' — ' + entry['kind'],
                   '// ' + entry['original_name'], '// Calls: ' + entry['target_name'],
                   'extern "C" ' + entry['return_type'] + ' ' + name + '_target(' + target_params + ')',
                   '    __asm__(' + json.dumps(entry['target_symbol']) + ');',
-                  'extern "C" ' + entry['return_type'] + ' ' + name + '(' + params + ')',
+                  linkage + entry['return_type'] + ' ' + name + '(' + params + ')',
                   '    __asm__(' + json.dumps(entry['symbol']) + ');',
-                  'extern "C" ' + entry['return_type'] + ' ' + name + '(' + params + ') {',
+                  linkage + entry['return_type'] + ' ' + name + '(' + params + ') {',
                   '    ' + prefix + name + '_target(' + call + ');', '}', '']
+        if internal:
+            # `used` on this historical Darwin backend sets N_NO_DEAD_STRIP.
+            # An unrooted external address reference preserves the local body
+            # in the object while allowing both to disappear from subset links.
+            lines += ['// Source-emission reference only; no original data or lifetime-registration credit.',
+                      'extern "C" ' + entry['return_type'] + ' (* const ' + name + '_source_reference)(' +
+                      (', '.join(entry['parameters']) or 'void') + ') = ' + name + ';', '']
     return '\n'.join(lines)
 
 
@@ -132,7 +153,10 @@ def main():
     if args.output:
         args.output.mkdir(parents=True, exist_ok=True)
         for group in groups:
-            (args.output / (group + '.cpp')).write_text(render([e for e in entries if e['group_id'] == group], group))
+            path = args.output / (group + '.cpp')
+            source = render([e for e in entries if e['group_id'] == group], group)
+            if not path.exists() or path.read_text() != source:
+                path.write_text(source)
     print(f'Validated {len(entries)} register-only ABI forwarders in {len(groups)} original groups')
 
 

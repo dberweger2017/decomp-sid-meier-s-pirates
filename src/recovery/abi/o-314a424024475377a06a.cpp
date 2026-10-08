@@ -4,6 +4,20 @@
 // GNU asm labels are symbol linkage only; no instruction/byte bodies.
 // Callee implementations, full layouts and unencoded results remain separate.
 
+// f-36c5fd7a90a39b78ac69 — registration-forwarder
+// _GLOBAL__I__ZN3ISE29ISEPSysEmitterPlanarAngleCtlrC2Ev
+// Calls: ISE::ISEFloatKey::RegisterLoader()
+extern "C" void pirates_registration_forwarder_36c5fd7a90a39b78ac69_target(void)
+    __asm__("__ZN3ISE11ISEFloatKey14RegisterLoaderEv");
+static void pirates_registration_forwarder_36c5fd7a90a39b78ac69(void)
+    __asm__("__GLOBAL__I__ZN3ISE29ISEPSysEmitterPlanarAngleCtlrC2Ev");
+static void pirates_registration_forwarder_36c5fd7a90a39b78ac69(void) {
+    pirates_registration_forwarder_36c5fd7a90a39b78ac69_target();
+}
+
+// Source-emission reference only; no original data or lifetime-registration credit.
+extern "C" void (* const pirates_registration_forwarder_36c5fd7a90a39b78ac69_source_reference)(void) = pirates_registration_forwarder_36c5fd7a90a39b78ac69;
+
 // f-4dc15c090b66376e2808 — method-forwarder
 // ISE::ISEPSysEmitterPlanarAngleCtlr::LoadBinary(ISE::ISEParticleEntity&)
 // Calls: ISE::ISEPSysModifierFloatCtlr::LoadBinary(ISE::ISEParticleEntity&)

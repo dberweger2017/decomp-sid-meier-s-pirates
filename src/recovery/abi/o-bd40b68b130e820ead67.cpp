@@ -59,6 +59,17 @@ extern "C" void pirates_method_forwarder_0d165cb6d93a36434781(void * a0, void * 
     pirates_method_forwarder_0d165cb6d93a36434781_target(a0, a1);
 }
 
+// f-0e94e4d730b92977f769 — complete-constructor
+// NiFloatsExtraData::NiFloatsExtraData(unsigned int, float const*)
+// Calls: NiFloatsExtraData::NiFloatsExtraData(unsigned int, float const*)
+extern "C" void pirates_complete_constructor_0e94e4d730b92977f769_target(void *, unsigned int, const void *)
+    __asm__("__ZN17NiFloatsExtraDataC2EjPKf");
+extern "C" void pirates_complete_constructor_0e94e4d730b92977f769(void * a0, unsigned int a1, const void * a2)
+    __asm__("__ZN17NiFloatsExtraDataC1EjPKf");
+extern "C" void pirates_complete_constructor_0e94e4d730b92977f769(void * a0, unsigned int a1, const void * a2) {
+    pirates_complete_constructor_0e94e4d730b92977f769_target(a0, a1, a2);
+}
+
 // f-0fbcf8a8486ee0210702 — method-forwarder
 // NiMaterialProperty::LinkObject(NiStream&)
 // Calls: NiProperty::LinkObject(NiStream&)
@@ -68,6 +79,17 @@ extern "C" void pirates_method_forwarder_0fbcf8a8486ee0210702(void * a0, void * 
     __asm__("__ZN18NiMaterialProperty10LinkObjectER8NiStream");
 extern "C" void pirates_method_forwarder_0fbcf8a8486ee0210702(void * a0, void * a1) {
     pirates_method_forwarder_0fbcf8a8486ee0210702_target(a0, a1);
+}
+
+// f-122ab6652421c3268166 — complete-constructor
+// NiPalette::NiPalette(NiPalette const&)
+// Calls: NiPalette::NiPalette(NiPalette const&)
+extern "C" void pirates_complete_constructor_122ab6652421c3268166_target(void *, const void *)
+    __asm__("__ZN9NiPaletteC2ERKS_");
+extern "C" void pirates_complete_constructor_122ab6652421c3268166(void * a0, const void * a1)
+    __asm__("__ZN9NiPaletteC1ERKS_");
+extern "C" void pirates_complete_constructor_122ab6652421c3268166(void * a0, const void * a1) {
+    pirates_complete_constructor_122ab6652421c3268166_target(a0, a1);
 }
 
 // f-168b9ced8e382d3ee7d7 — method-forwarder
@@ -145,6 +167,17 @@ extern "C" void pirates_complete_destructor_1f5fe86d313068b0ec60(void * a0)
     __asm__("__ZN8NiTArrayI9NiPointerI15NiScreenTextureEED1Ev");
 extern "C" void pirates_complete_destructor_1f5fe86d313068b0ec60(void * a0) {
     pirates_complete_destructor_1f5fe86d313068b0ec60_target(a0);
+}
+
+// f-212ee5ffa36d088b6e70 — complete-constructor
+// NiNode::NiNode(unsigned int)
+// Calls: NiNode::NiNode(unsigned int)
+extern "C" void pirates_complete_constructor_212ee5ffa36d088b6e70_target(void *, unsigned int)
+    __asm__("__ZN6NiNodeC2Ej");
+extern "C" void pirates_complete_constructor_212ee5ffa36d088b6e70(void * a0, unsigned int a1)
+    __asm__("__ZN6NiNodeC1Ej");
+extern "C" void pirates_complete_constructor_212ee5ffa36d088b6e70(void * a0, unsigned int a1) {
+    pirates_complete_constructor_212ee5ffa36d088b6e70_target(a0, a1);
 }
 
 // f-26ee2242768b47fa7e9c — complete-destructor
@@ -398,6 +431,17 @@ extern "C" void pirates_method_forwarder_6d034b75c32d5116c1d1(void * a0, void * 
     __asm__("__ZN18NiDirectionalLight10SaveBinaryER8NiStream");
 extern "C" void pirates_method_forwarder_6d034b75c32d5116c1d1(void * a0, void * a1) {
     pirates_method_forwarder_6d034b75c32d5116c1d1_target(a0, a1);
+}
+
+// f-6ea8215c1656ace0af35 — complete-constructor
+// NiObjectGroup::NiObjectGroup(unsigned int)
+// Calls: NiObjectGroup::NiObjectGroup(unsigned int)
+extern "C" void pirates_complete_constructor_6ea8215c1656ace0af35_target(void *, unsigned int)
+    __asm__("__ZN13NiObjectGroupC2Ej");
+extern "C" void pirates_complete_constructor_6ea8215c1656ace0af35(void * a0, unsigned int a1)
+    __asm__("__ZN13NiObjectGroupC1Ej");
+extern "C" void pirates_complete_constructor_6ea8215c1656ace0af35(void * a0, unsigned int a1) {
+    pirates_complete_constructor_6ea8215c1656ace0af35_target(a0, a1);
 }
 
 // f-7218109f3d4c77a6b23f — method-forwarder

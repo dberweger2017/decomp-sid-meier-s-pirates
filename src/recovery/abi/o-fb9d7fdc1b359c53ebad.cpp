@@ -14,3 +14,14 @@ extern "C" void pirates_complete_destructor_59a497767f0cd1f17675(void * a0)
 extern "C" void pirates_complete_destructor_59a497767f0cd1f17675(void * a0) {
     pirates_complete_destructor_59a497767f0cd1f17675_target(a0);
 }
+
+// f-d8f182f1d6a37613d4d7 — complete-constructor
+// ISE::ISEEntity::ISEEntity()
+// Calls: ISE::ISEEntity::ISEEntity()
+extern "C" void pirates_complete_constructor_d8f182f1d6a37613d4d7_target(void *)
+    __asm__("__ZN3ISE9ISEEntityC2Ev");
+extern "C" void pirates_complete_constructor_d8f182f1d6a37613d4d7(void * a0)
+    __asm__("__ZN3ISE9ISEEntityC1Ev");
+extern "C" void pirates_complete_constructor_d8f182f1d6a37613d4d7(void * a0) {
+    pirates_complete_constructor_d8f182f1d6a37613d4d7_target(a0);
+}

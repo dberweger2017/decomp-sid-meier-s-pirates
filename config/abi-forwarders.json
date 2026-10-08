@@ -8453,6 +8453,1258 @@
         "void *",
         "void *"
       ]
+    },
+    {
+      "id": "f-ea0433df05d72775f76f",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN12FTerrainMeshC1Ejjj",
+      "original_name": "FTerrainMesh::FTerrainMesh(unsigned int, unsigned int, unsigned int)",
+      "target_symbol": "__ZN12FTerrainMeshC2Ejjj",
+      "target_name": "FTerrainMesh::FTerrainMesh(unsigned int, unsigned int, unsigned int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int",
+        "unsigned int",
+        "unsigned int"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int",
+        "unsigned int",
+        "unsigned int"
+      ]
+    },
+    {
+      "id": "f-cd29cae33d5713a3438b",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN14FShadowManagerC1EP8NiCameraR8NiColorA",
+      "original_name": "FShadowManager::FShadowManager(NiCamera*, NiColorA&)",
+      "target_symbol": "__ZN14FShadowManagerC2EP8NiCameraR8NiColorA",
+      "target_name": "FShadowManager::FShadowManager(NiCamera*, NiColorA&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-62433b6113501fe9d007",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN6FAStarD1Ev",
+      "original_name": "FAStar::~FAStar()",
+      "target_symbol": "__ZN6FAStar6DeInitEv",
+      "target_name": "FAStar::DeInit()",
+      "kind": "destructor-cleanup",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-c3faa21a6a15536c958d",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "__ZN8FCSVFileC1Eiib",
+      "original_name": "FCSVFile::FCSVFile(int, int, bool)",
+      "target_symbol": "__ZN8FCSVFileC2Eiib",
+      "target_name": "FCSVFile::FCSVFile(int, int, bool)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "bool"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "bool"
+      ]
+    },
+    {
+      "id": "f-551893e030490a17bac8",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "__ZN8FStringAC1EPKw",
+      "original_name": "FStringA::FStringA(wchar_t const*)",
+      "target_symbol": "__ZN8FStringAC2EPKw",
+      "target_name": "FStringA::FStringA(wchar_t const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-37622dfd7b9a2d45168f",
+      "group_id": "o-fb173e414b8edec47528",
+      "symbol": "__ZN10FIniParserC1EPKc",
+      "original_name": "FIniParser::FIniParser(char const*)",
+      "target_symbol": "__ZN10FIniParserC2EPKc",
+      "target_name": "FIniParser::FIniParser(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-97ee84daa13d0e51973d",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN11UicQuestLogC1Eii",
+      "original_name": "UicQuestLog::UicQuestLog(int, int)",
+      "target_symbol": "__ZN11UicQuestLogC2Eii",
+      "target_name": "UicQuestLog::UicQuestLog(int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-5befae4d6320d4731a99",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN17SpecialistUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "SpecialistUIScene::SpecialistUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN17SpecialistUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "SpecialistUIScene::SpecialistUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-5c80c6c5f0d8316fce9e",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN15MapPieceUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "MapPieceUIScene::MapPieceUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN15MapPieceUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "MapPieceUIScene::MapPieceUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-8992dc921f3b72c8902e",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN11UicKeyboardC1EiiPFbPKcE",
+      "original_name": "UicKeyboard::UicKeyboard(int, int, bool (*)(char const*))",
+      "target_symbol": "__ZN11UicKeyboardC2EiiPFbPKcE",
+      "target_name": "UicKeyboard::UicKeyboard(int, int, bool (*)(char const*))",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-70da9e91e9b37d2f4cab",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "symbol": "__ZN15UicPullReefCtrlC1Eiii",
+      "original_name": "UicPullReefCtrl::UicPullReefCtrl(int, int, int)",
+      "target_symbol": "__ZN15UicPullReefCtrlC2Eiii",
+      "target_name": "UicPullReefCtrl::UicPullReefCtrl(int, int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-2d60ee1ed0ec602ee024",
+      "group_id": "o-a70c52d41737dcc20b28",
+      "symbol": "__ZN9NiKFMToolC1Eb",
+      "original_name": "NiKFMTool::NiKFMTool(bool)",
+      "target_symbol": "__ZN9NiKFMToolC2Eb",
+      "target_name": "NiKFMTool::NiKFMTool(bool)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "bool"
+      ],
+      "target_parameters": [
+        "void *",
+        "bool"
+      ]
+    },
+    {
+      "id": "f-ee611ce3b08b0c751b16",
+      "group_id": "o-a70c52d41737dcc20b28",
+      "symbol": "__ZN19NiControllerManagerC1EP10NiAVObject",
+      "original_name": "NiControllerManager::NiControllerManager(NiAVObject*)",
+      "target_symbol": "__ZN19NiControllerManagerC2EP10NiAVObject",
+      "target_name": "NiControllerManager::NiControllerManager(NiAVObject*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-6ea8215c1656ace0af35",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN13NiObjectGroupC1Ej",
+      "original_name": "NiObjectGroup::NiObjectGroup(unsigned int)",
+      "target_symbol": "__ZN13NiObjectGroupC2Ej",
+      "target_name": "NiObjectGroup::NiObjectGroup(unsigned int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int"
+      ]
+    },
+    {
+      "id": "f-122ab6652421c3268166",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN9NiPaletteC1ERKS_",
+      "original_name": "NiPalette::NiPalette(NiPalette const&)",
+      "target_symbol": "__ZN9NiPaletteC2ERKS_",
+      "target_name": "NiPalette::NiPalette(NiPalette const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-0e94e4d730b92977f769",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN17NiFloatsExtraDataC1EjPKf",
+      "original_name": "NiFloatsExtraData::NiFloatsExtraData(unsigned int, float const*)",
+      "target_symbol": "__ZN17NiFloatsExtraDataC2EjPKf",
+      "target_name": "NiFloatsExtraData::NiFloatsExtraData(unsigned int, float const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-212ee5ffa36d088b6e70",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN6NiNodeC1Ej",
+      "original_name": "NiNode::NiNode(unsigned int)",
+      "target_symbol": "__ZN6NiNodeC2Ej",
+      "target_name": "NiNode::NiNode(unsigned int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int"
+      ]
+    },
+    {
+      "id": "f-40271b22482ede67c4a0",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN15NiPropertyStateC1ERKS_",
+      "original_name": "NiPropertyState::NiPropertyState(NiPropertyState const&)",
+      "target_symbol": "__ZN15NiPropertyStateC2ERKS_",
+      "target_name": "NiPropertyState::NiPropertyState(NiPropertyState const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-c8995533f3905598d8e0",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN19NiTexturingPropertyC1Ev",
+      "original_name": "NiTexturingProperty::NiTexturingProperty()",
+      "target_symbol": "__ZN19NiTexturingPropertyC2Ev",
+      "target_name": "NiTexturingProperty::NiTexturingProperty()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-be30c7e4e94cae81bf09",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN8NiStreamC1Ev",
+      "original_name": "NiStream::NiStream()",
+      "target_symbol": "__ZN8NiStreamC2Ev",
+      "target_name": "NiStream::NiStream()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-8a76a00b5f6794decc2b",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN11NiPixelDataC1ERKS_",
+      "original_name": "NiPixelData::NiPixelData(NiPixelData const&)",
+      "target_symbol": "__ZN11NiPixelDataC2ERKS_",
+      "target_name": "NiPixelData::NiPixelData(NiPixelData const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-eeced84a8b167f3943fc",
+      "group_id": "o-d483319aef7bde0860fd",
+      "symbol": "__ZN11NiMemStreamC1Ev",
+      "original_name": "NiMemStream::NiMemStream()",
+      "target_symbol": "__ZN11NiMemStreamC2Ev",
+      "target_name": "NiMemStream::NiMemStream()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-9d7c4625e656aca15e87",
+      "group_id": "o-56583387bbf08f43e2e5",
+      "symbol": "__ZN12UicDanceStepC1Ev",
+      "original_name": "UicDanceStep::UicDanceStep()",
+      "target_symbol": "__ZN12UicDanceStepC2Ev",
+      "target_name": "UicDanceStep::UicDanceStep()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-070d50ec394a5ad6327f",
+      "group_id": "o-13f9707878ee26f79da6",
+      "symbol": "__ZN17UicOpediaCategoryC1Ev",
+      "original_name": "UicOpediaCategory::UicOpediaCategory()",
+      "target_symbol": "__ZN17UicOpediaCategoryC2Ev",
+      "target_name": "UicOpediaCategory::UicOpediaCategory()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-9d20148ec03f941643d1",
+      "group_id": "o-9aa52a401ff5225611f9",
+      "symbol": "__ZN13UicDanceHeartC1Eiii",
+      "original_name": "UicDanceHeart::UicDanceHeart(int, int, int)",
+      "target_symbol": "__ZN13UicDanceHeartC2Eiii",
+      "target_name": "UicDanceHeart::UicDanceHeart(int, int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-dec61625089204d22548",
+      "group_id": "o-90d1fff07c5bef9ce409",
+      "symbol": "__ZN10FontStringC1ERN3ISE9ISEColorAEP4Font",
+      "original_name": "FontString::FontString(ISE::ISEColorA&, Font*)",
+      "target_symbol": "__ZN10FontStringC2ERN3ISE9ISEColorAEP4Font",
+      "target_name": "FontString::FontString(ISE::ISEColorA&, Font*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-f7a1eca6d095a1fe5a12",
+      "group_id": "o-d01697ba6ce58203311d",
+      "symbol": "__ZN15DanceConfigFileC1ERKSs",
+      "original_name": "DanceConfigFile::DanceConfigFile(std::string const&)",
+      "target_symbol": "__ZN15DanceConfigFileC2ERKSs",
+      "target_name": "DanceConfigFile::DanceConfigFile(std::string const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-b646fa38754b5b6a37ef",
+      "group_id": "o-b9afd2a4c28d8e343b6a",
+      "symbol": "__ZN13FAudioManagerC1Ev",
+      "original_name": "FAudioManager::FAudioManager()",
+      "target_symbol": "__ZN13FAudioManagerC2Ev",
+      "target_name": "FAudioManager::FAudioManager()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-94d1e0525992370f9ae9",
+      "group_id": "o-d165ee5f38eff74c59ca",
+      "symbol": "__ZN17FAudioSystemPhonoC1Ev",
+      "original_name": "FAudioSystemPhono::FAudioSystemPhono()",
+      "target_symbol": "__ZN17FAudioSystemPhonoC2Ev",
+      "target_name": "FAudioSystemPhono::FAudioSystemPhono()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-16da49c500ee6ae0c778",
+      "group_id": "o-22e9019c653c60382da6",
+      "symbol": "__ZN6FSoundC1Ev",
+      "original_name": "FSound::FSound()",
+      "target_symbol": "__ZN6FSoundC2Ev",
+      "target_name": "FSound::FSound()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-74a7d4aa1e079d022b69",
+      "group_id": "o-b2988598bdd8217340d1",
+      "symbol": "__ZN8FSound3DC1Ev",
+      "original_name": "FSound3D::FSound3D()",
+      "target_symbol": "__ZN8FSound3DC2Ev",
+      "target_name": "FSound3D::FSound3D()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-12ba9d35d0d61e6e72bc",
+      "group_id": "o-71a79dd832a29b589321",
+      "symbol": "__ZN11FSoundScapeC1Ev",
+      "original_name": "FSoundScape::FSoundScape()",
+      "target_symbol": "__ZN11FSoundScapeC2Ev",
+      "target_name": "FSoundScape::FSoundScape()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-2a442440443a41ab5770",
+      "group_id": "o-b57d478cdca7cd322e6e",
+      "symbol": "__ZN6Phono212PAudioSystemC1Eii",
+      "original_name": "Phono2::PAudioSystem::PAudioSystem(int, int)",
+      "target_symbol": "__ZN6Phono212PAudioSystemC2Eii",
+      "target_name": "Phono2::PAudioSystem::PAudioSystem(int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-c30a84d9323058156740",
+      "group_id": "o-a8c0c6cf62d35b007569",
+      "symbol": "__ZN13TiXmlDocumentC1EPKc",
+      "original_name": "TiXmlDocument::TiXmlDocument(char const*)",
+      "target_symbol": "__ZN13TiXmlDocumentC2EPKc",
+      "target_name": "TiXmlDocument::TiXmlDocument(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-ff4853e644a30a1cf599",
+      "group_id": "o-a8c0c6cf62d35b007569",
+      "symbol": "__ZN12TiXmlElementC1EPKc",
+      "original_name": "TiXmlElement::TiXmlElement(char const*)",
+      "target_symbol": "__ZN12TiXmlElementC2EPKc",
+      "target_name": "TiXmlElement::TiXmlElement(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-a25b3ec52d90e41e3242",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN14DanceReflectorC1Ev",
+      "original_name": "DanceReflector::DanceReflector()",
+      "target_symbol": "__ZN14DanceReflectorC2Ev",
+      "target_name": "DanceReflector::DanceReflector()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-0c9240d445cc55045918",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN10BattleGridC1Ev",
+      "original_name": "BattleGrid::BattleGrid()",
+      "target_symbol": "__ZN10BattleGridC2Ev",
+      "target_name": "BattleGrid::BattleGrid()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-d2aa7dca780e78ca91ec",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN18FleetStatusUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "FleetStatusUIScene::FleetStatusUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN18FleetStatusUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "FleetStatusUIScene::FleetStatusUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-4fe1329e6c81895ed69c",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN20TopTenPiratesUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "TopTenPiratesUIScene::TopTenPiratesUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN20TopTenPiratesUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "TopTenPiratesUIScene::TopTenPiratesUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-4c1ac6090cca33f5b26f",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN10MenuScreenC1Ev",
+      "original_name": "MenuScreen::MenuScreen()",
+      "target_symbol": "__ZN10MenuScreenC2Ev",
+      "target_name": "MenuScreen::MenuScreen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-017fbd46b57da1d0f83f",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN10ShipwrightC1Eii",
+      "original_name": "Shipwright::Shipwright(int, int)",
+      "target_symbol": "__ZN10ShipwrightC2Eii",
+      "target_name": "Shipwright::Shipwright(int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-246beee04fff1fe31475",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "target_symbol": "__ZN14agentz_manager5CleanEv",
+      "target_name": "agentz_manager::Clean()",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": []
+    },
+    {
+      "id": "f-5ddd41cfdbbbca96d795",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN4WakeC1EN3ISE10ISEPointerINS0_9ISEEntityEEEf",
+      "original_name": "Wake::Wake(ISE::ISEPointer<ISE::ISEEntity>, float)",
+      "target_symbol": "__ZN4WakeC2EN3ISE10ISEPointerINS0_9ISEEntityEEEf",
+      "target_name": "Wake::Wake(ISE::ISEPointer<ISE::ISEEntity>, float)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "float"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "float"
+      ],
+      "argument_evidence": "Nontrivial by-value argument lowered indirectly in r1. Original C2 stores r1 and dereferences that pointer; entry forwards the same existing parameter object, not a new copy. Complete type and lifetime model remain separate."
+    },
+    {
+      "id": "f-2fc275d3de7cc083be3d",
+      "group_id": "o-cbb1300000f57e037386",
+      "symbol": "__ZN15SaveLoadUISceneC1ERK11CPVRTStringP16UISceneComponent13SLUISceneType",
+      "original_name": "SaveLoadUIScene::SaveLoadUIScene(CPVRTString const&, UISceneComponent*, SLUISceneType)",
+      "target_symbol": "__ZN15SaveLoadUISceneC2ERK11CPVRTStringP16UISceneComponent13SLUISceneType",
+      "target_name": "SaveLoadUIScene::SaveLoadUIScene(CPVRTString const&, UISceneComponent*, SLUISceneType)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *",
+        "int"
+      ]
+    },
+    {
+      "id": "f-148c43f474fe4324524d",
+      "group_id": "o-61a2257f0bd26f37502a",
+      "symbol": "__ZN22MultiPlaySFStageChosenC1Ev",
+      "original_name": "MultiPlaySFStageChosen::MultiPlaySFStageChosen()",
+      "target_symbol": "__ZN22MultiPlaySFStageChosenC2Ev",
+      "target_name": "MultiPlaySFStageChosen::MultiPlaySFStageChosen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-97c7e40b4487e5140853",
+      "group_id": "o-61a2257f0bd26f37502a",
+      "symbol": "__ZN26MultiPlaySFCharacterChosenC1Ev",
+      "original_name": "MultiPlaySFCharacterChosen::MultiPlaySFCharacterChosen()",
+      "target_symbol": "__ZN26MultiPlaySFCharacterChosenC2Ev",
+      "target_name": "MultiPlaySFCharacterChosen::MultiPlaySFCharacterChosen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-9b7d5113ba1832d86c02",
+      "group_id": "o-861bacac8f6b0b675b76",
+      "symbol": "__ZN24MultiPlaySeaBattleChosenC1Ev",
+      "original_name": "MultiPlaySeaBattleChosen::MultiPlaySeaBattleChosen()",
+      "target_symbol": "__ZN24MultiPlaySeaBattleChosenC2Ev",
+      "target_name": "MultiPlaySeaBattleChosen::MultiPlaySeaBattleChosen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-890ba339a967a02f0309",
+      "group_id": "o-4ecf6698b47bb4fae018",
+      "symbol": "__ZN3ISE7ISEFileC1Ev",
+      "original_name": "ISE::ISEFile::ISEFile()",
+      "target_symbol": "__ZN3ISE7ISEFileC2Ev",
+      "target_name": "ISE::ISEFile::ISEFile()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-44eba2b099c1d3bab5a9",
+      "group_id": "o-4ecf6698b47bb4fae018",
+      "symbol": "__ZN3ISE7ISEFileC1E11CPVRTStringb",
+      "original_name": "ISE::ISEFile::ISEFile(CPVRTString, bool)",
+      "target_symbol": "__ZN3ISE7ISEFileC2E11CPVRTStringb",
+      "target_name": "ISE::ISEFile::ISEFile(CPVRTString, bool)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "bool"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "bool"
+      ],
+      "argument_evidence": "Nontrivial by-value argument lowered indirectly in r1. Original C2 stores r1 and dereferences that pointer; entry forwards the same existing parameter object, not a new copy. Complete type and lifetime model remain separate."
+    },
+    {
+      "id": "f-112907bd166abb68b0b8",
+      "group_id": "o-9cdb54dcd3500115b6d3",
+      "symbol": "__ZN3ISE9ISECameraC1Ev",
+      "original_name": "ISE::ISECamera::ISECamera()",
+      "target_symbol": "__ZN3ISE9ISECameraC2Ev",
+      "target_name": "ISE::ISECamera::ISECamera()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-d8f182f1d6a37613d4d7",
+      "group_id": "o-fb9d7fdc1b359c53ebad",
+      "symbol": "__ZN3ISE9ISEEntityC1Ev",
+      "original_name": "ISE::ISEEntity::ISEEntity()",
+      "target_symbol": "__ZN3ISE9ISEEntityC2Ev",
+      "target_name": "ISE::ISEEntity::ISEEntity()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-31e0ab7991bda7cde924",
+      "group_id": "o-0ae9e92e1c7f2e027e25",
+      "symbol": "__ZN14ISEXmlDocumentC1Ev",
+      "original_name": "ISEXmlDocument::ISEXmlDocument()",
+      "target_symbol": "__ZN14ISEXmlDocumentC2Ev",
+      "target_name": "ISEXmlDocument::ISEXmlDocument()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-d84dca93834434a4ce44",
+      "group_id": "o-0ae9e92e1c7f2e027e25",
+      "symbol": "__ZN13ISEXmlElementC1EPKc",
+      "original_name": "ISEXmlElement::ISEXmlElement(char const*)",
+      "target_symbol": "__ZN13ISEXmlElementC2EPKc",
+      "target_name": "ISEXmlElement::ISEXmlElement(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-3eaba43582006f00b728",
+      "group_id": "o-b79a5e5c044ef79ce5fb",
+      "symbol": "__ZN3ISE7ISEFontC1Ev",
+      "original_name": "ISE::ISEFont::ISEFont()",
+      "target_symbol": "__ZN3ISE7ISEFontC2Ev",
+      "target_name": "ISE::ISEFont::ISEFont()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-b68dd33dcc84154a3322",
+      "group_id": "o-35bbe3f92f752bec5d19",
+      "symbol": "__ZN3ISE15ISEOrthoManagerC1Ev",
+      "original_name": "ISE::ISEOrthoManager::ISEOrthoManager()",
+      "target_symbol": "__ZN3ISE15ISEOrthoManagerC2Ev",
+      "target_name": "ISE::ISEOrthoManager::ISEOrthoManager()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-efa82815d570f6bc2975",
+      "group_id": "o-97ff96143a03b7b7e331",
+      "symbol": "__ZN3ISE7ISEMeshC1EiPNS_9ISEEntityE",
+      "original_name": "ISE::ISEMesh::ISEMesh(int, ISE::ISEEntity*)",
+      "target_symbol": "__ZN3ISE7ISEMeshC2EiPNS_9ISEEntityE",
+      "target_name": "ISE::ISEMesh::ISEMesh(int, ISE::ISEEntity*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-81c5e9fc0aa556bfff02",
+      "group_id": "o-e3c04b8f58296776dbea",
+      "symbol": "__ZN3ISE15ISEEditableMeshC1Ev",
+      "original_name": "ISE::ISEEditableMesh::ISEEditableMesh()",
+      "target_symbol": "__ZN3ISE15ISEEditableMeshC2Ev",
+      "target_name": "ISE::ISEEditableMesh::ISEEditableMesh()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-7470cb8ea9083161595e",
+      "group_id": "o-681bab6a7ca374876967",
+      "symbol": "__ZN3ISE8TriStripC1EPNS_12VertexBufferE",
+      "original_name": "ISE::TriStrip::TriStrip(ISE::VertexBuffer*)",
+      "target_symbol": "__ZN3ISE8TriStripC2EPNS_12VertexBufferE",
+      "target_name": "ISE::TriStrip::TriStrip(ISE::VertexBuffer*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-1d573d92aab8c210cc4d",
+      "group_id": "o-cb895c66bb863be3e3db",
+      "symbol": "__GLOBAL__I__ZN3ISE18ISEAlphaController6UpdateEf",
+      "original_name": "_GLOBAL__I__ZN3ISE18ISEAlphaController6UpdateEf",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-a3b1d6407fe4190f42d3",
+      "group_id": "o-2a5e32cd8b6ff40a7cd7",
+      "symbol": "__ZN3ISE16TextureAnimationC1ERKS0_",
+      "original_name": "ISE::TextureAnimation::TextureAnimation(ISE::TextureAnimation const&)",
+      "target_symbol": "__ZN3ISE16TextureAnimationC2ERKS0_",
+      "target_name": "ISE::TextureAnimation::TextureAnimation(ISE::TextureAnimation const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-f91ceaa1551743162ec9",
+      "group_id": "o-920a762c76e2ccdc3d41",
+      "symbol": "__ZN3ISE14AlphaAnimationC1ERKS0_",
+      "original_name": "ISE::AlphaAnimation::AlphaAnimation(ISE::AlphaAnimation const&)",
+      "target_symbol": "__ZN3ISE14AlphaAnimationC2ERKS0_",
+      "target_name": "ISE::AlphaAnimation::AlphaAnimation(ISE::AlphaAnimation const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-c6da5fa7fbbd4ee36e29",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "symbol": "__ZN3ISE18ControllerSequenceD1Ev",
+      "original_name": "ISE::ControllerSequence::~ControllerSequence()",
+      "target_symbol": "__ZN3ISE18ControllerSequenceD2Ev",
+      "target_name": "ISE::ControllerSequence::~ControllerSequence()",
+      "kind": "complete-destructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-6e18efbe200b2faefe2a",
+      "group_id": "o-98c0a92a4cb9dba98194",
+      "symbol": "__GLOBAL__I__ZN3ISE18ISEFloatControllerD2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE18ISEFloatControllerD2Ev",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-10cacc625beb0c42cb04",
+      "group_id": "o-8c0a88f956f8a0a9caf0",
+      "symbol": "__GLOBAL__I__ZN3ISE12ISEFloatDataD2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE12ISEFloatDataD2Ev",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-fd176811eeb2f6a6da87",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__GLOBAL__I__ZN3ISE12ISEParticlesC2EtP8PVRTVec3S2_PNS_9ISEColorAEP15PVRTQUATERNIONf",
+      "original_name": "_GLOBAL__I__ZN3ISE12ISEParticlesC2EtP8PVRTVec3S2_PNS_9ISEColorAEP15PVRTQUATERNIONf",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-018a4363ede463e63aad",
+      "group_id": "o-002788087bf756267ecd",
+      "symbol": "__GLOBAL__I__ZN3ISE20ISEPSysColorModifierC2EPKcPNS_20ISEParticleColorDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE20ISEPSysColorModifierC2EPKcPNS_20ISEParticleColorDataE",
+      "target_symbol": "__ZN3ISE11ISEColorKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEColorKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-973f6579fd01f0b20316",
+      "group_id": "o-d97d5ade8fd2e4e8eee3",
+      "symbol": "__GLOBAL__I__ZN3ISE18ISEPSysEmitterCtlrC2EPKcPNS_22ISEPSysEmitterCtlrDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE18ISEPSysEmitterCtlrC2EPKcPNS_22ISEPSysEmitterCtlrDataE",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-a84acdc82fa18ace27de",
+      "group_id": "o-e81b058b7ded1a51ff73",
+      "symbol": "__GLOBAL__I__ZN3ISE10ISEPosDataD2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE10ISEPosDataD2Ev",
+      "target_symbol": "__ZN3ISE9ISEPosKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEPosKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-eceeeb7fdd6c012823a7",
+      "group_id": "o-a0a654fc695bd72897a8",
+      "symbol": "__GLOBAL__I__ZN3ISE26ISEMaterialColorControllerC2EPNS_10ISEPosDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE26ISEMaterialColorControllerC2EPNS_10ISEPosDataE",
+      "target_symbol": "__ZN3ISE9ISEPosKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEPosKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-f1906bdd5ba8335a0345",
+      "group_id": "o-feef30570e6ce15967c0",
+      "symbol": "__GLOBAL__I__ZN3ISE29ISEPSysEmitterDeclinationCtlrC2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE29ISEPSysEmitterDeclinationCtlrC2Ev",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-36c5fd7a90a39b78ac69",
+      "group_id": "o-314a424024475377a06a",
+      "symbol": "__GLOBAL__I__ZN3ISE29ISEPSysEmitterPlanarAngleCtlrC2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE29ISEPSysEmitterPlanarAngleCtlrC2Ev",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-5f1f5bb56e07e27627d8",
+      "group_id": "o-238670490d6549fc672f",
+      "symbol": "__GLOBAL__I__ZN3ISE24ISEPSysModifierFloatCtlrC2EPKcPNS_12ISEFloatDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE24ISEPSysModifierFloatCtlrC2EPKcPNS_12ISEFloatDataE",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-ed736ac1b35e7c2971f8",
+      "group_id": "o-777452410bf5df8e8644",
+      "symbol": "__GLOBAL__I__ZN3ISE23ISEPSysEmitterSpeedCtlrC2EPKcPNS_12ISEFloatDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE23ISEPSysEmitterSpeedCtlrC2EPKcPNS_12ISEFloatDataE",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
+    },
+    {
+      "id": "f-a6c35ae2fb2e854e19cf",
+      "group_id": "o-5dc98ded87f47401fef3",
+      "symbol": "__GLOBAL__I__ZN3ISE31ISEPSysEmitterInitialRadiusCtlrC2EPKcPNS_12ISEFloatDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE31ISEPSysEmitterInitialRadiusCtlrC2EPKcPNS_12ISEFloatDataE",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }
