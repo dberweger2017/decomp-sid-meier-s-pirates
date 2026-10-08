@@ -13,3 +13,5 @@ void MultiPlaySBChosenUIScene::SetEnemyModelIndex(int index) { m_enemyModelIndex
 void MultiPlaySBChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
 
 #include "MultiPlaySBChosenUISceneSmall_MultiPlaySBChosenUIScene.cpp"
+
+#include "../../recovery/abi/o-2fd332c51ac83f2c0987.cpp"
