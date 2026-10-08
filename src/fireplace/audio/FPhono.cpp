@@ -33,3 +33,7 @@ bool FPhono::GetLooping_Sample(int sample) {
 float FPhono::GetPlaybackRate_Sound(int sound) {
     return Phono2::PAudioSystem::getSingletonPtr()->GetChannelPlaybackRate(sound);
 }
+
+void FPhono::Stop_Sample(int sample) {
+    Phono2::PAudioSystem::getSingletonPtr()->StopSample(sample);
+}
