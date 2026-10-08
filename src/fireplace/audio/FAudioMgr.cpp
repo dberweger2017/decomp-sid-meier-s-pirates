@@ -10,3 +10,5 @@ bool FAudioManager::IsInitialized() const { return m_initialized; }
 bool FAudioManager::IsPaused() { return m_paused; }
 
 GlobalSoundData *FAudioManager::GetGlobalSoundData() { return m_globalSoundData; }
+
+int *FAudioManager::GetContextDataBits() { return m_contextDataBits; }
