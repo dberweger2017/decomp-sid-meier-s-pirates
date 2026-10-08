@@ -732,3 +732,13 @@ section.
 The latest report has **1,608 exact functions / 18,012 bytes**, 152 differing
 candidates, 7,417 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Two four-byte PowerVR wrappers now branch to their original targets:
+`___tcf_1` forwards to the `CPVRTMemoryFileSystem::CAtExit` destructor, and
+`CPVRTModelPOD::~CPVRTModelPOD` forwards to `Destroy`. Both relocations resolve.
+The emitted candidate spans include a trailing `bx lr`, so each compares at
+66.6667% rather than byte-for-byte.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 154 differing
+candidates, 7,415 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

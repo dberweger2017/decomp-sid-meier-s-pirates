@@ -217,7 +217,8 @@
       "implemented_functions": [
         "f-cdee333ec6aea15f3773",
         "f-7e87243a0474e6974cb6",
-        "f-84e2c6dd93e8c87a6af7"
+        "f-84e2c6dd93e8c87a6af7",
+        "f-43c051ba9889a12d9302"
       ],
       "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
     },
@@ -5714,7 +5715,8 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-bd9b762683c9bcf4713f"
+        "f-bd9b762683c9bcf4713f",
+        "f-240dfc2f9bdc44845c75"
       ],
       "flags_provenance": "Investigative ARM profile for a direct one-word constructor initializer; original flags and complete class layout remain unproven."
     },
