@@ -72,3 +72,18 @@ It includes the reconstructed sentinel and both sound classes while retaining
 zero replacement completion and unverified runtime behavior. Larger methods,
 constructors/destructors and complete class hierarchies remain unrecovered.
 Next targets are the small FAudioManager methods.
+
+## Manager accessor checkpoint
+
+Sixteen FAudioManager accessors and pointer/count setters verify, reaching 91
+functions / 1,332 code bytes: 75 functions / 704 bytes beyond the main baseline.
+Each function has its own commit and the browser watcher rebuilt each candidate.
+Every previous verified function and the 4-byte npos allocation remain matched;
+there are no compile errors or unresolved comparisons. Five earlier candidates
+still differ, and 9,081 recovered functions have no source candidate.
+
+The preceding 75-function pushed checkpoint passed macOS/Linux synthetic tooling
+and historical candidate CI. The manager batch requires its own CI run.
+Full-game replacement linking remains blocked at zero completed units; the
+five-group diagnostic link remains the latest subset-link checkpoint. Conditional
+manager setters and additional small original audio methods are next.
