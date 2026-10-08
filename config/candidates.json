@@ -2878,9 +2878,13 @@
       "functions": {},
       "implemented_functions": [
         "f-0ff207840a626c9d70d8",
-        "f-77eee2d212191c3f750f"
+        "f-77eee2d212191c3f750f",
+        "f-05d9724e77a64d4fc371"
       ],
-      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-05d9724e77a64d4fc371": "empty-body"
+      }
     },
     {
       "group_id": "o-feef30570e6ce15967c0",

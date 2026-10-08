@@ -1426,6 +1426,18 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-05d9724e77a64d4fc371",
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "symbol": "__ZN3ISE10ISEVector3D1Ev",
+      "original_name": "ISE::ISEVector3::~ISEVector3()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
     }
   ]
 }
