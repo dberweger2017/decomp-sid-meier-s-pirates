@@ -6,6 +6,7 @@
 // Complete inheritance, virtual slots, constructors and object size are unknown.
 // Opaque ranges include any unrecovered base state. Unencoded return types,
 // pointees and signedness remain hypotheses; matching bytes do not prove them.
+// Reset establishes only the zero/default state; other enum values are unknown.
 class UicButton {
 public:
     void Reset();

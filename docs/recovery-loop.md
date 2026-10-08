@@ -209,3 +209,9 @@ bytes) and the four-byte npos allocation. Image SHA-256:
 The independent image inspector passes, with zero replacement completion and
 unverified iOS runtime behavior. Reproduce it with
 `python tools/recovery_link.py config/diagnostic-links/recovery-unity.json`.
+
+An included UicButton header edit rebuilds only PiratesIncludeCpp4, preserving
+all 236 verified functions and npos. The editor API exposes all 40 contributing
+sources/headers in that unit, and the same selected function comparison remains
+exact. The live server/API check passes; T3 preview snapshot/evaluation/navigation
+time out at this checkpoint, so a fresh visual browser pass is not claimed.
