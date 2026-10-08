@@ -9693,6 +9693,18 @@
       "return_type": "void",
       "parameters": [],
       "target_parameters": []
+    },
+    {
+      "id": "f-a6c35ae2fb2e854e19cf",
+      "group_id": "o-5dc98ded87f47401fef3",
+      "symbol": "__GLOBAL__I__ZN3ISE31ISEPSysEmitterInitialRadiusCtlrC2EPKcPNS_12ISEFloatDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE31ISEPSysEmitterInitialRadiusCtlrC2EPKcPNS_12ISEFloatDataE",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }
