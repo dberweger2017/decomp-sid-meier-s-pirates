@@ -185,6 +185,9 @@ class WorkflowTests(unittest.TestCase):
         from tools.dev import doctor
         sdk = self.root / 'local.sdk'
         sdk.mkdir()
+        system = sdk / 'System/Library/CoreServices/SystemVersion.plist'
+        system.parent.mkdir(parents=True)
+        system.write_bytes(plistlib.dumps({'ProductVersion': '5.1', 'ProductBuildVersion': '9B176'}))
         profile = load_json(self.root / 'config/fixture-compiler.json')
         profile['sdk_required'] = True
         write_json(self.root / 'config/fixture-compiler.json', profile)
@@ -196,7 +199,7 @@ class WorkflowTests(unittest.TestCase):
         (sdk / 'SDKSettings.plist').write_bytes(b'<invalid')
         check = next(c for c in doctor(self.root) if c['name'] == 'iOS SDK 5.1')
         self.assertFalse(check['ok'])
-        self.assertIn('Malformed', check['detail'])
+        self.assertIn('Malformed', str(check['detail']))
 
     def test_generated_runtime_retains_template_baseline_guard(self):
         profile = load_json(self.root / 'config/fixture-compiler.json')
@@ -219,6 +222,26 @@ class WorkflowTests(unittest.TestCase):
         write_json(self.root / 'config/candidates.json', manifest)
         configure(self.root)
         self.assertEqual(comparisons(self.root, self.fid)['status'], 'unresolved')
+
+    def test_sdk_system_header_edit_invalidates_then_incrementally_rebuilds(self):
+        from tests.test_sdk import sdk_fixture
+        sdk = sdk_fixture(self.root / 'local.sdk')
+        (self.root / 'src/probe.c').write_text('#include <value.h>\nint probe(int x){return x+SDK_VALUE;}\n')
+        configure(self.root, sdk=sdk)
+        base, _ = self.build()
+        self.assertEqual(base['functions'][0]['status'], 'matched')
+        commands = load_json(self.root / 'compile_commands.json')
+        self.assertIn(str(sdk.resolve()) + '/usr/include', commands[0]['arguments'])
+        (sdk / 'usr/include/value.h').write_text('#define SDK_VALUE 42\n')
+        self.assertEqual(comparisons(self.root, self.fid)['status'], 'unresolved')
+        changed, run = self.build()
+        self.assertIn('COMPILE', run.stdout)
+        self.assertEqual(changed['functions'][0]['status'], 'different')
+        self.assertNotEqual(base['sdk'], changed['sdk'])
+        self.assertIn('identical SDK', str(regression(base, changed)['failures']))
+        unchanged, run = self.build()
+        self.assertNotIn('COMPILE', run.stdout)
+        self.assertEqual(changed, unchanged)
 
     def test_internal_ninja_is_pinned_independently_of_shell_path(self):
         with patch.dict(os.environ, {'PATH': '/nonexistent-pirates-tools'}):

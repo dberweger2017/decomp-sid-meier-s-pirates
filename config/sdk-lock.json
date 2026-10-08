@@ -1,0 +1,9 @@
+{
+  "version": "5.1",
+  "build": "9B176",
+  "source": "https://github.com/EachAndOther/Legacy-iOS-SDKs.git",
+  "commit": "f188cd4e635c290c8a041ce857981c3d1baebdc9",
+  "sdk_tree": "a61825bc615847b596883c4597e6d91186399907",
+  "manifest_sha256": "a8228b173e0bf42adffa9d20453d73043dabad649efbc78d982429391e95638d",
+  "provenance": "Third-party mirror with content pinning; not authenticated against an Apple download. One original dangling CRFSuite alias is retained; full linking is unvalidated."
+}

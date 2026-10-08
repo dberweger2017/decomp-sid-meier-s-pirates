@@ -64,6 +64,8 @@ class Watcher:
             return set()
         paths = {self.root / config['candidates_path'], self.root / config['profile_path'],
                  self.root / config['provenance']['input'], self.root / 'configure.py'}
+        if config.get('sdk'):
+            paths.update(Path(config['sdk']).rglob('*'))
         for unit in config['units']:
             paths.add(self.root / unit['source'])
             for dep in dependencies(self.root, unit['id']):

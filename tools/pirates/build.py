@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 from .macho import MachO
+from .sdk import inspect_sdk, header_flags
 from .compiler import command, fingerprint, permitted, language_flags
 from .report import native_report, objdiff_adapter
 from .util import load_json, write_json, ToolError, sha256, local_path, depfile_paths
@@ -20,7 +21,7 @@ def configuration(root):
 def compile_flags(config, unit, normalized=False):
     flags = language_flags(unit['source']) + config['compiler']['flags'] + unit['flags']
     if config.get('sdk'):
-        flags += ['-isysroot', config['compiler'].get('sdk_compile_path', config['sdk'])]
+        flags += header_flags(config['compiler'], config['sdk'], unit['source'])
         if normalized:
             flags = [x.replace(config['sdk'], '<sdk>') for x in flags]
     return flags
@@ -49,6 +50,10 @@ def compile_unit(root, uid):
               'sdk_required': bool(unit.get('sdk_required', config['compiler'].get('sdk_required'))),
               'status': 'compile_error', 'object': f'build/units/{uid}.o', 'object_sha256': None,
               'source_sha256': None, 'dependencies': {}, 'diagnostics': f'build/units/{uid}.diagnostics.txt'}
+    sdk = inspect_sdk(config.get('sdk'))
+    result['sdk'] = sdk
+    if sdk and not sdk['validated']:
+        allowed, error = False, sdk['reason']
     diagnostics = error or ''
     code = 1
     try:
@@ -103,6 +108,7 @@ def comparisons(root, details_id=None):
     original = MachO((root / config['provenance']['input']).read_bytes())
     info = fingerprint(config['compiler'], root, config.get('sdk'))
     allowed, gate_reason = permitted({**config, 'compiler_fingerprint': info})
+    sdk = inspect_sdk(config.get('sdk'))
     unit_configs = {u['id']: u for u in config['units']}
     objects, compile_results, unit_errors = {}, {}, {}
     for uid, unit in unit_configs.items():
@@ -111,6 +117,8 @@ def comparisons(root, details_id=None):
             compile_results[uid] = result
             if result['status'] != 'compiled':
                 raise ToolError('Candidate compilation failed; see unit diagnostics')
+            if result.get('sdk') != sdk:
+                raise ToolError('SDK content changed since compilation; rebuild')
             if result['compiler'] != info:
                 raise ToolError('Compiler fingerprint changed; reconfigure and rebuild')
             if (result['flags'] != compile_flags(config, unit, normalized=True) or result['source'] != unit['source']
@@ -160,7 +168,10 @@ def comparisons(root, details_id=None):
         u = unit_configs.get(g['id'], {})
         units.append({**g, 'source': u.get('source'), 'flags': u.get('flags', []),
                       'compile': compile_results.get(g['id']), 'error': unit_errors.get(g['id'])})
-    return native_report(inventory, config, results, units, info)
+    native = native_report(inventory, config, results, units, info)
+    if sdk:
+        native['sdk'] = sdk
+    return native
 
 
 def report(root):

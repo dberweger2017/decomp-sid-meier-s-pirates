@@ -78,6 +78,8 @@ def regression(base, head):
     for key in same:
         if base[key] != head[key]:
             failures.append('Base/head do not share identical ' + key)
+    if base.get('sdk') != head.get('sdk'):
+        failures.append('Base/head do not share identical SDK content')
     previous = {f['id']: f for f in base['functions']}
     current = {f['id']: f for f in head['functions']}
     if set(previous) - set(current):

@@ -41,20 +41,11 @@ def doctor(root):
         checks.append({'name': 'historical compiler', 'ok': info['validated'] or synthetic,
                        'detail': info['version'] if info['validated'] else 'UNVALIDATED: ' + (info['reason'] or 'no evidence')})
         if config['compiler'].get('sdk_required'):
-            sdk = Path(config.get('sdk') or 'missing-sdk')
-            ok, detail = False, 'Supply locally with configure.py --sdk <iPhoneOS5.1.sdk>; see docs/sdk.md'
-            if (sdk / 'SDKSettings.plist').is_file():
-                try:
-                    settings = plistlib.loads((sdk / 'SDKSettings.plist').read_bytes())
-                    if not isinstance(settings, dict):
-                        raise ValueError('Expected a settings dictionary')
-                    version = settings.get('Version')
-                    name = settings.get('CanonicalName', 'iphoneos5.1')
-                    ok = version == '5.1' and name == 'iphoneos5.1'
-                    detail = str(sdk) if ok else f'Expected iphoneos5.1 SDK version 5.1; found {name} / {version}'
-                except (OSError, ValueError, plistlib.InvalidFileException, ExpatError) as error:
-                    detail = 'Malformed SDKSettings.plist: ' + str(error)
-            checks.append({'name': 'iOS SDK 5.1', 'ok': ok, 'detail': detail})
+            from tools.pirates.sdk import inspect_sdk
+            identity = inspect_sdk(config.get('sdk'))
+            checks.append({'name': 'iOS SDK 5.1', 'ok': bool(identity and identity['validated']),
+                           'detail': identity if identity else 'Supply a local SDK with tools/sdk.py fetch or import'})
+
     except (OSError, ValueError, KeyError) as e:
         checks.append({'name': 'configuration', 'ok': False, 'detail': str(e)})
     return checks

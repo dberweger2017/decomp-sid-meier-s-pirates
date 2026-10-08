@@ -5,6 +5,7 @@ import shlex
 import sys
 from pathlib import Path
 from .compiler import fingerprint, command, language_flags
+from .sdk import header_flags
 from .inputs import import_ipa, import_fixture
 from .util import load_json, write_json, ToolError, local_path, sha256
 
@@ -89,17 +90,25 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
     tool_files = sorted([p.relative_to(root) for p in (root / 'tools/pirates').glob('*.py')] + [Path('tools/build.py')])
     implicit = ' '.join(ninja_path(p) for p in tool_files)
     dependencies = []
+    if sdk:
+        sdk_arg = shlex.quote(sdk).replace('$', '$$')
+        lines += ['rule sdkcheck', f'  command = {py} tools/sdk.py stamp --sdk {sdk_arg}',
+                  '  restat = 1', 'build sdk_check: phony',
+                  'build build/sdk-identity.json: sdkcheck sdk_check | tools/sdk.py tools/pirates/sdk.py']
+        dependencies.append('build/sdk-identity.json')
+    sdk_dependency = 'build/sdk-identity.json ' if sdk else ''
     for unit in config['units']:
         uid = unit['id']
         output = f'build/units/{uid}.compile.json'
         dependencies.append(output)
-        lines += [f'build {output}: compile {ninja_path(unit["source"])} | build/config.json {implicit}',
+        lines += [f'build {output}: compile {ninja_path(unit["source"])} | build/config.json {sdk_dependency}{implicit}',
                   f'  unit = {uid}', f'  source = {ninja_path(unit["source"])}', f'  depfile = build/units/{uid}.d']
         language = language_flags(unit['source'])
         editor_flags = ['-std=gnu++98' if language[1] in ('c++', 'objective-c++') else '-std=gnu89'] if compiler.get('editor_command') else []
         flags = language + editor_flags + compiler['flags'] + unit['flags']
         if sdk:
-            flags += ['-isysroot', sdk]
+            flags += header_flags(compiler, sdk, unit['source'], editor=True)
+            flags = [flag.replace('/sdk/', sdk + '/') for flag in flags]
         try:
             editor_command = compiler.get('editor_command') or command(compiler, root, sdk)
         except ToolError:
