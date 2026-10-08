@@ -37,3 +37,7 @@ float FPhono::GetPlaybackRate_Sound(int sound) {
 void FPhono::Stop_Sample(int sample) {
     Phono2::PAudioSystem::getSingletonPtr()->StopSample(sample);
 }
+
+bool FPhono::IsStreamPlaying(int stream) {
+    return Phono2::PAudioSystem::getSingletonPtr()->IsStreamPlaying(stream);
+}
