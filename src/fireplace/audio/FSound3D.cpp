@@ -22,3 +22,5 @@ bool FSound3D::GetToBeDestroyed() { return m_toBeDestroyed; }
 bool FSound3D::GetIsMusic() const { return m_isMusic; }
 
 void FSound3D::SetIsMusic(bool value) { m_isMusic = value; }
+
+const F3DSoundScriptData *FSound3D::GetScript() { return m_script; }
