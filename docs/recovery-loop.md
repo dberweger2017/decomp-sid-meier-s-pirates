@@ -608,3 +608,13 @@ address sequence. The singleton data itself remains unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 58 differing
 candidates, 7,511 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Five `Ni*::GetRTTI` methods in the existing `TempIncludeCpp3.o` unity group
+now return their matching 8-byte `m_RTTI` common allocations. Each relocation
+resolves to the expected class symbol; the candidates compare at 50% because
+they use a literal-pool load instead of the original `movw`/`movt` sequence.
+The `m_RTTI` allocations themselves remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 63 differing
+candidates, 7,506 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

@@ -38,3 +38,5 @@
 #include "../../recovery/leaves/o-bd40b68b130e820ead67.cpp"
 
 #include "../../recovery/PiratesIncludeCpp3ImageConverter.cpp"
+
+#include "../../recovery/PiratesIncludeCpp3Rtti.cpp"
