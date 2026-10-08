@@ -1,114 +1,115 @@
 # Sid Meier's Pirates! iOS decompilation — status report
 
-**Snapshot:** October 8, 2026, approximately 13:52 CEST (Europe/Zurich)  
+**Snapshot:** October 8, 2026, approximately 15:07 CEST (Europe/Zurich)  
 **Repository:** [dberweger2017/decomp-sid-meier-s-pirates](https://github.com/dberweger2017/decomp-sid-meier-s-pirates)  
-**Merged main baseline:** [`a13f9bd58591`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/a13f9bd58591969c6d082935edc0761f25e05225) (docs-only update above the PR #2 code merge)  
-**Active draft branch:** `feat/easy-function-recovery`, [`5d8bea221452`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/5d8bea221452490c6e4f724b637d897fffd9a80e), [PR #3](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/3)
+**Merged source baseline:** PR #2, commit [`920d7daea53`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/920d7daea53f98988c0c8dc23fb345d72a0af1d9); later main commits have only updated `STATUS.md`.  
+**Active draft:** [PR #3 — Recover ARMv7 functions in verified batches](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/3), head [`1f25b660eb1`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/1f25b660eb1b145809fe9ed72ff495d0c4644bbd).  
+**Verification:** [Latest branch CI](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37781126678) **passed** on macOS, Ubuntu and historical candidate progress; the recorded job log reports 411 exact functions / 4,864 code bytes and a passing deliberate regression/recovery test.
 
-> **Summary:** The validated ARMv7 matching toolchain and workbench now support a repeatable multi-function recovery loop. The draft branch has **236 byte-for-byte verified functions / 2,900 code bytes**, including a **100-function batch** across five original unity compilation groups. The **latest head CI is green**. The original game executable has **not** been recreated, and there is no playable iOS or arm64 port.
+> **Executive summary:** The ARMv7 compiler, original-byte matcher, SDK and historical linker workflows are functioning for supported cases. Draft PR #3 has reached **411 exact functions / 4,864 code bytes**, with an imported-call relocation improvement, **67 configured original groups**, one 4-byte matched data allocation and structurally linked diagnostic subsets. Most original code remains unrecovered. There is **no runnable complete game** and **no arm64 iPhone port**.
 
-This is a time-stamped snapshot. Do not confuse the latest **unmerged** PR #3 progress with the **merged** source on `main`. Code and data completion remain separate from full-image linking.
+## Exact matching progress
 
-## Progress at a glance
-
-| Measure | Merged main | Draft PR #3 |
+| Measure | Merged `main` | Draft PR #3 |
 |---|---:|---:|
-| Original STABS function records | 9,177 | 9,177 |
-| Original object groups | 268 | 268 |
-| Inventoried function bytes | 4,080,584 | 4,080,584 |
-| Exact verified functions | **16** | **236** |
-| Exact verified code bytes | **628** | **2,900** |
-| Exact function coverage | **0.1743%** | **2.5716%** |
-| Exact STABS code-byte coverage | **0.0154%** | **0.0711%** |
-| Differing source candidates | 5 | **7** |
-| Missing original function candidates | 9,156 | **8,934** |
-| Non-code inventory | 5,056 allocations / 3,827,236 bytes | Same original inventory |
-| Source-backed exact data | 0 bytes | **4 bytes**, one `CPVRTString::npos` allocation |
+| Original named STABS functions | 9,177 | 9,177 |
+| Original object groups in executable | 268 | 268 |
+| Original inventoried function bytes | 4,080,584 | 4,080,584 |
+| Fully byte-matched functions | **16** | **411** |
+| Fully byte-matched function bytes | **628** | **4,864** |
+| Function-record match ratio | 0.1743% | **4.4786%** |
+| Original function-byte match ratio | 0.0154% | **0.1192%** |
+| Configured original source groups | 5 | **67** |
+| Differing compiled candidates | 5 | **34** |
+| Function records without source | 9,156 | **8,732** |
+| Original non-code data allocations | 5,056 / 3,827,236 bytes | Same |
+| Fully matched non-code data | 0 bytes | **4 bytes (one allocation)** |
 | Completed replacement-link units | **0** | **0** |
-| Playable modern iPhone executable | No | No |
+| Playable original replacement / modern arm64 build | No | No |
 
-Against the [previous STATUS.md snapshot](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commits/main/STATUS.md) at 91 functions / 1,332 bytes, PR #3 gained **145 exact functions and 1,568 exact code bytes**. Against merged main, PR #3 has **220 additional functions and 2,272 additional matched bytes**.
+**Delta since the preceding 236-function report:** **+175 functions and +1,964 exact code bytes**. **Delta versus merged main:** +395 functions and +4,236 exact code bytes.
 
-**Interpretation:** Function record coverage is not executable byte coverage. The newest matches skew heavily toward tiny getters, no-ops and UI/accessor functions; these percentages **are not a percentage of remaining engineering work**. The four data bytes are not included in the code-byte total.
+Coverage of **functions by count** is not coverage of **machine-code bytes**, which is much lower because many recovered routines are small. Neither metric estimates percentage of total decompilation work, nor the time to a playable build. The exact-data allocation is counted separately from function bytes.
 
-## Most important new milestone: a whole batch of 100 matches
+## Milestones in the active recovery PR
 
-The recovery agent changed from editing functions one by one to **investigating approximately 100 related functions together**, preserving the original unity compilation boundaries. This reduces repeated compile/configuration overhead and creates a better test of editor watchers, header dependencies, compiler flags and existing-match regression gates.
+### Batch 1: all 100 exact
 
-The first 100-function batch **exactly matched all 100 candidate definitions (660 code bytes)**, organized across five original unity groups:
+- **100 / 100 verified functions; 660 bytes**.
+- Five original unity compilation groups: `FireIncludeCpp.o`, `FireIncludeCpp2.o`, `PiratesIncludeCpp2.o`, `PiratesIncludeCpp3.o`, `PiratesIncludeCpp4.o`.
+- Initial Pirates-specific UI/world, engine and Gamebryo accessor work: field reads, indexed child/animation access, state resets, observed constant returns and release callbacks.
+- A UicButton included-header edit was confirmed to rebuild only the affected original unity object while preserving earlier matches.
 
-| Original group | New verified functions |
-|---|---:|
-| `FireIncludeCpp.o` | 23 |
-| `FireIncludeCpp2.o` | 10 |
-| `PiratesIncludeCpp2.o` | 28 |
-| `PiratesIncludeCpp4.o` | 38 |
-| `PiratesIncludeCpp3.o` | 1 |
-| **Total batch** | **100** |
+### Batch 2: 98 exact of 100 examined
 
-The batch includes initial *Pirates*-specific UI/world accessors, engine accessors, indexed animation/child access, state resets, observed constant-return methods and release-build callbacks. **It does not mean these unity units or gameplay systems are fully reconstructed.** Many source-level return types, class layouts, virtual slots, enums and hierarchy relationships remain hypotheses. The partial types should not be instantiated as complete original objects.
+- **98 / 100 verified functions; 904 bytes** spread across 44 original groups.
+- Work includes engine/game unity code, multiplayer UI, ISE graphics/particle systems, Phono2 audio and various field, mesh, vertex, emitter and pointer accessors.
+- The two nonmatching source bodies remain visible as **different**, not incorrectly counted as recovered exact code. The resulting 334-function checkpoint passed its GitHub Actions jobs.
 
-An included `UicButton` header edit was tested: it rebuilt the affected `PiratesIncludeCpp4` unity group while preserving all 236 existing verified function matches and the data match. The local browser API preserved selected-function state; the separate T3 visual preview automation timed out, so no fresh screenshot-based UI validation is claimed.
+### Batch 3: 77 exact of 102 examined
 
-## Source areas matched so far
+- **77 / 102 verified functions; 1,060 bytes** across 18 original groups.
+- Resulting project checkpoint: **411 exact functions / 4,864 exact code bytes**.
+- Partial `NiTMapBase`/`NiTMapItem` C++ templates now support some hash/key/value routines, pointer identity checks and observed empty hooks. Other reconstructed operations include vector/RTTI initialization, particle count clamping, emitter controls and packed-version construction.
+- This batch also demonstrates **real imported ARM-call stub resolution** with a working unsigned-remainder call. The matching engine checks `LC_DYSYMTAB` indirect-symbol records, a supported 12-byte stub encoding and associated lazy-pointer entries. Wrong/ambiguous/imported-pointer cases remain conservatively unresolved.
+- **25 of the third-batch candidates** remained nonexact, including 22 map equality helpers and two audio validity methods at ~75% assembly similarity and an accumulator start method. No false exact-credit is assigned. Total nonexact candidates across the PR: **34**.
+- **Seven new synthetic tests** cover import-stub resolution and negative cases.
 
-- **PowerVR graphics/platform:** shell callbacks, matrix/quaternion/vector operations, string/resource accessors and one constant data allocation.
-- **Audio subsystem / Fireplace:** GameAudio shipped-release no-op functions; FSound and FSound3D properties; FAudioManager controls; FAudioSystem; FSharedSoundData; FPhono call wrappers; FKnob and FSoundScape small methods.
-- **Early engine and UI/world accessors:** the five Fire/Pirates original unity objects and their included partial sources under `src/fireplace/engine`, `src/fireplace/ui`, `src/game/ui`, `src/game/world` and `src/gamebryo`.
-- **Miscellaneous:** a simple heap diagnostic function.
+## What source areas have we matched?
 
-This is still **mostly small-function reconstruction** rather than full sailing, economy, combat, dance, sword fighting or coastal-bombardment logic. The distinction matters for the user's eventual goal of modifying and porting the iOS game.
+- **PowerVR platform and math:** shell callbacks; matrices, vectors, quaternions, strings and resource-file accessors.
+- **Fireplace audio:** GameAudio, `FSound`, `FSound3D`, `FAudioManager`, `FAudioSystem`, `FSharedSoundData`, `FPhono`, `FKnob`, `FSoundScape` and other small audio methods.
+- **Engine/graphics support:** ISE particle systems, buffers/vertex/mesh structures, texture/camera flags, emitters, Gamebryo map helpers, partial RTTI and type access.
+- **Pirates UI/world glue:** partial unity-source definitions, indexed UI/animation state, menu/dance/multiplayer scene accessors and world-object fields.
+- **Global data:** four bytes for the PowerVR `CPVRTString::npos` sentinel, placed in the observed original section/alignment.
 
-## Tooling and linker readiness
+**Important scope limit:** Names and partial declarations of Pirates gameplay/UI classes do **not** amount to recovered sailing, ship combat, swords, economy, quests or coastal-bombardment systems. Many partial class/virtual layouts cannot safely be instantiated.
 
-### Established in merged PR #1
+## Tooling and reproducibility status
 
-- Original 32-bit ARMv7 Mach-O inventory from the archived 1.1.2 IPA, with STABS boundaries and 268 preserved object groups.
-- Historical **Apple LLVM-GCC 4.2.1 / LLVM 2336.9** C/C++ ARM/Thumb Mach-O object compilation with a legacy assembler; provenance and compiler images pinned for reproducibility on Linux and Apple Silicon through Docker.
-- Incremental Ninja compilation, local matching browser, source/header watching, assembly comparisons, supported relocation resolution and conservative byte-identity checks.
+**Merged foundations (PR #1 + #2)**
 
-### Established in merged PR #2
+- Original 32-bit iOS v1.1.2 executable imported from a hash-pinned archival IPA. Its identity is verified against the recorded archive, **not Apple-authenticated source provenance**.
+- `9,177` STABS function records, `268` original object groups, deterministic inventory, original ARM/Thumb modes and preserved unity units.
+- Historical LLVM-GCC 4.2.1 / LLVM build 2336.9 ARM Mach-O compiler, assembler and a content-pinned iPhoneOS 5.1 SDK; C, C++, Objective-C and Objective-C++ compile probes.
+- Pinned historical ld64 linker; repeatable structural SDK link probes, not proof of original game's startup.
+- Browser-based disassembly/diffs, source/header watching, Ninja incremental rebuilds, exact relocated-byte verification, distinct fuzzy similarity and progress reports, and regression-protected CI.
+- A separate inventory of 5,056 non-code allocations including BSS, alignment/padding, constants, pointers, vtables and Objective-C metadata.
 
-- Content-pinned **iPhoneOS 5.1 SDK, build 9B176**, and four-language (C, C++, Objective-C, Objective-C++) ARM/Thumb object-compilation probes.
-- Independently pinned historical **ld64** linker with structural SDK startup/import/Objective-C tests. This is not a game runtime test.
-- Separate exact-code, fuzzy-code, non-code-data and full-link accounting; original data layout inventory; regression gates and isolated diagnostic linking.
+**New on PR #3**
 
-### Expanded in draft PR #3
+- The recovery loop batches approximately 100 related definitions without changing original compile-group boundaries.
+- Original relocations of uniquely resolved imported ARM call stubs can be checked against their indirect symbol and lazy-pointer identities.
+- The **62-group diagnostic link** structurally links **380 exactly matched functions / 3,780 code bytes**, **27 differing candidates**, and the matched npos sentinel. Image SHA-256: `a1503e8ff803e5a97c588c3f865bc6c9ce364e6cefc7f094d73383860732afe5`.
+- A previously missing unsigned-remainder import was resolved to `/usr/lib/libgcc_s.1.dylib` using the original import ordinal and SDK, with independent image inspection.
+- **Diagnostic subset linking gets zero whole-game replacement credit** and does not establish real iOS runtime operation.
 
-- Recovery by related multi-function batches and original unity groups.
-- Seven non-exact candidates kept visible rather than counted as matches.
-- **16-group diagnostic link** containing **200 recovered functions / 1,776 code bytes**, plus the verified four-byte sentinel. Its recorded SHA-256 is `3bd6fa5feba15291ec494f7dc857df69d50f40209c430dcbc36ce0686397069b`.
-- Diagnostic subset images pass independent structural inspection but receive **zero replacement-link credit** and have **no demonstrated iOS runtime behavior**.
-- A live editor/API rebuild test confirms dependency invalidation within a shared unity object without losing existing matches.
+## CI and evidence
 
-## Validation and current GitHub status
+- PR #3 is **open and draft**, at head `1f25b660eb1`; the [PR page](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/3) may continue to change.
+- Both latest [build-and-report run 37781126678](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37781126678) and [companion run 37781116326](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37781116326) **passed** for that exact head, with macOS/Ubuntu tests and the historical candidate-progress job.
+- The [historical-progress job](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37781126678/job/113324192479) printed `411/9177 verified functions; 4864 matched bytes; 8732 missing; 0 unresolved; 0 compile errors`. A deliberate source change reduced the result to 410/4,856 bytes, and rebuilding restored 411/4,864 with the regression test passing.
+- The PR reports **92 tooling tests and `doctor` passing locally**; this status check corroborated hosted CI outcomes, but did not rerun its entire local test suite.
+- The latest head has 67 configured groups, with the source and actual SDK/compiler binary dependencies kept outside Git. Repository visibility is currently public.
 
-- **PR #1 and PR #2:** merged to `main`.
-- **PR #3:** open **draft**, **143 commits** and **143 changed files** at head `5d8bea221452`; not merged.
-- [Latest head CI run `37771932766`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37771932766) and [companion run `37771927844`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37771927844): **both passed**; macOS and Ubuntu synthetic tooling and real historical-candidate progress were green.
-- The head historical-candidate [job log](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37771932766/job/113293371030) independently reports **236 / 9,177 functions, 2,900 matched bytes, 8,934 missing, 0 unresolved and 0 compile errors**. A deliberate source regression reduced matches to 235 / 2,892 bytes, and restoring/rebuilding the candidate returned the result to 236 / 2,900, confirming that the regression gate is active.
-- The PR previously reported **85 local tooling tests** at an earlier checkpoint. The report does not imply all tests have been manually rerun outside CI during this review.
-- The repository currently appears **public**. Original game binaries, SDK inputs, generated game images and toolchain caches remain excluded from source control per the repository configuration.
+## Known technical constraints
 
-## Main technical obstacles
+1. **Compiler fidelity:** original per-unit flags and the exact shipped compiler/backend/assembler/linker are unproven. The reconstructed bundled LLVM ARM backend currently cannot reproduce some original tail-call and Darwin global-address code sequences.
+2. **Unresolved codegen patterns:** many nonexact map equality and audio predicate bodies differ in MOV/CMP ordering; optimizing source or swapping modern Clang must not be allowed to claim matches without complete exact-byte evidence.
+3. **Partial ABI:** class inheritance, virtual slots, smart-pointer/allocator lifetime behavior, enum values, signedness and object sizes are not fully reconstructed. Some source bodies make provisional layout assumptions.
+4. **Data/link gap:** source-backed exact data remains four bytes; all complete replacement-link units remain zero. Structurally linked subsets are useful tooling tests, not a bootable game.
+5. **Target port:** a modern 64-bit iOS build will require runtime/API modernization and integration beyond matching the historical ARMv7 app.
 
-1. **Original compiler/backend equivalence is unproven.** The current bundled ARM LLVM backend disables tail-call lowering; certain original tail branches compile into ordinary calls and stack frames instead.
-2. **Darwin global-address code generation differs.** Some original RTTI getters use MOVW/MOVT while the reconstructed backend uses literal pools. Those candidates are correctly deferred rather than granted exact-match credit.
-3. **Incomplete structure/relocation knowledge.** The current partial ABI declarations cannot prove class sizes, virtual layout, return types or initialization paths. Imports, veneers and other linker-generated transformations remain a separate challenge.
-4. **Real complexity remains.** Exact matching over 2.57% of function records corresponds to only **0.0711% of inventoried function bytes**; most unimplemented code is larger and more interconnected than the latest recovered accessors.
-5. **No full-game image / arm64 runtime.** Structural diagnostic links and matching the ARMv7 executable cannot themselves produce a modern runnable iPhone game.
-6. **Source provenance.** The archived IPA and SDK mirror are SHA-256/content pinned, but neither is established as identical to an authenticated Apple distribution.
+## Recommended next actions
 
-## Next recommendations
+1. **Keep PR #3 CI and its description synchronized:** the latest 411-function head CI is now green, even though the PR body still says it needs a run.
+2. **Identify the high-value game subsystems and group ownership** across the 268 object groups. Track third-party/library, engine, platform and Pirates-specific source separately.
+3. **Use representative complicated functions as stress tests** (real branches, imported calls, data, vtables and control flow) rather than judging throughput from short accessors alone.
+4. **Investigate codegen fidelity** (tail calls, Darwin address materialization, MOV/CMP scheduling) using bounded compiler/flag experiments and explicit unverified status.
+5. **Continue exact-data and diagnostic-link research** without relaxing the original-layout/full-image coverage gates or claiming a runnable replacement prematurely.
 
-1. **Advance from easy-accessor batches to representative, nontrivial game functions.** Include original calls, relocation targets, shared data and actual control flow. Track their byte match and time-to-match separately from trivial getters.
-2. **Classify the 268 original object groups** into vendor code, platform glue, Fireplace/Gamebryo engine and Pirates gameplay. Report progress by subsystem so high counts of small vendor functions don't mask the gameplay milestone.
-3. **Investigate compiler differences systematically:** identify which original compilation groups require another LLVM backend/flags, particularly tail branches and Darwin RTTI address lowering, instead of altering verified source to compensate improperly.
-4. **Grow exact data and structure evidence:** globals, vtables, Objective-C metadata, class offsets and layouts, while retaining independent data/link progress metrics.
-5. **Keep PR #3 CI and source documentation current.** Its description still says the 236-function head needs CI, whereas the checked run has now passed; update that when maintaining PR documentation. Preserve historical status snapshots in Git.
+## Status-report history
 
-## Reporting notes
+The previous 91-function and 236-function snapshots remain accessible in [`STATUS.md` Git history](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commits/main/STATUS.md). Canonical changing data lives in the candidate branch's `build/report.json`, CI summaries, [`docs/recovery-loop.md`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/blob/1f25b660eb1b145809fe9ed72ff495d0c4644bbd/docs/recovery-loop.md) and the active [PR #3](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/3).
 
-The canonical progress outputs are `build/report.json`, `build/objdiff-report.json`, the active PR CI summary and the current [recovery-loop documentation](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/blob/5d8bea221452490c6e4f724b637d897fffd9a80e/docs/recovery-loop.md). This status document is a **historical snapshot**, not a live counter.
-
-**Overall assessment:** The infrastructure has transitioned from experimental feasibility to an effective, reproducible multi-function source-recovery workflow. The next decisive demonstration is matching realistic, interconnected Pirates-specific game logic—not simply accumulating more short exact functions.
+**Assessment:** The project now has a credible, regression-protected, compiler-validated source-recovery workflow that can operate across many original groups. The decisive next stage is demonstrating similar effectiveness on larger, interconnected *Pirates!* gameplay code—not merely growing the count of tiny exact functions.
