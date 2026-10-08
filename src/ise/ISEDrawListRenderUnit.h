@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/SmallFunctionTypes.h"
+
 
 #include "ISEDrawList.h"
 
@@ -9,6 +11,7 @@ namespace ISE {
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEDrawListRenderUnit {
 public:
+    bool UpdateUnit();
     unsigned int GetVertexNum();
     ISEMaterial * GetMaterial();
 

@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/SmallFunctionTypes.h"
+
 #include "../recovery/ReleaseHookTypes.h"
 
 // Partial interface for observed shipped release hooks. Do not instantiate.
@@ -7,6 +9,17 @@
 // for unrecovered behavior and do not imply other platforms used these bodies.
 class NiControllerManager {
 public:
+    bool AddSequence(NiControllerSequence*, char const*, bool);
+    bool ActivateSequence(NiControllerSequence*, int, bool);
+    bool DeactivateSequence(NiControllerSequence*);
+    void Blend(NiControllerSequence*, char const*, float, int, NiControllerSequence*);
+    void StopBlend(NiControllerSequence*);
+    void Morph(NiControllerSequence*, NiControllerSequence*, float, int);
+    void StopMorph(NiControllerSequence*, NiControllerSequence*);
+    NiObject* CreateClone(NiCloningProcess&);
+    bool RegisterStreamables(NiStream&);
+    static NiControllerManager* CreateObject();
+    bool IsEqual(NiObject*);
     void Update(float);
     void RemoveAllSequences();
     void DeactivateAll();

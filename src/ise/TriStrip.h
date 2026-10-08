@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/SmallFunctionTypes.h"
+
 
 #include "VertexBuffer.h"
 
@@ -9,6 +11,7 @@ namespace ISE {
 // return types, pointees, signedness and field names remain hypotheses.
 class TriStrip {
 public:
+    unsigned int GetRenderUnitNum();
     void SetActiveVertexCount(int count);
     unsigned int GetVertexCount() const;
     unsigned int GetVertexNum();

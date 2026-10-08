@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/SmallFunctionTypes.h"
+
 #include "../recovery/ReleaseHookTypes.h"
 
 // Partial interface for observed shipped release hooks. Do not instantiate.
@@ -8,6 +10,8 @@
 namespace ISE {
 class ISEFloatKey {
 public:
+    static ISE::ISEAnimationKey* CreateFromStream(ISE::ISEParticleEntity&, unsigned int);
+    static ISE::ISEAnimationKey* CreateArray(unsigned int);
     static void Interpolate(float, ISE::ISEAnimationKey const*, ISE::ISEAnimationKey const*, void*);
     static void SaveToStream(ISE::ISEParticleEntity&, ISE::ISEAnimationKey*, unsigned int);
     static void SaveBinary(ISE::ISEParticleEntity&, ISE::ISEAnimationKey*);
