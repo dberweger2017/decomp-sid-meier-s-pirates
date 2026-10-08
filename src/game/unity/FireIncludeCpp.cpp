@@ -14,3 +14,5 @@
 #include "../../../src/fireplace/ui/FxWidgetCallbacks.cpp"
 #include "../../../src/gamebryo/NiDefaultTexturePalette.cpp"
 #include "../../../src/gamebryo/NiObject.cpp"
+
+#include "../../fireplace/ui/FxScrollbar.cpp"
