@@ -9,3 +9,5 @@ void ISEPSysEmitterInitialRadiusCtlr::SetTargetValue(float value) { m_target->m_
 
 float ISEPSysEmitterInitialRadiusCtlr::GetTargetValue() { return m_target->m_initialRadius; }
 } // namespace ISE
+
+#include "../recovery/abi/o-5dc98ded87f47401fef3.cpp"
