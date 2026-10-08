@@ -453,13 +453,15 @@ at zero; the original image and iOS runtime remain unverified.
 
 ## Short ISE accessors and light setters
 
-Six short ISE accessors now verify exactly, adding 48 bytes across the existing
-ISECamera, ISEEditableMesh, ISENode and TriStrip object groups. Each original
+Nine short ISE accessors now verify exactly, adding 72 bytes across the existing
+ISECamera, ISEEditableMesh, ISEInputBlk, ISENode and TriStrip object groups. Each original
 body is a single ARM `add` of `this` with a fixed offset followed by `bx lr`:
-ISECameraMgr's orthogonal-camera view uses `+4`; ISENode's name view uses `+4`;
+ISECameraMgr's orthogonal-camera view uses `+4`; ISEInputBlk's touch-point view
+uses `+0xa4`; ISENode's name view uses `+4`;
 ISEEditableMesh returns its render-unit and material views at `+0xb4` and
-`+0x130`; TriStrip returns its render-unit and material views at `+0xb4` and
-`+0xd4`. The source uses ordinary pointer arithmetic. Return types are not
+`+0x130`, and its material thunk adds `+0x7c`; TriStrip returns its render-unit
+and material views at `+0xb4` and `+0xd4`, and its material thunk adds `+0x20`.
+The source uses ordinary pointer arithmetic. Return types are not
 encoded in the symbols, so the partial declarations use `void*`; the complete
 types and object hierarchies remain unrecovered.
 
@@ -471,6 +473,6 @@ and destination registers in the opposite order from the original; these three
 functions receive no exact-match credit. This is a source-level result, not a
 claim that the partial ISELight layout is complete.
 
-The resulting report has **1,580 exact functions / 17,572 bytes**, 43 differing
-candidates, 7,554 missing functions and no compile errors or unresolved
+The resulting report has **1,583 exact functions / 17,596 bytes**, 43 differing
+candidates, 7,551 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.

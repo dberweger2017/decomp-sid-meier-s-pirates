@@ -1976,7 +1976,8 @@
         "f-30b7177e10ee3da98555",
         "f-7470cb8ea9083161595e",
         "f-5350461256b7455f5ac1",
-        "f-7c974ed373c137b88bfb"
+        "f-7c974ed373c137b88bfb",
+        "f-e2dc408ce166ce31c051"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -2558,7 +2559,8 @@
         "f-00d1dbfa397338716018",
         "f-9ac42c3ffcf795bb6370",
         "f-80e630dabdc9315d3977",
-        "f-e1b42cc1243ee1046489"
+        "f-e1b42cc1243ee1046489",
+        "f-a77090de2965eec5d727"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -5549,6 +5551,21 @@
       "recovery_kinds": {
         "f-9694ffa3de26be6477fc": "objective-c-leaf"
       }
+    },
+    {
+      "group_id": "o-90f0186157ffca78a4e3",
+      "source": "src/ise/ISEInputBlk.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-ebe91bc7a82d45afd601"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layout and unencoded return type remain unknown."
     }
   ]
 }

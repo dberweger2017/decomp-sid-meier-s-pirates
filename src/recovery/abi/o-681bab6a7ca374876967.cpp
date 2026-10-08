@@ -36,3 +36,11 @@ extern "C" void pirates_complete_constructor_7470cb8ea9083161595e(void * a0, voi
 extern "C" void pirates_complete_constructor_7470cb8ea9083161595e(void * a0, void * a1) {
     pirates_complete_constructor_7470cb8ea9083161595e_target(a0, a1);
 }
+
+// f-e2dc408ce166ce31c051 — adjusted subobject getter.
+// The original thunk adds 0x20 to the incoming subobject view.
+extern "C" void * pirates_adjusted_getter_e2dc408ce166ce31c051(void * a0)
+    __asm__("__ZThn180_N3ISE8TriStrip11GetMaterialEv");
+extern "C" void * pirates_adjusted_getter_e2dc408ce166ce31c051(void * a0) {
+    return static_cast<unsigned char *>(a0) + 0x20;
+}
