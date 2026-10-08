@@ -8921,6 +8921,26 @@
         "int",
         "int"
       ]
+    },
+    {
+      "id": "f-dec61625089204d22548",
+      "group_id": "o-90d1fff07c5bef9ce409",
+      "symbol": "__ZN10FontStringC1ERN3ISE9ISEColorAEP4Font",
+      "original_name": "FontString::FontString(ISE::ISEColorA&, Font*)",
+      "target_symbol": "__ZN10FontStringC2ERN3ISE9ISEColorAEP4Font",
+      "target_name": "FontString::FontString(ISE::ISEColorA&, Font*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ]
     }
   ]
 }
