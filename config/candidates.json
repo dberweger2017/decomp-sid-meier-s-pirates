@@ -1841,6 +1841,21 @@
         "f-87055d44251042fb48aa"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d97d5ade8fd2e4e8eee3",
+      "source": "src/recovery/units/ISEPSysEmitterCtlr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-e7fca27a9e3830f26f0d"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
