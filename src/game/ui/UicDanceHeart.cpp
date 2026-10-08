@@ -5,3 +5,5 @@
 void UicDanceHeart::setFrame(int frame) { m_frame = frame; }
 
 #include "UicDanceHeartReleaseUicDanceHeart.cpp"
+
+#include "../../recovery/abi/o-9aa52a401ff5225611f9.cpp"
