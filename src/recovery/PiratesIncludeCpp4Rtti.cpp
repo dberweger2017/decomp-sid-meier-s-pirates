@@ -319,3 +319,27 @@ extern "C" const void * pirates_ni_texture_effect_get_rtti(void const *)
 extern "C" const void * pirates_ni_texture_effect_get_rtti(void const *) {
     return pirates_ni_texture_effect_rtti;
 }
+
+static unsigned char pirates_ni_tri_shape_dynamic_data_rtti[8]
+    __asm__("__ZN21NiTriShapeDynamicData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_tri_shape_dynamic_data_get_rtti(void const *)
+    __asm__("__ZNK21NiTriShapeDynamicData7GetRTTIEv");
+extern "C" const void * pirates_ni_tri_shape_dynamic_data_get_rtti(void const *) {
+    return pirates_ni_tri_shape_dynamic_data_rtti;
+}
+
+static unsigned char pirates_ni_vector_extra_data_rtti[8]
+    __asm__("__ZN17NiVectorExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_vector_extra_data_get_rtti(void const *)
+    __asm__("__ZNK17NiVectorExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_vector_extra_data_get_rtti(void const *) {
+    return pirates_ni_vector_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_vert_weights_extra_data_rtti[8]
+    __asm__("__ZN22NiVertWeightsExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_vert_weights_extra_data_get_rtti(void const *)
+    __asm__("__ZNK22NiVertWeightsExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_vert_weights_extra_data_get_rtti(void const *) {
+    return pirates_ni_vert_weights_extra_data_rtti;
+}

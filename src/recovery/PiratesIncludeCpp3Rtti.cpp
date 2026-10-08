@@ -240,3 +240,11 @@ extern "C" const void * pirates_ni_lod_node_get_rtti(void const *)
 extern "C" const void * pirates_ni_lod_node_get_rtti(void const *) {
     return pirates_ni_lod_node_rtti;
 }
+
+static unsigned char pirates_ni_particle_meshes_rtti[8]
+    __asm__("__ZN16NiParticleMeshes6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_particle_meshes_get_rtti(void const *)
+    __asm__("__ZNK16NiParticleMeshes7GetRTTIEv");
+extern "C" const void * pirates_ni_particle_meshes_get_rtti(void const *) {
+    return pirates_ni_particle_meshes_rtti;
+}

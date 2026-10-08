@@ -677,3 +677,12 @@ remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 128 differing
 candidates, 7,441 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+The last three same-group Ni RTTI getters in `TempIncludeCpp4.o` and the
+`NiParticleMeshes` getter in `TempIncludeCpp3.o` now return their observed
+class-local `m_RTTI` allocations. All four relocations resolve and compare at
+50%; the allocation contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 132 differing
+candidates, 7,437 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
