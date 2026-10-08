@@ -1003,7 +1003,8 @@
         "f-409cf68ccf0cdea6f378",
         "f-4efbc151e33e0afb4373",
         "f-a8a3405663bd3f487f9e",
-        "f-e291f7a9f887adcb5e62"
+        "f-e291f7a9f887adcb5e62",
+        "f-8adfa58a8adbfd8606fa"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -1011,7 +1012,8 @@
         "f-409cf68ccf0cdea6f378": "complete-destructor",
         "f-4efbc151e33e0afb4373": "complete-destructor",
         "f-a8a3405663bd3f487f9e": "complete-destructor",
-        "f-e291f7a9f887adcb5e62": "complete-destructor"
+        "f-e291f7a9f887adcb5e62": "complete-destructor",
+        "f-8adfa58a8adbfd8606fa": "destruction-callback"
       }
     },
     {
