@@ -13,3 +13,5 @@ void MultiPlaySFCharacterChosenUIScene::SetEnemyModelIndex(int index) { m_enemyM
 void MultiPlaySFCharacterChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
 
 #include "MultiPlaySFCharacterChosenUISceneSmall_MultiPlaySFCharacterChosenUIScene.cpp"
+
+#include "../../recovery/abi/o-615f11e1c3ff7aa6b275.cpp"
