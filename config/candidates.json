@@ -1067,6 +1067,26 @@
         "f-1d48cfcbee087f651766"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-bd40b68b130e820ead67",
+      "source": "src/game/unity/TempIncludeCpp3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-c527df3c8730c99fb579",
+        "f-beebf7cf3bb43b1d10af",
+        "f-72a14366223d8cbaf2c8",
+        "f-d3826ac9e794af5137e7",
+        "f-0333882fb76d365c9ab7",
+        "f-dc73fc122fb12baa2040"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     }
   ]
 }
