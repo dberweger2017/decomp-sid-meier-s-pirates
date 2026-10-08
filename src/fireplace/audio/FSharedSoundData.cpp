@@ -8,3 +8,5 @@ unsigned char FSharedSoundData::GetBuffer(int index) { return m_bufferBytes[inde
 unsigned int FSharedSoundData::GetBufferSize(int index) { return m_bufferSizes[index]; }
 
 int FSharedSoundData::GetGlobalSoundFilenameIndex() { return m_globalSoundFilenameIndex; }
+
+bool FSharedSoundData::IsStreamed() { return m_loadType == SoundLoadStreamed; }
