@@ -8,8 +8,11 @@
 class FFileIO {
 public:
     unsigned int GetLength() const;
+    bool IsOpen() const;
 
 private:
-    unsigned char m_unknown_00[36];
+    unsigned char m_unknown_00[4];
+    void *m_file; // +0x04; file handle representation unproven
+    unsigned char m_unknown_08[0x1c];
     unsigned int m_length; // +0x24
 };

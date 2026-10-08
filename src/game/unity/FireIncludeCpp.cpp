@@ -16,3 +16,6 @@
 #include "../../../src/gamebryo/NiObject.cpp"
 
 #include "../../fireplace/ui/FxScrollbar.cpp"
+
+
+#include "../../gamebryo/maps/FireIncludeCppMaps.cpp"
