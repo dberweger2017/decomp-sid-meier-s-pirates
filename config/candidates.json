@@ -3355,9 +3355,17 @@
         "f-f09e8bb9a57c68dd5c76",
         "f-8cba0695cf1048a094e0",
         "f-f4301a9c56956159d62a",
-        "f-e6c3b5a4cb2ef10ddd4a"
+        "f-e6c3b5a4cb2ef10ddd4a",
+        "f-50ff5da31c249d7a0a55",
+        "f-7890c9364264db299130",
+        "f-8674192d0277933750b4"
       ],
-      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-50ff5da31c249d7a0a55": "constant-body",
+        "f-7890c9364264db299130": "constant-body",
+        "f-8674192d0277933750b4": "constant-body"
+      }
     },
     {
       "group_id": "o-a0a654fc695bd72897a8",

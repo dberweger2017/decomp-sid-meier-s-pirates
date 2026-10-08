@@ -1488,6 +1488,45 @@
       ],
       "internal": false,
       "value": 0
+    },
+    {
+      "id": "f-50ff5da31c249d7a0a55",
+      "group_id": "o-8f450ce8d892d55cb30b",
+      "symbol": "__ZN3ISE9ISEPosKey16CreateFromStreamERNS_17ISEParticleEntityEj",
+      "original_name": "ISE::ISEPosKey::CreateFromStream(ISE::ISEParticleEntity&, unsigned int)",
+      "kind": "constant-body",
+      "return_type": "void *",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
+    },
+    {
+      "id": "f-7890c9364264db299130",
+      "group_id": "o-8f450ce8d892d55cb30b",
+      "symbol": "__ZN3ISE9ISEPosKey19ComputeMaxCurvatureEPNS_15ISEAnimationKeyEj",
+      "original_name": "ISE::ISEPosKey::ComputeMaxCurvature(ISE::ISEAnimationKey*, unsigned int)",
+      "kind": "constant-body",
+      "return_type": "float",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
+    },
+    {
+      "id": "f-8674192d0277933750b4",
+      "group_id": "o-8f450ce8d892d55cb30b",
+      "symbol": "__ZN3ISE9ISEPosKey11CreateArrayEj",
+      "original_name": "ISE::ISEPosKey::CreateArray(unsigned int)",
+      "kind": "constant-body",
+      "return_type": "void *",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
     }
   ]
 }
