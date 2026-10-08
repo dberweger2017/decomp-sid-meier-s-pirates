@@ -307,7 +307,8 @@
         "f-26bf8846a976ccec460d",
         "f-35b9dee445e743b52e1a",
         "f-ff039682ecdcc80386d0",
-        "f-d251ead770b5a890e6ea"
+        "f-d251ead770b5a890e6ea",
+        "f-a507755deaaacfc3ca29"
       ],
       "flags_provenance": "Investigation profile for original ARM integer copies of float/pointer fields. Original flags and complete hierarchy remain unknown; see FAudioMgr.h."
     }

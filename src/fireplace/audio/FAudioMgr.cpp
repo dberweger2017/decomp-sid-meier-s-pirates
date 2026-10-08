@@ -32,3 +32,5 @@ void FAudioManager::Set2DScripts(F2DSoundScriptData *scripts, int count) { m_scr
 void FAudioManager::Set3DScripts(F3DSoundScriptData *scripts, int count) { m_scripts3D = scripts; m_numScripts3D = count; }
 
 void FAudioManager::SetSoundScapeScripts(FSoundScapeScriptData *scripts, int count) { m_soundScapeScripts = scripts; m_numSoundScapeScripts = count; }
+
+void FAudioManager::SetVolumeKnobs(FKnob *knobs, int count) { m_volumeKnobs = knobs; m_numVolumeKnobs = count; }
