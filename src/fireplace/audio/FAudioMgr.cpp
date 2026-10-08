@@ -4,3 +4,5 @@
 // Missing methods remain undefined; no artificial stubs or complete type claim.
 
 float FAudioManager::GetTime() const { return m_time; }
+
+bool FAudioManager::IsInitialized() const { return m_initialized; }
