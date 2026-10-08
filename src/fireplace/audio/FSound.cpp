@@ -20,3 +20,5 @@ bool FSound::IsPaused() const { return m_paused; }
 bool FSound::GetToBeDestroyed() { return m_toBeDestroyed; }
 
 bool FSound::GetIsMusic() const { return m_isMusic; }
+
+void FSound::SetIsMusic(bool value) { m_isMusic = value; }
