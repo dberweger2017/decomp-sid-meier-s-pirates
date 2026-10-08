@@ -6,3 +6,5 @@ namespace ISE {
 
 void ColorSprite::SetPos(int x, int y) { m_x = x; m_y = y; }
 } // namespace ISE
+
+void ISE::ColorSprite::SetSize(unsigned int width, unsigned int height) { m_width = width; m_height = height; }

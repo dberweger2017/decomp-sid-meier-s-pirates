@@ -10,8 +10,11 @@ class ColorSprite {
 public:
     void SetPos(int x, int y);
 
+    void SetSize(unsigned int width, unsigned int height);
+
 private:
-    unsigned char m_unknown_00[8];
+    unsigned int m_width; // +0x00
+    unsigned int m_height; // +0x04
     int m_x; // +0x08
     int m_y; // +0x0c
 };
