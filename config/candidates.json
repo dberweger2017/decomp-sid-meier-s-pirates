@@ -1448,6 +1448,18 @@
         "f-0db9b1ae26096e239db0"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "implemented_functions": [
+        "f-22bbae78b612022df758",
+        "f-84f8d7b3d6084c933d3d"
+      ]
     }
   ]
 }
