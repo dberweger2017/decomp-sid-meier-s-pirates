@@ -371,3 +371,11 @@ The local tooling suite passes 104 tests. Hosted CI must validate this new head;
 the earlier PR #4 historical failure was traced to nested staging falling back
 to the generic linker template, and a regression test now covers preserving the
 validated profile and its proof.
+
+The 51-group `recovery-release-hooks.json` diagnostic subset structurally links
+369 exact functions / 2,532 code bytes and 21 differing candidates. Independent
+image inspection passes with SHA-256
+`196801ea118306dd6078bf051cd588fc3a38698b62d8e4b30423efbbbdecba95`.
+It includes previously recovered contributors in selected unity groups; the
+subset's 369 exact functions are not 369 new matches. Completed replacement
+code/data/units remain zero, and runtime behavior remains unverified.
