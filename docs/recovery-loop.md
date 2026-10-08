@@ -329,3 +329,45 @@ PR #4 investigates larger connected routines, retains fuzzy candidates, and adds
 See [the experiment and measured limitations](gameplay-stress.md). The 411 exact
 functions remain preserved; bounded behavior checks and diagnostic links earn no
 additional exact or complete replacement credit.
+
+## Two hundred additional release hooks
+
+The next requested batch adds **200 exact functions / 976 code bytes**, reaching
+**611 exact functions / 5,840 code bytes** across **102 configured original
+objects**. All earlier 411 exact functions and the four-byte data allocation are
+preserved. There are 40 differing candidates, 8,526 missing functions, zero
+compile errors and zero unresolved comparisons. Inventory coverage remains
+9,177 named records in 268 original groups. Exact function coverage is 6.6579%
+by count and 0.1431% by original code bytes.
+
+This batch contains 156 observed no-op release hooks and 44 constant-return
+functions, committed separately in their 51 original groups. These bodies were
+selected from original instructions, rather than added as stubs for absent
+implementations. The hooks cover UI releases, controller lifecycle callbacks,
+particle/animation operations, disabled platform utilities and shader setters.
+They reproduce the behavior of this shipped binary, not a complete implementation
+of the corresponding APIs on other platforms. No constructors, destructors,
+address-return methods or non-virtual thunks are counted in this batch.
+
+Partial interfaces, opaque parameter types and provisional result declarations
+support ordinary C++ compilation. Symbol mangling establishes parameter names
+and types, but does not establish return types, class layouts, static-versus-
+instance ownership for unused parameters, or complete virtual hierarchies.
+Matching these tiny bodies cannot settle those source-level uncertainties.
+Do not instantiate the partial types. Original compiler flags remain unproven.
+No assembly or original-byte payloads appear in candidate source.
+
+Reproduce the selected comparison ledger with:
+
+```sh
+python tools/cohort.py build config/cohorts/release-hooks.json --output build/cohorts/release-hooks.json
+python tools/recovery_link.py config/diagnostic-links/recovery-release-hooks.json
+```
+
+The native report, the cohort ledger and objdiff adapter expose exact matching
+separately from assembly similarity and replacement linking. Full-game linking
+remains at zero completed code/data/units, and iOS runtime behavior is unverified.
+The local tooling suite passes 104 tests. Hosted CI must validate this new head;
+the earlier PR #4 historical failure was traced to nested staging falling back
+to the generic linker template, and a regression test now covers preserving the
+validated profile and its proof.
