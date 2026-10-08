@@ -1,0 +1,18 @@
+#pragma once
+
+
+// Partial declarations for direct function comparison only. Do not instantiate.
+// Complete inheritance, virtual slots, constructors and object size are unknown.
+// Opaque ranges include any unrecovered base state. Unencoded return types,
+// pointees and signedness remain hypotheses; matching bytes do not prove them.
+class UicPullReefCtrl {
+public:
+    void SetIsFullSail(bool fullSail);
+
+    int GetCommandKey();
+
+private:
+    unsigned char m_unknown_00[96];
+    bool m_fullSail; // +0x60
+    bool m_active; // +0x61; GetCommandKey checks this byte
+};

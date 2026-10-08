@@ -58,6 +58,9 @@ class AddressResolver:
         self.section_addresses = section_addresses or {}
         self.global_names = {}
         self.group_names = {}
+        self.imported_branches = {}
+        for stub in original.imported_stubs:
+            self.imported_branches.setdefault(stub['symbol'], set()).add(stub['address'])
         for s in original.symbols:
             if s.defined:
                 self.global_names.setdefault(s.name, set()).add((s.value & ~1 if s.thumb else s.value, s.thumb))
@@ -119,6 +122,8 @@ class AddressResolver:
 
     def branch_mode(self, address):
         modes = {thumb for values in self.global_names.values() for value, thumb in values if value == address}
+        if any(address in values for values in self.imported_branches.values()):
+            modes.add(False)
         f = self.function
         if f['address'] <= address < f['address'] + (f['size'] or 0) and f['mode'] != 'unknown':
             modes.add(f['mode'] == 'thumb')
@@ -126,13 +131,20 @@ class AddressResolver:
             raise Unresolved('Branch target ARM/Thumb mode is absent or ambiguous')
         return next(iter(modes))
 
-    def target(self, reloc, encoded, pointer=False):
+    def target(self, reloc, encoded, pointer=False, branch=False):
         if reloc.scattered:
             base, label = self.address(reloc.value, pointer=pointer)
             return base + signed(encoded - reloc.value, 32), label
         if reloc.external:
             symbol = self.candidate.symbols[reloc.symbol]
-            base, label = self.name(symbol.name, pointer)
+            imports = self.imported_branches.get(symbol.name, set())
+            known = self.group_names.get(symbol.name) or self.global_names.get(symbol.name)
+            if branch and not known and symbol.name not in self.explicit and imports:
+                if len(imports) != 1 or encoded != 0:
+                    raise Unresolved('Imported branch stub is ambiguous or has a nonzero addend: ' + symbol.name)
+                base, label = next(iter(imports)), symbol.name
+            else:
+                base, label = self.name(symbol.name, pointer)
             # Mach-O external relocations encode a symbolic addend. Definitions
             # carrying N_ARM_THUMB_DEF may also carry the low Thumb bit.
             if symbol.defined and symbol.thumb:
@@ -199,7 +211,7 @@ def relocate(macho, symbol, size, original_address, resolver):
                     if word & 0x0e000000 != 0x0a000000 or word & 0xf0000000 == 0xf0000000:
                         raise Unresolved('Unsupported ARM branch encoding/interworking')
                     encoded = old_pc + 8 + signed((word & 0xffffff) << 2, 26)
-                    target, label = resolver.target(r, encoded)
+                    target, label = resolver.target(r, encoded, branch=True)
                     if resolver.branch_mode(target):
                         raise Unresolved('ARM branch to Thumb target requires interworking')
                     delta = target - new_pc - 8
@@ -208,7 +220,7 @@ def relocate(macho, symbol, size, original_address, resolver):
                     patched = word & 0xff000000 | ((delta >> 2) & 0xffffff)
                 else:
                     encoded = old_pc + 4 + thumb_displacement(word)
-                    target, label = resolver.target(r, encoded)
+                    target, label = resolver.target(r, encoded, branch=True)
                     if not resolver.branch_mode(target):
                         raise Unresolved('Thumb branch to ARM target requires interworking')
                     patched = encode_thumb_branch(word, target - new_pc - 4)

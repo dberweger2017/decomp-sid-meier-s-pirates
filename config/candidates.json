@@ -80,7 +80,8 @@
         "f-73b9a5b8e4e3bc76fa64",
         "f-67a9f7b44c4b3574d114",
         "f-3056ddf4a0547696fde0",
-        "f-fac033c0e8e10d664bde"
+        "f-fac033c0e8e10d664bde",
+        "f-e843f6b43fac6914836a"
       ],
       "flags_provenance": "Successful investigation profile; original flags remain unknown. See docs/easy-candidates.md."
     },
@@ -150,6 +151,1303 @@
         "f-6626bdd50217f9d3e16e"
       ],
       "flags_provenance": "Soft-float investigation profile reproduces the original integer float copies and all three Mat3 rotation wrappers; actual original flags remain unproven. See docs/easy-candidates.md."
+    },
+    {
+      "group_id": "o-4c02a151f7f55c33fc5c",
+      "source": "src/game/GameAudio.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-469603a6bee7ebf42102",
+        "f-93bb2b6bddad3e6b2167",
+        "f-2e15f615e0a8edfa8551",
+        "f-ef0481e99fd2510e524d",
+        "f-bda1fa03bdf7456f17d7",
+        "f-b69e759e296c0b8abb52",
+        "f-ddedd6e3fc45e7c7416c",
+        "f-2dd00065af9c4dc23418",
+        "f-89c1967a4caad66d2f21"
+      ],
+      "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-1f9e1182f8fd5b86d0bb",
+      "source": "src/powervr/PVRTString.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-f1e5fa8a1583ebf64d22",
+        "f-369b5ba4d099f2089bc0",
+        "f-7d8aba13870841fbb22b",
+        "f-84a2ca0e14f7940c04d0",
+        "f-af0ace8ae7a8de75a42d",
+        "f-2d896464521c77d1110a"
+      ],
+      "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md.",
+      "data": {
+        "d-c1c3fb28d0d3dc55f075": {
+          "symbol": "__ZN11CPVRTString4nposE"
+        }
+      }
+    },
+    {
+      "group_id": "o-4268c237f42393c8bef0",
+      "source": "src/powervr/PVRTResourceFile.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-cdee333ec6aea15f3773",
+        "f-7e87243a0474e6974cb6",
+        "f-84e2c6dd93e8c87a6af7"
+      ],
+      "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-22e9019c653c60382da6",
+      "source": "src/fireplace/audio/FSound.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-8d30e647ced703f85b50",
+        "f-a8a6e6eb8151be6087fa",
+        "f-77112afd17281150152b",
+        "f-e8ca842cad7e5b92732a",
+        "f-13bdd9e49a92eff8a9fb",
+        "f-67afad442fffe453461e",
+        "f-e68e2f0d6253948460f4",
+        "f-f7930c25384cdd6abab4",
+        "f-5c22816c563d92748740",
+        "f-1c452674b9071cc2bd94",
+        "f-7b4811782c6abf76ddd0",
+        "f-cf2c9b462f6afee1a933",
+        "f-7a4f54c6102bdd243e48",
+        "f-3e1a0f34b75841a231f1",
+        "f-4a2db6eaeb00fcf2291c",
+        "f-96aaad4312392a7be68a",
+        "f-58e5b538e66fd609bb2d",
+        "f-0db7b67260da40aa03ac",
+        "f-3ab5ad687dfc0087ed27",
+        "f-bebe1fa3637242172c65"
+      ],
+      "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
+    },
+    {
+      "group_id": "o-b2988598bdd8217340d1",
+      "source": "src/fireplace/audio/FSound3D.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-arm-reserve-r9"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-2591ac4102480433f6a9",
+        "f-0213fd071f146d8f3b63",
+        "f-07e26d489dc3de3ab668",
+        "f-0d4f7a7fa1f59772f329",
+        "f-87c32c531e68d513cc47",
+        "f-0112e3f36113bfd138b9",
+        "f-24aa94776c434ce2682e",
+        "f-19364d76efc44fb74a98",
+        "f-0259078a61b407ab8f34",
+        "f-bb4f25cce4bc6be62ea7",
+        "f-9c9536448d387ab83bd4",
+        "f-fe600239a77d3075f5c7",
+        "f-14202260c7e4586ce986",
+        "f-e15a91a8e455975bfec3",
+        "f-ee084c6ba2c63b6d284b",
+        "f-784fbfb7252243fb241a",
+        "f-930930cc7bd4ff6dfe75",
+        "f-75cf5c4b20d6531dac06",
+        "f-ebbf61e43845495b3065",
+        "f-37d022414fb1e281ed13",
+        "f-412f7b27663754a4e170",
+        "f-a472e466fd930f5e3697",
+        "f-60bd7631e1d5f64c4d97",
+        "f-a223c3ed7931f4d83764",
+        "f-c28cfd26e9c7349ed05d",
+        "f-67dee9c135faecdc3650",
+        "f-00233c1b5a9d2d6b7b3c"
+      ],
+      "flags_provenance": "Investigation profile for original integer float loads/stores. Isolated complete-unit comparison verifies the cone getter with r9 reserved and preserves all earlier methods. Original flags and complete hierarchy remain unknown; see FSound3D.h."
+    },
+    {
+      "group_id": "o-b9afd2a4c28d8e343b6a",
+      "source": "src/fireplace/audio/FAudioMgr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-388ae0e8e3028c44dae1",
+        "f-8813bf283d306ef915d2",
+        "f-6043002d3ae69262b0b2",
+        "f-e7deb5347c5c1b19a717",
+        "f-768edcb1ebf539b6c15e",
+        "f-e8ab117e3bb52aa7a637",
+        "f-a56225663ba356fa0859",
+        "f-af2679049ac9220fccf5",
+        "f-7e2c9a5affd255de8516",
+        "f-ff849da800ef0cf4e539",
+        "f-4fd1500e83fd4e48c5b2",
+        "f-26bf8846a976ccec460d",
+        "f-35b9dee445e743b52e1a",
+        "f-ff039682ecdcc80386d0",
+        "f-d251ead770b5a890e6ea",
+        "f-a507755deaaacfc3ca29"
+      ],
+      "flags_provenance": "Investigation profile for original ARM integer copies of float/pointer fields. Original flags and complete hierarchy remain unknown; see FAudioMgr.h."
+    },
+    {
+      "group_id": "o-8d47cdfc0a7351af6cc0",
+      "source": "src/fireplace/audio/FAudioSystem.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-942a81d72dfbd87dcb97",
+        "f-e314a11b0e36558c05ab"
+      ],
+      "flags_provenance": "Investigation profile for original release-build constant bodies. Original flags and full virtual interface remain unknown; see FAudioSystem.h."
+    },
+    {
+      "group_id": "o-2e066eac87fdb187c28a",
+      "source": "src/sdk/memory/heap3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-3a84c5a5f0828be26b47"
+      ],
+      "flags_provenance": "Investigation profile for original ARM heap helpers. Original flags and complete allocator remain unknown; header offsets are observed in the original heap methods."
+    },
+    {
+      "group_id": "o-ac2c3029785c947aeb95",
+      "source": "src/fireplace/audio/FSharedSoundData.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-fc283ac1897033598453",
+        "f-0db0da540cdea5a3dcda",
+        "f-22f2dfc6417448805018",
+        "f-a75406ccc5959b5949d0",
+        "f-8718a8dc98d1ba0fd611",
+        "f-4aaa02a079627f7446e5",
+        "f-36ed279b951346ead917",
+        "f-08c82798ec54c59bdc7f"
+      ],
+      "flags_provenance": "Investigation profile for original ARM shared-sound field access. Original flags, missing methods and initialization payload remain unknown; see FSharedSoundData.h."
+    },
+    {
+      "group_id": "o-78c5a9284f33537c011b",
+      "source": "src/fireplace/audio/FPhono.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-31738902903a8697771f",
+        "f-6b7002da302f880f0fa6",
+        "f-b9917e1b90d30c61c9c3",
+        "f-342d3d17b2a1360120c4",
+        "f-e6de7f25748c7690e6ad",
+        "f-17a500e8bbe886166f47",
+        "f-398804b77cd7b0d80032",
+        "f-e83f1bbfbbe6f4d8492e",
+        "f-b3f3f0f90f1b1a380d92",
+        "f-da070b6289602c02231a",
+        "f-696020a1c7f7b802c556",
+        "f-ebedf9448a6dbf4874ec",
+        "f-653b969b3295b1306a02",
+        "f-487bc83fa9b985d97783",
+        "f-269c189492de67f86808",
+        "f-d6ffc405821d6b67e4c5",
+        "f-54578a701e66d918a5ca",
+        "f-fb1df64bb1bdfd94576d",
+        "f-eaf31516174110faaf98",
+        "f-a948ae41c8a856f862f5",
+        "f-d6257df8f8a1bb2bb81f",
+        "f-ffec8911d04144bacb61"
+      ],
+      "flags_provenance": "Investigation profile for original ARM facade calls and integer float transport. Isolated trials verify the first wrapper when post-register-allocation scheduling is disabled; enabled scheduling moves its frame-pointer setup. These are matching investigation flags, not proof of original build settings. Unencoded return types remain provisional; see FPhono.h and phono2/PAudioSystem.h."
+    },
+    {
+      "group_id": "o-67cbdb66049bec401875",
+      "source": "src/fireplace/audio/FKnob.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-e06edb181b796441d56b",
+        "f-cd49c538bfdb04d448ed",
+        "f-c9e7466b3b5fb76f972f",
+        "f-4fa9ec190b0536ea2efa",
+        "f-eefadd171fce8d5442c2",
+        "f-f7ed051dea100ada129f"
+      ],
+      "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header."
+    },
+    {
+      "group_id": "o-71a79dd832a29b589321",
+      "source": "src/fireplace/audio/FSoundScape.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-d762ce0d7f8208a3566f",
+        "f-c5f8dd3caffca7c9c66d"
+      ],
+      "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header."
+    },
+    {
+      "group_id": "o-692e206382b21043c376",
+      "source": "src/game/unity/FireIncludeCpp.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-c8f3b83150c1e5045b66",
+        "f-9b193b552571b4ce72ac",
+        "f-7527688f575763639138",
+        "f-d48e057905faafa3ade6",
+        "f-7fa958fda618ca197031",
+        "f-e64506b58e937f943a40",
+        "f-0d57e6892ef90c4952ca",
+        "f-59cf971f781ccf7d3936",
+        "f-f71ee74af8e77b7f60b6",
+        "f-dd4faad08c8202e63e42",
+        "f-391b5af72b05e0ae70ef",
+        "f-c7c4aadf8cb275a68eaf",
+        "f-cd690ac5245758c6c598",
+        "f-4f07c2408c2d5bcee272",
+        "f-922dfb8fe07d9a16927e",
+        "f-b8db6418571dfc834c07",
+        "f-2e3d95f760ed658fbf25",
+        "f-2dea5cf12366886a55e2",
+        "f-4387238c02c5b326ca39",
+        "f-e6b292f8507a3d988050",
+        "f-c2627b2a14e9485413bb",
+        "f-b0e01c0d90572c8f97ae",
+        "f-ffcde9de485fe9033a9d",
+        "f-8319314259e9660109ec",
+        "f-7ac8a9c33685b063db06",
+        "f-147dc51c2850e89d1b38",
+        "f-78bfb03bd7b482114f33",
+        "f-f8003282d6c2362795bf",
+        "f-7c295cb741a525895b5f",
+        "f-b0fc3b71ceb95e871432",
+        "f-f2cdd925c65644e8e70b",
+        "f-3c56296a26ca1188cde3",
+        "f-267e5c604265bebe079d",
+        "f-5700d4714fff07198e39",
+        "f-c80625411174ced0e4bd",
+        "f-263225165b6450b339f2",
+        "f-0b2549534dcd1e3c7542",
+        "f-455de10d3a84037bef8a",
+        "f-3c1abd3dfd1c28989651",
+        "f-b4e7f2a7fcbc79d9c800",
+        "f-2db3f5d5a602dd0c60d1",
+        "f-ddbd85074fcae3d422dd",
+        "f-26f0d3f909f6d79c567f",
+        "f-c6a9ee1abf1d351fe360",
+        "f-92858ab5fdcc7cabaa48",
+        "f-b04862fa2a6a931fac13",
+        "f-4cf6e14800831232d0c7",
+        "f-69a407dd53b21e868418",
+        "f-7b2b073b33aca365da4b",
+        "f-8ab63dc995bca9bff184",
+        "f-a31915158beed1870c13",
+        "f-6cdf5c284615243a9e1d"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-fb173e414b8edec47528",
+      "source": "src/game/unity/FireIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-4829405e4c016a985d1b",
+        "f-33e00a07646d9db70bfb",
+        "f-32d6ab24197c92660536",
+        "f-6ffa7466c967bb7efb44",
+        "f-847475ed7eeb53faea3d",
+        "f-8368d62a690caa2ed43e",
+        "f-c928201e3a737985efdf",
+        "f-92f76cbdbfaac1f574a5",
+        "f-31f77c6981296e4d3ee5",
+        "f-b396b04d74c8994334cf",
+        "f-3d8d4a4a4b56bc5e026c",
+        "f-0384c0d86a4dc1e6e0e1",
+        "f-fc9b28229e2b65079372",
+        "f-c4560e44955c066267db"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-2d59da5048d3db995d0f",
+      "source": "src/game/unity/PiratesIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-26387ae46680d22c2b90",
+        "f-1e232a921e58547bcba6",
+        "f-10143d025f197b41ec5c",
+        "f-3b4356a0a080840bbc4e",
+        "f-cf6c68a86e5fbe755f86",
+        "f-07b56f9c95a7f62cd298",
+        "f-aebfd085fbc96c9e5b3f",
+        "f-5e1357cdf2d951af3cfa",
+        "f-c7862a06a0f16ff31dc0",
+        "f-19cd9bdb61dfca10bd5a",
+        "f-4c2cf1af3f84babc860a",
+        "f-06c4f1f9dd4bb2104173",
+        "f-5cd7b644dcf9a3303287",
+        "f-52de0d51185937519378",
+        "f-5f1220984e6341974bd2",
+        "f-bbf958230a33fd2939b3",
+        "f-1ec10db6fab16d8be19f",
+        "f-4c69182f61c7638f2681",
+        "f-0f53974fa036d158837e",
+        "f-489770faf5e672c5eb16",
+        "f-f44e1ec0bd7ed207714b",
+        "f-0c4cfa71514e2f5882f9",
+        "f-a98daaabe0d1a7825550",
+        "f-4e0503861dd665abb115",
+        "f-514ff9fc875db3f8c768",
+        "f-6d978b05f8227e23be1e",
+        "f-f42445a1381febedf6c9",
+        "f-906202e82bc8de417d45",
+        "f-fd55bb2caee85dd46335",
+        "f-3bb62dcd282ded2484c6",
+        "f-ecadc5022ace84455950",
+        "f-feb0502e45426846be9e",
+        "f-94d2cc026aa6e899e165",
+        "f-76c2f764656e3875749b",
+        "f-7dcdedbdf17dacb66aa2",
+        "f-e8aa5eee0f71d1d77b9b",
+        "f-482d488b7952121e5431",
+        "f-bca38700a4d2374024dd",
+        "f-ac3fd5e2ed319d9196e1",
+        "f-c12d6bdb05bf8501470f",
+        "f-0eb123797ac33969a280"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-56583387bbf08f43e2e5",
+      "source": "src/game/unity/PiratesIncludeCpp4.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-fb0bf70038a238bb8a11",
+        "f-f8201039bf34287d334b",
+        "f-c64ec7573380601c36fa",
+        "f-8ef7867ab01ca4a1c294",
+        "f-0022bc0c3da07b7f5ba9",
+        "f-3ae50cb76822374f2265",
+        "f-5aa61ff95f47d44735f1",
+        "f-e7af20fd7a8d36b048e5",
+        "f-931d579982958e01fd04",
+        "f-15eff463bd6b06a6d3c8",
+        "f-a80146d7987b7f7152c1",
+        "f-0308af0fb6c6db4c7be5",
+        "f-a9b0c86aa1be5082cab4",
+        "f-7a7e566fd36505d1b5b2",
+        "f-c96c6ef2c89c054d8225",
+        "f-98bd96e092ed815f571b",
+        "f-77beeccf48566f613bb3",
+        "f-f81924952391d028aa1b",
+        "f-5bc6dc88a2eac9424327",
+        "f-86e254160c3dd4193923",
+        "f-d6b6aca46dd65671cdcb",
+        "f-9cd9eb709ba86be1d5c2",
+        "f-e078612e3e3beb0a7e5d",
+        "f-6d5ec96fd5501f444f94",
+        "f-1a7b938351bc1992ab76",
+        "f-10e52234198c09a4405b",
+        "f-0eb6032ed5950291b70b",
+        "f-8fe19be9fa9d97db9ab6",
+        "f-34e3aad3c68110280c8a",
+        "f-aa03686c8d0a42f5bc4a",
+        "f-39f2d07f5c03120b1edc",
+        "f-9633eba279994372d598",
+        "f-332fe3e1a5536cbe16c4",
+        "f-f7b3eb8fa8601fbd46fa",
+        "f-daea6e9793b35d170a4f",
+        "f-001481aa571a917be2e6",
+        "f-9fd4f1cc8f6fdbcba485",
+        "f-3f2f9b2594cd02d9c62e",
+        "f-dded56d474ca7bd76264",
+        "f-99f161a7fdfca0539883",
+        "f-0d0e448af95eeaa0a8a0"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-998eb75b8a8db9671b6e",
+      "source": "src/game/unity/PiratesIncludeCpp3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-e023f038c9d6d3d27b6a"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "source": "src/game/unity/PiratesIncludeCpp.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-ae91deee47159476a8bf",
+        "f-ecbbd5f1fd16a43f528b",
+        "f-b73c7aa2ecc0438a7556",
+        "f-4ab08f8f13d92de10f3e",
+        "f-7106e17a82d37b77042f",
+        "f-4078ce6dc87355609440",
+        "f-c2bf5102afd2ec3498fd",
+        "f-a6d502a085114b22bac3",
+        "f-45ed945cb16bdb9882d7",
+        "f-8ed00b18e38e0ee31981",
+        "f-939250c9e87a53e5bb01",
+        "f-14bc5545adc0f6ed2703",
+        "f-26ae6ffa8ded85ee9810",
+        "f-192667cc183659e3582d",
+        "f-b8e3636dca0cfb8fe44a",
+        "f-6c195355bcd184679c13",
+        "f-d17857f46c68367026a2",
+        "f-a962d2fa0f963820bde4",
+        "f-b32a9c3f4cbd39b18bc1",
+        "f-c15202c0043c1052544c"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-11c7f0138eabdedbcbfb",
+      "source": "src/ise/ISEParticleEntity.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-9493f6d192f66689470b",
+        "f-220fb0566cfb6ddb0374"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-12bfeeb050e378230efa",
+      "source": "src/ise/ISEParticlesData.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-fd0b4ea616870c7016fd",
+        "f-f14415854ccbdca99f90"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-22e518abce9579acfc03",
+      "source": "src/ise/ISEParticles.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-550a64b5e3249aacfbe4"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-2722e7509289d1cd572e",
+      "source": "src/fireplace/audio/FListener.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-d449e304436c588c1d00",
+        "f-e828213ab679af11a833"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-2fcdafda82e4b70e26b6",
+      "source": "src/ise/ColorSprite.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-add291409542ea2cac0a",
+        "f-afb42724a5d1eb4209ed"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-2fd332c51ac83f2c0987",
+      "source": "src/game/ui/MultiPlaySBChosenUIScene.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-7f58b9d82c0deb09edd4",
+        "f-8c4b291f9fb33106e23c",
+        "f-59da8af7fe6060ce82e6",
+        "f-84ee7f29fe70e29f3ef9",
+        "f-c8fff4d5079b93493cf6"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-615f11e1c3ff7aa6b275",
+      "source": "src/game/ui/MultiPlaySFCharacterChosenUIScene.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-74814e26551c876791eb",
+        "f-035d4d3f588a1b3f3495",
+        "f-34293b06afdfe3de7eed",
+        "f-2303ffed6007172e865e",
+        "f-047e3e319579aff96b7a"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-314a424024475377a06a",
+      "source": "src/ise/ISEPSysEmitterPlanarAngleCtlr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-e4b3a52d5e59862e3791",
+        "f-b51078a433dbc8959e3e"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-5dc98ded87f47401fef3",
+      "source": "src/ise/ISEPSysEmitterInitialRadiusCtlr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-12eb08b5441f3e130a0b",
+        "f-8f2ea32d5cdf28272f8a"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-777452410bf5df8e8644",
+      "source": "src/ise/ISEPSysEmitterSpeedCtlr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-d8d90fdc299cb67bc6f2",
+        "f-72ad6ea6513d8a651a2d"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-4ecf6698b47bb4fae018",
+      "source": "src/ise/ISEFile.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-8b6b4968dd711773e32d",
+        "f-8421177c8feeeef57bde"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-547c118a5632decb45cb",
+      "source": "src/fireplace/audio/FSoundQueue.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-1754e1e3d9ac28f036e5"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-5fb0f3020ccb8ccfca54",
+      "source": "src/game/ui/ShipWrightUIScene.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-834b848df0901ac290de"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-6031b6c2de40a8188a31",
+      "source": "src/game/unity/TempIncludeCpp4.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-453024915a23c1a232af",
+        "f-94487ec53dcbc021ec3e",
+        "f-64aa3e944615f968ebbe",
+        "f-4a898beb7409ee0bf1b6",
+        "f-730ecc5801a1bb1c6241",
+        "f-5aad2611474d58ee133c",
+        "f-cdc04940824cd5afe43f",
+        "f-dd97dc53a3629e7bd83d",
+        "f-4afedf3203e385bef750",
+        "f-3301c42b1e1733282d57",
+        "f-a9c10d96bca1b7765625",
+        "f-0a4b9d19df4f481d6bf8",
+        "f-d3d687bbc4331b4214c9",
+        "f-5e4ef45869ec28a1524b",
+        "f-624b7e0c187a0beeecd7",
+        "f-27056d5f80df5a3cb9f5",
+        "f-b0cd6a252e570faa62d9",
+        "f-7cfaf1c30fcbeeafcb25",
+        "f-ef6c735dc6386de29f4b",
+        "f-49cb15adda3c3519adbe",
+        "f-d3319356884e19bb287e",
+        "f-d2217c10552b4122b08b",
+        "f-f566885070e656203185",
+        "f-f18293897cfc5bc0d952",
+        "f-c4194fc12e3f697106a3",
+        "f-c130d815515742ca7b0d",
+        "f-8bdbd2b73ba205e9edd9"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d483319aef7bde0860fd",
+      "source": "src/game/unity/TempIncludeCpp5.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-5dd6159419ed8ef0fe90",
+        "f-3656226e0caf3496e477",
+        "f-e4efc77c344e266b9744"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-61a2257f0bd26f37502a",
+      "source": "src/game/multiplayer/MultiPlaySwordFightingChosen.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-cbeac7c9ac1589f1dc8b",
+        "f-9765e15a299bdbdbbc7b",
+        "f-3eb88cdd23f10b26f2a8",
+        "f-d252f7fe6f1fc32fe921"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-861bacac8f6b0b675b76",
+      "source": "src/game/ui/MultiPlaySeaBattleChosen.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-764e3913555fce90ecba",
+        "f-2b233b4bb0f402f993de"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-643bca7262c5468b80de",
+      "source": "src/ise/VertexProperty.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-da5e1a67089392fdb9ce"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-681bab6a7ca374876967",
+      "source": "src/ise/TriStrip.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-903d759034c427f58792",
+        "f-dddef38c20ee90677097",
+        "f-eea5e43aa66049d1993e",
+        "f-b96b1e30bb11bb8a8d76"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-7d25f6180d9844d7c020",
+      "source": "src/game/unity/TempIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-3dd7beabfdcf1ce28de2",
+        "f-2780c8bfcc39b7febb86",
+        "f-cb86b75720816a2ca563",
+        "f-7d66e2a9e516292616e7",
+        "f-284a814ba310a712bae4",
+        "f-a3c651cb1d3dde46c96f"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-869c1fa37c759d3c89c8",
+      "source": "src/ise/ISEParticleGeometryData.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0bdbb565f63c194f66ab"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-9597c5e0f7fd219596aa",
+      "source": "src/fireplace/audio/phono2/PAudioManager.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-6d5fb405d6267895f26d"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-97ff96143a03b7b7e331",
+      "source": "src/ise/ISEMesh.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0018df17a98c989c769e"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-9aa52a401ff5225611f9",
+      "source": "src/game/ui/UicDanceHeart.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-3a6447b28e7a90889eac"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-9b5e1bfcdd1c2e52775d",
+      "source": "src/ise/ISETexture.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-4d69d9f014efa7e4d2e9"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-9cdb54dcd3500115b6d3",
+      "source": "src/ise/ISECamera.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-702f738491cf1c5b33d5"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-a07731fea5c57d908920",
+      "source": "src/ise/ISEDrawListRenderUnit.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-18be0b79559bed2cc02e",
+        "f-ec5ecbd426694dc2484b"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-b5a90cc041122ccd1748",
+      "source": "src/game/ui/UicFrameAnimation.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-1d48cfcbee087f651766"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-bd40b68b130e820ead67",
+      "source": "src/game/unity/TempIncludeCpp3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-c527df3c8730c99fb579",
+        "f-beebf7cf3bb43b1d10af",
+        "f-72a14366223d8cbaf2c8",
+        "f-d3826ac9e794af5137e7",
+        "f-0333882fb76d365c9ab7",
+        "f-dc73fc122fb12baa2040",
+        "f-986a1dcec61abf24e07f"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-bf6b54ebb60ce10f66d8",
+      "source": "src/ise/ISEPSysModifier.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-bc6750aa449c72873c39"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d165ee5f38eff74c59ca",
+      "source": "src/fireplace/audio/FAudioSystemPhono.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-cfed6760c54ebd4668dc",
+        "f-9f5388fea9c352c98cd8",
+        "f-3d0a82f02692166a2c3f"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d18738a564076a6bb420",
+      "source": "src/fireplace/audio/phono2/cAudioMutex.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-7dd79ca35738e8ff64c5"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-e3c04b8f58296776dbea",
+      "source": "src/ise/ISEEditableMesh.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-72dcaebbb3ed66093e81",
+        "f-fbd42d5a7e574287a5fb"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-eb5b8b9225d576ff8040",
+      "source": "src/game/platform/BTWrapper.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-2a0af0e7ed754a320e48"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-ecde35a48cd790293f68",
+      "source": "src/game/ui/MultiPlaySFStageChosenUISceneGroup.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-a5b6b91ba72ccdd57503",
+        "f-009b8d09fa6bf831b36c"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-f322f9eddf22cd22fca0",
+      "source": "src/ise/ISELogInfo.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-bcd08aa451a214c88945"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-f860c8ed10a6a0d791e9",
+      "source": "src/ise/ISENode.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-451c3eee0b9fe51ac1e4",
+        "f-85668745b9bd37a4db5a"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-fb8215a5a1f2d4ef8e04",
+      "source": "src/fireplace/audio/FSoundtrack.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-57b95578826453ce6b6c",
+        "f-396b9a7a83ba16834ca1"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-fb9d7fdc1b359c53ebad",
+      "source": "src/ise/ISEEntity.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-67250835350c71f98da4",
+        "f-011c76cff4fec3b88cd3",
+        "f-d08f46f125e8b2e659cb"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-a70c52d41737dcc20b28",
+      "source": "src/game/unity/TempIncludeCpp.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-faca9834bda213961e95",
+        "f-02aa4881c74c98d98906",
+        "f-efc5f072aad62ae10a53",
+        "f-9c07563fd8e9199299d3",
+        "f-d95fd08654510ee02ae3",
+        "f-d3ab537a03b6f9b51d59",
+        "f-abf5bfcdfda8c9f3769e",
+        "f-9984726e47ee1147e518",
+        "f-c2e625ff85ac0a53ebc9",
+        "f-1c0bf8fbe36842e96a5e",
+        "f-c0eeb9c8e1930742a4aa",
+        "f-2b00bda2b03c7a118db0"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d2c464150a675c39482a",
+      "source": "src/gamebryo/maps/PrintStringMaps.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-e422672727610038f01e",
+        "f-08a91a7d3c49b8c60fb8",
+        "f-a9686b048204084f51d3",
+        "f-332a243155b0e3c5284e"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-feb3979ea6c39b6c7f75",
+      "source": "src/fireplace/audio/FFadeSound.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0c9fa406bcb43b93c093",
+        "f-ef481f5175295b1b5c45"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "source": "src/ise/ISEVector3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0ff207840a626c9d70d8",
+        "f-77eee2d212191c3f750f"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-feef30570e6ce15967c0",
+      "source": "src/ise/ISEPSysEmitterDeclinationCtlr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-333153b0c018938c989c",
+        "f-0db9b1ae26096e239db0"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "candidate_groups": ["o-4c02a151f7f55c33fc5c"],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__Z14GameAudio_InitPKc",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": ["o-4c02a151f7f55c33fc5c"],
+    "libraries": ["-lSystem"],
+    "expected_imports": [],
+    "expected_libraries": ["/usr/lib/libSystem.B.dylib"],
+    "sdk_objects": [],
+    "flags": [],
+    "provenance": "Recovered GameAudio release-build entry points only. Direct function entry tests Mach-O structure; it is not an iOS process startup or runnable replacement."
+  }
+}

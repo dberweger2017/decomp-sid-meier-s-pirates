@@ -64,3 +64,40 @@ The validator rejects Clang and plain GCC. It requires LLVM-GCC 4.2.1 / LLVM bui
 The container adapter mounts the project at `/work`, an optional local SDK at `/sdk`, and selects `linux/amd64`. It has been exercised with the validated historical image under Apple Silicon emulation. Validation evidence can be supplied to the CI runner with `--validation`. Native Linux CI validates the complete source recipe and all four SDK-dependent language probes independently. The same probes pass under Apple Silicon emulation. Sixteen actual C++ source functions verify at 628 bytes; see [candidate evidence](easy-candidates.md).
 
 Apple’s GCC frontend is distributed under GPLv2-family terms; LLVM has its own open-source license and notices. SDK files have separate terms and are not bundled in this repository or its artifacts. No Apple account credentials are accessed by these tools.
+
+## Observed matching limitations
+
+The bundled core used by `toolchain/build-legacy.sh` explicitly sets
+`isTailCall = false` in ARM `LowerCall` (`llvmCore/lib/Target/ARM/ARMISelLowering.cpp`
+in the pinned frontend archive). The straightforward PVRTMatrixMultiplyF source
+therefore produces a BL with a frame rather than the original function's B tail
+branch. This is a concrete backend limitation of the current validated profile,
+not evidence that all original object groups used this backend or compiler.
+The shipped backend and compilers for linked libraries remain unidentified;
+existing exact matches do not establish universal compiler equivalence.
+
+For FPhono, disabling post-register-allocation scheduling verifies sixteen ordinary
+call wrappers including their resolved branch targets. The same setting leaves
+SetDopplerFactor's MOVT/register-move ordering different. Per-unit investigation
+flags and nonexact candidates stay visible; no instruction reordering is masked
+and no modern compiler or assembly fallback receives real-game source credit.
+
+The same bundled core's `LowerGlobalAddressDarwin` always materializes global
+addresses through a constant-pool load. `-arm-use-movt` controls the ELF lowering
+path, whose MOVW/MOVT route is absent from this Darwin implementation. Isolated
+NiObject::GetRTTI probes with ordinary and hidden declarations both produce
+literal-pool loads, while the original getter uses MOVW/MOVT plus PC-relative
+address arithmetic. The attempted non-lazy-pointer placement also remains
+unresolved. These getters are deferred rather than assigned match credit. This
+second concrete backend discrepancy reinforces the need to identify the shipped
+backend before claiming all original code can be reproduced with this profile.
+
+The simple ISETexture alpha-bit test also differs with the validated profile:
+`ARMDAGToDAGISel::SelectV6T2BitfieldExtractOp` in the bundled source recognizes
+UBFX from a right shift of a left shift, but the normal unsigned bit test
+canonicalizes to shift-and-mask and produces four instructions instead of the
+original three. Explicit shift pairs canonicalize the same way; bitfield views
+narrow the load and remain different. These bounded trials do not prove no
+possible legacy source/flag combination can match, but the candidate stays
+nonexact until its bytes verify. The adjacent nullable particle-model setter
+likewise retains extra conditional returns across the tested profiles.
