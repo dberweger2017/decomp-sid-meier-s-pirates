@@ -5,3 +5,5 @@
 bool MultiPlaySFStageChosenUISceneGroup::IsChosen() { return m_chosen; }
 
 int MultiPlaySFStageChosenUISceneGroup::GetChosenStageIndex() { return m_chosenStageIndex; }
+
+#include "MultiPlaySFStagePicUISceneSmall_MultiPlaySFStageChosenUIScene.cpp"
