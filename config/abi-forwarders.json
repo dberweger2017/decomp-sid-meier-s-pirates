@@ -9007,6 +9007,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-74a7d4aa1e079d022b69",
+      "group_id": "o-b2988598bdd8217340d1",
+      "symbol": "__ZN8FSound3DC1Ev",
+      "original_name": "FSound3D::FSound3D()",
+      "target_symbol": "__ZN8FSound3DC2Ev",
+      "target_name": "FSound3D::FSound3D()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
