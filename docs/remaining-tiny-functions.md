@@ -48,3 +48,29 @@ python -m unittest discover -v
 Full-game replacement linking stays separate and receives no credit from these
 entry points. The fixed cohort and native regression report account for every
 selected record, including any candidate that remains different or unresolved.
+
+## Verified checkpoint
+
+All 263 entries compile and verify exactly: 2,632 additional original code bytes
+in 131 original groups, committed one group at a time. Branch totals are 1,574
+exact functions / 17,524 bytes, 40 differing candidates, 7,563 missing candidates,
+and zero compile errors or unresolved comparisons. All 1,311 earlier function
+matches and the exact four-byte `npos` data allocation remain verified.
+
+The complete 1,430-record simple-shaped catalogue is now exact. The broader
+1,682-record inventory of functions at most 16 bytes still has 143 missing and
+26 differing records outside that catalogue. Source count is not gameplay effort.
+
+117 local tests pass. Synthetic tests reject changed constant/getter instructions,
+incorrect named imports and malformed review entries, execute leaf return values,
+link duplicate local callback names, compile natural Objective-C methods, and
+prove that `--require-exact` fails incomplete cohorts after exporting reports.
+Historical compilation, source review validation, doctor and the three existing
+diagnostic link graphs pass. All three diagnostic image hashes remain unchanged;
+no new live linked dependencies or replacement completion is implied.
+
+CI requires this fixed shortlist to remain exact. It continues to build PR base
+and head with identical input/compiler profiles, checks older match regressions,
+and exports the native report, objdiff adapter, cohort details and diagnostics.
+IPA/executable inputs, SDK headers, toolchain caches and generated outputs stay
+ignored. Hosted checks are distinct from these local results.
