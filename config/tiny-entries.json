@@ -1378,6 +1378,18 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-fb3439363bd4e73875ae",
+      "group_id": "o-6ffa9d64951f7100f022",
+      "symbol": "__ZN3ISE8ISELightD1Ev",
+      "original_name": "ISE::ISELight::~ISELight()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
     }
   ]
 }
