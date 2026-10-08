@@ -8,3 +8,5 @@ void PAudioManager::Shutdown() { m_end = m_begin; }
 } // namespace Phono2
 
 #include "../../../recovery/abi/o-9597c5e0f7fd219596aa.cpp"
+
+#include "../../../recovery/leaves/o-9597c5e0f7fd219596aa.cpp"
