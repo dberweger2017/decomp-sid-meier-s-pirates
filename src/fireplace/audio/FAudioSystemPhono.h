@@ -1,4 +1,5 @@
 #pragma once
+#include "FAudioSystem.h"
 
 
 // Partial layout for direct comparisons; do not instantiate. Complete size,
@@ -7,6 +8,10 @@
 class FAudioSystemPhono {
 public:
     void SetAudioSystemType();
+
+    bool RestartSound(FAudioSystem::ESoundType type, int id);
+
+    bool SetSoundPan(FAudioSystem::ESoundType type, int id, float pan, bool immediate);
 
 private:
     unsigned char m_unknown_00[48];
