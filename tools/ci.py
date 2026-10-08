@@ -38,6 +38,9 @@ def stage(checkout, dest, tool_source, profile, validation=None):
         return [n for n in names if n in ('.git', '.venv', 'build', 'node_modules', 'research', 'artifacts')
                 or n.endswith(('.ipa', '.sdk')) or n == '__pycache__']
     shutil.copytree(checkout, dest, ignore=ignored)
+    tracked = subprocess.run(['git', '-C', str(checkout), 'ls-files', '-z'], capture_output=True, text=True)
+    if tracked.returncode == 0:
+        write_json(dest / 'build/site-source-allowlist.json', tracked.stdout.split('\0'))
     # Use one comparison engine for both revisions, preserving each revision's
     # sources and candidate manifest. The pre-tooling base starts at zero.
     shutil.rmtree(dest / 'tools', ignore_errors=True)

@@ -102,7 +102,7 @@ def compile_unit(root, uid):
     return result
 
 
-def comparisons(root, details_id=None, include_link=True):
+def comparisons(root, details_id=None, include_link=True, details=False):
     from .compare import compare_function
     root = Path(root)
     config = configuration(root)
@@ -155,11 +155,14 @@ def comparisons(root, details_id=None, include_link=True):
         # A partial source unit must opt in to data explicitly.
         implemented = ('implemented_functions' not in unit or record['id'] in unit.get('data', {}))
         data = compare_data(original, inventory, record, objects.get(uid) if implemented else None,
-                            unit.get('data', {}).get(record['id']), unit.get('placements'), bool(details_id))
+                            unit.get('data', {}).get(record['id']), unit.get('placements'), bool(details_id) or details)
         if implemented and uid in unit_errors:
             data.update(status='compile_error' if compile_results.get(uid, {}).get('status') != 'compiled' else 'unresolved',
                         reasons=data['reasons'] + [unit_errors[uid]], byte_verified=False)
         data.update(candidate_source=unit.get('source') if implemented else None, candidate_group_id=uid)
+        if details:
+            data['compiler'] = info
+            data['compile'] = compile_results.get(uid)
         if details_id:
             if record['group_id'] == 'unowned-data':
                 from .linking import current_state
@@ -185,7 +188,7 @@ def comparisons(root, details_id=None, include_link=True):
         u = unit_configs.get(uid, {})
         implemented = 'implemented_functions' not in u or f['id'] in u['implemented_functions']
         compared = compare_function(original, inventory, f, objects.get(uid) if implemented else None, u.get('functions', {}).get(f['id']),
-                                    u.get('placements'), bool(details_id))
+                                    u.get('placements'), bool(details_id) or details)
         if implemented and uid in unit_errors:
             compiled = compile_results.get(uid, {})
             status = 'compile_error' if compiled.get('status') != 'compiled' else 'unresolved'
@@ -196,6 +199,9 @@ def comparisons(root, details_id=None, include_link=True):
         compared['section_offset'] = f['address'] - original.section(f['section']).address
         compared['candidate_source'] = u.get('source') if implemented else None
         compared['byte_verified'] = compared['status'] == 'matched'
+        if details:
+            compared['compiler'] = info
+            compared['compile'] = compile_results.get(uid)
         results.append(compared)
     if details_id:
         if not results:

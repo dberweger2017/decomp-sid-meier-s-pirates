@@ -1,5 +1,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
+const hosted = window.piratesHosted === true;
+let snapshot, hostedSources;
 const labels = {matched: 'Verified match', different: 'Different', missing: 'Missing candidate', unresolved: 'Unresolved', compile_error: 'Compile error'};
 let unitIndex = new Map();
 let report, selected = decodeURIComponent(location.hash.slice(1)), selectedFile = '', previousSource = '', dirty = false, requestNumber = 0;
@@ -10,6 +12,22 @@ const records = () => $("record-kind").value === "data" ? (report.data || []) : 
 const selectedRecord = () => [...report.functions, ...(report.data || [])].find(f => f.id === selected);
 const el = (tag, text, cls) => { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; };
 async function api(path, options) {
+  if (hosted) {
+    if (options?.method && options.method !== 'GET') throw new Error('This published snapshot is read-only.');
+    const url = new URL(path, location.origin);
+    const base = '/releases/' + snapshot.release + '/';
+    if (url.pathname === '/api/report') path = base + 'report.json';
+    else if (url.pathname === '/api/function') path = base + 'functions/' + encodeURIComponent(url.searchParams.get('id')) + '.json';
+    else if (url.pathname === '/api/link') path = base + 'link.json';
+    else if (url.pathname === '/api/files' || url.pathname === '/api/source') {
+      hostedSources ||= await api('/sources.json');
+      if (url.pathname === '/api/files') return hostedSources.files[url.searchParams.get('unit')] || [];
+      const source = url.searchParams.get('path');
+      if (!Object.hasOwn(hostedSources.sources, source)) throw new Error('Source not included in this snapshot');
+      return {path: source, content: hostedSources.sources[source]};
+    } else if (path === '/sources.json') path = base + 'sources.json';
+    else throw new Error('API unavailable in a published snapshot');
+  }
   const response = await fetch(path, options);
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
@@ -17,6 +35,7 @@ async function api(path, options) {
 }
 function error(message) { $('notice').textContent = message; }
 function state(building, code = 0) {
+  if (hosted) return;
   $('build-state').textContent = building ? '● Rebuilding…' : code ? '● Build failed · diagnostics retained' : '● Watching for edits';
   $('build-state').style.color = code ? 'var(--red)' : building ? 'var(--gold)' : 'var(--green)';
 }
@@ -169,6 +188,7 @@ async function loadSource(unit, path) {
   } catch (e) { error(e.message); }
 }
 $('source-content').addEventListener('input', () => { dirty = true; $('save-status').textContent = 'Unsaved changes'; });
+if (hosted) { $('source-content').readOnly = true; $('save').hidden = true; $('source-content').setAttribute('aria-label', 'Candidate source (read-only)'); }
 $('source-file').addEventListener('change', () => {
   if (dirty) { $('source-file').value = selectedFile; error('Save your source changes before opening another file.'); return; }
   const f = selectedRecord(); loadSource(f.candidate_group_id || f.group_id, $('source-file').value);
@@ -199,6 +219,7 @@ async function refresh() {
     renderTree(); await renderFunction(); if (!$('linking-panel').hidden) await linkDiagnostics();
   } catch (e) { error(e.message); }
 }
+if (!hosted) {
 const events = new EventSource('/api/events');
 events.onmessage = async message => { const event = JSON.parse(message.data);
   if (event.kind === 'building') state(true);
@@ -208,3 +229,27 @@ events.onmessage = async message => { const event = JSON.parse(message.data);
 };
 events.onerror = () => { $('build-state').textContent = '● Reconnecting to watcher…'; };
 refresh(); api('/api/status').then(s => state(s.building, s.returncode)).catch(e => error(e.message));
+} else {
+  let checking = false;
+  async function checkSnapshot() {
+    if (checking) return;
+    checking = true;
+    try {
+      const response = await fetch('/deployment.json', {cache: 'no-store'});
+      if (!response.ok) throw new Error('Published snapshot unavailable');
+      const next = await response.json();
+      if (next.release !== snapshot?.release) {
+        if (snapshot) { location.reload(); return; } // preserve hash and load the release's JS as well as its data
+        snapshot = next;
+        const link = el('a', next.commit.slice(0, 12));
+        link.href = 'https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/' + next.commit;
+        $('build-state').replaceChildren(el('span', 'Read-only · '), link);
+        const stamp = el('span', ` · ${next.updated_at}`); $('build-state').append(stamp);
+        $('build-state').title = 'Published after successful CI; checks for updates every 30 seconds.';
+        await refresh();
+      }
+    } catch (e) { error(e.message); }
+    finally { checking = false; }
+  }
+  checkSnapshot(); setInterval(checkSnapshot, 30000);
+}
