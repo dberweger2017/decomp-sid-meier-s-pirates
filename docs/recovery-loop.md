@@ -541,3 +541,12 @@ before each word store.
 The latest report has **1,604 exact functions / 17,940 bytes**, 50 differing
 candidates, 7,523 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+CPVRTModelPOD's constructor now verifies exactly, clearing its observed word at
+`+0x54`. MacMoviePlayer's constructor has a candidate that stores a non-null
+controller pointer; it remains fuzzy at 57.1429% because the candidate emits a
+branch around the conditional store while the original uses predication.
+
+The newest report has **1,605 exact functions / 17,952 bytes**, 51 differing
+candidates, 7,521 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

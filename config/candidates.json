@@ -5598,6 +5598,36 @@
         "f-ebe91bc7a82d45afd601"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layout and unencoded return type remain unknown."
+    },
+    {
+      "group_id": "o-8dd08e1016fbe29a2e65",
+      "source": "src/recovery/units/o-8dd08e1016fbe29a2e65.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-bd9b762683c9bcf4713f"
+      ],
+      "flags_provenance": "Investigative ARM profile for a direct one-word constructor initializer; original flags and complete class layout remain unproven."
+    },
+    {
+      "group_id": "o-cce932907e8753893cef",
+      "source": "src/recovery/units/o-cce932907e8753893cef.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-08aa7183db1262113c80"
+      ],
+      "flags_provenance": "Investigative ARM profile for an encoded Objective-C++ constructor symbol; original flags and complete platform type remain unproven."
     }
   ]
 }
