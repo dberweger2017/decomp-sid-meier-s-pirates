@@ -1362,6 +1362,24 @@
         "f-2b00bda2b03c7a118db0"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d2c464150a675c39482a",
+      "source": "src/gamebryo/maps/PrintStringMaps.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-e422672727610038f01e",
+        "f-08a91a7d3c49b8c60fb8",
+        "f-a9686b048204084f51d3",
+        "f-332a243155b0e3c5284e"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     }
   ]
 }
