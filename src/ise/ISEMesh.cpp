@@ -6,3 +6,5 @@ namespace ISE {
 
 void ISEMesh::ShowAABB(bool show) { m_showAABB = show; }
 } // namespace ISE
+
+#include "ISEMeshSmall_libISELib_a_ISEMesh_.cpp"

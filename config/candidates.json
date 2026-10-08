@@ -1218,7 +1218,8 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-0018df17a98c989c769e"
+        "f-0018df17a98c989c769e",
+        "f-bd19f54e4ed38bd4e43e"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
