@@ -22,3 +22,5 @@ FSoundScapeScriptData *FAudioManager::GetSoundScapeScripts() { return m_soundSca
 int FAudioManager::GetNum2DScripts() { return m_numScripts2D; }
 
 FKnob *FAudioManager::GetVolumeKnobs() { return m_volumeKnobs; }
+
+float FAudioManager::GetDopplerFactor() { return m_dopplerFactor; }
