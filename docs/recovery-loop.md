@@ -265,5 +265,59 @@ replacement completion and unverified iOS runtime behavior. Reproduce with
 The pushed 236-function checkpoint passes Linux/macOS tooling and historical
 candidate CI. Its native Linux artifact agrees with the saved macOS report for
 all 9,177 functions, 5,056 data records and progress/coverage metrics; compiler
-profile metadata remains separate. This 334-function checkpoint needs its own
-CI run. The recovery goal continues.
+profile metadata remains separate. The pushed 334-function checkpoint also
+passes both CI runs, with matching Linux/macOS function/data records and
+progress/coverage metrics. The recovery goal continues.
+
+## Shared-container batch
+
+The third batch investigates **102 functions across 18 original groups**.
+**77 verify at 1,060 bytes**, reaching **411 exact functions / 4,864 code
+bytes** (0.1192% of function bytes; 4.4786% of records). There are 34 differing
+candidates and 8,732 missing functions, with zero compile errors, unresolved
+comparisons or regressions of prior exact function/data matches. All 92 tooling
+tests pass. There are 67 configured original objects. The shared scaffolding
+and each original group have separate commits; ignored `batch3-*` outputs retain
+the detailed evidence.
+
+Partial NiTMapBase/NiTMapItem templates recover unsigned key hashing, direct
+key/value assignment and observed empty ClearValue hooks. Instantiations remain
+in their original engine/game unity or PrintString objects. Key comparisons use
+pointer/value identity, including char const* keys. Smart-pointer assignments,
+destructors, allocator operations, complete layouts and virtual slots are not
+recovered, and the partial types must not be instantiated. Other verified bodies
+include RTTI/vector initialization, vector assignment, enum state access,
+particle-count clamping, packed version construction and emitter declination.
+The particle clamp matches after expressing the conditional update explicitly.
+
+The compiler emits unsigned remainder through `__umodsi3`. Its original ARM
+stub at 0x3e7bc0 is established by LC_DYSYMTAB, a supported stub encoding and the
+referenced lazy-pointer entry, rather than an arbitrary address map. Seven new
+synthetic tests reject wrong imports, duplicate stubs, nonzero branch addends,
+unsupported encodings, malformed tables and misuse as function-pointer values.
+The original function inventory remains identical. Reloading the development
+server activated the changed matching core; subsequent source edits use the
+ordinary incremental watcher. The workbench API shows the exact hash helper and
+its resolved import. T3 preview opens but snapshots still time out, so this
+checkpoint does not claim a new visual browser pass.
+
+Twenty-two equality helpers and two audio validity predicates remain at 75%
+similarity because MOV/CMP ordering differs; NiAccumulator::StartAccumulating
+also remains different. Bounded optimization, pre/post-register-allocation
+scheduling and conditional-source trials did not establish exact bytes. These
+25 new differences receive no verified matching credit.
+
+The sixty-two-group `recovery-containers.json` diagnostic subset structurally
+links **380 exact functions / 3,780 bytes**, 27 differing candidates and npos.
+Image SHA-256:
+`a1503e8ff803e5a97c588c3f865bc6c9ce364e6cefc7f094d73383860732afe5`.
+The initial link exposed a missing libgcc_s.1 dependency. The original undefined
+symbol's library ordinal 12 identifies /usr/lib/libgcc_s.1.dylib; the SDK supplies
+it. The corrected image's independent dyld inspection confirms that binding,
+and the descriptor now requires it. Full-game replacement completion remains
+zero and iOS runtime behavior remains unverified. Reproduce with
+`python tools/recovery_link.py config/diagnostic-links/recovery-containers.json`.
+
+Checkpoint 334 passed hosted CI with every function/data record and matching
+metric agreeing across hosts. This new 411-function checkpoint needs its own CI.
+The recovery goal continues in batches.
