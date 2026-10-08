@@ -32,6 +32,8 @@ def summarize(cohort, inventory, report):
     groups = {}
     for fid in ids:
         f, r = originals[fid], results[fid]
+        if bool(r['byte_verified']) != (r['status'] == 'matched'):
+            raise ToolError('Inconsistent verified-match status: ' + fid)
         if r['group_id'] != f['group_id'] or r['size'] != f['size']:
             raise ToolError('Report changed cohort inventory identity: ' + fid)
         group = groups.setdefault(f['group_id'], {'id': f['group_id'], 'name': names[f['group_id']], 'functions': []})
@@ -55,7 +57,7 @@ def summarize(cohort, inventory, report):
         group['metrics'] = metrics(group['functions'])
         # Largest original differences first, including missing work. Similarity
         # is an assembly alignment heuristic, not an estimated work percentage.
-        group['priority_bytes'] = sum(f['size'] * (1 - (f['similarity'] or 0) / 100)
+        group['priority_bytes'] = sum(f['size'] * (1 - ((f['similarity'] or 0) if f['status'] in ('matched', 'different') else 0) / 100)
                                       for f in group['functions'] if not f['byte_verified'])
         group['priority_bytes'] = round(group['priority_bytes'], 4)
     ordered = sorted(groups.values(), key=lambda g: (-g['priority_bytes'], g['id']))
@@ -103,6 +105,8 @@ def main():
         write_json(args.output, select(inventory, args.name, args.symbol_regex))
         return 0
     code = subprocess.run(ninja_command(), cwd=root).returncode if args.command == 'build' else 0
+    args.output.unlink(missing_ok=True)
+    args.output.with_suffix('.md').unlink(missing_ok=True)
     result = summarize(load_json(args.cohort), inventory, load_json(root / 'build/report.json'))
     write_json(args.output, result)
     args.output.with_suffix('.md').write_text(markdown(result))

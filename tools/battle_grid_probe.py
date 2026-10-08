@@ -25,6 +25,41 @@ TARGETS = {
 GRID, HEAP, STACK, STOP, CALLBACK = 0x600000, 0x610000, 0x800000, 0x900000, 0x900100
 
 
+def isolated_arm_images(images, relocations, external_addresses=()):
+    """Lay out emulation-only ARM BL calls in distinct pages.
+
+    Matching still uses original addresses. This deliberately separate layout
+    avoids overlapping candidates that grew beyond their original boundaries.
+    Only already resolved ARM branch relocations are allowed; never mask bytes.
+    """
+    addresses = {name: 0xa00000 + i * 0x1000 for i, name in enumerate(sorted(images))}
+    targets = {entry: addresses[name] for name, (entry, raw) in images.items()}
+    isolated = {}
+    for name, (entry, raw) in images.items():
+        if len(raw) > 4096:
+            raise ToolError('Emulation image exceeds its isolated page')
+        data = bytearray(raw)
+        for event in relocations.get(name, []):
+            if event['status'] != 'resolved' or event['type'] != 5 or not event['pcrel']:
+                raise ToolError('Unsupported emulation layout relocation')
+            offset, target = event['offset'], event['target_address']
+            word = struct.unpack_from('<I', data, offset)[0]
+            if word & 0x0f000000 != 0x0b000000:
+                raise ToolError('Emulation expects ARM BL encoding')
+            encoded = word & 0xffffff
+            if encoded & 0x800000: encoded -= 0x1000000
+            if entry + offset + 8 + encoded * 4 != target:
+                raise ToolError('Relocation metadata disagrees with candidate call bytes')
+            if target not in targets and target not in external_addresses:
+                raise ToolError('Emulation call has no recovered callee or explicit external model')
+            delta = targets.get(target, target) - (addresses[name] + offset + 8)
+            if delta % 4 or not -(1 << 25) <= delta < (1 << 25):
+                raise ToolError('Emulation call requires an unsupported veneer')
+            struct.pack_into('<I', data, offset, (word & 0xff000000) | ((delta >> 2) & 0xffffff))
+        isolated[name] = (addresses[name], bytes(data))
+    return isolated
+
+
 def environment(layer=2, x=3, y=4, enabled=0, locked=0, empty=False):
     """Observed 32-bit field offsets; no incomplete C++ types are instantiated."""
     state = bytearray(0x20000)
@@ -58,27 +93,33 @@ def environment(layer=2, x=3, y=4, enabled=0, locked=0, empty=False):
     return bytes(state)
 
 
-def execute(images, operations, initial, property_types=None):
+def execute(images, operations, initial, property_types=None, dependencies=('property',),
+            external_functions=None, result_functions=('property',)):
     try:
         import unicorn as uc
         from unicorn import arm_const as arm
     except ImportError as error:
         raise ToolError('Install requirements-emulation.txt to run the ARM probe') from error
+    external_functions = external_functions or {}
     machine = uc.Uc(uc.UC_ARCH_ARM, uc.UC_MODE_ARM)
     machine.ctl_set_cpu_model(arm.UC_CPU_ARM_CORTEX_A8)
     machine.reg_write(arm.UC_ARM_REG_C1_C0_2, 0xf << 20)
     machine.reg_write(arm.UC_ARM_REG_FPEXC, 1 << 30)
     pages = {(entry // 4096) * 4096 for entry, code in images.values()}
+    pages.update((address // 4096) * 4096 for address in external_functions)
     for page in sorted(pages):
         machine.mem_map(page, 4096)
     machine.mem_map(GRID, 0x20000)
     machine.mem_write(GRID, initial)
     machine.mem_map(STACK, 0x10000)
     machine.mem_map(STOP, 4096)
-    types = property_types or {HEAP + 0x2100: 1, HEAP + 0x2200: 3}
+    types = property_types if property_types is not None else {HEAP + 0x2100: 1, HEAP + 0x2200: 3}
     callbacks, returns = [], []
     def hook(cpu, address, size, user_data):
-        if address == CALLBACK:
+        if address in external_functions:
+            external_functions[address](cpu, arm)
+            cpu.reg_write(arm.UC_ARM_REG_PC, cpu.reg_read(arm.UC_ARM_REG_LR))
+        elif address == CALLBACK:
             prop = cpu.reg_read(arm.UC_ARM_REG_R0)
             if prop not in types:
                 raise ToolError('Unexpected property Type callback receiver')
@@ -90,7 +131,7 @@ def execute(images, operations, initial, property_types=None):
         # Adjacent originals may have larger candidates. Load the current entry
         # only, with its real property callee, so no candidate span overlaps the
         # next entry. Never execute an original fallback for a candidate callee.
-        for active in {name, 'property'}:
+        for active in {name, *dependencies}:
             entry, code = images[active]
             machine.mem_write(entry, code)
         stack_top = STACK + 0x8000
@@ -100,12 +141,15 @@ def execute(images, operations, initial, property_types=None):
             machine.mem_write(stack_top + i * 4, struct.pack('<I', value))
         machine.reg_write(arm.UC_ARM_REG_SP, stack_top)
         machine.reg_write(arm.UC_ARM_REG_LR, STOP)
-        machine.emu_start(images[name][0], STOP, timeout=1000000, count=10000)
+        try:
+            machine.emu_start(images[name][0], STOP, timeout=1000000, count=10000)
+        except uc.UcError as error:
+            raise ToolError(f"ARM execution failed in {name}: {error}") from error
         if machine.reg_read(arm.UC_ARM_REG_PC) != STOP:
             raise ToolError('Execution did not return within the instruction/time bound')
         if machine.reg_read(arm.UC_ARM_REG_SP) != stack_top:
             raise ToolError('Callee did not restore SP')
-        if name == 'property':
+        if name in result_functions:
             returns.append(machine.reg_read(arm.UC_ARM_REG_R0))
     return {'memory': bytes(machine.mem_read(GRID, 0x20000)), 'callbacks': callbacks, 'returns': returns}
 
@@ -131,11 +175,11 @@ def scenarios():
     return values
 
 
-def compare_execution(original_images, candidate_images, cases):
+def compare_execution(original_images, candidate_images, cases, **execution_options):
     results = []
     for name, ops, initial, types in cases:
-        before = execute(original_images, ops, initial, types)
-        after = execute(candidate_images, ops, initial, types)
+        before = execute(original_images, ops, initial, types, **execution_options)
+        after = execute(candidate_images, ops, initial, types, **execution_options)
         differences = [key for key in before if before[key] != after[key]]
         results.append({'scenario': name, 'passed': not differences, 'differences': differences,
                         'original_memory_sha256': hashlib.sha256(before['memory']).hexdigest(),
@@ -173,10 +217,12 @@ if __name__ == '__main__':
     parser.add_argument('--workspace', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--output', type=Path, default=Path('build/gameplay-stress/execution.json'))
     args = parser.parse_args()
+    args.output.unlink(missing_ok=True)
     try:
         result = probe(args.workspace.resolve())
         write_json(args.output, result)
         print(f'{sum(s["passed"] for s in result["scenarios"])}/{len(result["scenarios"])} execution scenarios passed; zero matching/replacement-link credit')
         sys.exit(0 if result['passed'] else 1)
     except (ToolError, OSError, ValueError, KeyError) as error:
+        write_json(args.output, {'passed': False, 'error': str(error), 'matching_credit': 0, 'replacement_link_credit': 0})
         sys.exit(str(error))

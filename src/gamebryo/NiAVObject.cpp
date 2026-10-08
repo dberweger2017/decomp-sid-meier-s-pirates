@@ -5,7 +5,7 @@ NiProperty* NiAVObject::GetProperty(int type) {
     while (position) {
         NiProperty* property = position->property;
         position = position->next;
-        if (property && property->Type() == type)
+        if (property && property->ObservedType() == type)
             return property;
     }
     return 0;

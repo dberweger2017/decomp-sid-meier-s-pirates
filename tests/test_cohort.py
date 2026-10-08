@@ -48,6 +48,11 @@ class CohortTests(unittest.TestCase):
             with self.assertRaisesRegex(ToolError, 'inventory identity'):
                 summarize(self.cohort, self.inventory, report)
 
+    def test_false_verified_status_is_rejected(self):
+        self.report['functions'][0]['byte_verified'] = True
+        with self.assertRaisesRegex(ToolError, 'Inconsistent verified-match'):
+            summarize(self.cohort, self.inventory, self.report)
+
     def test_selection_and_report_are_deterministic(self):
         self.assertEqual(select(self.inventory, 'Game', 'gameplay')['function_ids'], ['large', 'missing'])
         left = summarize(self.cohort, self.inventory, self.report)

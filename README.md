@@ -92,3 +92,8 @@ python tools/ci.py demo-regression
 It intentionally exits with status 1 and writes the before/after reports and summary under `build/ci-demo/`. Hosted decomp.dev registration is outside this milestone.
 
 See [progress, data and linking](docs/progress.md) for separate fuzzy/exact/data measures, the pinned linker, CI gates and [the first 16 exact source matches](docs/easy-candidates.md).
+
+For a source-first pass over connected routines, use
+`python tools/cohort.py build config/cohorts/world-map-projection.json --output build/cohorts/projection.json`.
+The [gameplay stress experiment](docs/gameplay-stress.md) documents fuzzy/exact
+results, bounded ARM execution checks, incremental timings and linking limits.

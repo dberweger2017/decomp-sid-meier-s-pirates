@@ -11,7 +11,7 @@ public:
     virtual void Unknown08(); virtual void Unknown09();
     virtual void Unknown10(); virtual void Unknown11();
     virtual void Unknown12(); virtual void Unknown13();
-    virtual int Type(); // observed vtable +0x38
+    virtual int ObservedType(); // observed vtable +0x38
 };
 
 struct NiPropertyListItem {

@@ -1,0 +1,37 @@
+{
+  "candidate_groups": [
+    "o-0aaf8c6270adb89d12c9",
+    "o-bd40b68b130e820ead67"
+  ],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__ZN10BattleGrid15SetSquareEnableEtttbf",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": [
+      "o-0aaf8c6270adb89d12c9",
+      "o-bd40b68b130e820ead67"
+    ],
+    "libraries": [
+      "-lSystem",
+      "-lgcc_s.1"
+    ],
+    "expected_imports": [
+      "_modf",
+      "___umodsi3"
+    ],
+    "expected_libraries": [
+      "/usr/lib/libSystem.B.dylib",
+      "/usr/lib/libgcc_s.1.dylib"
+    ],
+    "expected_bindings": {
+      "_modf": "/usr/lib/libSystem.B.dylib",
+      "___umodsi3": "/usr/lib/libgcc_s.1.dylib"
+    },
+    "sdk_objects": [],
+    "flags": [],
+    "provenance": "Two original unity groups with ordinary source-backed battle-grid display, linked-list property lookup and world-map projection candidates. Candidates remain explicitly byte-different; virtual property Type operations require the original runtime ABI. This diagnostic image verifies direct-call linking and SDK bindings only; no original byte payload, fake dependency stub, runtime or complete replacement credit."
+  }
+}

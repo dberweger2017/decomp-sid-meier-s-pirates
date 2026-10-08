@@ -1,7 +1,7 @@
 import importlib.util
 import struct
 import unittest
-from tools.battle_grid_probe import compare_execution, execute, GRID, environment
+from tools.battle_grid_probe import compare_execution, execute, GRID, environment, isolated_arm_images
 from tools.pirates.util import ToolError
 
 
@@ -31,6 +31,16 @@ class ArmExecutionTests(unittest.TestCase):
         result = compare_execution(self.images(), self.images(result=4), self.cases())
         self.assertFalse(result[0]['passed'])
         self.assertEqual(result[0]['differences'], ['memory'])
+
+    def test_isolated_layout_preserves_real_callee_and_rejects_unknown_target(self):
+        images = self.images(extra_nop=True)
+        relocs = {'square': [{'status': 'resolved', 'type': 5, 'pcrel': True,
+                             'offset': 8, 'target_address': images['property'][0]}]}
+        isolated = isolated_arm_images(images, relocs)
+        self.assertTrue(compare_execution(self.images(), isolated, self.cases())[0]['passed'])
+        relocs['square'][0]['target_address'] += 4
+        with self.assertRaisesRegex(ToolError, 'disagrees'):
+            isolated_arm_images(images, relocs)
 
     def test_instruction_bound_failure_is_not_a_pass(self):
         images = self.images()

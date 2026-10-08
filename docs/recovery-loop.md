@@ -321,3 +321,11 @@ zero and iOS runtime behavior remains unverified. Reproduce with
 Checkpoint 334 passed hosted CI with every function/data record and matching
 metric agreeing across hosts. This new 411-function checkpoint needs its own CI.
 The recovery goal continues in batches.
+
+## Connected source-first cohorts
+
+PR #4 investigates larger connected routines, retains fuzzy candidates, and adds
+`tools/cohort.py` for a whole selected source pass followed by group refinement.
+See [the experiment and measured limitations](gameplay-stress.md). The 411 exact
+functions remain preserved; bounded behavior checks and diagnostic links earn no
+additional exact or complete replacement credit.
