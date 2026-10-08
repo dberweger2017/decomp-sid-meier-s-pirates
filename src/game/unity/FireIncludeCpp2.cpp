@@ -5,3 +5,5 @@
 #include "../../../src/fireplace/engine/FIniParser.cpp"
 #include "../../../src/fireplace/ui/FTextSystem.cpp"
 #include "../../../src/fireplace/ui/FxWidget.cpp"
+
+#include "../../gamebryo/maps/FireIncludeCpp2Maps.cpp"
