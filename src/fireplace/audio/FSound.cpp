@@ -28,3 +28,5 @@ const F2DSoundScriptData *FSound::GetScript() { return m_script; }
 void FSound::SetScript(const F2DSoundScriptData *script) { m_script = script; }
 
 float FSound::GetTaperVolume() const { return m_taperVolume; }
+
+void FSound::SetTaperVolume(float value) { m_taperVolume = value; }
