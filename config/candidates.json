@@ -892,9 +892,21 @@
         "f-c65634726f47147cf459",
         "f-80c05cf3fe76b3c605f8",
         "f-91d4908cda552f97bb9b",
-        "f-2cfafe562cde11229645"
+        "f-2cfafe562cde11229645",
+        "f-13621465df87aac12cf8",
+        "f-409cf68ccf0cdea6f378",
+        "f-4efbc151e33e0afb4373",
+        "f-a8a3405663bd3f487f9e",
+        "f-e291f7a9f887adcb5e62"
       ],
-      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-13621465df87aac12cf8": "complete-destructor",
+        "f-409cf68ccf0cdea6f378": "complete-destructor",
+        "f-4efbc151e33e0afb4373": "complete-destructor",
+        "f-a8a3405663bd3f487f9e": "complete-destructor",
+        "f-e291f7a9f887adcb5e62": "complete-destructor"
+      }
     },
     {
       "group_id": "o-0aaf8c6270adb89d12c9",

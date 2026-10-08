@@ -10,3 +10,5 @@
 #include "../../recovery/BombardingReadyStartReleasePiratesIncludeCpp3.cpp"
 
 #include "../../recovery/PiratesIncludeCpp3ReleaseFunctions.cpp"
+
+#include "../../recovery/abi/o-998eb75b8a8db9671b6e.cpp"
