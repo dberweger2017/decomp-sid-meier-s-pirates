@@ -38,3 +38,5 @@
 #include "../../gamebryo/NiWireframePropertyReleaseTempIncludeCpp4.cpp"
 
 #include "../../gamebryo/NiZBufferPropertyReleaseTempIncludeCpp4.cpp"
+
+#include "../../recovery/abi/o-6031b6c2de40a8188a31.cpp"
