@@ -36,3 +36,5 @@ bool FSound3D::SetVelocityMagnitude(float value) { m_velocityMagnitude = value; 
 void FSound3D::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields |= flags; }
 
 void FSound3D::ClearShortCircuitScriptField(int flags) { m_shortCircuitScriptFields &= ~flags; }
+
+bool FSound3D::GetVolume(float &value) const { value = m_volume; return true; }
