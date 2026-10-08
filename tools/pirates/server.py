@@ -194,7 +194,7 @@ class Handler(BaseHTTPRequestHandler):
             if url.path == '/':
                 page = (Path(__file__).resolve().parents[1] / 'web/index.html').read_text()
                 self.reply(page.replace('__TOKEN__', self.server.token), content_type='text/html')
-            elif url.path in ('/app.js', '/style.css'):
+            elif url.path in ('/app.js', '/treemap.js', '/style.css'):
                 path = Path(__file__).resolve().parents[1] / 'web' / url.path[1:]
                 self.reply(path.read_text(), content_type='text/javascript' if path.suffix == '.js' else 'text/css')
             elif url.path == '/api/report':

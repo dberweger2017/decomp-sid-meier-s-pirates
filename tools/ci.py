@@ -38,6 +38,9 @@ def stage(checkout, dest, tool_source, profile, validation=None):
         return [n for n in names if n in ('.git', '.venv', 'build', 'node_modules', 'research', 'artifacts')
                 or n.endswith(('.ipa', '.sdk')) or n == '__pycache__']
     shutil.copytree(checkout, dest, ignore=ignored)
+    tracked = subprocess.run(['git', '-C', str(checkout), 'ls-files', '-z'], capture_output=True, text=True)
+    if tracked.returncode == 0:
+        write_json(dest / 'build/site-source-allowlist.json', tracked.stdout.split('\0'))
     # Use one comparison engine for both revisions, preserving each revision's
     # sources and candidate manifest. The pre-tooling base starts at zero.
     shutil.rmtree(dest / 'tools', ignore_errors=True)
@@ -51,10 +54,11 @@ def stage(checkout, dest, tool_source, profile, validation=None):
         write_json(dest / 'config/candidates.json', {'version': 1, 'units': []})
     if validation and Path(validation).is_file():
         write_json(dest / profile['validation'], load_json(validation))
-    linker_path = tool_source / 'build/linker/linker.json'
-    if not linker_path.is_file():
-        linker_path = tool_source / 'config/linker.json'
-    if linker_path.is_file():
+    # Nested staged workspaces must retain their validated CI linker profile.
+    linker_path = next((tool_source / name for name in
+                        ('build/linker/linker.json', 'config/ci-linker.json', 'config/linker.json')
+                        if (tool_source / name).is_file()), None)
+    if linker_path is not None:
         linker = load_json(linker_path)
         write_json(dest / 'config/ci-linker.json', linker)
         proof = tool_source / linker.get('validation', 'build/linker/validation.json')
