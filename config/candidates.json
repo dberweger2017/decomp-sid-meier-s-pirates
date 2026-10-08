@@ -323,7 +323,8 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-942a81d72dfbd87dcb97"
+        "f-942a81d72dfbd87dcb97",
+        "f-e314a11b0e36558c05ab"
       ],
       "flags_provenance": "Investigation profile for original release-build constant bodies. Original flags and full virtual interface remain unknown; see FAudioSystem.h."
     }

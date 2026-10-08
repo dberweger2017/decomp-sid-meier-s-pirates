@@ -4,3 +4,5 @@
 // Only explicitly recovered methods are implemented; no artificial stubs.
 
 bool FAudioSystem::Update(float) { return true; }
+
+void FAudioSystem::SetAudioSystemType() {}
