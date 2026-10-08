@@ -7,12 +7,20 @@ namespace ISE {
 class KeyframeController {
 public:
     KeyframeController();
-    virtual ~KeyframeController();
+    virtual ~KeyframeController() throw();
     void GetScaleMatrix(float time, PVRTMATRIXf &matrix);
     void GetRotationMatrix(float time, PVRTMATRIXf &matrix);
     void GetTranslationMatrix(float time, PVRTMATRIXf &matrix);
 private:
-    unsigned char m_unrecovered[96];
+    friend class ControllerSequence;
+    unsigned int m_unknown04;
+    unsigned int m_metadata[4];         // +0x08..+0x17
+    unsigned char m_unrecovered18[12];  // +0x18..+0x23
+    template<class T> struct Channel { int count; float *times; T *values; };
+    Channel<PVRTVECTOR3f> m_translation;    // +0x24
+    Channel<PVRTQUATERNIONf> m_rotation;    // +0x30
+    Channel<PVRTVECTOR3f> m_scale;          // +0x3c
+    unsigned char m_unrecovered48[28];  // +0x48..+0x63
 };
 
 class ControllerSequence {
@@ -38,7 +46,13 @@ private:
     int m_nodeCount;                    // +0x14
     Node *m_nodes;                       // +0x18
     KeyframeController *m_keyframes;    // +0x1c, 100-byte objects
-    unsigned char m_unrecovered20[36];  // +0x20..+0x43
+    int m_floatCount;                   // +0x20
+    char **m_floatNames;                // +0x24
+    class SequenceFloatController *m_floats; // +0x28, 56-byte objects
+    int m_secondaryFloatCount;          // +0x2c
+    char **m_secondaryFloatNames;       // +0x30
+    SequenceFloatController *m_secondaryFloats; // +0x34
+    unsigned char m_unrecovered38[12];  // +0x38..+0x43
     float m_time;                       // +0x44
 };
 } // namespace ISE

@@ -1,7 +1,40 @@
 #include "ISEControllerSequence.h"
 #include "../powervr/PVRTMatrixF.h"
+#include "ISESequenceMemory.h"
+#include <string.h>
 
 namespace ISE {
+// Only the size and virtual array cleanup are established at this checkpoint.
+class SequenceFloatController {
+public:
+    virtual ~SequenceFloatController() throw();
+private:
+    unsigned char m_unrecovered[52];
+};
+
+ControllerSequence::~ControllerSequence() {
+    delete [] m_name;
+    if (m_properties) {
+        for (int i = 0; i < m_propertyCount; ++i) delete [] m_properties[i].name;
+        delete [] m_properties;
+    }
+    if (m_nodes) {
+        for (int i = 0; i < m_nodeCount; ++i) delete [] m_nodes[i].name;
+        delete [] m_nodes;
+    }
+    delete [] m_keyframes;
+    if (m_floatNames) {
+        for (int i = 0; i < m_floatCount; ++i) delete [] m_floatNames[i];
+        delete [] m_floatNames;
+    }
+    delete [] m_floats;
+    if (m_secondaryFloatNames) {
+        for (int i = 0; i < m_secondaryFloatCount; ++i) delete [] m_secondaryFloatNames[i];
+        delete [] m_secondaryFloatNames;
+    }
+    delete [] m_secondaryFloats;
+}
+
 void ControllerSequence::GetNodeMatrix(int node, PVRTMATRIXf &matrix) {
     if (node < 0 || node >= m_nodeCount) return;
     KeyframeController *controller = &m_keyframes[node];
