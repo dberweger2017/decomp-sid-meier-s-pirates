@@ -14,3 +14,5 @@ bool FSharedSoundData::IsStreamed() { return m_loadType == SoundLoadStreamed; }
 ESoundLoadType FSharedSoundData::GetLoadType() { return m_loadType; }
 
 int FSharedSoundData::GetNumInstancesInUse() { return m_numInstancesInUse; }
+
+bool FSharedSoundData::IncNumInstancesInUse() { ++m_numInstancesInUse; return true; }
