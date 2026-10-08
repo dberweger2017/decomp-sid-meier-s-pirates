@@ -11,3 +11,5 @@ ISEMaterial * ISEDrawListRenderUnit::GetMaterial() { return m_drawList->m_materi
 } // namespace ISE
 
 #include "ISEDrawListReleaseISEDrawList.cpp"
+
+#include "ISEDrawListRenderUnitSmall_libISELib_a_ISEDrawList_.cpp"
