@@ -438,9 +438,15 @@
         "f-eaf31516174110faaf98",
         "f-a948ae41c8a856f862f5",
         "f-d6257df8f8a1bb2bb81f",
-        "f-ffec8911d04144bacb61"
+        "f-ffec8911d04144bacb61",
+        "f-ca0c6506ef33d3b69416",
+        "f-1dca0037aa952f9eb8e4"
       ],
-      "flags_provenance": "Investigation profile for original ARM facade calls and integer float transport. Isolated trials verify the first wrapper when post-register-allocation scheduling is disabled; enabled scheduling moves its frame-pointer setup. These are matching investigation flags, not proof of original build settings. Unencoded return types remain provisional; see FPhono.h and phono2/PAudioSystem.h."
+      "flags_provenance": "Investigation profile for original ARM facade calls and integer float transport. Isolated trials verify the first wrapper when post-register-allocation scheduling is disabled; enabled scheduling moves its frame-pointer setup. These are matching investigation flags, not proof of original build settings. Unencoded return types remain provisional; see FPhono.h and phono2/PAudioSystem.h.",
+      "recovery_kinds": {
+        "f-ca0c6506ef33d3b69416": "empty-body",
+        "f-1dca0037aa952f9eb8e4": "destruction-callback"
+      }
     },
     {
       "group_id": "o-67cbdb66049bec401875",

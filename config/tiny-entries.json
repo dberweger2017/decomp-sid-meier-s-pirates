@@ -934,6 +934,30 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-ca0c6506ef33d3b69416",
+      "group_id": "o-78c5a9284f33537c011b",
+      "symbol": "__ZN6FPhono19SetListenerVelocityE8NiPoint3",
+      "original_name": "FPhono::SetListenerVelocity(NiPoint3)",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-1dca0037aa952f9eb8e4",
+      "group_id": "o-78c5a9284f33537c011b",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
