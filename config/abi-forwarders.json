@@ -9059,6 +9059,42 @@
         "int",
         "int"
       ]
+    },
+    {
+      "id": "f-c30a84d9323058156740",
+      "group_id": "o-a8c0c6cf62d35b007569",
+      "symbol": "__ZN13TiXmlDocumentC1EPKc",
+      "original_name": "TiXmlDocument::TiXmlDocument(char const*)",
+      "target_symbol": "__ZN13TiXmlDocumentC2EPKc",
+      "target_name": "TiXmlDocument::TiXmlDocument(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-ff4853e644a30a1cf599",
+      "group_id": "o-a8c0c6cf62d35b007569",
+      "symbol": "__ZN12TiXmlElementC1EPKc",
+      "original_name": "TiXmlElement::TiXmlElement(char const*)",
+      "target_symbol": "__ZN12TiXmlElementC2EPKc",
+      "target_name": "TiXmlElement::TiXmlElement(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }
