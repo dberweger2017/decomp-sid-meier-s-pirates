@@ -44,7 +44,7 @@ def compile_unit(root, uid):
         old_dep = saved_dep.read_text()
     info = fingerprint(config['compiler'], root, config.get('sdk'))
     current = {**config, 'compiler_fingerprint': info}
-    allowed, error = permitted(current)
+    allowed, error = permitted(current, unit['source'])
     flags = compile_flags(config, unit)
     result = {'id': uid, 'source': unit['source'], 'flags': flags, 'compiler': info,
               'sdk_required': bool(unit.get('sdk_required', config['compiler'].get('sdk_required'))),
@@ -132,6 +132,9 @@ def comparisons(root, details_id=None):
             objpath = root / result['object']
             if sha256(objpath) != result['object_sha256']:
                 raise ToolError('Candidate object fingerprint changed; rebuild')
+            unit_allowed, reason = permitted({**config, 'compiler_fingerprint': info}, unit['source'])
+            if not unit_allowed:
+                raise ToolError(reason)
             objects[uid] = MachO(objpath.read_bytes())
         except (OSError, ToolError, ValueError) as e:
             unit_errors[uid] = str(e)
@@ -141,9 +144,10 @@ def comparisons(root, details_id=None):
             continue
         uid = f['group_id']
         u = unit_configs.get(uid, {})
-        compared = compare_function(original, inventory, f, objects.get(uid), u.get('functions', {}).get(f['id']),
+        implemented = 'implemented_functions' not in u or f['id'] in u['implemented_functions']
+        compared = compare_function(original, inventory, f, objects.get(uid) if implemented else None, u.get('functions', {}).get(f['id']),
                                     u.get('placements'), bool(details_id))
-        if uid in unit_errors:
+        if implemented and uid in unit_errors:
             compiled = compile_results.get(uid, {})
             status = 'compile_error' if compiled.get('status') != 'compiled' else 'unresolved'
             compared.update(status=status, reasons=compared['reasons'] + [unit_errors[uid]])
@@ -151,7 +155,7 @@ def comparisons(root, details_id=None):
             compared.update(status='unresolved', reasons=compared['reasons'] + [gate_reason])
         compared.update({k: f[k] for k in ('group_id', 'symbol', 'address', 'size', 'mode', 'source_path', 'section', 'ambiguities')})
         compared['section_offset'] = f['address'] - original.section(f['section']).address
-        compared['candidate_source'] = u.get('source')
+        compared['candidate_source'] = u.get('source') if implemented else None
         compared['byte_verified'] = compared['status'] == 'matched'
         results.append(compared)
     if details_id:

@@ -35,6 +35,8 @@ def validate(root, profile_path):
     hashes = {}
     languages = profile.get('languages', ['c', 'c++'])
     extensions = {'c': 'c', 'c++': 'cpp', 'objective-c': 'm', 'objective-c++': 'mm'}
+    if not {'c', 'c++'}.issubset(languages) or not set(languages).issubset(extensions):
+        raise ToolError('Compiler validation requires C/C++ and supported language names')
     for language in languages:
         extension = extensions[language]
         for mode in ('arm', 'thumb'):

@@ -18,7 +18,7 @@ from tools.pirates.compiler import profile_digest
 from tools.pirates.report import regression, objdiff_adapter
 from tools.pirates.util import write_json, load_json, ToolError, ninja_command
 from tools.ci import compiler_profile_failure
-from tests.fixtures import reference
+from tests.fixtures import reference, macho, text, executable_symbols
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -118,6 +118,33 @@ class WorkflowTests(unittest.TestCase):
         result = comparisons(self.root, self.fid)
         self.assertEqual(result['status'], 'unresolved')
         self.assertTrue(any('compile configuration changed' in reason for reason in result['reasons']))
+
+    def test_partial_unit_preserves_missing_functions_on_compile_failure(self):
+        original = MachO((self.root / 'fixture.macho').read_bytes())
+        data = original.bytes_at(0x1000, original.sections[0].size, 1)
+        size = len(data)
+        funcs = [('_probe', 0x1000, size, 'thumb', 'unity'),
+                 ('_missing', 0x1000 + size, size, 'thumb', 'unity')]
+        (self.root / 'fixture.macho').write_bytes(macho([text(data + data, 0x1000)], executable_symbols(funcs), filetype=2))
+        manifest = load_json(self.root / 'config/candidates.json')
+        manifest['units'][0]['implemented_functions'] = [self.fid]
+        write_json(self.root / 'config/candidates.json', manifest)
+        configure(self.root, fixture=self.root / 'fixture.macho', profile='config/fixture-compiler.json')
+        before, _ = self.build()
+        statuses = {f['symbol']: f for f in before['functions']}
+        self.assertEqual(statuses['_probe']['status'], 'matched')
+        self.assertEqual(statuses['_missing']['status'], 'missing')
+        self.assertIsNone(statuses['_missing']['candidate_source'])
+        (self.root / 'src/probe.c').write_text('invalid source\n')
+        failed, _ = self.build(ok=False)
+        self.assertEqual({f['symbol']: f['status'] for f in failed['functions']},
+                         {'_probe': 'compile_error', '_missing': 'missing'})
+        self.assertEqual(failed['metrics']['missing_candidates'], 1)
+        self.assertTrue(regression(before, failed)['failures'])
+        manifest['units'][0]['implemented_functions'] = ['unknown']
+        write_json(self.root / 'config/candidates.json', manifest)
+        with self.assertRaisesRegex(ToolError, 'original object group'):
+            configure(self.root)
 
     def test_doctor_reports_missing_dependencies_without_import_failure(self):
         run = subprocess.run([sys.executable, '-S', 'tools/dev.py', 'doctor', '--json'],
@@ -242,6 +269,32 @@ class WorkflowTests(unittest.TestCase):
         unchanged, run = self.build()
         self.assertNotIn('COMPILE', run.stdout)
         self.assertEqual(changed, unchanged)
+
+    def test_sdk_baseline_change_requires_explicit_migration(self):
+        from tools.ci import sdk_profile_failure
+        write_json(self.root / 'config/sdk-lock.json', {'manifest_sha256': 'old', 'version': '5.1', 'build': '9B176'})
+        with tempfile.TemporaryDirectory() as other:
+            write_json(Path(other) / 'config/sdk-lock.json', {'manifest_sha256': 'new', 'version': '5.1', 'build': '9B176'})
+            self.assertIn('SDK baseline', sdk_profile_failure(self.root, other))
+        write_json(self.root / 'config/candidates.json', {'version': 1, 'units': []})
+        self.assertIsNone(sdk_profile_failure(self.root, self.root))
+
+    def test_unvalidated_language_cannot_use_a_valid_cxx_compiler_gate(self):
+        from tools.pirates.compiler import permitted
+        config = {'compiler_fingerprint': {'validated': True, 'languages': ['c', 'c++']},
+                  'compiler': {'family': 'llvmgcc42'}, 'provenance': {'kind': 'game'}}
+        self.assertTrue(permitted(config, 'probe.cpp')[0])
+        self.assertFalse(permitted(config, 'probe.m')[0])
+        self.assertFalse(permitted(config, 'probe.mm')[0])
+
+    def test_flag_experiments_preserve_the_active_manifest_and_report(self):
+        from tools.flags import sweep
+        before, _ = self.build()
+        manifest = (self.root / 'config/candidates.json').read_bytes()
+        evidence = sweep(self.root, self.fid, optimizations=['-O0', '-O2'], modes=['thumb'])
+        self.assertEqual([e['status'] for e in evidence['experiments']], ['different', 'matched'])
+        self.assertEqual(manifest, (self.root / 'config/candidates.json').read_bytes())
+        self.assertEqual(before, load_json(self.root / 'build/report.json'))
 
     def test_internal_ninja_is_pinned_independently_of_shell_path(self):
         with patch.dict(os.environ, {'PATH': '/nonexistent-pirates-tools'}):

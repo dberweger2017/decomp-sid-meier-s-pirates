@@ -137,6 +137,12 @@ jobs:
           sdk_args=()
           if [[ -n "$PIRATES_SDK_PATH" ]]; then sdk_args=(--sdk "$PIRATES_SDK_PATH"); fi
           python head/tools/ci.py build --base base --head head --ipa inputs/pirates.ipa --output artifacts --profile '${{ steps.compiler-prep.outputs.profile }}' --validation head/build/toolchain/validation.json "${sdk_args[@]}"
+      - name: Prove real candidate/header regression handling
+        if: steps.candidates.outputs.present == 'true'
+        shell: bash
+        run: |
+          python head/tools/first_candidate_smoke.py --workspace head/build/ci-workspaces/head
+          cat head/build/ci-workspaces/head/build/candidate-smoke/summary.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/cache/save@0400d5f644dc74513175e3cd8d07132dd4860809 # v4.2.4
         if: always() && steps.candidates.outputs.present == 'true' && steps.candidate-compiler-cache.outputs.cache-hit != 'true'
         with:
@@ -165,6 +171,8 @@ jobs:
             artifacts/delta.json
             artifacts/build-status.json
             artifacts/summary.md
+            head/build/ci-workspaces/head/build/candidate-smoke/*.json
+            head/build/ci-workspaces/head/build/candidate-smoke/summary.md
             head/build/toolchain/attempt.json
             head/build/toolchain/environment.log
             head/build/toolchain/legacy-build.log

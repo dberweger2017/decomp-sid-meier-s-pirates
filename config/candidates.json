@@ -1,4 +1,39 @@
 {
   "version": 1,
-  "units": []
+  "units": [
+    {
+      "group_id": "o-100eccb225782070945f",
+      "source": "src/powervr/PVRShellAPI.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "functions": {
+        "f-62cd60b098a1a0381e31": {
+          "symbol": "__ZN12PVRShellInit6ApiSetE15prefNameIntEnumi"
+        }
+      },
+      "flags_provenance": "Investigation profile; see docs/first-candidates.md and reproducible tools/flags.py experiments. Exact original flags are unproven.",
+      "implemented_functions": [
+        "f-62cd60b098a1a0381e31"
+      ]
+    },
+    {
+      "group_id": "o-2e5708a72f51f12d7e6a",
+      "source": "src/powervr/PVRTMatrixF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "functions": {
+        "f-da79232dc420a34aba1b": {
+          "symbol": "__Z19PVRTMatrixIdentityFR11PVRTMATRIXf"
+        }
+      },
+      "flags_provenance": "Investigation profile; see docs/first-candidates.md and reproducible tools/flags.py experiments. Exact original flags are unproven.",
+      "implemented_functions": [
+        "f-da79232dc420a34aba1b"
+      ]
+    }
+  ]
 }

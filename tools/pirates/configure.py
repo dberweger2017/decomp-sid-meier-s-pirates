@@ -63,6 +63,16 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
         for fid in unit.get('functions', {}):
             if function_groups.get(fid) != gid:
                 raise ToolError('Function mapping must belong to its original object group: ' + fid)
+        if 'implemented_functions' in unit:
+            implemented = unit['implemented_functions']
+            if (not isinstance(implemented, list) or not all(isinstance(fid, str) for fid in implemented)
+                    or len(set(implemented)) != len(implemented)):
+                raise ToolError('implemented_functions must be an array of unique function IDs')
+            for fid in implemented:
+                if function_groups.get(fid) != gid:
+                    raise ToolError('Implemented function must belong to its original object group: ' + fid)
+            if not set(unit.get('functions', {})).issubset(implemented):
+                raise ToolError('Function mappings must be included in implemented_functions')
         if not all(isinstance(v, int) and 0 <= v <= 0xffffffff for table in unit.get('placements', {}).values() for v in table.values()):
             raise ToolError('Placements must map symbols/sections to explicit 32-bit addresses')
         units.append({**unit, 'flags': unit.get('flags', []), 'id': gid})

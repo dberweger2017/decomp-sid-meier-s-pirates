@@ -4,19 +4,22 @@
 
 Choose a function, edit its candidate source, rebuild with Ninja, and inspect ARMv7 assembly and verified byte equality. The local browser watches sources and included headers; CI compares base and head progress using identical original inputs and compiler profiles.
 
-**Current status:** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. There are no game candidates: **0 matched functions and 0 matched bytes**. Unity compilation units remain intact. This milestone does not decompile game functions or link a replacement game.
+**Current status:** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. Two recovered PowerVR C++ source candidates verify at **2 matched functions and 84 matched bytes**; 9,175 candidates remain missing. [Candidate evidence and flag experiments](docs/first-candidates.md) explain the scope. Unity compilation units remain intact. No replacement game is linked.
 
-**Historical compiler:** Apple’s open-source LLVM-GCC 2336.9 now builds and passes C/C++ ARM and Thumb Mach-O probes on native Linux and through Docker emulation on Apple Silicon. The pinned container also passes the synthetic Ninja match/header-edit/regression loop. Exact equivalence to the shipped Xcode compiler and original flags remains unproven. SDK-dependent candidates and Objective-C frontends are not validated. [Compiler evidence](docs/toolchain.md) records the results. Modern Clang supplies synthetic fixtures and editor indexing only.
+**Historical compiler:** Apple’s open-source LLVM-GCC 2336.9 now builds and passes C/C++ ARM and Thumb Mach-O probes on native Linux and through Docker emulation on Apple Silicon. The pinned container also passes the synthetic Ninja match/header-edit/regression loop. Exact equivalence to the shipped Xcode compiler and original flags remains unproven. C, C++, Objective-C and Objective-C++ object probes pass with SDK 5.1/build 9B176; full linking remains unvalidated. [Compiler evidence](docs/toolchain.md) records the results. Modern Clang supplies synthetic fixtures and editor indexing only.
 
 ## Setup
 
-Python 3.9 or newer and a C++ editor are sufficient to inspect the original inventory. Use the virtual environment so the pinned Ninja and Capstone versions are on PATH. The watcher and CI runner invoke the installed pinned Ninja directly, even when another system Ninja is present:
+Python 3.9 or newer and a C++ editor are sufficient to inspect the original inventory. Matching the included candidates also requires Docker and the locally fetched SDK. Use the virtual environment so the pinned Ninja and Capstone versions are on PATH. The watcher and CI runner invoke the installed pinned Ninja directly, even when another system Ninja is present:
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --require-hashes -r requirements.txt
-python configure.py --ipa Sid_Meier_s_Pirates__1.1.2_ios_4.2.ipa
+python tools/toolchain.py build
+python tools/sdk.py fetch
+python configure.py --ipa Sid_Meier_s_Pirates__1.1.2_ios_4.2.ipa \
+  --profile build/toolchain/compiler.json --sdk build/sdk/iPhoneOS5.1.sdk
 ninja
 python tools/dev.py serve
 ```
@@ -45,7 +48,7 @@ The importer checks the recorded IPA and executable SHA-256, bundle/version/buil
 
 ## Candidate configuration
 
-[config/candidates.json](config/candidates.json) deliberately starts empty. Map a source translation unit to an original object group. Use group IDs from `build/inventory.json`; compile unity sources as a unit rather than splitting them into artificial objects.
+[config/candidates.json](config/candidates.json) contains the two initial candidates. Map a source translation unit to an original object group. Use group IDs from `build/inventory.json`; compile unity sources as a unit rather than splitting them into artificial objects.
 
 ```json
 {
@@ -53,21 +56,22 @@ The importer checks the recorded IPA and executable SHA-256, bundle/version/buil
   "units": [
     {
       "group_id": "o-100eccb225782070945f",
-      "source": "src/PVRShellAPI.cpp",
+      "source": "src/powervr/PVRShellAPI.cpp",
       "flags": ["-O2", "-marm"],
+      "implemented_functions": ["f-62cd60b098a1a0381e31"],
       "functions": {}
     }
   ]
 }
 ```
 
-This is a configuration example, not recovered game source or evidence of original flags. A source file must be supplied before building. Flags in [config/compiler.json](config/compiler.json) are an investigation profile; record optimization flags, defines, include paths, and mode flags explicitly per unit. `compile_commands.json` uses the explicitly labelled Clang syntax/indexing command for local editors. Ninja compiles matching candidates with the selected historical container. The editor compiler never supplies matching objects or compiler validation.
+This example selects the initial source candidate; its flags are successful investigation settings, not evidence of original flags. Flags in [config/compiler.json](config/compiler.json) are an investigation profile; record optimization flags, defines, include paths, and mode flags explicitly per unit. `compile_commands.json` uses the explicitly labelled Clang syntax/indexing command for local editors. Ninja compiles matching candidates with the selected historical container. The editor compiler never supplies matching objects or compiler validation.
 
-A function can map to a different candidate symbol with `"functions": {"<function-id>": {"symbol": "<candidate-symbol>"}}`. Use `candidate_address` only to select an otherwise ambiguous candidate symbol. Ambiguous original boundaries still prevent verification. Explicit `placements.symbols` and `placements.sections` can supply proven original addresses for otherwise unresolved references; document that evidence with the unit. Unimplemented functions remain missing even when another function in the same unit has source.
+A function can map to a different candidate symbol with `"functions": {"<function-id>": {"symbol": "<candidate-symbol>"}}`. Use `candidate_address` only to select an otherwise ambiguous candidate symbol. Ambiguous original boundaries still prevent verification. Explicit `placements.symbols` and `placements.sections` can supply proven original addresses for otherwise unresolved references; document that evidence with the unit. For a partly recovered unit, list its recovered IDs in `implemented_functions`; other functions stay missing even if that unit stops compiling. Without this optional list, candidate symbols are discovered automatically. Removing a verified function from the list is still a CI regression.
 
-For a freestanding C/C++ unit that needs no SDK headers, explicitly set `"sdk_required": false` on that unit. Other units inherit the profile’s SDK requirement. C and C++ are validated; Objective-C/Objective-C++ currently require further compiler work.
+For a freestanding C/C++ unit that needs no SDK headers, explicitly set `"sdk_required": false` on that unit. Other units inherit the profile’s SDK requirement. All four frontends have validated ARM/Thumb probes.
 
-Supply SDK files locally with `python configure.py --sdk /path/to/iPhoneOS5.1.sdk` after importing inputs. [SDK setup](docs/sdk.md) explains obtaining it from old Xcode; no phone is needed. SDKs, IPA files, executable bytes, toolchain caches, and generated outputs are ignored by Git. Do not commit or upload them.
+Fetch the pinned third-party SDK with `python tools/sdk.py fetch`, or supply SDK files locally with `python configure.py --sdk /path/to/iPhoneOS5.1.sdk` after importing inputs. [SDK setup](docs/sdk.md) explains obtaining it from old Xcode; no phone is needed. SDKs, IPA files, executable bytes, toolchain caches, and generated outputs are ignored by Git. Do not commit or upload them.
 
 ## Reports and CI
 
