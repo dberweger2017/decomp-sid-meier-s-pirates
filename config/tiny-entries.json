@@ -1390,6 +1390,18 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-634343d44f208a6888d7",
+      "group_id": "o-9d215b69109ff710ecb5",
+      "symbol": "__ZN3ISE14ISEUIInterfaceC1Ev",
+      "original_name": "ISE::ISEUIInterface::ISEUIInterface()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
     }
   ]
 }
