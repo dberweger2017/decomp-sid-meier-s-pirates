@@ -8,4 +8,11 @@
 class UicDots {
 public:
     void Update(PVRTVec2*, PVRTVec2*);
+    void SetNextDot();
+    void SetPrevDot();
+
+private:
+    unsigned char m_unknown_00[0x78];
+    unsigned int m_numDots; // +0x78
+    unsigned int m_currentDot; // +0x7c
 };

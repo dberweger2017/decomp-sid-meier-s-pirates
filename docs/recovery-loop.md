@@ -501,6 +501,12 @@ ShipBattleUIScene::SetShipInfo stores its two arguments in the ship-info view at
 Remark returns one while preserving the two stack-passed varargs registers.
 These add 64 bytes.
 
-The resulting report has **1,596 exact functions / 17,788 bytes**, 46 differing
-candidates, 7,535 missing functions and no compile errors or unresolved
+UicDots::SetNextDot and SetPrevDot now have grounded candidates for the state
+updates at `+0x78` and `+0x7c`. They remain fuzzy at 82.3529% and 57.1429%
+assembly similarity because the compiler emits different predicated branches
+and stores. They move two functions from missing to differing without exact
+match credit.
+
+The resulting report has **1,596 exact functions / 17,788 bytes**, 48 differing
+candidates, 7,533 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
