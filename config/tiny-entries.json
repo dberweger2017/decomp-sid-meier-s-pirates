@@ -1463,6 +1463,18 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-801f0a89a600dfd44382",
+      "group_id": "o-ff60494b9399b605c68a",
+      "symbol": "__ZN3ISE15ISEAnimationKey25GuaranteeKeyAtStartAndEndENS0_10KeyContentENS0_7KeyTypeERPS0_Rjff",
+      "original_name": "ISE::ISEAnimationKey::GuaranteeKeyAtStartAndEnd(ISE::ISEAnimationKey::KeyContent, ISE::ISEAnimationKey::KeyType, ISE::ISEAnimationKey*&, unsigned int&, float, float)",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
     }
   ]
 }

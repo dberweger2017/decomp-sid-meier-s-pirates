@@ -3857,9 +3857,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-041d5ca785557da5c53f"
+        "f-041d5ca785557da5c53f",
+        "f-801f0a89a600dfd44382"
       ],
-      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
+      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-801f0a89a600dfd44382": "empty-body"
+      }
     },
     {
       "group_id": "o-079b48ce3b000da8e79a",
