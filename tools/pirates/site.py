@@ -97,7 +97,7 @@ def export_site(root, output, commit, updated_at, run_url=None):
         write_json(dest / 'sources.json', {'files': files, 'sources': sources})
         write_json(dest / 'link.json', link)
         web = Path(__file__).resolve().parents[1] / 'web'
-        for name in ('app.js', 'style.css'):
+        for name in ('app.js', 'treemap.js', 'style.css'):
             shutil.copy(web / name, dest / name)
         page = (web / 'index.html').read_text().replace("window.editToken = '__TOKEN__';", 'window.piratesHosted = true;')
         page = page.replace('Compare assembly, edit a candidate, and watch progress update.',

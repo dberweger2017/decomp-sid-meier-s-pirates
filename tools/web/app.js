@@ -63,6 +63,7 @@ function renderMetrics() {
   $('progress-scope').textContent = 'Code: recovered function ranges, including literal pools. Missing source contributes zero fuzzy progress. Data: whole non-code allocations, including padding and zero-fill. Structural linking and verified image equality are separate.';
   $('input-hash').textContent = `INPUT SHA-256 ${report.input_sha256.slice(0, 16)}…`;
   $('group-count').textContent = `${report.units.length} groups`;
+  progressMap.update(report);
   $('notice').textContent = report.kind === 'synthetic' ? 'SYNTHETIC FIXTURE · Modern Clang tests the tooling. These matches are not game source progress.' : report.compiler.validated ? 'Historical cross-build validated. Exact original compiler revision and flags remain unproven.' : 'HISTORICAL COMPILER UNVALIDATED · ' + (report.compiler.reason || 'Missing validation evidence') + ' · Source-matching progress starts at zero.';
 }
 function renderTree() {
@@ -220,6 +221,15 @@ async function refresh() {
     renderTree(); await renderFunction(); if (!$('linking-panel').hidden) await linkDiagnostics();
   } catch (e) { error(e.message); }
 }
+const progressMap = window.PiratesTreemap.mount(async (id, data) => {
+  if (dirty) { error('Save your source changes before selecting another function.'); return; }
+  $('record-kind').value = data ? 'data' : 'code';
+  $('search').value = ''; $('status').value = 'all'; $('source-filter').value = '';
+  const f = [...report.functions, ...(report.data || [])].find(r => r.id === id);
+  if (f) openGroups.add(f.group_id);
+  await selectFunction(id);
+  $('function-view').scrollIntoView({behavior:'smooth',block:'start'});
+});
 if (!hosted) {
 const events = new EventSource('/api/events');
 events.onmessage = async message => { const event = JSON.parse(message.data);

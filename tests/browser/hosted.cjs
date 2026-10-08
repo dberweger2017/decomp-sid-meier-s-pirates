@@ -50,6 +50,39 @@ let browser;
  await page.locator('#function-status').filter({hasText:'Verified match'}).waitFor();
  await page.getByRole('combobox',{name:'Data display format',exact:true}).selectOption('ascii');
  assert.match(await page.locator('#function-meta').textContent(),/4 bytes/);
+
+ await page.locator('#map-filter').fill('PVRShellAPI.o');
+ await page.locator('#map-summary').filter({hasText:'1 objects'}).waitFor();
+ const canvas=page.locator('#progress-map');
+ const green=await canvas.evaluate(e=>{const c=e.getContext('2d');return [...c.getImageData(e.width/2,e.height/2,1,1).data]});
+ assert.ok(green[1]>green[0]+50);
+ await canvas.focus();await page.keyboard.press('Enter');
+ await page.locator('#map-location').filter({hasText:'PVRShellAPI.o'}).waitFor();
+ await page.locator('#map-summary').filter({hasText:'1 functions'}).waitFor();
+ await page.keyboard.press('Enter');
+ await page.locator('#function-status').filter({hasText:'Verified match'}).waitFor();
+ assert.equal(new URL(page.url()).hash,'#f-62cd60b098a1a0381e31');
+ await page.locator('#map-back').click();
+ await page.locator('#map-filter').fill('');
+ await page.locator('#map-metric').selectOption('fuzzy');
+ await page.locator('#map-explanation').filter({hasText:'does not prove byte equality'}).waitFor();
+ await page.locator('#map-metric').selectOption('linking');
+ await page.locator('#map-explanation').filter({hasText:'Diagnostic subset links do not contribute'}).waitFor();
+ if(report.linking.state!=='verified') {
+   const grey=await canvas.evaluate(e=>[...e.getContext('2d').getImageData(e.width/2,e.height/2,1,1).data]);
+   assert.ok(grey[1]-grey[0]<15);
+ }
+ await page.locator('#map-metric').selectOption('data');
+ await page.locator('#map-explanation').filter({hasText:'padding and zero-fill'}).waitFor();
+ await page.locator('#map-category').selectOption('libOGLES2Tools.a');
+ await page.locator('#map-summary').filter({hasText:'objects'}).waitFor();
+ await page.locator('#map-category').selectOption('');
+ await page.locator('#map-metric').selectOption('exact');
+ await page.setViewportSize({width:390,height:844});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+ if(process.env.PIRATES_BROWSER_SCREENSHOT) await page.screenshot({path:process.env.PIRATES_BROWSER_SCREENSHOT.replace(/\.png$/,'-mobile.png'),fullPage:true});
+ console.log('PASS: treemap color, object/function drill-down, exact/fuzzy/data/linking modes, archive filter, keyboard navigation and mobile layout');
+
  assert.deepEqual(errors,[]);
  console.log('PASS: exact data view works; zero browser errors');
  await browser.close();

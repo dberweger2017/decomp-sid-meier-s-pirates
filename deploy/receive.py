@@ -21,7 +21,7 @@ REQUIRED_JOBS = {'Synthetic tooling (ubuntu-24.04)', 'Synthetic tooling (macos-1
                  'ARMv7 inventory and historical candidate progress'}
 MAX_ARCHIVE = 128 * 1024 * 1024
 MAX_EXPANDED = 768 * 1024 * 1024
-STATIC = {'index.html', 'app.js', 'style.css', 'report.json', 'objdiff-report.json',
+STATIC = {'index.html', 'app.js', 'treemap.js', 'style.css', 'report.json', 'objdiff-report.json',
           'sources.json', 'link.json', 'manifest.json'}
 
 
