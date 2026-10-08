@@ -28,6 +28,10 @@ def link_subset(root, descriptor):
         raise ToolError('Subset linking requires an enabled diagnostic manifest; no replacement credit')
     workspace = root / 'build/recovery-link/workspace'
     output = root / 'build/recovery-link'
+    output.mkdir(parents=True, exist_ok=True)
+    # A failed new attempt must not leave an earlier successful subset report.
+    for name in ('status.json', 'diagnostics.txt', 'report.json', 'build.log'):
+        (output / name).unlink(missing_ok=True)
     shutil.rmtree(workspace, ignore_errors=True)
     stage(root, workspace, root, config['compiler'], root / config['compiler']['validation'])
     original = workspace / config['provenance']['input']

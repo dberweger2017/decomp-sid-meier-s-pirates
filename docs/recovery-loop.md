@@ -50,3 +50,10 @@ functions / 668 bytes. Each recovered function has its own verified commit. Its
 isolated diagnostic link passes with image SHA-256
 `5ad5b00e850fffae58dc4a93d5e12548e2962249796305d53fe520dc0087e4c3`.
 Root replacement linking remains blocked with zero completed units.
+
+The PowerVR accessor and FSound batch raises progress to 54 functions / 968 bytes,
+preserving every earlier match. All 85 tooling tests pass. The four-group subset
+descriptor `config/diagnostic-links/core-accessors.json` structurally links with
+image SHA-256 `adbbd43abc9db3cb37e586c4afdbeae089eee9f616a23de0f487385dafd6f6c7`.
+Constructors/destructors, larger methods, class hierarchies and associated data
+remain missing; the diagnostic image adds no full-game completion.
