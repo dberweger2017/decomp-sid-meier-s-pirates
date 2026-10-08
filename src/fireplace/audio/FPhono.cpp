@@ -29,3 +29,7 @@ bool FPhono::GetLooping_Stream(int stream) {
 bool FPhono::GetLooping_Sample(int sample) {
     return Phono2::PAudioSystem::getSingletonPtr()->IsSampleLooping(sample);
 }
+
+float FPhono::GetPlaybackRate_Sound(int sound) {
+    return Phono2::PAudioSystem::getSingletonPtr()->GetChannelPlaybackRate(sound);
+}
