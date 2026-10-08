@@ -653,3 +653,11 @@ matching data symbols and compare at 50%; the data contents remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 98 differing
 candidates, 7,471 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Ten more `Ni*::GetRTTI` methods in `TempIncludeCpp4.o` now return their
+matching class-local allocations. Each relocation resolves to the expected
+symbol and compares at 50%; their allocation contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 108 differing
+candidates, 7,461 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
