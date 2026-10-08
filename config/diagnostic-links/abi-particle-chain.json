@@ -1,0 +1,38 @@
+{
+  "candidate_groups": [
+    "o-56bedcd382e1dc972a64",
+    "o-869c1fa37c759d3c89c8",
+    "o-b3275ca8aa316beddb51"
+  ],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__ZN3ISE16ISEParticlesData10LinkObjectERNS_17ISEParticleEntityE",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": [
+      "o-56bedcd382e1dc972a64",
+      "o-869c1fa37c759d3c89c8",
+      "o-b3275ca8aa316beddb51"
+    ],
+    "libraries": [
+      "-lSystem"
+    ],
+    "expected_imports": [],
+    "expected_libraries": [
+      "/usr/lib/libSystem.B.dylib"
+    ],
+    "expected_bindings": {},
+    "sdk_objects": [],
+    "flags": [
+      "-dead_strip"
+    ],
+    "retained_symbols": [
+      "__ZN3ISE16ISEParticlesData10LinkObjectERNS_17ISEParticleEntityE",
+      "__ZN3ISE23ISEParticleGeometryData10LinkObjectERNS_17ISEParticleEntityE",
+      "__ZN3ISE17ISEParticleObject10LinkObjectERNS_17ISEParticleEntityE"
+    ],
+    "provenance": "Three recovered source functions: ISEParticlesData to ISEParticleGeometryData to the shipped empty ISEParticleObject LinkObject. All three named source exports must survive independent image inspection. Unreachable ABI forwarders whose callees remain missing are dead-stripped. No original payloads, fake dependency bodies, full-game replacement or runtime credit."
+  }
+}

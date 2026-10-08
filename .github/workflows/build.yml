@@ -158,13 +158,15 @@ jobs:
         if: steps.candidates.outputs.present == 'true'
         shell: bash
         run: |
-          for cohort in battle-grid world-map-projection release-hooks tiny-bodies; do
+          python head/tools/abi_forwarders.py head/config/abi-forwarders.json --workspace head/build/ci-workspaces/head --check-source
+          for cohort in battle-grid world-map-projection release-hooks tiny-bodies abi-forwarders; do
             python head/tools/cohort.py --workspace head/build/ci-workspaces/head report "head/config/cohorts/$cohort.json" --output "artifacts/gameplay/$cohort.json"
             cat "artifacts/gameplay/$cohort.md" >> "$GITHUB_STEP_SUMMARY"
           done
           python head/tools/battle_grid_probe.py --workspace head/build/ci-workspaces/head --output artifacts/gameplay/battle-grid-execution.json | tee -a "$GITHUB_STEP_SUMMARY"
           python head/tools/world_map_probe.py --workspace head/build/ci-workspaces/head --output artifacts/gameplay/projection-execution.json | tee -a "$GITHUB_STEP_SUMMARY"
           python head/build/ci-workspaces/head/tools/recovery_link.py config/diagnostic-links/gameplay-stress.json | tee -a "$GITHUB_STEP_SUMMARY"
+          python head/build/ci-workspaces/head/tools/recovery_link.py config/diagnostic-links/abi-particle-chain.json | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Prove real candidate/header regression handling
         if: steps.candidates.outputs.present == 'true'
         shell: bash

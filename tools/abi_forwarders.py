@@ -37,6 +37,9 @@ def validate(specification, inventory, original):
             raise ToolError('Unknown or repeated ABI entry ID: ' + fid)
         seen.add(fid)
         function = functions[fid]
+        if any(not isinstance(entry.get(name), str) or '\n' in entry[name] or '\r' in entry[name]
+               for name in ('original_name', 'target_name')):
+            raise ToolError('ABI entry names must be single-line descriptions: ' + fid)
         if entry['group_id'] != function['group_id'] or entry['symbol'] != function['symbol']:
             raise ToolError('ABI entry changed original inventory identity: ' + fid)
         if (function['mode'] != 'arm' or function['size'] != 16 or function['ambiguities']
@@ -114,12 +117,18 @@ def main():
     parser.add_argument('specification', type=Path)
     parser.add_argument('--workspace', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--output', type=Path, help='Emit group sources under this directory after validation')
+    parser.add_argument('--check-source', action='store_true', help='Check committed group sources against the reviewed specification')
     args = parser.parse_args()
     root = args.workspace.resolve()
     config = load_json(root / 'build/config.json')
     entries = validate(load_json(args.specification), load_json(root / 'build/inventory.json'),
                        MachO((root / config['provenance']['input']).read_bytes()))
     groups = sorted({e['group_id'] for e in entries})
+    if args.check_source:
+        for group in groups:
+            source = root / 'src/recovery/abi' / (group + '.cpp')
+            if source.read_text() != render([e for e in entries if e['group_id'] == group], group):
+                raise ToolError('ABI source differs from the reviewed specification: ' + group)
     if args.output:
         args.output.mkdir(parents=True, exist_ok=True)
         for group in groups:
