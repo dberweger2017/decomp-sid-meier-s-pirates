@@ -3459,9 +3459,13 @@
       "functions": {},
       "implemented_functions": [
         "f-cdc357cf28ba390685e2",
-        "f-67defccd4929c47a0e3b"
+        "f-67defccd4929c47a0e3b",
+        "f-6da90208fdac8c8b0b93"
       ],
-      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-6da90208fdac8c8b0b93": "empty-body"
+      }
     },
     {
       "group_id": "o-a8c0c6cf62d35b007569",

@@ -537,6 +537,18 @@
       ],
       "internal": false,
       "value": 0
+    },
+    {
+      "id": "f-6da90208fdac8c8b0b93",
+      "group_id": "o-5463601200b8476ad25e",
+      "symbol": "__ZN13GameAppWraper14GetVersionInfoEv",
+      "original_name": "GameAppWraper::GetVersionInfo()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
