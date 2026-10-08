@@ -4040,11 +4040,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-501644445e4bb70f9653"
+        "f-501644445e4bb70f9653",
+        "f-10cacc625beb0c42cb04"
       ],
       "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
       "recovery_kinds": {
-        "f-501644445e4bb70f9653": "method-forwarder"
+        "f-501644445e4bb70f9653": "method-forwarder",
+        "f-10cacc625beb0c42cb04": "registration-forwarder"
       }
     },
     {
