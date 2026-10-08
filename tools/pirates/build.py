@@ -218,6 +218,14 @@ def comparisons(root, details_id=None, include_link=True):
     if include_link:
         from .linking import current_state
         native['linking'] = current_state(root, config)
+        if native['linking']['state'] == 'verified':
+            # Whole-image equality establishes shared/linker-generated data
+            # which has no object-level STABS ownership or candidate symbol.
+            for data in data_results:
+                if data['group_id'] == 'unowned-data':
+                    data.update(status='matched', byte_equal=True, byte_verified=True, linked_image_verified=True,
+                                reasons=['Verified source-only replacement image establishes this allocation'])
+            native['data_metrics'] = data_metrics(data_results)
         for unit in units:
             verified = native['linking']['state'] == 'verified' and unit['id'] in native['linking'].get('participating_units', [])
             unit['linking'] = {'complete_units': int(verified), 'complete_code': unit['metrics']['matched_bytes'] if verified else 0,

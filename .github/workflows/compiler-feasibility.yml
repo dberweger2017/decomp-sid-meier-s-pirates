@@ -10,6 +10,9 @@ on:
       - 'tools/historical_smoke.py'
       - 'tools/sdk.py'
       - 'tools/validate_sdk.py'
+      - 'tools/linker.py'
+      - 'tools/pirates/linking.py'
+      - 'config/linker.json'
       - 'tools/pirates/sdk.py'
       - 'config/sdk-lock.json'
       - '.github/workflows/compiler-feasibility.yml'
@@ -62,6 +65,22 @@ jobs:
           python tools/validate_sdk.py
       - name: Verify historical incremental matching and deliberate regression
         run: python tools/historical_smoke.py
+      - name: Build pinned ARMv7 Mach-O linker and validate SDK linking
+        id: linker
+        run: |
+          python tools/linker.py build
+          python tools/linker.py validate
+          python tools/linker.py export
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always() && steps.linker.outcome == 'success'
+        with:
+          name: validated-ld64-linux-amd64
+          path: |
+            build/linker/runtime-image.tar.gz
+            build/linker/runtime-export.json
+            build/linker/linker.json
+            build/linker/validation.json
+          if-no-files-found: error
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always() && steps.export-runtime.outcome == 'success'
         with:
@@ -101,4 +120,8 @@ jobs:
             build/toolchain/historical-smoke-*.json
             build/sdk-validation.json
             build/sdk-probes/**/diagnostics.txt
+            build/linker/*build.log
+            build/linker/validation.json
+            build/linker/missing-import.txt
+            build/linker/probes/**/diagnostics.txt
           if-no-files-found: warn

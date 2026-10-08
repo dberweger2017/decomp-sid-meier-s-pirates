@@ -129,7 +129,18 @@ jobs:
             echo "path=$PWD/build/sdk/iPhoneOS5.1.sdk" >> "$GITHUB_OUTPUT"
           fi
           exit "$status"
+      - name: Provision and validate the shared historical Mach-O linker
+        id: linker-prep
+        continue-on-error: true
+        if: steps.candidates.outputs.present == 'true'
+        working-directory: head
+        env:
+          PIRATES_SDK_PATH: ${{ steps.sdk-prep.outputs.path }}
+        run: |
+          python tools/linker.py build
+          python tools/linker.py validate --sdk "$PIRATES_SDK_PATH" --compiler '${{ steps.compiler-prep.outputs.profile }}'
       - name: Incremental base/head builds with one engine, original input and compiler profile
+        # Both checkouts receive this exact validated linker profile and SDK.
         shell: bash
         env:
           PIRATES_SDK_PATH: ${{ steps.sdk-prep.outputs.path }}
@@ -137,6 +148,10 @@ jobs:
           sdk_args=()
           if [[ -n "$PIRATES_SDK_PATH" ]]; then sdk_args=(--sdk "$PIRATES_SDK_PATH"); fi
           python head/tools/ci.py build --base base --head head --ipa inputs/pirates.ipa --output artifacts --profile '${{ steps.compiler-prep.outputs.profile }}' --validation head/build/toolchain/validation.json "${sdk_args[@]}"
+          if [[ '${{ steps.candidates.outputs.present }}' == 'true' && '${{ steps.linker-prep.outcome }}' != 'success' ]]; then
+            echo 'Historical linker provisioning failed; see retained reports and linker diagnostics.' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
       - name: Prove real candidate/header regression handling
         if: steps.candidates.outputs.present == 'true'
         shell: bash
@@ -164,10 +179,12 @@ jobs:
             artifacts/base/objdiff-report.json
             artifacts/base/build.log
             artifacts/base/diagnostics/
+            artifacts/base/linking/
             artifacts/head/report.json
             artifacts/head/objdiff-report.json
             artifacts/head/build.log
             artifacts/head/diagnostics/
+            artifacts/head/linking/
             artifacts/delta.json
             artifacts/build-status.json
             artifacts/summary.md
@@ -178,6 +195,10 @@ jobs:
             head/build/toolchain/legacy-build.log
             head/build/toolchain/assembler-build.log
             head/build/toolchain/runtime-build.log
+            head/build/linker/*build.log
+            head/build/linker/validation.json
+            head/build/linker/missing-import.txt
+            head/build/linker/probes/**/diagnostics.txt
           if-no-files-found: warn
       - name: Fail on compiler provisioning failure after preserving reports
         if: always() && (steps.compiler-prep.outcome == 'failure' || steps.sdk-prep.outcome == 'failure')

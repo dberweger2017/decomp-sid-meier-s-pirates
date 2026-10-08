@@ -51,12 +51,22 @@ def stage(checkout, dest, tool_source, profile, validation=None):
         write_json(dest / 'config/candidates.json', {'version': 1, 'units': []})
     if validation and Path(validation).is_file():
         write_json(dest / profile['validation'], load_json(validation))
+    linker_path = tool_source / 'build/linker/linker.json'
+    if not linker_path.is_file():
+        linker_path = tool_source / 'config/linker.json'
+    if linker_path.is_file():
+        linker = load_json(linker_path)
+        write_json(dest / 'config/ci-linker.json', linker)
+        proof = tool_source / linker.get('validation', 'build/linker/validation.json')
+        if proof.is_file():
+            write_json(dest / linker['validation'], load_json(proof))
 
 
 def build_one(root, ipa, sdk, output):
     output.mkdir(parents=True, exist_ok=True)
     try:
-        configure(root, ipa=ipa, profile='config/ci-compiler.json', sdk=sdk)
+        configure(root, ipa=ipa, profile='config/ci-compiler.json', sdk=sdk,
+                  linker='config/ci-linker.json' if (root / 'config/ci-linker.json').is_file() else None)
         process = subprocess.run(ninja_command(), cwd=root, capture_output=True, text=True)
         (output / 'build.log').write_text(process.stdout + process.stderr)
         code = process.returncode
@@ -73,6 +83,11 @@ def build_one(root, ipa, sdk, output):
         for pattern in ('*.diagnostics.txt', '*.compile.json'):
             for path in unit_dir.glob(pattern):
                 shutil.copy(path, diagnostics / path.name)
+    for name in ('status.json', 'diagnostics.txt'):
+        path = root / 'build/link' / name
+        if path.is_file():
+            (output / 'linking').mkdir(exist_ok=True)
+            shutil.copy(path, output / 'linking' / name)
     return code
 
 
@@ -95,6 +110,17 @@ def sdk_profile_failure(base, head):
     return None
 
 
+def linker_profile_failure(base, head):
+    before = Path(base) / 'config/linker.json'
+    after = Path(head) / 'config/linker.json'
+    manifest = Path(base) / 'config/link.json'
+    if before.is_file() and after.is_file() and manifest.is_file() and load_json(manifest).get('enabled'):
+        from tools.pirates.linking import digest
+        if digest(load_json(before)) != digest(load_json(after)):
+            return 'Shared linker profile changed with linked candidates; establish a separate linker baseline'
+    return None
+
+
 def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json', validation=None):
     base, head, ipa, output = map(lambda p: Path(p).resolve(), (base, head, ipa, output))
     output.mkdir(parents=True, exist_ok=True)
@@ -103,7 +129,7 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
         shutil.rmtree(stage_root)
     stage_root.mkdir(parents=True)
     profile = load_json(head / profile_path)
-    profile_failure = compiler_profile_failure(base, profile, profile_path) or sdk_profile_failure(base, head)
+    profile_failure = compiler_profile_failure(base, profile, profile_path) or sdk_profile_failure(base, head) or linker_profile_failure(base, head)
     status = {}
     for name, checkout in (('base', base), ('head', head)):
         dest = stage_root / name

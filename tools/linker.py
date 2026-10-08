@@ -78,6 +78,9 @@ def validate(profile_path, compiler_path, sdk):
                  'm': ['-lSystem', '-lobjc', '-framework', 'Foundation'],
                  'mm': ['-lSystem', '-lstdc++', '-lgcc_s.1', '-lobjc', '-framework', 'Foundation']}
     required = {'c': ['_strtol', '_glCreateShader'], 'cpp': ['__Znwm'], 'm': ['_objc_msgSend'], 'mm': ['__Znwm', '_objc_msgSend']}
+    targets = {'c': {'_strtol': '/usr/lib/libSystem.B.dylib', '_glCreateShader': '/System/Library/Frameworks/OpenGLES.framework/OpenGLES'},
+               'cpp': {'__Znwm': '/usr/lib/libstdc++.6.dylib'}, 'm': {'_objc_msgSend': '/usr/lib/libobjc.A.dylib'},
+               'mm': {'__Znwm': '/usr/lib/libstdc++.6.dylib', '_objc_msgSend': '/usr/lib/libobjc.A.dylib'}}
     for extension, libs in libraries.items():
         for mode in ('arm', 'thumb'):
             hashes, structures = [], []
@@ -92,7 +95,8 @@ def validate(profile_path, compiler_path, sdk):
                 (folder / 'diagnostics.txt').write_text(process.stdout + process.stderr)
                 if process.returncode:
                     raise ToolError('SDK link probe failed: ' + extension + '/' + mode + '; see diagnostics')
-                structures.append(inspect_image(image.read_bytes(), entry='_sdk_probe', imports=required[extension], min_version=0x40200, sdk_version=0x50100))
+                structures.append(inspect_image(image.read_bytes(), entry='_sdk_probe', imports=required[extension], min_version=0x40200,
+                                                sdk_version=0x50100, expected_bindings=targets[extension]))
                 hashes.append(sha256(image))
                 symbol = next(s for s in MachO(image.read_bytes()).symbols if s.name == '_sdk_probe' and s.defined)
                 if symbol.thumb != (mode == 'thumb'):

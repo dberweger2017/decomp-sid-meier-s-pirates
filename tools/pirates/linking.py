@@ -74,7 +74,7 @@ def fingerprint(profile, root, sdk=None):
     return result
 
 
-def inspect_image(data, entry=None, imports=(), libraries=(), min_version=None, sdk_version=None):
+def inspect_image(data, entry=None, imports=(), libraries=(), min_version=None, sdk_version=None, expected_bindings=None):
     """Inspect linked image commands/bindings independently of object relocation.
 
 This deliberately does not reuse relocate() to validate the linker's output.
@@ -121,7 +121,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
     bindings = []
     for kind, off, length in bind_regions:
         p, end = off, off + length
-        ordinal, segment, address, name = 0, None, 0, None
+        ordinal, segment, address, name, addend = 0, None, 0, None, 0
 
         def leb(signed=False):
             nonlocal p
@@ -140,7 +140,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
                 raise ToolError('Invalid dylib ordinal')
             bindings.append({'kind': kind, 'symbol': name, 'ordinal': ordinal,
                              'library': dylibs[ordinal - 1] if ordinal > 0 else None,
-                             'address': segments[segment]['address'] + address})
+                             'address': segments[segment]['address'] + address, 'addend': addend})
 
         while p < end:
             byte = data[p]; p += 1
@@ -148,7 +148,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
             if opcode == 0:
                 if kind != 'lazy':
                     break
-                ordinal, segment, address, name = 0, None, 0, None
+                ordinal, segment, address, name, addend = 0, None, 0, None, 0
             elif opcode == 0x10: ordinal = imm
             elif opcode == 0x20: ordinal = leb()
             elif opcode == 0x30: ordinal = imm - 16 if imm else 0
@@ -158,7 +158,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
                 name = image.name(data[p:finish]); p = finish + 1
             elif opcode == 0x50:
                 if imm != 1: raise ToolError('Unsupported non-pointer binding')
-            elif opcode == 0x60: leb(True)
+            elif opcode == 0x60: addend = leb(True)
             elif opcode == 0x70: segment, address = imm, leb()
             # Dyld address arithmetic uses uintptr_t on this 32-bit image.
             # ld64 can encode a backwards delta as a 64-bit unsigned LEB.
@@ -176,6 +176,10 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
         raise ToolError('Expected imports are not bound: ' + ', '.join(sorted(set(imports) - defined_imports)))
     if set(libraries) - set(dylibs):
         raise ToolError('Expected dylib load commands are absent')
+    for symbol, library in (expected_bindings or {}).items():
+        candidates = [b for b in bindings if b['symbol'] == symbol and b['kind'] != 'weak']
+        if not candidates or any(b['library'] != library or b['addend'] != 0 for b in candidates):
+            raise ToolError('Import binds to the wrong library or addend: ' + symbol)
     if min_version is not None and versions.get('min') != min_version:
         raise ToolError('iOS deployment version differs')
     if sdk_version is not None and versions.get('sdk') != sdk_version:
@@ -196,6 +200,33 @@ def inputs(root, config):
             source_path = local_path(root, source)
             values[source] = sha256(source_path) if source_path.exists() else None
     return values
+
+
+def manifest_arguments(manifest, root):
+    """Allow layout options, not arbitrary original objects/section payloads."""
+    options = {'-dead_strip': 0, '-all_load': 0, '-no_dead_strip_inits_and_terms': 0,
+               '-no_compact_unwind': 0, '-no_implicit_dylibs': 0, '-no_function_starts': 0,
+               '-segaddr': 2, '-sectalign': 3, '-segalign': 1, '-seg1addr': 1,
+               '-pagezero_size': 1, '-headerpad': 1, '-headerpad_max_install_names': 0,
+               '-stack_size': 1, '-stack_addr': 1}
+    flags, libraries = manifest.get('flags', []), manifest.get('libraries', [])
+    if not isinstance(flags, list) or not isinstance(libraries, list) or not all(isinstance(x, str) for x in flags + libraries):
+        raise ToolError('Link flags and libraries must be string arrays')
+    i = 0
+    while i < len(flags):
+        option = flags[i]
+        if option not in options or i + options[option] >= len(flags) or any(x.startswith('-') for x in flags[i + 1:i + 1 + options[option]]):
+            raise ToolError('Unsupported link option; original objects/payloads are not allowed: ' + option)
+        i += 1 + options[option]
+    i = 0
+    while i < len(libraries):
+        if re.fullmatch(r'-l[A-Za-z0-9_.+]+', libraries[i]):
+            i += 1
+        elif libraries[i] == '-framework' and i + 1 < len(libraries) and re.fullmatch(r'[A-Za-z0-9_]+', libraries[i + 1]):
+            i += 2
+        else:
+            raise ToolError('Libraries must be SDK -l names or -framework names')
+    return flags, libraries
 
 
 def run_link(root):
@@ -222,9 +253,9 @@ def run_link(root):
         elif config['provenance']['kind'] == 'game' and profile['family'] != 'ld64':
             raise ToolError('Synthetic linkers cannot link game candidates')
         elif state['scope'] == 'replacement' and (report['metrics']['matched_functions'] != report['metrics']['total_functions']
-                or report['data_metrics']['matched_bytes'] != report['data_metrics']['total_bytes']
+                or any(d['status'] != 'matched' for d in report['data'] if d['group_id'] != 'unowned-data')
                 or len(config['units']) != len(report['units'])):
-            state.update(state='blocked', reason='Replacement requires all original units, functions and data allocations to have verified source candidates')
+            state.update(state='blocked', reason='Replacement requires all original units, functions and owned data allocations to have verified source candidates; shared/anonymous data is checked in the final image')
         else:
             if any(u['error'] for u in report['units']):
                 raise ToolError('Candidate objects are missing, stale or failed compilation')
@@ -235,28 +266,27 @@ def run_link(root):
             if state['scope'] not in ('replacement', 'diagnostic'):
                 raise ToolError('Link scope must be replacement or diagnostic')
             sdk_root = '/sdk' if profile.get('container') else config.get('sdk')
-            flags = manifest.get('flags', [])
-            if any(x in flags for x in ('-undefined', '-r', '-dylib', '-bundle', '-o', '-syslibroot', '-arch')):
-                raise ToolError('Link manifest cannot override output, architecture, SDK or undefined-symbol policy')
+            flags, libraries = manifest_arguments(manifest, root)
             args = ['-arch', 'armv7', '-ios_version_min', '4.2', '-sdk_version', '5.1', '-no_uuid', '-e', manifest['entry']]
             if sdk_root:
                 args += ['-syslibroot', sdk_root]
             args += flags + ['-o', 'build/link/Pirates'] + ['build/units/' + uid + '.o' for uid in order]
-            args += manifest.get('libraries', [])
+            args += libraries
             process = subprocess.run(command(profile, root, config.get('sdk')) + args, cwd=root, capture_output=True, text=True,
                                      env={**os.environ, 'LC_ALL': 'C', 'TZ': 'UTC', 'SOURCE_DATE_EPOCH': '0'}, timeout=300)
             diagnostics = process.stdout + process.stderr
             if process.returncode:
                 raise ToolError('Linker failed with exit code ' + str(process.returncode))
             structure = inspect_image(image_path.read_bytes(), entry=manifest['entry'], imports=manifest.get('expected_imports', []),
-                                      libraries=manifest.get('expected_libraries', []), min_version=0x40200, sdk_version=0x50100)
+                                      libraries=manifest.get('expected_libraries', []), min_version=0x40200, sdk_version=0x50100,
+                                      expected_bindings=manifest.get('expected_bindings'))
             state.update(state='linked', reason='Structurally linked; original image equality and runtime behavior are unverified',
                          image_sha256=sha256(image_path), structure=structure, participating_units=order)
             # No arbitrary reference hash, copied original objects, or partial
             # unit declarations can earn full-game completion.
             if state['scope'] == 'replacement' and state['image_sha256'] == config['provenance']['executable_sha256']:
                 state.update(state='verified', reason='Source-only replacement has full coverage and byte-identical image',
-                             complete_code=report['metrics']['matched_bytes'], complete_data=report['data_metrics']['matched_bytes'],
+                             complete_code=report['metrics']['matched_bytes'], complete_data=report['data_metrics']['total_bytes'],
                              complete_units=len(report['units']))
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         state.update(state='failed', reason=str(error))
