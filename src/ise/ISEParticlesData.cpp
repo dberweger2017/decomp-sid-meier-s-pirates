@@ -6,3 +6,5 @@ namespace ISE {
 
 unsigned short ISEParticlesData::GetActiveVertexCount() const { return m_activeVertexCount; }
 } // namespace ISE
+
+void ISE::ISEParticlesData::SetActiveVertexCount(unsigned short count) { if (count > m_vertexCount) count = m_vertexCount; m_activeVertexCount = count; }
