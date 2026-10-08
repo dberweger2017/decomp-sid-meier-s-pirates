@@ -22,3 +22,5 @@ bool FSound::GetToBeDestroyed() { return m_toBeDestroyed; }
 bool FSound::GetIsMusic() const { return m_isMusic; }
 
 void FSound::SetIsMusic(bool value) { m_isMusic = value; }
+
+const F2DSoundScriptData *FSound::GetScript() { return m_script; }
