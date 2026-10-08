@@ -8,3 +8,5 @@ const char *CPVRTString::c_str() const { return m_buffer; }
 unsigned long CPVRTString::length() const { return m_length; }
 
 unsigned long CPVRTString::size() const { return m_length; }
+
+const char &CPVRTString::operator[](unsigned long index) const { return m_buffer[index]; }
