@@ -342,6 +342,19 @@
         "f-3a84c5a5f0828be26b47"
       ],
       "flags_provenance": "Investigation profile for original ARM heap helpers. Original flags and complete allocator remain unknown; header offsets are observed in the original heap methods."
+    },
+    {
+      "group_id": "o-ac2c3029785c947aeb95",
+      "source": "src/fireplace/audio/FSharedSoundData.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [],
+      "flags_provenance": "Investigation profile for original ARM shared-sound field access. Original flags, missing methods and initialization payload remain unknown; see FSharedSoundData.h."
     }
   ]
 }
