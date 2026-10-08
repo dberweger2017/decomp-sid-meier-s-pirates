@@ -10,3 +10,7 @@
 #include "../../../src/gamebryo/NiTexturingProperty.cpp"
 #include "../../../src/gamebryo/NiTriBasedGeomData.cpp"
 #include "../../../src/gamebryo/NiTriShapeDynamicData.cpp"
+
+#include "../../gamebryo/NiRTTI.cpp"
+
+#include "../../gamebryo/maps/TempIncludeCpp4Maps.cpp"
