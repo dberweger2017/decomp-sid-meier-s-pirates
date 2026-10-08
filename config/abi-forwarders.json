@@ -8975,6 +8975,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-94d1e0525992370f9ae9",
+      "group_id": "o-d165ee5f38eff74c59ca",
+      "symbol": "__ZN17FAudioSystemPhonoC1Ev",
+      "original_name": "FAudioSystemPhono::FAudioSystemPhono()",
+      "target_symbol": "__ZN17FAudioSystemPhonoC2Ev",
+      "target_name": "FAudioSystemPhono::FAudioSystemPhono()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }

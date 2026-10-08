@@ -240,6 +240,31 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-1dffad043d5a80683cf4",
+      "group_id": "o-d165ee5f38eff74c59ca",
+      "symbol": "__ZN17FAudioSystemPhono21Set3DSoundOrientationEN12FAudioSystem10ESoundTypeEi8NiPoint3S2_",
+      "original_name": "FAudioSystemPhono::Set3DSoundOrientation(FAudioSystem::ESoundType, int, NiPoint3, NiPoint3)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true,
+      "value": 1
+    },
+    {
+      "id": "f-9edd5b391b00b49c4ce8",
+      "group_id": "o-d165ee5f38eff74c59ca",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
