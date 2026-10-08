@@ -291,9 +291,13 @@
         "f-a223c3ed7931f4d83764",
         "f-c28cfd26e9c7349ed05d",
         "f-67dee9c135faecdc3650",
-        "f-00233c1b5a9d2d6b7b3c"
+        "f-00233c1b5a9d2d6b7b3c",
+        "f-bdb393f3b11780933bdc"
       ],
-      "flags_provenance": "Investigation profile for original integer float loads/stores. Isolated complete-unit comparison verifies the cone getter with r9 reserved and preserves all earlier methods. Original flags and complete hierarchy remain unknown; see FSound3D.h."
+      "flags_provenance": "Investigation profile for original integer float loads/stores. Isolated complete-unit comparison verifies the cone getter with r9 reserved and preserves all earlier methods. Original flags and complete hierarchy remain unknown; see FSound3D.h.",
+      "recovery_kinds": {
+        "f-bdb393f3b11780933bdc": "complete-destructor"
+      }
     },
     {
       "group_id": "o-b9afd2a4c28d8e343b6a",
