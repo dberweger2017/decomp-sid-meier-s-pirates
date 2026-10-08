@@ -36,3 +36,5 @@ void FAudioManager::SetSoundScapeScripts(FSoundScapeScriptData *scripts, int cou
 void FAudioManager::SetVolumeKnobs(FKnob *knobs, int count) { m_volumeKnobs = knobs; m_numVolumeKnobs = count; }
 
 #include "../../recovery/abi/o-b9afd2a4c28d8e343b6a.cpp"
+
+#include "../../recovery/leaves/o-b9afd2a4c28d8e343b6a.cpp"

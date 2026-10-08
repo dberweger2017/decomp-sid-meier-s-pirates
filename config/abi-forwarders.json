@@ -8959,6 +8959,22 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-b646fa38754b5b6a37ef",
+      "group_id": "o-b9afd2a4c28d8e343b6a",
+      "symbol": "__ZN13FAudioManagerC1Ev",
+      "original_name": "FAudioManager::FAudioManager()",
+      "target_symbol": "__ZN13FAudioManagerC2Ev",
+      "target_name": "FAudioManager::FAudioManager()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
