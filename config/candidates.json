@@ -1769,9 +1769,25 @@
         "f-395661c66486943fec5a",
         "f-a9aa103da383a1bc1b8f",
         "f-de55de5cd7702dcebb3a",
-        "f-b6501d38ccb5771208d2"
+        "f-b6501d38ccb5771208d2",
+        "f-0f91739920084c5304f9",
+        "f-17b70a210b8d350813c4",
+        "f-1ebfc745d826666e0edb",
+        "f-8f42fa828b34c70f360c",
+        "f-bc5af2caeedf7941a3cb",
+        "f-f3b4d0cbdc9568b63d7e",
+        "f-fda4f8b1db2d7520b0c6"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-0f91739920084c5304f9": "function-forwarder",
+        "f-17b70a210b8d350813c4": "complete-destructor",
+        "f-1ebfc745d826666e0edb": "function-forwarder",
+        "f-8f42fa828b34c70f360c": "function-forwarder",
+        "f-bc5af2caeedf7941a3cb": "complete-destructor",
+        "f-f3b4d0cbdc9568b63d7e": "complete-destructor",
+        "f-fda4f8b1db2d7520b0c6": "complete-destructor"
+      }
     },
     {
       "group_id": "o-869c1fa37c759d3c89c8",
