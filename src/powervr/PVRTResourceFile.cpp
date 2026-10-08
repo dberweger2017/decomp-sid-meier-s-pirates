@@ -1,0 +1,4 @@
+#include "PVRTResourceFile.h"
+
+// Original group: o-4268c237f42393c8bef0 (libOGLES2Tools.a(PVRTResourceFile.o)).
+// Add only individually verified definitions. This scaffold earns no progress.
