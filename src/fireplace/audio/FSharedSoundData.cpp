@@ -4,3 +4,5 @@
 // Missing methods remain undefined. No object-pool or vtable fallback is emitted.
 
 unsigned char FSharedSoundData::GetBuffer(int index) { return m_bufferBytes[index]; }
+
+unsigned int FSharedSoundData::GetBufferSize(int index) { return m_bufferSizes[index]; }
