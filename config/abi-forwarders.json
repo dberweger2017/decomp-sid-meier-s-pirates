@@ -9621,6 +9621,18 @@
       "return_type": "void",
       "parameters": [],
       "target_parameters": []
+    },
+    {
+      "id": "f-a84acdc82fa18ace27de",
+      "group_id": "o-e81b058b7ded1a51ff73",
+      "symbol": "__GLOBAL__I__ZN3ISE10ISEPosDataD2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE10ISEPosDataD2Ev",
+      "target_symbol": "__ZN3ISE9ISEPosKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEPosKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }
