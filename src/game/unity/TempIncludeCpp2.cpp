@@ -3,3 +3,17 @@
 #include "../../../src/gamebryo/Pvr_NiTexture.cpp"
 
 #include "../../gamebryo/maps/TempIncludeCpp2Maps.cpp"
+
+#include "../../gamebryo/NiD3DShaderFactoryReleaseTempIncludeCpp2.cpp"
+
+#include "../../gamebryo/NiObjectReleaseTempIncludeCpp2.cpp"
+
+#include "../../gamebryo/NiPickReleaseTempIncludeCpp2.cpp"
+
+#include "../../gamebryo/NiSearchPathReleaseTempIncludeCpp2.cpp"
+
+#include "../../recovery/CAdvancedLightingReleaseTempIncludeCpp2.cpp"
+
+#include "../../recovery/FFileBackgroundLoaderReleaseTempIncludeCpp2.cpp"
+
+#include "../../recovery/TempIncludeCpp2ReleaseFunctions.cpp"
