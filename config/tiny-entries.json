@@ -1527,6 +1527,19 @@
       ],
       "internal": false,
       "value": 0
+    },
+    {
+      "id": "f-10b09d39b595a5c28af2",
+      "group_id": "o-64dc62a7ebf337db9675",
+      "symbol": "__ZN3ISE24ISEPSysSphericalCollider7ResolveEfRfPNS_11ISEPSysDataEt",
+      "original_name": "ISE::ISEPSysSphericalCollider::Resolve(float, float&, ISE::ISEPSysData*, unsigned short)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
     }
   ]
 }
