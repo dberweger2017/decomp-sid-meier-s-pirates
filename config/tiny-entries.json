@@ -1438,6 +1438,19 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-e104059b33c963cb830b",
+      "group_id": "o-62477dc2acef205ac2c5",
+      "symbol": "__ZN3ISE12ISELandscape13GetLandHeightEff",
+      "original_name": "ISE::ISELandscape::GetLandHeight(float, float)",
+      "kind": "constant-body",
+      "return_type": "float",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
     }
   ]
 }
