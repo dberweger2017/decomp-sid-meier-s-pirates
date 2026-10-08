@@ -12,3 +12,5 @@ unsigned int FSound3D::GetGlobalSoundFilenameIndex() { return m_globalSoundFilen
 bool FSound3D::IsStreaming() { return m_streaming; }
 
 bool FSound3D::IsInitialized() const { return m_initialized; }
+
+bool FSound3D::IsLoaded() const { return m_loaded; }
