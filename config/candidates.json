@@ -2000,6 +2000,29 @@
         "f-5405a8a3a8b04673cb27"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-7c84725c64ddb7972bee",
+      "source": "src/recovery/units/ISESkinnedMeshShaderWithVC.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-b375ebd7c233d88d8496",
+        "f-762089d0ca758e47be96",
+        "f-2063051f7fec027b3d66",
+        "f-2be4702ab8925db733a4",
+        "f-5b7ca4d364b81f3be685",
+        "f-027de028489ff40f8b55",
+        "f-a2f7a18ebc05e0ac4743",
+        "f-0ea63d79ecc3d7ff7cb4",
+        "f-626fe356d20873164187"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
