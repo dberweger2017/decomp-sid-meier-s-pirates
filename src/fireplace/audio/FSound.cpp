@@ -32,3 +32,5 @@ float FSound::GetTaperVolume() const { return m_taperVolume; }
 void FSound::SetTaperVolume(float value) { m_taperVolume = value; }
 
 void FSound::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields |= flags; }
+
+void FSound::ClearShortCircuitScriptField(int flags) { m_shortCircuitScriptFields &= ~flags; }
