@@ -232,7 +232,8 @@
         "f-7b4811782c6abf76ddd0",
         "f-cf2c9b462f6afee1a933",
         "f-7a4f54c6102bdd243e48",
-        "f-3e1a0f34b75841a231f1"
+        "f-3e1a0f34b75841a231f1",
+        "f-4a2db6eaeb00fcf2291c"
       ],
       "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
     }

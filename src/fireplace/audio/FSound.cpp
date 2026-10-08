@@ -30,3 +30,5 @@ void FSound::SetScript(const F2DSoundScriptData *script) { m_script = script; }
 float FSound::GetTaperVolume() const { return m_taperVolume; }
 
 void FSound::SetTaperVolume(float value) { m_taperVolume = value; }
+
+void FSound::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields |= flags; }
