@@ -9260,6 +9260,38 @@
         "void *",
         "int"
       ]
+    },
+    {
+      "id": "f-148c43f474fe4324524d",
+      "group_id": "o-61a2257f0bd26f37502a",
+      "symbol": "__ZN22MultiPlaySFStageChosenC1Ev",
+      "original_name": "MultiPlaySFStageChosen::MultiPlaySFStageChosen()",
+      "target_symbol": "__ZN22MultiPlaySFStageChosenC2Ev",
+      "target_name": "MultiPlaySFStageChosen::MultiPlaySFStageChosen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-97c7e40b4487e5140853",
+      "group_id": "o-61a2257f0bd26f37502a",
+      "symbol": "__ZN26MultiPlaySFCharacterChosenC1Ev",
+      "original_name": "MultiPlaySFCharacterChosen::MultiPlaySFCharacterChosen()",
+      "target_symbol": "__ZN26MultiPlaySFCharacterChosenC2Ev",
+      "target_name": "MultiPlaySFCharacterChosen::MultiPlaySFCharacterChosen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
