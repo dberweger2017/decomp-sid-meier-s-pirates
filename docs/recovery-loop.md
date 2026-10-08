@@ -628,3 +628,12 @@ allocation contents remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 68 differing
 candidates, 7,501 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Ten additional `Ni*::GetRTTI` methods now return the verified class-local
+`m_RTTI` common allocations. Their relocations all resolve to the matching
+class symbols and each compares at 50%; the allocation contents remain
+unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 78 differing
+candidates, 7,491 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
