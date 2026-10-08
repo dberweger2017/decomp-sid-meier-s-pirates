@@ -9463,6 +9463,22 @@
         "int",
         "void *"
       ]
+    },
+    {
+      "id": "f-81c5e9fc0aa556bfff02",
+      "group_id": "o-e3c04b8f58296776dbea",
+      "symbol": "__ZN3ISE15ISEEditableMeshC1Ev",
+      "original_name": "ISE::ISEEditableMesh::ISEEditableMesh()",
+      "target_symbol": "__ZN3ISE15ISEEditableMeshC2Ev",
+      "target_name": "ISE::ISEEditableMesh::ISEEditableMesh()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }

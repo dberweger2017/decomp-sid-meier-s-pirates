@@ -15,6 +15,17 @@ extern "C" void pirates_method_forwarder_62aafca13788feab33d6(void * a0) {
     pirates_method_forwarder_62aafca13788feab33d6_target(a0);
 }
 
+// f-81c5e9fc0aa556bfff02 — complete-constructor
+// ISE::ISEEditableMesh::ISEEditableMesh()
+// Calls: ISE::ISEEditableMesh::ISEEditableMesh()
+extern "C" void pirates_complete_constructor_81c5e9fc0aa556bfff02_target(void *)
+    __asm__("__ZN3ISE15ISEEditableMeshC2Ev");
+extern "C" void pirates_complete_constructor_81c5e9fc0aa556bfff02(void * a0)
+    __asm__("__ZN3ISE15ISEEditableMeshC1Ev");
+extern "C" void pirates_complete_constructor_81c5e9fc0aa556bfff02(void * a0) {
+    pirates_complete_constructor_81c5e9fc0aa556bfff02_target(a0);
+}
+
 // f-a9e97dd7f5dfce23f8f3 — complete-destructor
 // ISE::ISEEditableMesh::~ISEEditableMesh()
 // Calls: ISE::ISEEditableMesh::~ISEEditableMesh()
