@@ -6,6 +6,11 @@
 // encoded in symbols remain provisional; this header does not claim runtime ABI.
 class FPhono {
 public:
+    static bool Startup(unsigned long flags, long parameter, unsigned long options);
+    // Opaque compatibility pointer; its original pointee type is unknown.
+    static void *GetDirectSoundObject();
+    static void SetDistanceFactor(float factor);
+    static void SetRolloffFactor(float factor);
     static void CloseStream(int stream);
     static void SetPlaybackPosition_Stream(int stream, unsigned int position);
     static unsigned int GetPlaybackTotal_Stream(int stream);
