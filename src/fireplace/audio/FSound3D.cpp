@@ -26,3 +26,5 @@ void FSound3D::SetIsMusic(bool value) { m_isMusic = value; }
 const F3DSoundScriptData *FSound3D::GetScript() { return m_script; }
 
 void FSound3D::SetScript(const F3DSoundScriptData *script) { m_script = script; }
+
+float FSound3D::GetTaperVolume() const { return m_taperVolume; }
