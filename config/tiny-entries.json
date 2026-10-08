@@ -1270,6 +1270,30 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-a41da713320f46d906a8",
+      "group_id": "o-91291f231b1e88930046",
+      "symbol": "__ZN15Bombard3dNumberD1Ev",
+      "original_name": "Bombard3dNumber::~Bombard3dNumber()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-eb2d84adeb7e21d0ae26",
+      "group_id": "o-91291f231b1e88930046",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
