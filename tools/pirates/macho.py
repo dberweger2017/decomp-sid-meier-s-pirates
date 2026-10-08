@@ -66,6 +66,8 @@ class MachO:
         self.data_ranges = []
         self.cryptid = 0
         self.uuid = None
+        # Keep alignment separately so the locked function inventory is unchanged.
+        self.alignments = {}
         magic, cpu, subtype, self.filetype, count, cmdbytes, self.flags = self.unpack('<7I', 0)
         if magic != 0xfeedface or cpu != 12 or subtype & 0xffffff != 9:
             raise ToolError('Expected a thin little-endian 32-bit ARMv7 Mach-O')
@@ -90,6 +92,7 @@ class MachO:
                     p = pos + 56 + 68 * j
                     name, seg, addr, sz, off, align, roff, nr, flags, r1, r2 = self.unpack('<16s16s9I', p)
                     section = Section(len(self.sections) + 1, self.name(name), self.name(seg), addr, sz, off, flags)
+                    self.alignments[section.index] = 1 << align
                     if addr + sz > 0x100000000 or align > 31:
                         raise ToolError('Invalid section address/alignment')
                     if not section.zerofill:

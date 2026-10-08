@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 from .macho import MachO
+from .sdk import inspect_sdk, header_flags
 from .compiler import command, fingerprint, permitted, language_flags
 from .report import native_report, objdiff_adapter
 from .util import load_json, write_json, ToolError, sha256, local_path, depfile_paths
@@ -14,13 +15,15 @@ def configuration(root):
         raise ToolError('Imported original executable hash mismatch; reimport the verified IPA')
     if sha256(Path(root) / 'build/inventory.json') != config['inventory_sha256']:
         raise ToolError('Generated inventory changed without configuring')
+    if config.get('data_inventory_sha256') and sha256(Path(root) / 'build/data-inventory.json') != config['data_inventory_sha256']:
+        raise ToolError('Generated data inventory changed without configuring')
     return config
 
 
 def compile_flags(config, unit, normalized=False):
     flags = language_flags(unit['source']) + config['compiler']['flags'] + unit['flags']
     if config.get('sdk'):
-        flags += ['-isysroot', config['compiler'].get('sdk_compile_path', config['sdk'])]
+        flags += header_flags(config['compiler'], config['sdk'], unit['source'])
         if normalized:
             flags = [x.replace(config['sdk'], '<sdk>') for x in flags]
     return flags
@@ -43,12 +46,16 @@ def compile_unit(root, uid):
         old_dep = saved_dep.read_text()
     info = fingerprint(config['compiler'], root, config.get('sdk'))
     current = {**config, 'compiler_fingerprint': info}
-    allowed, error = permitted(current)
+    allowed, error = permitted(current, unit['source'])
     flags = compile_flags(config, unit)
     result = {'id': uid, 'source': unit['source'], 'flags': flags, 'compiler': info,
               'sdk_required': bool(unit.get('sdk_required', config['compiler'].get('sdk_required'))),
               'status': 'compile_error', 'object': f'build/units/{uid}.o', 'object_sha256': None,
               'source_sha256': None, 'dependencies': {}, 'diagnostics': f'build/units/{uid}.diagnostics.txt'}
+    sdk = inspect_sdk(config.get('sdk'))
+    result['sdk'] = sdk
+    if sdk and not sdk['validated']:
+        allowed, error = False, sdk['reason']
     diagnostics = error or ''
     code = 1
     try:
@@ -95,7 +102,7 @@ def compile_unit(root, uid):
     return result
 
 
-def comparisons(root, details_id=None):
+def comparisons(root, details_id=None, include_link=True):
     from .compare import compare_function
     root = Path(root)
     config = configuration(root)
@@ -103,6 +110,7 @@ def comparisons(root, details_id=None):
     original = MachO((root / config['provenance']['input']).read_bytes())
     info = fingerprint(config['compiler'], root, config.get('sdk'))
     allowed, gate_reason = permitted({**config, 'compiler_fingerprint': info})
+    sdk = inspect_sdk(config.get('sdk'))
     unit_configs = {u['id']: u for u in config['units']}
     objects, compile_results, unit_errors = {}, {}, {}
     for uid, unit in unit_configs.items():
@@ -111,6 +119,8 @@ def comparisons(root, details_id=None):
             compile_results[uid] = result
             if result['status'] != 'compiled':
                 raise ToolError('Candidate compilation failed; see unit diagnostics')
+            if result.get('sdk') != sdk:
+                raise ToolError('SDK content changed since compilation; rebuild')
             if result['compiler'] != info:
                 raise ToolError('Compiler fingerprint changed; reconfigure and rebuild')
             if (result['flags'] != compile_flags(config, unit, normalized=True) or result['source'] != unit['source']
@@ -124,18 +134,59 @@ def comparisons(root, details_id=None):
             objpath = root / result['object']
             if sha256(objpath) != result['object_sha256']:
                 raise ToolError('Candidate object fingerprint changed; rebuild')
+            unit_allowed, reason = permitted({**config, 'compiler_fingerprint': info}, unit['source'])
+            if not unit_allowed:
+                raise ToolError(reason)
             objects[uid] = MachO(objpath.read_bytes())
         except (OSError, ToolError, ValueError) as e:
             unit_errors[uid] = str(e)
+    from .data import recover_data, compare_data
+    data_inventory = recover_data(original, inventory)
+    data_results = []
+    for record in data_inventory['records']:
+        if details_id and details_id != record['id']:
+            continue
+        uid = record['group_id']
+        for mapped_uid, unit in unit_configs.items():
+            if record['id'] in unit.get('data', {}):
+                uid = mapped_uid
+                break
+        unit = unit_configs.get(uid, {})
+        # A partial source unit must opt in to data explicitly.
+        implemented = ('implemented_functions' not in unit or record['id'] in unit.get('data', {}))
+        data = compare_data(original, inventory, record, objects.get(uid) if implemented else None,
+                            unit.get('data', {}).get(record['id']), unit.get('placements'), bool(details_id))
+        if implemented and uid in unit_errors:
+            data.update(status='compile_error' if compile_results.get(uid, {}).get('status') != 'compiled' else 'unresolved',
+                        reasons=data['reasons'] + [unit_errors[uid]], byte_verified=False)
+        data.update(candidate_source=unit.get('source') if implemented else None, candidate_group_id=uid)
+        if details_id:
+            if record['group_id'] == 'unowned-data':
+                from .linking import current_state
+                linked = current_state(root, config)
+                if linked['state'] == 'verified':
+                    data.update(status='matched', byte_equal=True, byte_verified=True, candidate_size=data['size'], linked_image_verified=True,
+                                reasons=['Verified source-only replacement image establishes this allocation'])
+                    for row in data['rows']:
+                        for key in ('', '_ascii', '_words'):
+                            row['candidate' + key] = row['original' + key]
+                        row['different'] = False
+            data['compiler'] = info
+            data['compile'] = compile_results.get(uid)
+            if data['compile']:
+                data['diagnostic_text'] = (root / data['compile']['diagnostics']).read_text()
+            return data
+        data_results.append(data)
     results = []
     for f in inventory['functions']:
         if details_id and f['id'] != details_id:
             continue
         uid = f['group_id']
         u = unit_configs.get(uid, {})
-        compared = compare_function(original, inventory, f, objects.get(uid), u.get('functions', {}).get(f['id']),
+        implemented = 'implemented_functions' not in u or f['id'] in u['implemented_functions']
+        compared = compare_function(original, inventory, f, objects.get(uid) if implemented else None, u.get('functions', {}).get(f['id']),
                                     u.get('placements'), bool(details_id))
-        if uid in unit_errors:
+        if implemented and uid in unit_errors:
             compiled = compile_results.get(uid, {})
             status = 'compile_error' if compiled.get('status') != 'compiled' else 'unresolved'
             compared.update(status=status, reasons=compared['reasons'] + [unit_errors[uid]])
@@ -143,7 +194,7 @@ def comparisons(root, details_id=None):
             compared.update(status='unresolved', reasons=compared['reasons'] + [gate_reason])
         compared.update({k: f[k] for k in ('group_id', 'symbol', 'address', 'size', 'mode', 'source_path', 'section', 'ambiguities')})
         compared['section_offset'] = f['address'] - original.section(f['section']).address
-        compared['candidate_source'] = u.get('source')
+        compared['candidate_source'] = u.get('source') if implemented else None
         compared['byte_verified'] = compared['status'] == 'matched'
         results.append(compared)
     if details_id:
@@ -160,7 +211,36 @@ def comparisons(root, details_id=None):
         u = unit_configs.get(g['id'], {})
         units.append({**g, 'source': u.get('source'), 'flags': u.get('flags', []),
                       'compile': compile_results.get(g['id']), 'error': unit_errors.get(g['id'])})
-    return native_report(inventory, config, results, units, info)
+    native = native_report(inventory, config, results, units, info)
+    from .report import data_metrics
+    native['data_inventory_sha256'] = config.get('data_inventory_sha256')
+    native['data_coverage'] = data_inventory['coverage']
+    native['data_scope'] = data_inventory['scope']
+    native['data_sections'] = data_inventory['sections']
+    native['data'] = data_results
+    native['data_metrics'] = data_metrics(data_results)
+    for unit in units:
+        from .report import metrics
+        unit['metrics'] = metrics([f for f in results if f['group_id'] == unit['id']])
+        unit['data_metrics'] = data_metrics([d for d in data_results if d['group_id'] == unit['id']])
+    if sdk:
+        native['sdk'] = sdk
+    if include_link:
+        from .linking import current_state
+        native['linking'] = current_state(root, config)
+        if native['linking']['state'] == 'verified':
+            # Whole-image equality establishes shared/linker-generated data
+            # which has no object-level STABS ownership or candidate symbol.
+            for data in data_results:
+                if data['group_id'] == 'unowned-data':
+                    data.update(status='matched', byte_equal=True, byte_verified=True, linked_image_verified=True,
+                                reasons=['Verified source-only replacement image establishes this allocation'])
+            native['data_metrics'] = data_metrics(data_results)
+        for unit in units:
+            verified = native['linking']['state'] == 'verified' and unit['id'] in native['linking'].get('participating_units', [])
+            unit['linking'] = {'complete_units': int(verified), 'complete_code': unit['metrics']['matched_bytes'] if verified else 0,
+                               'complete_data': unit['data_metrics']['matched_bytes'] if verified else 0}
+    return native
 
 
 def report(root):
@@ -170,4 +250,4 @@ def report(root):
     m = result['metrics']
     print(f'{m["matched_functions"]}/{m["total_functions"]} verified functions; {m["matched_bytes"]} matched bytes; '
           f'{m["missing_candidates"]} missing; {m["unresolved_comparisons"]} unresolved; {m["compile_errors"]} compile errors')
-    return 1 if m['compile_errors'] or any(u['error'] for u in result['units']) else 0
+    return 1 if m['compile_errors'] or result['data_metrics']['compile_errors'] or any(u['error'] for u in result['units']) or result['linking']['state'] == 'failed' else 0

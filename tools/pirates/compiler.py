@@ -64,18 +64,22 @@ def fingerprint(profile, root, sdk=None):
             raise ToolError('Validation belongs to a different compiler invocation')
         if not all(validation.get(k) for k in ('arm_probe', 'thumb_probe', 'reproducible_objects', 'c_probe', 'cxx_probe')):
             raise ToolError('Historical compiler smoke probes are incomplete')
+        if not set(profile.get('languages', ['c', 'c++'])).issubset(validation.get('languages', ['c', 'c++'])):
+            raise ToolError('Compiler language probes are incomplete')
         if 'LLVM' not in result['version'] or '2336.9' not in result['version'] or '4.2.1' not in result['version']:
             raise ToolError('Historical compiler version does not match 2336.9 hypothesis')
-        result.update(validated=True)
+        result.update(validated=True, languages=validation.get('languages', ['c', 'c++']))
     except (ToolError, FileNotFoundError, OSError, subprocess.TimeoutExpired, ValueError) as e:
         result['reason'] = str(e)
     return result
 
 
-def permitted(config):
+def permitted(config, source=None):
     info = config['compiler_fingerprint']
     if config['provenance']['kind'] == 'synthetic' and config['compiler']['family'] == 'clang-fixture':
         return True, None
     if not info['validated']:
         return False, 'Historical matching compiler is not validated: ' + (info['reason'] or 'missing validation')
+    if source and language_flags(source)[1] not in info.get('languages', ['c', 'c++']):
+        return False, 'Historical frontend is not validated: ' + language_flags(source)[1]
     return True, None

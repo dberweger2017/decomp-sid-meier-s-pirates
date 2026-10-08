@@ -12,6 +12,10 @@ if __name__ == '__main__':
             compile_unit(root, sys.argv[2])
         elif sys.argv[1:] == ['report']:
             sys.exit(report(root))
+        elif sys.argv[1:] == ['link']:
+            from tools.pirates.linking import run_link
+            # Retain a report even when linking fails. report() gates Ninja/CI.
+            run_link(root)
         else:
             raise ToolError('Usage: tools/build.py compile <unit-id> | report')
     except (ToolError, OSError, KeyError) as e:

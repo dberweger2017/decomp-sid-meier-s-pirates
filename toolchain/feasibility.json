@@ -65,11 +65,14 @@
       "stage": "native Linux artifact import on Apple Silicon",
       "result": "validated",
       "evidence": "Archive SHA-256 and installed-artifact manifest verified. Docker 29 assigned a converted local image ID; receiving-host ARM/Thumb C/C++ probe hashes equal native CI. Import pins and validates the receiving-host identity."
+    },
+    {
+      "stage": "four-language frontends and SDK 5.1 object compilation",
+      "result": "validated on native Linux CI and Apple Silicon emulation",
+      "evidence": "cc1obj and cc1objplus built; all four languages pass repeated ARM/Thumb freestanding and SDK-dependent probes. SDK content is pinned separately. Native Linux run 37735419198 passed."
     }
   ],
   "remaining": [
-    "Supply local iPhoneOS5.1 SDK for SDK-dependent candidates",
-    "Objective-C/Objective-C++ frontends are not built or validated",
     "Investigate exact shipped compiler revision and original per-unit flags",
     "Full-game linking and target runtime construction are outside this milestone"
   ],
@@ -77,18 +80,223 @@
   "bundled_llvm_core_built": true,
   "frontend_built": true,
   "exact_original_compiler_equivalence": false,
-  "sdk_dependent_candidates_validated": false,
+  "sdk_dependent_candidates_validated": true,
   "historical_incremental_loop_verified": true,
   "compiler_version": "llvm-g++ (GCC) 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.9)\nCopyright (C) 2007 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
   "probe_sha256": {
     "c/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
     "c/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba",
     "cpp/arm": "aa86486a0c5eebd053abd91599dc2fa22b68ba2407d1e3dad9724b767368c43c",
-    "cpp/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba"
+    "cpp/thumb": "45c140460529c06e0dc4c27729aafd3c4557248d9e8ca5534f2f73e65f3900ba",
+    "m/arm": "5d0f05d48d8f167961d535572b3ca7fd7bdc92799df3a4d15cc12d1debe21985",
+    "m/thumb": "4a6a2204bf8fece13e7354840d392f101e72e78ba8c6126e67fd0fab2846d961",
+    "mm/arm": "fc30fea481603d416fc1a99387ad31a0e0f0783e8fbfecda19ab1445cbf01c37",
+    "mm/thumb": "c98e66fa618ca59a63496aec28176194ac7ad9ded6039d4f1bf7f27b0f38adc9"
   },
   "probe_architecture_flag": "-march=armv7-a",
   "native_linux_ci_validated": true,
   "native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37693756924",
   "native_artifact_revalidated_on_macos_arm64": true,
-  "native_artifact_archive_sha256": "b79b5b29e93ac6f69c93605d9c59c7765db91cffdc5abf838c3172eca1a882d0"
+  "native_artifact_archive_sha256": "b79b5b29e93ac6f69c93605d9c59c7765db91cffdc5abf838c3172eca1a882d0",
+  "languages": [
+    "c",
+    "c++",
+    "objective-c",
+    "objective-c++"
+  ],
+  "sdk_probe_evidence": {
+    "compiler": {
+      "command_sha256": "d8525e1ac7cfe9df37c921788ce13aa41bd94af379cc9a2ce244d7ac93d3202b",
+      "family": "llvmgcc42",
+      "profile": "llvmgcc42-2336.9-hypothesis",
+      "reason": null,
+      "sha256": "ffc2f1b8439e45c24aa438657538c4ae8032d9c5ddd51f6beea87aef741164bf",
+      "validated": true,
+      "version": "llvm-g++ (GCC) 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.9)\nCopyright (C) 2007 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "probes": [
+      {
+        "flags": [
+          "-x",
+          "c",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-marm",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include"
+        ],
+        "language": "c",
+        "mode": "arm",
+        "sha256": "0eff915b243a95b6b8c710755c0d728ff8e97cb8712fc50965a39b603d3d6fc4",
+        "source_sha256": "886394e909eafcfa091df1405daed8b80d1463812fff876e0ffa597231a4a485"
+      },
+      {
+        "flags": [
+          "-x",
+          "c",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-mthumb",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include"
+        ],
+        "language": "c",
+        "mode": "thumb",
+        "sha256": "c1ef13d1ed8f2b6daabe267a543d6bb77c7bf5fbadf17ca519688609ec55adb0",
+        "source_sha256": "886394e909eafcfa091df1405daed8b80d1463812fff876e0ffa597231a4a485"
+      },
+      {
+        "flags": [
+          "-x",
+          "c++",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-marm",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1/backward"
+        ],
+        "language": "c++",
+        "mode": "arm",
+        "sha256": "0e27fcc71da5470f193e7aadf3f08edebc8902fed3665dacc0fc4d9581322aaf",
+        "source_sha256": "b5b5576dab16938fb3aff9e06b96bf890b2c1e5c35e1572badc96d28f1f8e99e"
+      },
+      {
+        "flags": [
+          "-x",
+          "c++",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-mthumb",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1/backward"
+        ],
+        "language": "c++",
+        "mode": "thumb",
+        "sha256": "c244563c4467c0b50d32617c0870b7c30de7abde5b9c1b236cb56c48c57481f8",
+        "source_sha256": "b5b5576dab16938fb3aff9e06b96bf890b2c1e5c35e1572badc96d28f1f8e99e"
+      },
+      {
+        "flags": [
+          "-x",
+          "objective-c",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-marm",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include"
+        ],
+        "language": "objective-c",
+        "mode": "arm",
+        "sha256": "1fb6ee3baf487d67f75f6e274495672d3d1aac3d21fa0c7ae1071700f076ba7e",
+        "source_sha256": "45c7372976c6c1ba831cdec5e942579d516edd8193298983e70e02dde530dc11"
+      },
+      {
+        "flags": [
+          "-x",
+          "objective-c",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-mthumb",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include"
+        ],
+        "language": "objective-c",
+        "mode": "thumb",
+        "sha256": "07bc8e910a6e8b618c5c8806400258abadca12d47cb9bd924a5ea255c78e8db2",
+        "source_sha256": "45c7372976c6c1ba831cdec5e942579d516edd8193298983e70e02dde530dc11"
+      },
+      {
+        "flags": [
+          "-x",
+          "objective-c++",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-marm",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1/backward"
+        ],
+        "language": "objective-c++",
+        "mode": "arm",
+        "sha256": "b01733da66a146b677d0d488f3dd93e15bbfcd0a96113cee1784beea0b9477bd",
+        "source_sha256": "7819d0b9bf2bc91b29a7d4bb3d864b314ee9dd8439385ecc4367a98e3f0687b3"
+      },
+      {
+        "flags": [
+          "-x",
+          "objective-c++",
+          "-march=armv7-a",
+          "-mfloat-abi=softfp",
+          "-miphoneos-version-min=4.2",
+          "-O2",
+          "-mthumb",
+          "-isysroot",
+          "/sdk",
+          "-isystem",
+          "/sdk/usr/include",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1",
+          "-isystem",
+          "/sdk/usr/include/c++/4.2.1/backward"
+        ],
+        "language": "objective-c++",
+        "mode": "thumb",
+        "sha256": "1dfe0bccc2e1a9ef16a9e285ceff16457f20e8352e5eeca2cb9a29591252b8e3",
+        "source_sha256": "7819d0b9bf2bc91b29a7d4bb3d864b314ee9dd8439385ecc4367a98e3f0687b3"
+      }
+    ],
+    "scope": "Object compilation; no linking or exact original compiler equivalence claimed",
+    "sdk": {
+      "build": "9B176",
+      "dangling_symlinks": [
+        "usr/lib/libCRFSuite0.10.dylib"
+      ],
+      "file_records": 2559,
+      "sha256": "a8228b173e0bf42adffa9d20453d73043dabad649efbc78d982429391e95638d",
+      "validated": true,
+      "version": "5.1"
+    },
+    "validated": true
+  },
+  "sdk_probe_hashes_equal_native_linux_and_macos_emulation": true,
+  "sdk_native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37735419198"
 }

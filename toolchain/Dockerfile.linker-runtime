@@ -1,0 +1,9 @@
+FROM --platform=linux/amd64 ubuntu:16.04@sha256:1f1a2d56de1d604801a9671f301190704c25d604a416f59e03c04f5c6ffee0d6
+RUN apt-get update && apt-get install -y --no-install-recommends clang-3.8 build-essential autoconf automake libtool libssl-dev uuid-dev python ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY provenance/linker-package-versions.lock /tmp/packages.lock
+RUN dpkg-query -W -f='${Package}=${Version}\n' > /tmp/installed.lock && diff -u /tmp/packages.lock /tmp/installed.lock
+COPY install/ /opt/pirates-linker/
+COPY provenance/ /opt/pirates-linker/provenance/
+ENV LC_ALL=C TZ=UTC SOURCE_DATE_EPOCH=0
+WORKDIR /work
+CMD ["/opt/pirates-linker/bin/ld", "-v"]

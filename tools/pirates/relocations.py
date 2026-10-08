@@ -65,11 +65,23 @@ class AddressResolver:
             table = self.group_names if f['group_id'] == group_id else self.global_names
             if f['mode'] != 'unknown':
                 table.setdefault(f['symbol'], set()).add((f['address'], f['mode'] == 'thumb'))
+        # Local static data names can repeat across original compilation units.
+        # STABS ownership is stronger evidence than a global name lookup.
+        if not hasattr(original, '_data_ownership'):
+            from .data import recover_data
+            original._data_ownership = recover_data(original, inventory)['records']
+        for data in original._data_ownership:
+            if data['group_id'] == group_id and not data['ambiguities']:
+                for name in data['aliases']:
+                    self.group_names.setdefault(name, set()).add((data['address'], False))
         self.explicit = symbol_addresses or {}
 
     def name(self, name, pointer=False):
         if name in self.explicit:
             value = self.explicit[name]
+            known = self.group_names.get(name) or self.global_names.get(name, set())
+            if known and value not in {address | int(pointer and thumb) for address, thumb in known}:
+                raise Unresolved('Explicit placement contradicts the original symbol address: ' + name)
             return value, name
         values = self.group_names.get(name) or self.global_names.get(name, set())
         if len(values) != 1:
@@ -133,8 +145,9 @@ class AddressResolver:
 
 def relocate(macho, symbol, size, original_address, resolver):
     section = macho.section(symbol.section)
-    begin = (symbol.value & ~1) - section.address
-    data = bytearray(macho.bytes_at(symbol.value & ~1, size, symbol.section))
+    address = symbol.value & ~1 if symbol.thumb else symbol.value
+    begin = address - section.address
+    data = bytearray(macho.bytes_at(address, size, symbol.section))
     events, errors, occupied = [], [], set()
     relocs = section.relocations
     i = 0

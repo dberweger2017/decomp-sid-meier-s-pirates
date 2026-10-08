@@ -39,7 +39,7 @@ test "$(cat "$OUT/backend-source.txt")" = "$CORE"
 PATH="$OUT/install/bin:$PATH"
 export PATH
 cd "$OUT/gcc"
-CFLAGS="-O2 -fgnu89-inline" CXXFLAGS="-O2 -std=gnu++98 -include cstddef" "$SRC/configure" --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --target=arm-apple-darwin11 --enable-llvm="$OUT/install" --enable-languages=c,c++ --disable-bootstrap --disable-multilib --disable-shared --disable-nls --disable-werror --without-headers --prefix="$OUT/install" --program-prefix=llvm-
+CFLAGS="-O2 -fgnu89-inline" CXXFLAGS="-O2 -std=gnu++98 -include cstddef" "$SRC/configure" --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --target=arm-apple-darwin11 --enable-llvm="$OUT/install" --enable-languages=c,c++,objc,obj-c++ --disable-bootstrap --disable-multilib --disable-shared --disable-nls --disable-werror --without-headers --prefix="$OUT/install" --program-prefix=llvm-
 # Object compilation needs the compiler, not target libgcc or Darwin crt3.
 # Those runtime/linking artifacts require SDK headers and are outside this
 # function-matching milestone. Do not supply host headers as target headers.
