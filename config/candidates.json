@@ -2438,6 +2438,21 @@
         "f-3ea81a22f903b78cde18"
       ],
       "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-d97284a3dcb35bd26b91",
+      "source": "src/recovery/units/MultiTwoUIScene.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-13cc77f5c4ba5e0d11f8"
+      ],
+      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
     }
   ]
 }
