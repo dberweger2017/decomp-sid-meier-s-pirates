@@ -1981,6 +1981,25 @@
         "f-cf30d2254facd7823a99"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-458fa7cbe21f84044950",
+      "source": "src/recovery/units/ISEColorSpriteShader.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0078a2eac7a33233acf7",
+        "f-d37a3f1e6815ae8d2531",
+        "f-d9c10e1f21997fb2ad6d",
+        "f-de685b075cf1f8cd3feb",
+        "f-5405a8a3a8b04673cb27"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
