@@ -3,8 +3,9 @@ import plistlib
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 from tools.pirates.sdk import inspect_sdk, require_sdk, header_flags
-from tools.pirates.util import ToolError
+from tools.pirates.util import ToolError, write_json, load_json
 
 
 def sdk_fixture(root):
@@ -21,6 +22,20 @@ def sdk_fixture(root):
 
 
 class SDKTests(unittest.TestCase):
+    def test_failed_sdk_validation_clears_previous_success(self):
+        from tools.validate_sdk import validate
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            sdk = sdk_fixture(root / 'local.sdk')
+            (sdk / 'SDKSettings.plist').write_bytes(b'malformed')
+            write_json(root / 'profile.json', {'family': 'llvmgcc42'})
+            evidence = root / 'build/sdk-validation.json'
+            write_json(evidence, {'validated': True})
+            with patch('tools.validate_sdk.fingerprint', return_value={'validated': True}):
+                with self.assertRaises(ToolError):
+                    validate(root, 'profile.json', sdk)
+            self.assertFalse(load_json(evidence)['validated'])
+
     def test_identity_is_path_independent_and_detects_content_changes(self):
         with tempfile.TemporaryDirectory() as temp:
             a, b = (sdk_fixture(Path(temp) / name) for name in ('a.sdk', 'b.sdk'))

@@ -14,13 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def validate(root, profile_path, sdk):
     root, sdk = Path(root), Path(sdk).resolve()
+    output = root / 'build/sdk-validation.json'
+    write_json(output, {'validated': False, 'reason': 'SDK probes have not completed'})
     profile = load_json(root / profile_path)
     info = fingerprint(profile, root, sdk)
     if profile['family'] != 'llvmgcc42' or not info['validated']:
         raise ToolError('SDK probes require a validated historical compiler')
     identity = require_sdk(sdk)
-    output = root / 'build/sdk-validation.json'
-    write_json(output, {'validated': False, 'reason': 'SDK probes have not completed'})
     bodies = {
         'c': '#include <stdlib.h>\n#include <OpenGLES/ES2/gl.h>\nint sdk_probe(const char *text){return (int)strtol(text,0,10)+(int)glCreateShader(GL_VERTEX_SHADER);}',
         'cpp': '#include <vector>\n#include <string>\nextern "C" unsigned sdk_probe(const char *text){std::vector<int> values(3,41);std::string value(text);return values[1]+value.size();}',
