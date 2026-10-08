@@ -239,3 +239,83 @@ extern "C" const void * pirates_ni_tri_strips_get_rtti(void const *)
 extern "C" const void * pirates_ni_tri_strips_get_rtti(void const *) {
     return pirates_ni_tri_strips_rtti;
 }
+
+static unsigned char pirates_ni_screen_lod_data_rtti[8]
+    __asm__("__ZN15NiScreenLODData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_screen_lod_data_get_rtti(void const *)
+    __asm__("__ZNK15NiScreenLODData7GetRTTIEv");
+extern "C" const void * pirates_ni_screen_lod_data_get_rtti(void const *) {
+    return pirates_ni_screen_lod_data_rtti;
+}
+
+static unsigned char pirates_ni_screen_space_camera_rtti[8]
+    __asm__("__ZN19NiScreenSpaceCamera6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_screen_space_camera_get_rtti(void const *)
+    __asm__("__ZNK19NiScreenSpaceCamera7GetRTTIEv");
+extern "C" const void * pirates_ni_screen_space_camera_get_rtti(void const *) {
+    return pirates_ni_screen_space_camera_rtti;
+}
+
+static unsigned char pirates_ni_sort_adjust_node_rtti[8]
+    __asm__("__ZN16NiSortAdjustNode6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_sort_adjust_node_get_rtti(void const *)
+    __asm__("__ZNK16NiSortAdjustNode7GetRTTIEv");
+extern "C" const void * pirates_ni_sort_adjust_node_get_rtti(void const *) {
+    return pirates_ni_sort_adjust_node_rtti;
+}
+
+static unsigned char pirates_ni_source_texture_rtti[8]
+    __asm__("__ZN15NiSourceTexture6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_source_texture_get_rtti(void const *)
+    __asm__("__ZNK15NiSourceTexture7GetRTTIEv");
+extern "C" const void * pirates_ni_source_texture_get_rtti(void const *) {
+    return pirates_ni_source_texture_rtti;
+}
+
+static unsigned char pirates_ni_source_cube_map_rtti[8]
+    __asm__("__ZN15NiSourceCubeMap6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_source_cube_map_get_rtti(void const *)
+    __asm__("__ZNK15NiSourceCubeMap7GetRTTIEv");
+extern "C" const void * pirates_ni_source_cube_map_get_rtti(void const *) {
+    return pirates_ni_source_cube_map_rtti;
+}
+
+static unsigned char pirates_ni_spot_light_rtti[8]
+    __asm__("__ZN11NiSpotLight6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_spot_light_get_rtti(void const *)
+    __asm__("__ZNK11NiSpotLight7GetRTTIEv");
+extern "C" const void * pirates_ni_spot_light_get_rtti(void const *) {
+    return pirates_ni_spot_light_rtti;
+}
+
+static unsigned char pirates_ni_string_extra_data_rtti[8]
+    __asm__("__ZN17NiStringExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_string_extra_data_get_rtti(void const *)
+    __asm__("__ZNK17NiStringExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_string_extra_data_get_rtti(void const *) {
+    return pirates_ni_string_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_strings_extra_data_rtti[8]
+    __asm__("__ZN18NiStringsExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_strings_extra_data_get_rtti(void const *)
+    __asm__("__ZNK18NiStringsExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_strings_extra_data_get_rtti(void const *) {
+    return pirates_ni_strings_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_switch_string_extra_data_rtti[8]
+    __asm__("__ZN23NiSwitchStringExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_switch_string_extra_data_get_rtti(void const *)
+    __asm__("__ZNK23NiSwitchStringExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_switch_string_extra_data_get_rtti(void const *) {
+    return pirates_ni_switch_string_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_texture_effect_rtti[8]
+    __asm__("__ZN15NiTextureEffect6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_texture_effect_get_rtti(void const *)
+    __asm__("__ZNK15NiTextureEffect7GetRTTIEv");
+extern "C" const void * pirates_ni_texture_effect_get_rtti(void const *) {
+    return pirates_ni_texture_effect_rtti;
+}
