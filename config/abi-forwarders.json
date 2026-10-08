@@ -9039,6 +9039,26 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-2a442440443a41ab5770",
+      "group_id": "o-b57d478cdca7cd322e6e",
+      "symbol": "__ZN6Phono212PAudioSystemC1Eii",
+      "original_name": "Phono2::PAudioSystem::PAudioSystem(int, int)",
+      "target_symbol": "__ZN6Phono212PAudioSystemC2Eii",
+      "target_name": "Phono2::PAudioSystem::PAudioSystem(int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int"
+      ]
     }
   ]
 }
