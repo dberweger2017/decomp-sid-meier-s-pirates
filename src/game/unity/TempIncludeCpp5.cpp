@@ -2,3 +2,5 @@
 
 #include "../../../src/gamebryo/NiShader.cpp"
 #include "../../../src/gamebryo/NiStreamBackground.cpp"
+
+#include "../../gamebryo/NiFile.cpp"
