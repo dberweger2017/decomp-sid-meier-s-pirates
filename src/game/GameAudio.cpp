@@ -4,3 +4,5 @@
 // Add only individually verified definitions. This scaffold earns no progress.
 
 void GameAudio_Update() {}
+
+void GameAudio_Play(AS2D_Type, int) {}
