@@ -14,3 +14,5 @@ bool FSound::IsStreaming() { return m_streaming; }
 bool FSound::IsInitialized() const { return m_initialized; }
 
 bool FSound::IsLoaded() const { return m_loaded; }
+
+bool FSound::IsPaused() const { return m_paused; }
