@@ -90,3 +90,5 @@ python tools/ci.py demo-regression
 ```
 
 It intentionally exits with status 1 and writes the before/after reports and summary under `build/ci-demo/`. Hosted decomp.dev registration is outside this milestone.
+
+See [progress, data and linking](docs/progress.md) for separate fuzzy/exact/data measures, the pinned linker, CI gates and [the first 16 exact source matches](docs/easy-candidates.md).

@@ -108,6 +108,9 @@ def compare_data(original, inventory, record, candidate, mapping=None, placement
                     raise ToolError('Relocations in zero-fill storage are unsupported')
                 result.update(status='matched', byte_equal=True, byte_verified=True)
             else:
+                begin = symbol.value - section.address
+                if any(r.type in (5, 6, 8, 9) and begin <= r.address < begin + size for r in section.relocations):
+                    raise ToolError('Instruction relocation in non-code data is unsupported')
                 if size > 64 * 1024 * 1024:
                     raise ToolError('Data allocation exceeds comparison resource limit')
                 resolver = AddressResolver(original, inventory, candidate, record['group_id'],
@@ -133,7 +136,11 @@ def display(result, left, right, details):
         # Bounded display; the equality comparison above includes every byte.
         for offset in range(0, min(max(len(left), len(right)), 4096), 16):
             l, r = left[offset:offset + 16], right[offset:offset + 16]
-            result['rows'].append({'offset': offset, 'original': l.hex(' '), 'candidate': r.hex(' '), 'different': l != r})
+            words = lambda data: ' '.join(f'{int.from_bytes(data[i:i + 4], "little"):08x}' for i in range(0, len(data) - 3, 4))
+            ascii_text = lambda data: ''.join(chr(b) if 32 <= b < 127 else '.' for b in data)
+            result['rows'].append({'offset': offset, 'original': l.hex(' '), 'candidate': r.hex(' '), 'different': l != r,
+                                   'original_words': words(l), 'candidate_words': words(r),
+                                   'original_ascii': ascii_text(l), 'candidate_ascii': ascii_text(r)})
         result['display_truncated'] = result['size'] > 4096
     else:
         result.pop('rows')

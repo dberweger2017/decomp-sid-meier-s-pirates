@@ -63,6 +63,17 @@ class DataTests(unittest.TestCase):
         self.assertTrue(result['byte_verified'])
         self.assertEqual(result['rows'][0]['original'], '61 62 63 64')
 
+    def test_scattered_section_difference_pointer_pair(self):
+        original = data_fixture(struct.pack('<I', 0x1000), extra=[symbol('_target', 0x3000, section=0, type=2)])
+        relocs = [{'address': 0, 'type': 2, 'length': 2, 'scattered': True, 'value': 0x100},
+                  {'address': 0, 'type': 1, 'length': 2, 'scattered': True, 'value': 0}]
+        obj = MachO(macho([('__DATA', '__data', 0, struct.pack('<I', 0x100), 0, relocs),
+                           ('__TEXT', '__const', 0x100, b'abcd', 0, [])],
+                          [symbol('_table'), symbol('_target', 0x100, section=2)]))
+        result = compare(original, obj)
+        self.assertTrue(result['byte_verified'])
+        self.assertEqual(result['relocations'][0]['subtract_address'], 0x2000)
+
     def test_unsupported_relocation_never_verifies_even_equal_bytes(self):
         original = data_fixture(b'\0' * 4)
         rel = {'address': 0, 'type': 4, 'length': 2, 'external': True, 'symbol': 1}
@@ -104,4 +115,4 @@ class DataTests(unittest.TestCase):
         original = data_fixture(b'abcd')
         value = {'inventory': recover_data(original, recover(original)), 'comparison': compare(original, candidate(b'abcd'))}
         serialized = json.dumps(value, sort_keys=True, separators=(',', ':'))
-        self.assertEqual(hashlib.sha256(serialized.encode()).hexdigest(), '5bfc8eaaef630de8e60d91b90a3c6a91e0f0967db389a432c852a890534f38c9')
+        self.assertEqual(hashlib.sha256(serialized.encode()).hexdigest(), 'e9d344d6c5915166a297f33e34966a48c5fcebccbf25ec7b78e4ff05f3853835')

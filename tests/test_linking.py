@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 from tools.pirates.configure import configure
 from tools.pirates.build import comparisons
-from tools.pirates.linking import inspect_image, current_state
+from tools.pirates.linking import inspect_image, current_state, manifest_arguments, reproduce_uuid, version_number
 from tools.pirates.util import load_json, write_json, ninja_command, ToolError
 from tools.pirates.report import regression
 from tests.fixtures import append_commands, macho, text, executable_symbols, symbol, reference
@@ -19,6 +19,31 @@ from tests.test_workflow import fixture_workspace
 
 
 class ImageTests(unittest.TestCase):
+    def test_arm_thread_entry_and_explicit_uuid_metadata(self):
+        registers = [0] * 17
+        registers[15] = 0x1000
+        thread = struct.pack('<21I', 5, 84, 1, 17, *registers)
+        uuid = struct.pack('<II16s', 0x1b, 24, b'\0' * 16)
+        original = reference(bytes.fromhex('1eff2fe1'))
+        image = append_commands(original, [thread, uuid])
+        self.assertEqual(inspect_image(image, entry='_probe')['thread_entry'], 0x1000)
+        with self.assertRaisesRegex(ToolError, 'thread entry'):
+            registers[15] = 0x1004
+            inspect_image(append_commands(original, [struct.pack('<21I', 5, 84, 1, 17, *registers)]), entry='_probe')
+        patched = reproduce_uuid(image, '00112233445566778899aabbccddeeff')
+        from tools.pirates.macho import MachO
+        self.assertEqual(MachO(patched).uuid, '00112233445566778899aabbccddeeff')
+        self.assertEqual(MachO(patched).bytes_at(0x1000, 4, 1), bytes.fromhex('1eff2fe1'))
+        self.assertEqual(version_number('0.0'), 0)
+        with self.assertRaises(ToolError): version_number('4.999')
+    def test_original_objects_and_opaque_payloads_are_not_link_inputs(self):
+        for manifest in ({'flags': ['-sectcreate', '__TEXT', '__original', 'build/inputs/Pirates']},
+                         {'flags': ['original.o']}, {'libraries': ['original.a']},
+                         {'flags': ['-undefined', 'dynamic_lookup']}):
+            with self.assertRaises(ToolError):
+                manifest_arguments(manifest, Path.cwd())
+        self.assertEqual(manifest_arguments({'flags': ['-segaddr', '__TEXT', '0x1000'], 'libraries': ['-lSystem']}, Path.cwd()),
+                         (['-segaddr', '__TEXT', '0x1000'], ['-lSystem']))
     def test_versions_architecture_entry_and_expected_imports(self):
         original = reference(bytes.fromhex('1eff2fe1'))
         image = append_commands(original, [struct.pack('<4I', 0x25, 16, 0x40200, 0x50100)])

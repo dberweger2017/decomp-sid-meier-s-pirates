@@ -20,6 +20,32 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
+def version_number(value):
+    if not isinstance(value, str) or not re.fullmatch(r'\d+\.\d+(?:\.\d+)?', value):
+        raise ToolError('Versions must be major.minor[.patch]')
+    fields = list(map(int, value.split('.')))
+    fields += [0] * (3 - len(fields))
+    if fields[0] > 65535 or fields[1] > 255 or fields[2] > 255:
+        raise ToolError('Mach-O version component out of range')
+    return fields[0] << 16 | fields[1] << 8 | fields[2]
+
+
+def reproduce_uuid(data, expected):
+    """Reproduce a declared identity field; never mask code/data addresses."""
+    if not re.fullmatch(r'[0-9a-f]{32}', expected):
+        raise ToolError('Expected UUID must be 16 lowercase hexadecimal bytes')
+    image = MachO(data)
+    result = bytearray(data)
+    pos = 28
+    for _ in range(image.unpack('<I', 16)[0]):
+        cmd, size = image.unpack('<II', pos)
+        if cmd == 0x1b:
+            result[pos + 8:pos + 24] = bytes.fromhex(expected)
+            return bytes(result)
+        pos += size
+    raise ToolError('Linker did not emit the declared UUID command')
+
+
 def command(profile, root, sdk=None):
     if profile.get('container'):
         image = profile['container']['image']
@@ -84,6 +110,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
     if image.filetype != 2:
         raise ToolError('Linker output is not an ARMv7 executable')
     dylibs, segments, bind_regions = [], [], []
+    thread_entry = None
     pos = 28
     count = struct.unpack_from('<I', data, 16)[0]
     versions = {}
@@ -107,6 +134,10 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
             if size != 16:
                 raise ToolError('Malformed iOS deployment command')
             versions['min'], versions['sdk'] = image.unpack('<II', pos + 8)
+        elif cmd == 5:  # LC_UNIXTHREAD / ARM_THREAD_STATE
+            if size != 84 or image.unpack('<II', pos + 8) != (1, 17):
+                raise ToolError('Unsupported ARM thread entry command')
+            thread_entry = image.unpack('<I', pos + 16 + 15 * 4)[0]
         elif cmd in (0x22, 0x80000022):
             if size != 48:
                 raise ToolError('Malformed dyld info')
@@ -116,8 +147,12 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
                 image.check(off, length)
                 bind_regions.append((name, off, length))
         pos += size
-    if entry and not any(s.defined and s.name == entry for s in image.symbols):
-        raise ToolError('Linked entry symbol is absent: ' + entry)
+    if entry:
+        choices = [s for s in image.symbols if s.defined and s.name == entry]
+        if len(choices) != 1:
+            raise ToolError('Linked entry symbol is absent or ambiguous: ' + entry)
+        if thread_entry is not None and thread_entry != (choices[0].value | int(choices[0].thumb)):
+            raise ToolError('ARM thread entry differs from declared entry symbol')
     bindings = []
     for kind, off, length in bind_regions:
         p, end = off, off + length
@@ -185,7 +220,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
     if sdk_version is not None and versions.get('sdk') != sdk_version:
         raise ToolError('iOS SDK version differs')
     return {'architecture': 'armv7', 'libraries': dylibs, 'versions': versions, 'bindings': bindings,
-            'sections': image.section_metadata(), 'entry': entry, 'runtime_validated': False}
+            'sections': image.section_metadata(), 'entry': entry, 'thread_entry': thread_entry, 'runtime_validated': False}
 
 
 def inputs(root, config):
@@ -267,18 +302,35 @@ def run_link(root):
                 raise ToolError('Link scope must be replacement or diagnostic')
             sdk_root = '/sdk' if profile.get('container') else config.get('sdk')
             flags, libraries = manifest_arguments(manifest, root)
-            args = ['-arch', 'armv7', '-ios_version_min', '4.2', '-sdk_version', '5.1', '-no_uuid', '-e', manifest['entry']]
+            minimum, sdk_version = manifest.get('deployment_target', '4.2'), manifest.get('sdk_version', '5.1')
+            args = ['-arch', 'armv7', '-ios_version_min', minimum, '-sdk_version', sdk_version, '-e', manifest['entry']]
+            uuid = manifest.get('uuid')
+            if not uuid:
+                args += ['-no_uuid']
             if sdk_root:
                 args += ['-syslibroot', sdk_root]
             args += flags + ['-o', 'build/link/Pirates'] + ['build/units/' + uid + '.o' for uid in order]
+            for value in manifest.get('sdk_objects', []):
+                if not config.get('sdk') or not isinstance(value, str) or not re.fullmatch(r'usr/lib/(?:g?crt1(?:\.3\.1)?)\.o', value):
+                    raise ToolError('Only named startup objects from the verified SDK are supported')
+                startup = Path(config['sdk']) / value
+                if not startup.is_file() or not startup.resolve().is_relative_to(Path(config['sdk']).resolve()):
+                    raise ToolError('SDK startup object is missing or outside the SDK')
+                args += [sdk_root + '/' + value]
             args += libraries
             process = subprocess.run(command(profile, root, config.get('sdk')) + args, cwd=root, capture_output=True, text=True,
                                      env={**os.environ, 'LC_ALL': 'C', 'TZ': 'UTC', 'SOURCE_DATE_EPOCH': '0'}, timeout=300)
             diagnostics = process.stdout + process.stderr
             if process.returncode:
                 raise ToolError('Linker failed with exit code ' + str(process.returncode))
+            if uuid:
+                original_uuid = MachO((root / config['provenance']['input']).read_bytes()).uuid
+                if uuid != original_uuid:
+                    raise ToolError('Declared UUID differs from the verified original identity')
+                image_path.write_bytes(reproduce_uuid(image_path.read_bytes(), uuid))
+                state['metadata_reproduction'] = {'uuid': uuid, 'scope': 'UUID identity field only; no address masking'}
             structure = inspect_image(image_path.read_bytes(), entry=manifest['entry'], imports=manifest.get('expected_imports', []),
-                                      libraries=manifest.get('expected_libraries', []), min_version=0x40200, sdk_version=0x50100,
+                                      libraries=manifest.get('expected_libraries', []), min_version=version_number(minimum), sdk_version=version_number(sdk_version),
                                       expected_bindings=manifest.get('expected_bindings'))
             state.update(state='linked', reason='Structurally linked; original image equality and runtime behavior are unverified',
                          image_sha256=sha256(image_path), structure=structure, participating_units=order)

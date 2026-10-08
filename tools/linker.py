@@ -4,14 +4,15 @@ import argparse
 import gzip
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.pirates.linking import command, identity, inspect_image, digest
-from tools.pirates.compiler import fingerprint as compiler_fingerprint
-from tools.pirates.sdk import require_sdk
+from tools.pirates.compiler import fingerprint as compiler_fingerprint, command as compiler_command, language_flags
+from tools.pirates.sdk import require_sdk, header_flags
 from tools.pirates.macho import MachO
 from tools.pirates.util import load_json, write_json, sha256, ToolError
 
@@ -89,14 +90,43 @@ def validate(profile_path, compiler_path, sdk):
                 folder = root / f'build/linker/probes/{extension}/{mode}/{repeat}'
                 folder.mkdir(parents=True, exist_ok=True)
                 image = folder / 'probe'
+                objects = [obj]
+                # Exercise module constructors and defined Objective-C class
+                # metadata, in addition to the primary SDK/import probes.
+                cpp = 'volatile unsigned linker_initialized; struct LinkProbeInit { LinkProbeInit(){linker_initialized=41;} }; static LinkProbeInit init;\n'
+                objc = '#import <Foundation/Foundation.h>\n@interface LinkProbe : NSObject\n- (unsigned)value;\n@end\n@implementation LinkProbe\n- (unsigned)value {return 41;}\n@end\n'
+                support = folder / ('support.' + extension)
+                if extension in ('m', 'mm'):
+                    main = ('extern "C" unsigned sdk_probe(id);\nextern "C" int main(int argc,char **argv){return sdk_probe(nil);}\n' if extension == 'mm'
+                            else 'int sdk_probe(id);\nint main(int argc,char **argv){return sdk_probe(nil);}\n')
+                else:
+                    main = ('extern "C" unsigned sdk_probe(const char*);\nextern "C" int main(int argc,char **argv){return sdk_probe("41");}\n' if extension == 'cpp'
+                            else 'int sdk_probe(const char*);\nint main(int argc,char **argv){return sdk_probe("41");}\n')
+                support.write_text((objc if extension in ('m', 'mm') else '') + (cpp if extension in ('cpp', 'mm') else '') + main)
+                support_obj = support.with_suffix('.o')
+                flags = language_flags(support) + compiler['flags'] + ['-O2', '-m' + mode] + header_flags(compiler, sdk, support)
+                built = subprocess.run(compiler_command(compiler, root, sdk) + flags + ['-c', str(support.relative_to(root)),
+                                        '-o', str(support_obj.relative_to(root))], cwd=root, capture_output=True, text=True, timeout=120)
+                (folder / 'support-diagnostics.txt').write_text(built.stdout + built.stderr)
+                if built.returncode:
+                    raise ToolError('Link support source compilation failed')
+                objects.append(str(support_obj.relative_to(root)))
+                objects.insert(0, '/sdk/usr/lib/crt1.3.1.o')
                 args = ['-arch', 'armv7', '-ios_version_min', '4.2', '-sdk_version', '5.1', '-syslibroot', '/sdk',
-                        '-e', '_sdk_probe', '-no_uuid', '-o', str(image.relative_to(root)), obj] + libs
+                        '-e', 'start', '-no_uuid', '-o', str(image.relative_to(root))] + objects + libs
                 process = subprocess.run(command(profile, root, sdk) + args, cwd=root, capture_output=True, text=True, timeout=120)
                 (folder / 'diagnostics.txt').write_text(process.stdout + process.stderr)
                 if process.returncode:
                     raise ToolError('SDK link probe failed: ' + extension + '/' + mode + '; see diagnostics')
-                structures.append(inspect_image(image.read_bytes(), entry='_sdk_probe', imports=required[extension], min_version=0x40200,
+                structures.append(inspect_image(image.read_bytes(), entry='start', imports=required[extension], min_version=0x40200,
                                                 sdk_version=0x50100, expected_bindings=targets[extension]))
+                section_names = {s['name'] for s in structures[-1]['sections']}
+                if structures[-1]['thread_entry'] is None:
+                    raise ToolError('Linked SDK startup entry is absent')
+                if extension in ('cpp', 'mm') and '__mod_init_func' not in section_names:
+                    raise ToolError('Linked C++ module constructor is absent')
+                if extension in ('m', 'mm') and '__objc_classlist' not in section_names:
+                    raise ToolError('Linked Objective-C class metadata is absent')
                 hashes.append(sha256(image))
                 symbol = next(s for s in MachO(image.read_bytes()).symbols if s.name == '_sdk_probe' and s.defined)
                 if symbol.thumb != (mode == 'thumb'):
@@ -134,9 +164,42 @@ def export():
                'sha256': sha256(out / 'runtime-image.tar.gz'), 'profile_sha256': digest(profile)})
 
 
+def import_runtime(directory, compiler_path, sdk):
+    directory = Path(directory).resolve()
+    exported = load_json(directory / 'runtime-export.json')
+    profile = load_json(directory / 'linker.json')
+    previous = load_json(directory / 'validation.json')
+    archive = directory / 'runtime-image.tar.gz'
+    if (not exported.get('validated') or not previous.get('validated') or sha256(archive) != exported.get('sha256')
+            or digest(profile) != exported.get('profile_sha256') or profile['container']['image'] != exported.get('image')):
+        raise ToolError('Linker archive/manifest identity differs or is unvalidated')
+    if profile.get('template_sha256') != digest(load_json(ROOT / 'config/linker.json')):
+        raise ToolError('Exported linker template differs from this checkout')
+    out = ROOT / 'build/linker'
+    write_json(out / 'validation.json', {'validated': False, 'reason': 'Receiving-host link probes have not completed'})
+    loaded = subprocess.run(['docker', 'load', '-i', str(archive)], capture_output=True, text=True, check=True)
+    identities = set(re.findall(r'Loaded image ID: (sha256:[0-9a-f]{64})', loaded.stdout))
+    if identities != {exported['image']}:
+        raise ToolError('Expected the one declared immutable linker image')
+    metadata = json.loads(subprocess.run(['docker', 'image', 'inspect', exported['image']], capture_output=True, text=True, check=True).stdout)[0]
+    if metadata.get('Os') != 'linux' or metadata.get('Architecture') != 'amd64':
+        raise ToolError('Linker image must be Linux amd64')
+    if identity(profile, ROOT) != previous['identity']:
+        raise ToolError('Imported linker binary fingerprint differs')
+    path = 'build/linker/linker.json'
+    write_json(ROOT / path, profile)
+    validate(path, compiler_path, sdk)
+    current = load_json(ROOT / profile['validation'])
+    if current['probes'] != previous['probes']:
+        write_json(ROOT / profile['validation'], {'validated': False, 'reason': 'Receiving-host image hashes/layout differ from exported probes'})
+        raise ToolError('Receiving-host link probes differ from native/exported probes')
+    print('Imported linker and revalidated identical images/layout on this host.')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['build', 'validate', 'export'])
+    parser.add_argument('command', choices=['build', 'validate', 'export', 'import'])
+    parser.add_argument('directory', nargs='?')
     parser.add_argument('--profile', default='build/linker/linker.json')
     parser.add_argument('--compiler', default='build/toolchain/compiler.json')
     parser.add_argument('--sdk', default='build/sdk/iPhoneOS5.1.sdk')
@@ -144,7 +207,11 @@ def main():
     try:
         if args.command == 'build': build()
         elif args.command == 'validate': validate(args.profile, args.compiler, args.sdk)
-        else: export()
+        elif args.command == 'export': export()
+        else:
+            if not args.directory:
+                raise ToolError('Supply the exported linker artifact directory')
+            import_runtime(args.directory, args.compiler, args.sdk)
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         parser.exit(1, str(error) + '\n')
 

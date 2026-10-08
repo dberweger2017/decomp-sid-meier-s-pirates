@@ -65,6 +65,15 @@ class AddressResolver:
             table = self.group_names if f['group_id'] == group_id else self.global_names
             if f['mode'] != 'unknown':
                 table.setdefault(f['symbol'], set()).add((f['address'], f['mode'] == 'thumb'))
+        # Local static data names can repeat across original compilation units.
+        # STABS ownership is stronger evidence than a global name lookup.
+        if not hasattr(original, '_data_ownership'):
+            from .data import recover_data
+            original._data_ownership = recover_data(original, inventory)['records']
+        for data in original._data_ownership:
+            if data['group_id'] == group_id and not data['ambiguities']:
+                for name in data['aliases']:
+                    self.group_names.setdefault(name, set()).add((data['address'], False))
         self.explicit = symbol_addresses or {}
 
     def name(self, name, pointer=False):

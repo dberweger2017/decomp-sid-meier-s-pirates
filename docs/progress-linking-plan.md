@@ -127,6 +127,6 @@ remain separately scoped work, not implied by a successful object comparison.
 3. Pinned linker feasibility probes and incremental synthetic link loop.
 4. Replacement-image integration and explicit linking completion gates.
 
-This document plans those tooling stages. The accompanying source work recovers
+These tooling stages are implemented; see [progress and linking](progress.md) for behavior, commands and remaining original-layout uncertainty. The accompanying source work recovers
 10–20 additional small functions with the existing historical compiler and byte
-verification core; it does not implement or claim full-game linking.
+verification core; it does not claim a linked or runnable full-game replacement.

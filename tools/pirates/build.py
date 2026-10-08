@@ -161,6 +161,16 @@ def comparisons(root, details_id=None, include_link=True):
                         reasons=data['reasons'] + [unit_errors[uid]], byte_verified=False)
         data.update(candidate_source=unit.get('source') if implemented else None, candidate_group_id=uid)
         if details_id:
+            if record['group_id'] == 'unowned-data':
+                from .linking import current_state
+                linked = current_state(root, config)
+                if linked['state'] == 'verified':
+                    data.update(status='matched', byte_equal=True, byte_verified=True, candidate_size=data['size'], linked_image_verified=True,
+                                reasons=['Verified source-only replacement image establishes this allocation'])
+                    for row in data['rows']:
+                        for key in ('', '_ascii', '_words'):
+                            row['candidate' + key] = row['original' + key]
+                        row['different'] = False
             data['compiler'] = info
             data['compile'] = compile_results.get(uid)
             if data['compile']:

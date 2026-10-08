@@ -46,9 +46,10 @@ function renderMetrics() {
   $('notice').textContent = report.kind === 'synthetic' ? 'SYNTHETIC FIXTURE · Modern Clang tests the tooling. These matches are not game source progress.' : report.compiler.validated ? 'Historical cross-build validated. Exact original compiler revision and flags remain unproven.' : 'HISTORICAL COMPILER UNVALIDATED · ' + (report.compiler.reason || 'Missing validation evidence') + ' · Source-matching progress starts at zero.';
 }
 function renderTree() {
+  if (!report) return;
   const q = $('search').value.toLowerCase(), status = $('status').value, source = $('source-filter').value.toLowerCase();
   const byGroup = new Map();
-  if (!q && status === 'all' && !source) report.units.forEach(u => byGroup.set(u.id, []));
+  if ($('record-kind').value === 'code' && !q && status === 'all' && !source) report.units.forEach(u => byGroup.set(u.id, []));
   let count = 0;
   for (const f of records()) {
     const u = unitIndex.get(f.group_id);
@@ -130,11 +131,13 @@ async function renderFunction() {
     $('original-size').textContent = `${f.size} bytes`;
     $('candidate-size').textContent = f.candidate_size === null ? 'Missing' : `${f.candidate_size} bytes`;
     const assembly = $('assembly'); assembly.replaceChildren();
+    $('data-format').hidden = !f.id.startsWith('d-');
     if (f.id.startsWith('d-')) {
       if (f.zerofill) assembly.append(el('pre', `Zero-fill allocation · ${f.size} bytes · alignment ${f.alignment}
 Candidate allocation: ${f.candidate_size ?? 'missing'} · equality requires full size and alignment.`));
       else f.rows.forEach(r => { const row = el('div', undefined, 'asm-row');
-        row.append(el('div', `+0x${r.offset.toString(16)}  ${r.original}`, 'asm-cell'), el('div', r.candidate || 'No compiled candidate', 'asm-cell' + (r.different ? ' changed' : ''))); assembly.append(row); });
+        const suffix = $('data-format').value === 'hex' ? '' : '_' + $('data-format').value;
+        row.append(el('div', `+0x${r.offset.toString(16)}  ${r['original' + suffix]}`, 'asm-cell'), el('div', r['candidate' + suffix] || 'No compiled candidate', 'asm-cell' + (r.different ? ' changed' : ''))); assembly.append(row); });
       if (f.display_truncated) assembly.append(el('p', 'Display limited to 4096 bytes; equality includes the whole allocation.', 'subtle'));
     } else {
       const hasCandidate = f.rows.some(r => r.candidate);
@@ -182,6 +185,7 @@ for (const button of document.querySelectorAll('[data-tab]')) button.onclick = (
     tab.setAttribute('aria-selected', String(active)); $(tab.dataset.tab + '-panel').hidden = !active; }
 };
 for (const id of ['search', 'status', 'source-filter']) $(id).addEventListener('input', renderTree);
+$('data-format').onchange = renderFunction;
 $('show-linking').onclick = () => { $('linking-panel').hidden = !$('linking-panel').hidden; };
 $('record-kind').onchange = () => { if (dirty) { $('record-kind').value = selected.startsWith('d-') ? 'data' : 'code'; error('Save your source changes before changing views.'); return; } selected = ''; renderTree(); $('function-view').hidden = true; $('empty').hidden = false; };
 async function refresh() {

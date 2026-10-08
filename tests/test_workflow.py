@@ -311,6 +311,42 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(adapter['units'][0]['metadata']['complete'], False)
         self.assertEqual(adapter['units'][0]['functions'][0]['address'], '0')
 
+    def test_data_source_header_rebuild_and_regression(self):
+        # A real compiled C array; the independently encoded original includes
+        # its padding/allocation and STABS object ownership.
+        (self.root / 'src/probe.c').write_text('#include "value.h"\nint table[2]={VALUE,99};\nint probe(int x){return x+VALUE;}\n')
+        cmd = [shutil.which('clang'), '-target', 'armv7-apple-ios4.2', '-O2', '-mthumb', '-c', 'src/probe.c', '-o', 'data-fixture.o']
+        subprocess.run(cmd, cwd=self.root, check=True, capture_output=True)
+        obj = MachO((self.root / 'data-fixture.o').read_bytes())
+        code = next(s for s in obj.symbols if s.name == '_probe' and s.defined)
+        table = next(s for s in obj.symbols if s.name == '_table' and s.defined)
+        text_sec, data_sec = obj.section(code.section), obj.section(table.section)
+        raw = obj.bytes_at(code.value & ~1, text_sec.size, code.section)
+        value = obj.bytes_at(table.value, data_sec.size, table.section)
+        records = executable_symbols([('_probe', 0x1000, len(raw), 'thumb', 'unity')], [('_table', 0x0f, 2, 0, 0x2000)])
+        records.insert(3, ('_table', 0x26, 2, 0, 0x2000))
+        (self.root / 'fixture.macho').write_bytes(macho([text(raw, 0x1000), ('__DATA', '__data', 0x2000, value, 0, [])], records, filetype=2))
+        configure(self.root, fixture=self.root / 'fixture.macho', profile='config/fixture-compiler.json')
+        base, _ = self.build()
+        self.assertEqual(base['data_metrics']['matched_bytes'], 8)
+        self.assertEqual(base['data'][0]['ownership'], 'STABS')
+        self.assertEqual(objdiff_adapter(base)['measures']['totalData'], '8')
+        self.assertEqual(objdiff_adapter(base)['measures']['matchedData'], '8')
+        (self.root / 'src/value.h').write_text('#define VALUE 42\n')
+        self.assertFalse(comparisons(self.root, base['data'][0]['id'])['byte_verified'])
+        head, run = self.build()
+        self.assertIn('COMPILE', run.stdout)
+        self.assertEqual(head['data_metrics']['matched_bytes'], 0)
+        self.assertTrue(any('Verified data match regressed' in f for f in regression(base, head)['failures']))
+
+    def test_linker_baseline_cannot_be_silently_reset(self):
+        from tools.ci import linker_profile_failure
+        write_json(self.root / 'config/linker.json', {'family': 'ld64', 'name': 'original'})
+        write_json(self.root / 'config/link.json', {'version': 1, 'enabled': True})
+        with tempfile.TemporaryDirectory() as other:
+            write_json(Path(other) / 'config/linker.json', {'family': 'ld64', 'name': 'changed'})
+            self.assertIn('linker baseline', linker_profile_failure(self.root, other))
+
     def test_inventory_loss_and_candidate_compile_failure_fail_regression_check(self):
         base, _ = self.build()
         head = copy.deepcopy(base)
