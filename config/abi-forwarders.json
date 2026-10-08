@@ -9645,6 +9645,18 @@
       "return_type": "void",
       "parameters": [],
       "target_parameters": []
+    },
+    {
+      "id": "f-f1906bdd5ba8335a0345",
+      "group_id": "o-feef30570e6ce15967c0",
+      "symbol": "__GLOBAL__I__ZN3ISE29ISEPSysEmitterDeclinationCtlrC2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE29ISEPSysEmitterDeclinationCtlrC2Ev",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }
