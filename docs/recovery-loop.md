@@ -136,3 +136,8 @@ candidate CI. All 9,177 function records, 5,056 data records and matching/covera
 metrics in its Linux report equal the saved local macOS report; compiler profile
 metadata remains explicit. The nine-group structural link still earns zero
 replacement completion.
+
+CloseStream also remains different at 88.8889%, with both calls resolved but the
+compare and frame-pointer setup in opposite order. It is a source candidate,
+not a verified match. These two Phono candidates demonstrate the browser's
+separate similarity/byte-verification categories on real recovered call code.

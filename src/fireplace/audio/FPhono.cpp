@@ -74,3 +74,9 @@ void FPhono::SetPlaybackRate_Sound(int sound, float pitch) {
 void FPhono::SetDopplerFactor(float factor) {
     Phono2::PAudioSystem::getSingletonPtr()->EnableDoppler(factor, 314.0f);
 }
+
+void FPhono::CloseStream(int stream) {
+    if (stream != -1) {
+        Phono2::PAudioSystem::getSingletonPtr()->StopStream(stream);
+    }
+}
