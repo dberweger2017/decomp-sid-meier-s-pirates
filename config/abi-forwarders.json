@@ -9411,6 +9411,22 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-3eaba43582006f00b728",
+      "group_id": "o-b79a5e5c044ef79ce5fb",
+      "symbol": "__ZN3ISE7ISEFontC1Ev",
+      "original_name": "ISE::ISEFont::ISEFont()",
+      "target_symbol": "__ZN3ISE7ISEFontC2Ev",
+      "target_name": "ISE::ISEFont::ISEFont()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
