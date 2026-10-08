@@ -2313,6 +2313,42 @@
         "f-3c758bac6315f3822509"
       ],
       "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-0ae9e92e1c7f2e027e25",
+      "source": "src/recovery/units/libISELib_a_tinyxml_.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-102b15eb1e3267b744e6",
+        "f-b95dd44cd35f7fdae2fb",
+        "f-0d52f0148f9a8cededf4",
+        "f-443853e4f423e5d8eeb3",
+        "f-e99aa1a189f558f27c79",
+        "f-07a11dbadead1a2531f8",
+        "f-f4435a279f90937acd76",
+        "f-f88a8afe8765a5c408ce",
+        "f-47c2b7242e2fbff80f65",
+        "f-0ec8a33eed7f31aa5434",
+        "f-99758c5d876216baff06",
+        "f-65c00acd691df9f7e574",
+        "f-a6cd1d111ced13d64c9e",
+        "f-11036a8b2e481f696ca7",
+        "f-6b79372076834451e6cc",
+        "f-f8ee657a43ff4342df43",
+        "f-a7fe08336ffac4671839",
+        "f-14ca5abcc5bbf8979db2",
+        "f-3f3d221e257b6ace51e1",
+        "f-50314082d47c96a2caea",
+        "f-9f4882bfc4db56fed01a",
+        "f-a5914176cfc781668e36"
+      ],
+      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
     }
   ]
 }
