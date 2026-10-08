@@ -18,4 +18,12 @@ static inline HeapBlock *blockHeader(void *allocation) {
         static_cast<unsigned char *>(allocation) - sizeof(HeapBlock));
 }
 
+Heap *Heap_FromBlock(void *allocation) {
+    HeapBlock *header = blockHeader(allocation);
+    // Keep the header address materialized so the compiler doesn't fold the
+    // subtraction into the following load's negative displacement.
+    __asm__ volatile("" : "+r"(header));
+    return header->owner;
+}
+
 void Heap_Dump(Heap *, const char *) {}

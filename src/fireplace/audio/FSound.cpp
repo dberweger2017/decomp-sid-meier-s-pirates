@@ -11,6 +11,8 @@ unsigned int FSound::GetGlobalSoundFilenameIndex() { return m_globalSoundFilenam
 
 bool FSound::IsStreaming() { return m_streaming; }
 
+bool FSound::IsLooping() const { return m_looping != 0; }
+
 bool FSound::IsInitialized() const { return m_initialized; }
 
 bool FSound::IsLoaded() const { return m_loaded; }
@@ -34,6 +36,10 @@ void FSound::SetTaperVolume(float value) { m_taperVolume = value; }
 void FSound::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields |= flags; }
 
 void FSound::ClearShortCircuitScriptField(int flags) { m_shortCircuitScriptFields &= ~flags; }
+
+bool FSound::GetShortCircuitScriptField(int flags) {
+    return (m_shortCircuitScriptFields & flags) != 0;
+}
 
 bool FSound::GetVolume(float &value) const { value = m_volume; return true; }
 

@@ -519,3 +519,14 @@ fuzzy candidate without exact-match credit.
 The resulting report has **1,598 exact functions / 17,836 bytes**, 49 differing
 candidates, 7,530 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+The next short-function batch adds four exact bodies: FSound::IsLooping reads
+the word at `+0x1c` as a boolean; FSound::GetShortCircuitScriptField tests the
+mask at `+0x60`; Heap_FromBlock reads the owner pointer from the 24-byte block
+header immediately before the allocation; and FAudioMemMgr's constructor
+clears its first word. The heap accessor uses an empty register constraint to
+preserve the original separate subtract-and-load instruction sequence.
+
+The updated report has **1,602 exact functions / 17,900 bytes**, 49 differing
+candidates, 7,526 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
