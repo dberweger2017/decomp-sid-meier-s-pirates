@@ -13,3 +13,7 @@ unsigned int FPhono::GetPlaybackTotal_Stream(int stream) {
 unsigned int FPhono::GetPlaybackPosition_Stream(int stream) {
     return Phono2::PAudioSystem::getSingletonPtr()->GetStreamPlaybackPosition(stream);
 }
+
+unsigned int FPhono::GetPlaybackPosition_Sample(int sample) {
+    return Phono2::PAudioSystem::getSingletonPtr()->GetSamplePlaybackPosition(sample);
+}
