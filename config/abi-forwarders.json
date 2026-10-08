@@ -9443,6 +9443,26 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-efa82815d570f6bc2975",
+      "group_id": "o-97ff96143a03b7b7e331",
+      "symbol": "__ZN3ISE7ISEMeshC1EiPNS_9ISEEntityE",
+      "original_name": "ISE::ISEMesh::ISEMesh(int, ISE::ISEEntity*)",
+      "target_symbol": "__ZN3ISE7ISEMeshC2EiPNS_9ISEEntityE",
+      "target_name": "ISE::ISEMesh::ISEMesh(int, ISE::ISEEntity*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "void *"
+      ]
     }
   ]
 }

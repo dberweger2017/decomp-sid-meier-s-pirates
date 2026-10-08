@@ -398,6 +398,29 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-e3ac0feb8bc84829927c",
+      "group_id": "o-97ff96143a03b7b7e331",
+      "symbol": "__ZN3ISE7ISEMesh14VectorInsideMeEPNS_11ISEMeshNodeENS_10ISEVector3EPf",
+      "original_name": "ISE::ISEMesh::VectorInsideMe(ISE::ISEMeshNode*, ISE::ISEVector3, float*)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
+    },
+    {
+      "id": "f-3fc4e69c9d095d4ef0b1",
+      "group_id": "o-97ff96143a03b7b7e331",
+      "symbol": "__GLOBAL__I__ZN3ISE7ISEMesh15m_sbDrawWithVBOE",
+      "original_name": "_GLOBAL__I__ZN3ISE7ISEMesh15m_sbDrawWithVBOE",
+      "kind": "empty-initializer",
+      "return_type": "void",
+      "parameters": [],
+      "internal": true
     }
   ]
 }
