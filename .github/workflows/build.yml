@@ -176,6 +176,20 @@ jobs:
         run: |
           python head/tools/first_candidate_smoke.py --workspace head/build/ci-workspaces/head
           cat head/build/ci-workspaces/head/build/candidate-smoke/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Export read-only browser snapshot from the verified head build
+        shell: bash
+        env:
+          SITE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          stamp=$(git -C head show -s --format=%cI "$SITE_SHA")
+          stamp=$(python -c 'import datetime,sys; print(datetime.datetime.fromisoformat(sys.argv[1]).astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))' "$stamp")
+          python head/tools/export_site.py --workspace head/build/ci-workspaces/head --output artifacts/site --commit "$SITE_SHA" --updated-at "$stamp" --run-url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pirates-site
+          path: artifacts/site/
+          if-no-files-found: error
+          retention-days: 14
       - uses: actions/cache/save@0400d5f644dc74513175e3cd8d07132dd4860809 # v4.2.4
         if: always() && steps.candidates.outputs.present == 'true' && steps.candidate-compiler-cache.outputs.cache-hit != 'true'
         with:
@@ -227,3 +241,46 @@ jobs:
       - name: Fail on compiler provisioning failure after preserving reports
         if: always() && (steps.compiler-prep.outcome == 'failure' || steps.sdk-prep.outcome == 'failure')
         run: exit 1
+  deploy-site:
+    name: Publish pirates.davideb.ch
+    needs: [tooling, game-progress]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'dberweger2017/decomp-sid-meier-s-pirates'
+    runs-on: ubuntu-24.04
+    environment:
+      name: pirates-production
+      url: https://pirates.davideb.ch
+    concurrency:
+      group: pirates-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Download this run's published snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name pirates-site --dir snapshot
+      - name: Publish through restricted SSH with a pinned host key
+        env:
+          PIRATES_DEPLOY_KEY: ${{ secrets.PIRATES_DEPLOY_KEY }}
+          PIRATES_DEPLOY_KNOWN_HOSTS: ${{ vars.PIRATES_DEPLOY_KNOWN_HOSTS }}
+          PIRATES_DEPLOY_HOST: ${{ vars.PIRATES_DEPLOY_HOST }}
+          PIRATES_DEPLOY_USER: ${{ vars.PIRATES_DEPLOY_USER }}
+        shell: bash
+        run: |
+          umask 077
+          key="$RUNNER_TEMP/pirates-deploy-key"
+          known_hosts="$RUNNER_TEMP/pirates-known-hosts"
+          trap 'rm -f "$key" "$known_hosts"' EXIT
+          python - "$key" "$known_hosts" <<'PY'
+          import os,sys
+          from pathlib import Path
+          for name,path in zip(('PIRATES_DEPLOY_KEY','PIRATES_DEPLOY_KNOWN_HOSTS'), sys.argv[1:]):
+              value = os.environ[name]
+              if not value.strip():
+                  raise SystemExit('Missing deployment configuration: ' + name)
+              Path(path).write_text(value.rstrip() + '\n')
+          PY
+          python tools/deploy_site.py --site snapshot --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID" --host "$PIRATES_DEPLOY_HOST" --user "$PIRATES_DEPLOY_USER" --key "$key" --known-hosts "$known_hosts"
+          echo "Published [$GITHUB_SHA](https://pirates.davideb.ch) after both platform tests and the historical build succeeded." >> "$GITHUB_STEP_SUMMARY"

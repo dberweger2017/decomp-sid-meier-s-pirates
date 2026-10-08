@@ -1,0 +1,22 @@
+services:
+  pirates-site:
+    image: ${PIRATES_CADDY_IMAGE:?Use an immutable caddy image digest}
+    container_name: pirates-site
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    # Official Caddy carries this file capability; its bounding set must retain it.
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    ports: ["127.0.0.1:8766:80"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./releases:/srv/pirates/releases:ro
+      - ./state:/srv/pirates/state:ro
+      # Mount the parent so atomic current symlink replacements are visible.
+      - ./:/srv/pirates:ro
+    tmpfs: [/config, /data]
+    networks: [proxy-nw]
+networks:
+  proxy-nw:
+    external: true

@@ -1,0 +1,4 @@
+# Add to /opt/code/gateway/Caddyfile after checking DNS points at this server.
+pirates.davideb.ch {
+    reverse_proxy pirates-site:80
+}

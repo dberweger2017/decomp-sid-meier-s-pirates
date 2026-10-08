@@ -1,8 +1,10 @@
 # Sid Meier's Pirates! iOS decompilation — status report
 
 **Snapshot:** October 8, 2026.  
-**Merged website/tooling baseline:** PR #5, `23b86a0593d10041c0040d337c00f28bf851a136`.  
-**Active recovery:** [PR #8](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/8), stacked on [PR #7](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/7) and [PR #4](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/4).
+**Previous deployed baseline:** PR #5, `23b86a0593d10041c0040d337c00f28bf851a136`.
+
+**Main merge checkpoint:** [PR #4](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/4), integrating the merged [PR #7](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/7) and [PR #8](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/8) recovery with PR #5 hosting.
+
 **Separate partial animation recovery:** [PR #6](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/6).
 
 PR #8 verifies **all 263 remaining records in the tiny-function shortlist /
@@ -13,7 +15,7 @@ now includes its ABI wrapper without the separate unfinished animation work.
 The batch recovers small entry bodies, not complete gameplay algorithms or
 class/runtime metadata. Full-game replacement linking stays at zero.
 
-| Measure | Merged main | PR #4 | PR #7 | PR #8 |
+| Measure | PR #5 baseline | PR #4 initial | PR #7 checkpoint | Main merge checkpoint |
 |---|---:|---:|---:|---:|
 | Named functions / original groups | 9,177 / 268 | Same | Same | Same |
 | Original inventoried function bytes | 4,080,584 | Same | Same | Same |
@@ -74,7 +76,7 @@ The 73-group retained-source diagnostic image SHA-256 is
 `1b7b5e3c9081d100cdf13b7cc400679b29d57f7a8d2cd9e1366c3546e96a2f46`.
 These subset images grant zero complete replacement or iOS runtime credit.
 
-Local validation: **117 tooling tests pass**, doctor passes, all 574 reviewed
+Combined hosting/recovery validation: **129 tooling tests pass**, doctor passes, all 574 reviewed
 forwarders and 128 reviewed ABI leaf sources validate, and the fixed 263-record
 cohort passes `--require-exact`. Native regression finds exactly 263 new matches
 relative to PR #7 with no lost function/data matches. Particle, connected-gameplay
@@ -82,9 +84,11 @@ and retained 73-group diagnostic images all preserve their previous SHA-256
 identities despite the added unreferenced source entries. Their linked live
 source graphs have not expanded merely because more bodies were compiled.
 PR #8 CI now requires every selected entry to remain exact while exporting
-reports on failure. Hosted final-head checks are pending; PR #7's final Linux,
-macOS, historical compilation and compiler cross-build checks passed.
+reports on failure. PR #7 and PR #8 final-head checks passed on Linux and
+macOS, including historical compilation. The merged main workflow also gates
+website publication on successful tooling and historical builds.
 
-The public website reflects merged main, not unmerged recovery PRs. Original
+The public website updates from the latest successful main build. Until that
+publication completes, it continues serving the previous verified snapshot. Original
 IPA/executable inputs, SDKs, toolchain caches and generated artifacts stay out
 of Git. No runnable replacement or arm64 port is established.

@@ -97,3 +97,5 @@ For a source-first pass over connected routines, use
 `python tools/cohort.py build config/cohorts/world-map-projection.json --output build/cohorts/projection.json`.
 The [gameplay stress experiment](docs/gameplay-stress.md) documents fuzzy/exact
 results, bounded ARM execution checks, incremental timings and linking limits.
+
+The [public browser](https://pirates.davideb.ch) shows the latest successful `main` build. See [hosting and automatic deployment](docs/hosting.md) for the read-only export, CI gates, Caddy setup, rollback and browser checks.
