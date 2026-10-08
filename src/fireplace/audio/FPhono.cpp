@@ -61,3 +61,7 @@ void FPhono::SetPlaybackPosition_Stream(int stream, unsigned int position) {
 void FPhono::SetPlaybackPosition_Sample(int sample, unsigned int position) {
     Phono2::PAudioSystem::getSingletonPtr()->SetSamplePlaybackPosition(sample, position);
 }
+
+void FPhono::SetVolume_Sound(int sound, float volume) {
+    Phono2::PAudioSystem::getSingletonPtr()->SetChannelVolume(sound, volume);
+}
