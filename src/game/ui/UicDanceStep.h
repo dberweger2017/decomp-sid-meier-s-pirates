@@ -1,6 +1,7 @@
 #pragma once
 
 class PVRTVec2;
+class UicDanceHalo;
 
 // Partial declarations for direct function comparison only. Do not instantiate.
 // Complete inheritance, virtual slots, constructors and object size are unknown.
@@ -11,4 +12,9 @@ public:
     bool InitUIControl();
     bool ReleaseUIControl();
     void Render(PVRTVec2 *position, PVRTVec2 *size);
+    void setDurationTime(int duration);
+
+private:
+    unsigned char m_unknown_00[0x54];
+    UicDanceHalo *m_halo; // +0x54; allocating constructor calls UicDanceHalo
 };

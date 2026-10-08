@@ -8,3 +8,7 @@ bool DanceUIScene::skipCinematic() { return m_skipCinematic; }
 void DanceUIScene::SetHeartPosAndSize(int x, int y, int size) {  }
 
 void DanceUIScene::enterCinematic() { m_skipCinematic = false; }
+
+#include "UicLabel.h"
+
+bool DanceUIScene::endTips() { return m_tips->m_state30; }

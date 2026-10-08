@@ -20,3 +20,5 @@
 #include "../../../src/game/ui/UicFire.cpp"
 #include "../../../src/game/ui/UicLabel.cpp"
 #include "../../../src/game/ui/UicWindDir.cpp"
+
+#include "../ui/UicRudder.cpp"

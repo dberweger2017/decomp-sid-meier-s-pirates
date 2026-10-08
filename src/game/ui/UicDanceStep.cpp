@@ -8,3 +8,7 @@ bool UicDanceStep::InitUIControl() { return true; }
 bool UicDanceStep::ReleaseUIControl() { return true; }
 
 void UicDanceStep::Render(PVRTVec2 *position, PVRTVec2 *size) {  }
+
+#include "UicDanceHalo.h"
+
+void UicDanceStep::setDurationTime(int duration) { m_halo->m_durationTime = duration; }
