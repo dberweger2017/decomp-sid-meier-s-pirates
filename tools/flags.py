@@ -11,7 +11,7 @@ from tools.pirates.compiler import command, fingerprint, permitted
 from tools.pirates.sdk import require_sdk
 from tools.pirates.macho import MachO
 from tools.pirates.compare import compare_function
-from tools.pirates.util import ToolError, load_json, write_json, sha256
+from tools.pirates.util import ToolError, load_json, write_json, sha256, depfile_paths
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -44,13 +44,24 @@ def sweep(root, function_id, optimizations=None, modes=None, output=None):
             flags = base_flags + [optimization, '-m' + mode]
             obj = cache / (optimization[1:] + '-' + mode + '.o')
             obj.unlink(missing_ok=True)
+            dep = obj.with_suffix('.d')
+            dep.unlink(missing_ok=True)
             process = subprocess.run(command(config['compiler'], root, config.get('sdk')) + flags +
-                ['-c', unit['source'], '-o', str(obj.relative_to(root))], cwd=root, capture_output=True, text=True, timeout=300)
-            (obj.with_suffix('.diagnostics.txt')).write_text(process.stdout + process.stderr)
-            record = {'optimization': optimization, 'mode': mode, 'flags': flags, 'returncode': process.returncode}
+                ['-MMD', '-MF', str(dep.relative_to(root)), '-c', unit['source'], '-o', str(obj.relative_to(root))],
+                cwd=root, capture_output=True, text=True, timeout=300)
+            diagnostics = (process.stdout + process.stderr).replace(str(root), '<workspace>')
+            if config.get('sdk'):
+                diagnostics = diagnostics.replace(config['sdk'], '<sdk>')
+            (obj.with_suffix('.diagnostics.txt')).write_text(diagnostics)
+            record = {'optimization': optimization, 'mode': mode, 'flags': flags, 'returncode': process.returncode,
+                      'dependencies': {}}
             if process.returncode:
                 record['status'] = 'compile_error'
             else:
+                for name in depfile_paths(dep):
+                    path = (root / name).resolve()
+                    if path.is_relative_to(root) and path.is_file():
+                        record['dependencies'][str(path.relative_to(root))] = sha256(path)
                 compared = compare_function(original, inventory, function, MachO(obj.read_bytes()),
                                             unit.get('functions', {}).get(function_id), unit.get('placements'), False)
                 record.update({k: compared.get(k) for k in ('status', 'similarity', 'candidate_size', 'reasons')})

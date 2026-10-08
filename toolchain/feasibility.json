@@ -296,5 +296,7 @@
       "version": "5.1"
     },
     "validated": true
-  }
+  },
+  "sdk_probe_hashes_equal_native_linux_and_macos_emulation": true,
+  "sdk_native_linux_ci_run": "https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37735419198"
 }

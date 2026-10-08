@@ -293,6 +293,7 @@ class WorkflowTests(unittest.TestCase):
         manifest = (self.root / 'config/candidates.json').read_bytes()
         evidence = sweep(self.root, self.fid, optimizations=['-O0', '-O2'], modes=['thumb'])
         self.assertEqual([e['status'] for e in evidence['experiments']], ['different', 'matched'])
+        self.assertIn('src/value.h', evidence['experiments'][1]['dependencies'])
         self.assertEqual(manifest, (self.root / 'config/candidates.json').read_bytes())
         self.assertEqual(before, load_json(self.root / 'build/report.json'))
 

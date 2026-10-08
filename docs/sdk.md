@@ -33,3 +33,5 @@ The SDK inspector checks version, canonical name and build 9B176, then fingerpri
 `tools/validate_sdk.py` compiles C/OpenGLES, C++ standard-library, Objective-C/Foundation and mixed Objective-C++ probes in ARM and Thumb modes, checking Mach-O symbols, header dependencies and repeated object hashes. It validates object compilation, not linking or every game candidate.
 
 Hosted CI provisions the same pinned SDK for both source revisions and gates changes to the shared SDK baseline once candidates exist. A pre-provisioned runner path can use `PIRATES_SDK_PATH`; CI checks it against the pin. SDK files are excluded from Git, compiler images, caches and report uploads. No Apple account credentials are accessed.
+
+The eight SDK-dependent object hashes (four languages × ARM/Thumb) from [native Linux CI run 37735419198](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/37735419198) equal the Apple Silicon emulation results. The complete SDK manifest also agrees across those hosts.

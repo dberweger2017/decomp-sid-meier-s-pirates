@@ -129,7 +129,7 @@ async function loadFiles(f) {
   if (!files.length) return;
   const selector = $('source-file'); selector.replaceChildren();
   files.forEach(path => { const option = el('option', path); option.value = path; selector.append(option); });
-  selector.value = files.includes(selectedFile) ? selectedFile : f.candidate_source;
+  selector.value = files.includes(selectedFile) ? selectedFile : files.includes(f.candidate_source) ? f.candidate_source : files[0];
   if (!dirty) await loadSource(f.group_id, selector.value);
 }
 async function loadSource(unit, path) {

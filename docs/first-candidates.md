@@ -29,7 +29,7 @@ python tools/flags.py f-62cd60b098a1a0381e31
 python tools/flags.py f-da79232dc420a34aba1b
 ```
 
-The command compiles isolated variants under `build/flag-experiments/` and records source/input/SDK/compiler fingerprints, object hashes, byte verification, similarity and diagnostics. It does not change the active manifest or count experimental objects as progress.
+The command compiles isolated variants under `build/flag-experiments/` and records source/header/input/SDK/compiler fingerprints, object hashes, byte verification, similarity and diagnostics. It does not change the active manifest or count experimental objects as progress.
 
 For both candidates, ARM `-O1`, `-O2`, `-O3` and `-Os` produce verified equality; `-O0` differs. Thumb variants cannot verify against these ARM originals. Thus these functions do not distinguish the successful optimization levels or prove compiler equivalence throughout the binary. Flags for other original units must be investigated independently.
 
