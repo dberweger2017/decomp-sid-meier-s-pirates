@@ -244,9 +244,13 @@
         "f-58e5b538e66fd609bb2d",
         "f-0db7b67260da40aa03ac",
         "f-3ab5ad687dfc0087ed27",
-        "f-bebe1fa3637242172c65"
+        "f-bebe1fa3637242172c65",
+        "f-9b04189d893259ce0bda"
       ],
-      "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
+      "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h.",
+      "recovery_kinds": {
+        "f-9b04189d893259ce0bda": "complete-destructor"
+      }
     },
     {
       "group_id": "o-b2988598bdd8217340d1",
