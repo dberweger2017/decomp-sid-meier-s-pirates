@@ -11,3 +11,5 @@ bool MultiPlaySFCharacterChosenUIScene::IsChosen() { return m_chosen; }
 void MultiPlaySFCharacterChosenUIScene::SetEnemyModelIndex(int index) { m_enemyModelIndex = index; }
 
 void MultiPlaySFCharacterChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
+
+#include "MultiPlaySFCharacterChosenUISceneSmall_MultiPlaySFCharacterChosenUIScene.cpp"
