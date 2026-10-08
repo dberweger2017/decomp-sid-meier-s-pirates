@@ -9308,6 +9308,43 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-890ba339a967a02f0309",
+      "group_id": "o-4ecf6698b47bb4fae018",
+      "symbol": "__ZN3ISE7ISEFileC1Ev",
+      "original_name": "ISE::ISEFile::ISEFile()",
+      "target_symbol": "__ZN3ISE7ISEFileC2Ev",
+      "target_name": "ISE::ISEFile::ISEFile()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-44eba2b099c1d3bab5a9",
+      "group_id": "o-4ecf6698b47bb4fae018",
+      "symbol": "__ZN3ISE7ISEFileC1E11CPVRTStringb",
+      "original_name": "ISE::ISEFile::ISEFile(CPVRTString, bool)",
+      "target_symbol": "__ZN3ISE7ISEFileC2E11CPVRTStringb",
+      "target_name": "ISE::ISEFile::ISEFile(CPVRTString, bool)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "bool"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "bool"
+      ],
+      "argument_evidence": "Nontrivial by-value argument lowered indirectly in r1. Original C2 stores r1 and dereferences that pointer; entry forwards the same existing parameter object, not a new copy. Complete type and lifetime model remain separate."
     }
   ]
 }
