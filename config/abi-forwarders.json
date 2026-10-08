@@ -8453,6 +8453,64 @@
         "void *",
         "void *"
       ]
+    },
+    {
+      "id": "f-ea0433df05d72775f76f",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN12FTerrainMeshC1Ejjj",
+      "original_name": "FTerrainMesh::FTerrainMesh(unsigned int, unsigned int, unsigned int)",
+      "target_symbol": "__ZN12FTerrainMeshC2Ejjj",
+      "target_name": "FTerrainMesh::FTerrainMesh(unsigned int, unsigned int, unsigned int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int",
+        "unsigned int",
+        "unsigned int"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int",
+        "unsigned int",
+        "unsigned int"
+      ]
+    },
+    {
+      "id": "f-cd29cae33d5713a3438b",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN14FShadowManagerC1EP8NiCameraR8NiColorA",
+      "original_name": "FShadowManager::FShadowManager(NiCamera*, NiColorA&)",
+      "target_symbol": "__ZN14FShadowManagerC2EP8NiCameraR8NiColorA",
+      "target_name": "FShadowManager::FShadowManager(NiCamera*, NiColorA&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-62433b6113501fe9d007",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN6FAStarD1Ev",
+      "original_name": "FAStar::~FAStar()",
+      "target_symbol": "__ZN6FAStar6DeInitEv",
+      "target_name": "FAStar::DeInit()",
+      "kind": "destructor-cleanup",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }

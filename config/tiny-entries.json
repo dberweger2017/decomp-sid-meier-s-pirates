@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "f-5efa434af26ed07b3eb7",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN12FBoundingBoxD1Ev",
+      "original_name": "FBoundingBox::~FBoundingBox()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-d0431e2dd0e69e28745a",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "__ZN10FInterfaceD1Ev",
+      "original_name": "FInterface::~FInterface()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-fd71442247a1fcb43e3f",
+      "group_id": "o-692e206382b21043c376",
+      "symbol": "___tcf_12",
+      "original_name": "__tcf_12",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    }
+  ]
+}
