@@ -6,6 +6,7 @@
 class CPVRTString {
 public:
     virtual ~CPVRTString();
+    static const unsigned long npos;
     const char *c_str() const;
     bool empty() const;
     unsigned long length() const;

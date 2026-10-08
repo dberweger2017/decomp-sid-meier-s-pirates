@@ -190,7 +190,12 @@
         "f-af0ace8ae7a8de75a42d",
         "f-2d896464521c77d1110a"
       ],
-      "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
+      "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md.",
+      "data": {
+        "d-c1c3fb28d0d3dc55f075": {
+          "symbol": "__ZN11CPVRTString4nposE"
+        }
+      }
     },
     {
       "group_id": "o-4268c237f42393c8bef0",
