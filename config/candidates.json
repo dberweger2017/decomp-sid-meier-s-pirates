@@ -2611,9 +2611,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-f2d8e54d1f2076c7e89f"
+        "f-f2d8e54d1f2076c7e89f",
+        "f-c98272e3fef8e65bb312"
       ],
-      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-c98272e3fef8e65bb312": "method-forwarder"
+      }
     },
     {
       "group_id": "o-56bedcd382e1dc972a64",
