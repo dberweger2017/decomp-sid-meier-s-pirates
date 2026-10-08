@@ -69,3 +69,8 @@ void FPhono::SetVolume_Sound(int sound, float volume) {
 void FPhono::SetPlaybackRate_Sound(int sound, float pitch) {
     Phono2::PAudioSystem::getSingletonPtr()->SetChannelPitch(sound, pitch);
 }
+
+// The second argument is the observed float constant; its source name is unknown.
+void FPhono::SetDopplerFactor(float factor) {
+    Phono2::PAudioSystem::getSingletonPtr()->EnableDoppler(factor, 314.0f);
+}

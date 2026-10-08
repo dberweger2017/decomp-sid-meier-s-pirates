@@ -116,3 +116,23 @@ functions (844 code bytes) and npos, excluding the original 16-function baseline
 and unimplemented Phono2 targets. Its image SHA-256 is
 `8fb6a60d06e2fa0ddd1cc0385579d9fa84311f536a6c08dbbdb9a27f2fe8bbf9`.
 Structural inspection passes; replacement credit and runtime validation stay zero.
+
+## Phono call checkpoint
+
+The facade now has sixteen exact call wrappers, reaching 118 verified functions
+/ 1,944 code bytes. Each wrapper's external branch relocations resolve to named
+original Phono2 functions before byte equality is checked. Isolated trials found
+`-mllvm -post-RA-scheduler=false` necessary to keep frame-pointer setup in the
+observed position; this investigation profile does not prove original flags.
+
+SetDopplerFactor remains a readable source candidate at 88.8889% assembly
+similarity with both correct relocation targets. MOVT and a register move occur
+in the opposite order, so it earns no verified-function or matched-byte credit.
+Keeping this difference visible provides a further scheduling investigation
+without changing unit flags in a way that loses the sixteen exact wrappers.
+
+The pushed 102-function checkpoint passed both Linux/macOS tooling and historical
+candidate CI. All 9,177 function records, 5,056 data records and matching/coverage
+metrics in its Linux report equal the saved local macOS report; compiler profile
+metadata remains explicit. The nine-group structural link still earns zero
+replacement completion.
