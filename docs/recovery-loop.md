@@ -141,3 +141,17 @@ CloseStream also remains different at 88.8889%, with both calls resolved but the
 compare and frame-pointer setup in opposite order. It is a source candidate,
 not a verified match. These two Phono candidates demonstrate the browser's
 separate similarity/byte-verification categories on real recovered call code.
+
+Four remaining small Phono compatibility methods verify at 24 additional bytes,
+reaching 122 functions / 1,968 code bytes (106 functions / 1,340 bytes beyond
+main). The shipped startup returns success, DirectSound accessor returns null,
+and distance/rolloff setters are no-ops; their source-level return type/pointee
+assumptions remain documented. Each exact function has its own commit.
+
+The 116-function pushed checkpoint passed Linux/macOS tooling and historical
+candidate CI on the public repository. At checkpoint 122, all earlier verified
+function/data matches remain intact, seven source candidates differ, and there
+are no compile errors or unresolved comparisons. The newest pushed checkpoint
+requires its own CI run. Source-subset linking remains diagnostic, with zero
+full-game completed units. Further small audio methods and ABI scaffolding are
+next; the recovery goal remains active.
