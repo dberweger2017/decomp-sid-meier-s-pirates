@@ -4107,7 +4107,7 @@
     },
     {
       "group_id": "o-8a77512ab9e315aa164b",
-      "source": "src/recovery/abi/o-8a77512ab9e315aa164b.cpp",
+      "source": "src/recovery/units/o-8a77512ab9e315aa164b.cpp",
       "flags": [
         "-O2",
         "-marm",
@@ -4116,11 +4116,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-24ed22f23ccbcfbf330f"
+        "f-24ed22f23ccbcfbf330f",
+        "f-5ae92d4add7c90162c3c"
       ],
       "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
       "recovery_kinds": {
-        "f-24ed22f23ccbcfbf330f": "method-forwarder"
+        "f-24ed22f23ccbcfbf330f": "method-forwarder",
+        "f-5ae92d4add7c90162c3c": "destruction-callback"
       }
     },
     {
