@@ -6,3 +6,5 @@
 float FAudioManager::GetTime() const { return m_time; }
 
 bool FAudioManager::IsInitialized() const { return m_initialized; }
+
+bool FAudioManager::IsPaused() { return m_paused; }
