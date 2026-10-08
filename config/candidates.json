@@ -549,6 +549,58 @@
         "f-906202e82bc8de417d45"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-56583387bbf08f43e2e5",
+      "source": "src/game/unity/PiratesIncludeCpp4.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-fb0bf70038a238bb8a11",
+        "f-f8201039bf34287d334b",
+        "f-c64ec7573380601c36fa",
+        "f-8ef7867ab01ca4a1c294",
+        "f-0022bc0c3da07b7f5ba9",
+        "f-3ae50cb76822374f2265",
+        "f-5aa61ff95f47d44735f1",
+        "f-e7af20fd7a8d36b048e5",
+        "f-931d579982958e01fd04",
+        "f-15eff463bd6b06a6d3c8",
+        "f-a80146d7987b7f7152c1",
+        "f-0308af0fb6c6db4c7be5",
+        "f-a9b0c86aa1be5082cab4",
+        "f-7a7e566fd36505d1b5b2",
+        "f-c96c6ef2c89c054d8225",
+        "f-98bd96e092ed815f571b",
+        "f-77beeccf48566f613bb3",
+        "f-f81924952391d028aa1b",
+        "f-5bc6dc88a2eac9424327",
+        "f-86e254160c3dd4193923",
+        "f-d6b6aca46dd65671cdcb",
+        "f-9cd9eb709ba86be1d5c2",
+        "f-e078612e3e3beb0a7e5d",
+        "f-6d5ec96fd5501f444f94",
+        "f-1a7b938351bc1992ab76",
+        "f-10e52234198c09a4405b",
+        "f-0eb6032ed5950291b70b",
+        "f-8fe19be9fa9d97db9ab6",
+        "f-34e3aad3c68110280c8a",
+        "f-aa03686c8d0a42f5bc4a",
+        "f-39f2d07f5c03120b1edc",
+        "f-9633eba279994372d598",
+        "f-332fe3e1a5536cbe16c4",
+        "f-f7b3eb8fa8601fbd46fa",
+        "f-daea6e9793b35d170a4f",
+        "f-001481aa571a917be2e6",
+        "f-9fd4f1cc8f6fdbcba485",
+        "f-3f2f9b2594cd02d9c62e"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     }
   ]
 }
