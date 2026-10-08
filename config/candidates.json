@@ -722,6 +722,25 @@
         "f-c8fff4d5079b93493cf6"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-615f11e1c3ff7aa6b275",
+      "source": "src/game/ui/MultiPlaySFCharacterChosenUIScene.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-74814e26551c876791eb",
+        "f-035d4d3f588a1b3f3495",
+        "f-34293b06afdfe3de7eed",
+        "f-2303ffed6007172e865e",
+        "f-047e3e319579aff96b7a"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     }
   ]
 }
