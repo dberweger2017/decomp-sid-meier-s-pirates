@@ -36,3 +36,5 @@ void FSound::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields 
 void FSound::ClearShortCircuitScriptField(int flags) { m_shortCircuitScriptFields &= ~flags; }
 
 bool FSound::GetVolume(float &value) const { value = m_volume; return true; }
+
+bool FSound::GetPan(float &value) const { value = m_pan; return true; }
