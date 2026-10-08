@@ -8883,6 +8883,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-070d50ec394a5ad6327f",
+      "group_id": "o-13f9707878ee26f79da6",
+      "symbol": "__ZN17UicOpediaCategoryC1Ev",
+      "original_name": "UicOpediaCategory::UicOpediaCategory()",
+      "target_symbol": "__ZN17UicOpediaCategoryC2Ev",
+      "target_name": "UicOpediaCategory::UicOpediaCategory()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
