@@ -207,6 +207,19 @@
         "f-84e2c6dd93e8c87a6af7"
       ],
       "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-22e9019c653c60382da6",
+      "source": "src/fireplace/audio/FSound.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [],
+      "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
     }
   ]
 }
