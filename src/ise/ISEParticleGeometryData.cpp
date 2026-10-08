@@ -6,3 +6,5 @@ namespace ISE {
 
 unsigned short ISEParticleGeometryData::GetActiveVertexCount() const { return m_activeVertexCount; }
 } // namespace ISE
+
+#include "ISEParticleGeometryDataReleaseISEParticleGeometryData.cpp"
