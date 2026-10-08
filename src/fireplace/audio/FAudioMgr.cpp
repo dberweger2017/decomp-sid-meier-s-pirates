@@ -12,3 +12,5 @@ bool FAudioManager::IsPaused() { return m_paused; }
 GlobalSoundData *FAudioManager::GetGlobalSoundData() { return m_globalSoundData; }
 
 int *FAudioManager::GetContextDataBits() { return m_contextDataBits; }
+
+F2DSoundScriptData *FAudioManager::Get2DScripts() { return m_scripts2D; }
