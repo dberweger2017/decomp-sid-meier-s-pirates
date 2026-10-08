@@ -1219,11 +1219,23 @@
       "implemented_functions": [
         "f-550a64b5e3249aacfbe4",
         "f-0aeed25da9f6c3b5732d",
-        "f-fdf6117e6371a24afc9a"
+        "f-fdf6117e6371a24afc9a",
+        "f-fd176811eeb2f6a6da87",
+        "f-d4d3db40d641d3608f0f",
+        "f-71b7f9c76d51429a8e07",
+        "f-4609aaf261c3f474bdf0",
+        "f-ca0f1e37cbf48ea05dee",
+        "f-4e2e6eb97844315f9011"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
-        "f-fdf6117e6371a24afc9a": "complete-destructor"
+        "f-fdf6117e6371a24afc9a": "complete-destructor",
+        "f-fd176811eeb2f6a6da87": "registration-forwarder",
+        "f-d4d3db40d641d3608f0f": "constant-body",
+        "f-71b7f9c76d51429a8e07": "constant-body",
+        "f-4609aaf261c3f474bdf0": "constant-body",
+        "f-ca0f1e37cbf48ea05dee": "constant-body",
+        "f-4e2e6eb97844315f9011": "constant-body"
       }
     },
     {

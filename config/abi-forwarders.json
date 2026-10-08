@@ -9585,6 +9585,18 @@
       "return_type": "void",
       "parameters": [],
       "target_parameters": []
+    },
+    {
+      "id": "f-fd176811eeb2f6a6da87",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__GLOBAL__I__ZN3ISE12ISEParticlesC2EtP8PVRTVec3S2_PNS_9ISEColorAEP15PVRTQUATERNIONf",
+      "original_name": "_GLOBAL__I__ZN3ISE12ISEParticlesC2EtP8PVRTVec3S2_PNS_9ISEColorAEP15PVRTQUATERNIONf",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }

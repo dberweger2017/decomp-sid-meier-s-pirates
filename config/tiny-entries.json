@@ -459,6 +459,71 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-d4d3db40d641d3608f0f",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__ZThn12_N3ISE12ISEParticles12GetVertexNumEv",
+      "original_name": "non-virtual thunk to ISE::ISEParticles::GetVertexNum()",
+      "kind": "constant-body",
+      "return_type": "unsigned int",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
+    },
+    {
+      "id": "f-71b7f9c76d51429a8e07",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__ZThn4_N3ISE12ISEParticles14DrawInDrawListEPj",
+      "original_name": "non-virtual thunk to ISE::ISEParticles::DrawInDrawList(unsigned int*)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
+    },
+    {
+      "id": "f-4609aaf261c3f474bdf0",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__ZN3ISE12ISEParticles14DrawInDrawListEPj",
+      "original_name": "ISE::ISEParticles::DrawInDrawList(unsigned int*)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
+    },
+    {
+      "id": "f-ca0f1e37cbf48ea05dee",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__ZThn12_N3ISE12ISEParticles17IsDrawListEnabledEv",
+      "original_name": "non-virtual thunk to ISE::ISEParticles::IsDrawListEnabled()",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 1
+    },
+    {
+      "id": "f-4e2e6eb97844315f9011",
+      "group_id": "o-22e518abce9579acfc03",
+      "symbol": "__ZN3ISE12ISEParticles17IsDrawListEnabledEv",
+      "original_name": "ISE::ISEParticles::IsDrawListEnabled()",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 1
     }
   ]
 }
