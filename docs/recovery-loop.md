@@ -494,6 +494,13 @@ input byte at `+0x94` and sets `+0x9c` to one; NiMemStream::Str sets its access
 flag at `+0x15` and returns the string pointer at `+4`; Phono2::PThread's
 constructor initializes its first two words to zero and ten. These add 48 bytes.
 
-The resulting report has **1,592 exact functions / 17,724 bytes**, 46 differing
-candidates, 7,539 missing functions and no compile errors or unresolved
+Four more short functions verify exactly: UicKeyboard::SetTextFont writes the
+font pointer through the owner at `+0x54` to `+0x7c`, then to `+0x78`;
+ShipBattleUIScene::SetShipInfo stores its two arguments in the ship-info view at
+`+0xec` and `+0xf0`; UicCSB::ShowMyShipTxt clears the word at `+0x18b4`; and
+Remark returns one while preserving the two stack-passed varargs registers.
+These add 64 bytes.
+
+The resulting report has **1,596 exact functions / 17,788 bytes**, 46 differing
+candidates, 7,535 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
