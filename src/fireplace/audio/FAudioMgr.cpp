@@ -20,3 +20,5 @@ F3DSoundScriptData *FAudioManager::Get3DScripts() { return m_scripts3D; }
 FSoundScapeScriptData *FAudioManager::GetSoundScapeScripts() { return m_soundScapeScripts; }
 
 int FAudioManager::GetNum2DScripts() { return m_numScripts2D; }
+
+FKnob *FAudioManager::GetVolumeKnobs() { return m_volumeKnobs; }
