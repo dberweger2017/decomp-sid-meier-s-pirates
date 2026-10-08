@@ -4,3 +4,13 @@
 #include "../../../src/gamebryo/NiStreamBackground.cpp"
 
 #include "../../gamebryo/NiFile.cpp"
+
+#include "../../gamebryo/NiFilenameReleaseTempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiMemStreamReleaseTempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiMessageBoxReleaseTempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiStreamReleaseTempIncludeCpp5.cpp"
+
+#include "../../recovery/TempIncludeCpp5ReleaseFunctions.cpp"
