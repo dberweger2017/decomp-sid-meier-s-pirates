@@ -24,3 +24,5 @@
 #include "../ui/UicRudder.cpp"
 
 #include "../../recovery/PiratesIncludeCpp4ReleaseFunctions.cpp"
+
+#include "../../recovery/abi/o-56583387bbf08f43e2e5.cpp"
