@@ -10,6 +10,8 @@ class ISEParticleEntity {
 public:
     unsigned int GetFileVersion() const;
 
+    static unsigned int GetVersion(unsigned int a, unsigned int b, unsigned int c, unsigned int d);
+
 private:
     unsigned char m_unknown_00[444];
     unsigned int m_fileVersion; // +0x1bc
