@@ -1714,7 +1714,7 @@
         "-marm",
         "-mfloat-abi=soft"
       ],
-      "sdk_required": false,
+      "sdk_required": true,
       "functions": {},
       "implemented_functions": [
         "f-5dd6159419ed8ef0fe90",
@@ -1765,13 +1765,19 @@
         "f-54687dd7d78d47b98759",
         "f-6a3cbbae5c8741d5f803",
         "f-71fedd9a3349505f5e7c",
-        "f-8b95dcd906b2de8617bd"
+        "f-8b95dcd906b2de8617bd",
+        "f-eeced84a8b167f3943fc",
+        "f-2c146fec4e86f694759f",
+        "f-77dcd380797f3b107f6d"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
         "f-6a3cbbae5c8741d5f803": "complete-destructor",
         "f-71fedd9a3349505f5e7c": "complete-destructor",
-        "f-8b95dcd906b2de8617bd": "complete-destructor"
+        "f-8b95dcd906b2de8617bd": "complete-destructor",
+        "f-eeced84a8b167f3943fc": "complete-constructor",
+        "f-2c146fec4e86f694759f": "destruction-callback",
+        "f-77dcd380797f3b107f6d": "sdk-import-forwarder"
       }
     },
     {

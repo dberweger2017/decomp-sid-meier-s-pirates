@@ -8851,6 +8851,22 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-eeced84a8b167f3943fc",
+      "group_id": "o-d483319aef7bde0860fd",
+      "symbol": "__ZN11NiMemStreamC1Ev",
+      "original_name": "NiMemStream::NiMemStream()",
+      "target_symbol": "__ZN11NiMemStreamC2Ev",
+      "target_name": "NiMemStream::NiMemStream()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }

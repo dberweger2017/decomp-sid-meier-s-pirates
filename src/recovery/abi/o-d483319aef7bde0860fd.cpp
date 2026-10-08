@@ -36,3 +36,14 @@ extern "C" void pirates_complete_destructor_8b95dcd906b2de8617bd(void * a0)
 extern "C" void pirates_complete_destructor_8b95dcd906b2de8617bd(void * a0) {
     pirates_complete_destructor_8b95dcd906b2de8617bd_target(a0);
 }
+
+// f-eeced84a8b167f3943fc — complete-constructor
+// NiMemStream::NiMemStream()
+// Calls: NiMemStream::NiMemStream()
+extern "C" void pirates_complete_constructor_eeced84a8b167f3943fc_target(void *)
+    __asm__("__ZN11NiMemStreamC2Ev");
+extern "C" void pirates_complete_constructor_eeced84a8b167f3943fc(void * a0)
+    __asm__("__ZN11NiMemStreamC1Ev");
+extern "C" void pirates_complete_constructor_eeced84a8b167f3943fc(void * a0) {
+    pirates_complete_constructor_eeced84a8b167f3943fc_target(a0);
+}
