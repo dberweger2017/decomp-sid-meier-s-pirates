@@ -21,3 +21,7 @@ unsigned int FPhono::GetPlaybackPosition_Sample(int sample) {
 float FPhono::GetVolume_Sound(int sound) {
     return Phono2::PAudioSystem::getSingletonPtr()->GetChannelVolume(sound);
 }
+
+bool FPhono::GetLooping_Stream(int stream) {
+    return Phono2::PAudioSystem::getSingletonPtr()->IsStreamLooping(stream);
+}
