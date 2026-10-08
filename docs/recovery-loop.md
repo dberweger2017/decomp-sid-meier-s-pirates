@@ -703,3 +703,12 @@ candidates compare at 50%; the allocation contents remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 146 differing
 candidates, 7,423 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Four isolated RTTI getters are now covered across the `FireIncludeCpp2`,
+`TempIncludeCpp` and `TempIncludeCpp2` unity groups. Their `m_RTTI`
+relocations resolve; the `NiTexture` getter also loads the value stored in its
+slot, matching the original indirection. All four compare at 50%.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 150 differing
+candidates, 7,419 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

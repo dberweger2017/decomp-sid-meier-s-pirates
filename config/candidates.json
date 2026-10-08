@@ -757,7 +757,8 @@
         "f-551893e030490a17bac8",
         "f-37622dfd7b9a2d45168f",
         "f-a416f72214e5b46fbf84",
-        "f-cd6483cec1117b00c912"
+        "f-cd6483cec1117b00c912",
+        "f-f520e3c27f20a84c7788"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -2119,7 +2120,9 @@
         "f-91b23f87b1acc3b84567",
         "f-325915df37d024c1a40f",
         "f-7507749553df69a9fa71",
-        "f-61277822497c76a6d8af"
+        "f-61277822497c76a6d8af",
+        "f-5a027fbd3240a6a0e288",
+        "f-7a74cb9c97097854fa99"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -2930,7 +2933,8 @@
         "f-f3ebb3760ba729989f54",
         "f-2d60ee1ed0ec602ee024",
         "f-ee611ce3b08b0c751b16",
-        "f-44c09e790089d6392670"
+        "f-44c09e790089d6392670",
+        "f-a03d356202e592dbfdf5"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md.",
       "recovery_kinds": {

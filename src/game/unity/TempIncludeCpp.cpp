@@ -79,3 +79,5 @@
 #include "../../recovery/abi/o-a70c52d41737dcc20b28.cpp"
 
 #include "../../recovery/leaves/o-a70c52d41737dcc20b28.cpp"
+
+#include "../../recovery/PiratesTempIncludeCppRtti.cpp"
