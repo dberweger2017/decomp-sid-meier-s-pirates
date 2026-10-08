@@ -753,3 +753,14 @@ The latest report has **1,608 exact functions / 18,012 bytes**, 156 differing
 candidates, 7,413 missing functions and no compile errors or unresolved
 comparisons. Data comparisons have 3 matched records and 2,052 matched bytes,
 with no unresolved comparisons. Full-game replacement linking remains at zero.
+
+Two quest-state reads now resolve to their observed common buffers: `getWanted`
+loads the 32-bit field at `_RevHint + 0xC`, and `isCurrentRevFinished` returns
+the byte at `_RevContent`. Both 80-byte and 72-byte zero-filled globals match
+exactly. The functions compare fuzzily at 60% and 22.2222%; their data
+relocations resolve and no comparisons remain unresolved.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 158 differing
+candidates, 7,411 missing functions and no compile errors or unresolved
+comparisons. Data comparisons have 5 matched records and 2,204 matched bytes,
+with no unresolved comparisons. Full-game replacement linking remains at zero.
