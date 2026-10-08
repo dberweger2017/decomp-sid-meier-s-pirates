@@ -721,3 +721,14 @@ address load.
 The latest report has **1,608 exact functions / 18,012 bytes**, 151 differing
 candidates, 7,418 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+`GetDefaultSailPicture` now returns the embedded sail-picture name at offset
+`0x16` in the observed `__ZTS11MenuHandler` allocation. The candidate
+relocation resolves to that exact symbol and compares at 44.4444%. The source
+reproduces all 56 observed bytes, though the data comparison stays unclaimed
+because the candidate storage section differs from the original cstring
+section.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 152 differing
+candidates, 7,417 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
