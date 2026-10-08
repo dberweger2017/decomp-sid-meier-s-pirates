@@ -26,3 +26,5 @@ FKnob *FAudioManager::GetVolumeKnobs() { return m_volumeKnobs; }
 float FAudioManager::GetDopplerFactor() { return m_dopplerFactor; }
 
 float FAudioManager::GetDistanceFactor() { return m_distanceFactor; }
+
+void FAudioManager::Set2DScripts(F2DSoundScriptData *scripts, int count) { m_scripts2D = scripts; m_numScripts2D = count; }
