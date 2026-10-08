@@ -115,15 +115,21 @@ def render(entries, group_id):
         prefix = '' if entry['return_type'] == 'void' else 'return '
         internal = entry['kind'] in {'registration-forwarder', 'destruction-callback'}
         linkage = 'static ' if internal else 'extern "C" '
-        used = ' __attribute__((used))' if internal else ''
         lines += ['// ' + entry['id'] + ' — ' + entry['kind'],
                   '// ' + entry['original_name'], '// Calls: ' + entry['target_name'],
                   'extern "C" ' + entry['return_type'] + ' ' + name + '_target(' + target_params + ')',
                   '    __asm__(' + json.dumps(entry['target_symbol']) + ');',
                   linkage + entry['return_type'] + ' ' + name + '(' + params + ')',
-                  '    __asm__(' + json.dumps(entry['symbol']) + ')' + used + ';',
+                  '    __asm__(' + json.dumps(entry['symbol']) + ');',
                   linkage + entry['return_type'] + ' ' + name + '(' + params + ') {',
                   '    ' + prefix + name + '_target(' + call + ');', '}', '']
+        if internal:
+            # `used` on this historical Darwin backend sets N_NO_DEAD_STRIP.
+            # An unrooted external address reference preserves the local body
+            # in the object while allowing both to disappear from subset links.
+            lines += ['// Source-emission reference only; no original data or lifetime-registration credit.',
+                      'extern "C" ' + entry['return_type'] + ' (* const ' + name + '_source_reference)(' +
+                      (', '.join(entry['parameters']) or 'void') + ') = ' + name + ';', '']
     return '\n'.join(lines)
 
 
@@ -147,7 +153,10 @@ def main():
     if args.output:
         args.output.mkdir(parents=True, exist_ok=True)
         for group in groups:
-            (args.output / (group + '.cpp')).write_text(render([e for e in entries if e['group_id'] == group], group))
+            path = args.output / (group + '.cpp')
+            source = render([e for e in entries if e['group_id'] == group], group)
+            if not path.exists() or path.read_text() != source:
+                path.write_text(source)
     print(f'Validated {len(entries)} register-only ABI forwarders in {len(groups)} original groups')
 
 

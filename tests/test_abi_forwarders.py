@@ -91,7 +91,8 @@ class SelectionTests(unittest.TestCase):
         e.update(symbol='__GLOBAL__I_probe', kind='registration-forwarder', parameters=[], target_parameters=[])
         text = render([e], e['group_id'])
         self.assertIn('static void pirates_registration_forwarder_', text)
-        self.assertIn('__attribute__((used))', text)
+        self.assertNotIn('__attribute__((used))', text)
+        self.assertIn('_source_reference', text)
         self.assertNotIn('__attribute__((constructor))', text)
         self.assertNotIn('new ', text)
 

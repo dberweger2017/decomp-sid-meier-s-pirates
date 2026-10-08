@@ -67,7 +67,8 @@ class LeafTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             for n in range(2):
-                (root / (str(n) + '.cpp')).write_text(render([callback], base['group_id']))
+                entry = dict(callback, id='f-' + str(n + 4) * 20)
+                (root / (str(n) + '.cpp')).write_text(render([entry], base['group_id']))
                 subprocess.run(['clang++', '-O2', '-c', str(n) + '.cpp', '-o', str(n) + '.o'],
                                cwd=root, capture_output=True, check=True)
             ident = dict(base, id='f-' + '1' * 20, symbol='_identity', kind='identity-body', return_type='void *')

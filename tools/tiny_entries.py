@@ -77,7 +77,6 @@ def render(entries, group):
         name = 'pirates_leaf_' + e['id'][2:]
         params = ', '.join(t + ' a' + str(i) for i, t in enumerate(e['parameters'])) or 'void'
         linkage = 'static ' if e['internal'] else 'extern "C" '
-        used = ' __attribute__((used))' if e['internal'] else ''
         body = ''
         if e['kind'] == 'identity-body':
             body = 'return a0;'
@@ -90,8 +89,14 @@ def render(entries, group):
             body = 'return static_cast<' + view + ' *>(a0)->vertex_count;'
         lines += ['// ' + e['id'] + ' — ' + e['kind'], '// ' + e['original_name'],
                   linkage + e['return_type'] + ' ' + name + '(' + params + ')',
-                  '    __asm__(' + json.dumps(e['symbol']) + ')' + used + ';',
+                  '    __asm__(' + json.dumps(e['symbol']) + ');',
                   linkage + e['return_type'] + ' ' + name + '(' + params + ') { ' + body + ' }', '']
+        if e['internal']:
+            # Preserve private source bodies in Mach-O objects without `used`,
+            # which also prevents dead stripping on the historical backend.
+            lines += ['// Source-emission reference only; no original data or lifetime-registration credit.',
+                      'extern "C" ' + e['return_type'] + ' (* const ' + name + '_source_reference)(' +
+                      (', '.join(e['parameters']) or 'void') + ') = ' + name + ';', '']
     return '\n'.join(lines)
 
 
@@ -113,7 +118,9 @@ def main():
             raise ToolError('Tiny-entry source differs from reviewed specification: ' + group)
         if args.output:
             args.output.mkdir(parents=True, exist_ok=True)
-            (args.output / (group + '.cpp')).write_text(source)
+            path = args.output / (group + '.cpp')
+            if not path.exists() or path.read_text() != source:
+                path.write_text(source)
     print(f'Validated {len(entries)} tiny ABI leaf bodies in {len(groups)} original groups')
 
 

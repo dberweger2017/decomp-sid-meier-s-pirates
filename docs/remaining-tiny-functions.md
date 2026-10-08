@@ -15,7 +15,11 @@ No original-byte or instruction implementations are used.
 value arguments forward an existing indirect argument object in r1, as observed
 in the original C2 bodies. They do not construct a new copy. Registration hooks
 and destruction callbacks retain local linkage and remain explicit entry bodies;
-they do not create substitute globals or synthesize startup registration.
+they do not create substitute game globals or synthesize startup registration.
+Private bodies have unique, unrooted source-emission address references. These
+scaffolding pointers receive no original data credit and can be dead-stripped
+alongside their callbacks. The historical Darwin `used` attribute would instead
+set `N_NO_DEAD_STRIP`, pulling missing callees into diagnostic subsets.
 
 `config/tiny-entries.json` reviews ABI leaf bodies. Empty bodies ignore their
 arguments, constant bodies return the observed result, and identity bodies return
@@ -37,7 +41,7 @@ Useful checks after configuring the original inputs:
 python tools/abi_forwarders.py config/abi-forwarders.json --check-source
 python tools/tiny_entries.py config/tiny-entries.json --check-source
 ninja
-python tools/cohort.py report config/cohorts/remaining-tiny.json
+python tools/cohort.py report config/cohorts/remaining-tiny.json --output build/remaining-tiny-report.json
 python -m unittest discover -v
 ```
 
