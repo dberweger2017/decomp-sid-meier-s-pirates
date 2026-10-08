@@ -441,7 +441,10 @@
       ],
       "sdk_required": false,
       "functions": {},
-      "implemented_functions": [],
+      "implemented_functions": [
+        "f-d762ce0d7f8208a3566f",
+        "f-c5f8dd3caffca7c9c66d"
+      ],
       "flags_provenance": "Investigation profile; complete original flags and unrecovered methods remain unknown. Observed instance offsets are documented in the partial header."
     }
   ]
