@@ -1,4 +1,6 @@
 #pragma once
+#include "../../recovery/SmallFunctionTypes.h"
+
 
 
 // Partial layout for direct comparisons; do not instantiate. Complete size,
@@ -6,6 +8,7 @@
 // return types, pointees, signedness and field names remain hypotheses.
 class ShipWrightUIScene {
 public:
+    bool ReleaseUIScene();
     void setActiveUISceneFlag(bool active);
 
 private:

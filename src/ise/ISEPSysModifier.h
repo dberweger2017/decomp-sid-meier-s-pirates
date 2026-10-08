@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/ReleaseHookTypes.h"
+
 
 
 namespace ISE {
@@ -8,6 +10,8 @@ namespace ISE {
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEPSysModifier {
 public:
+    void Initialize(ISE::ISEPSysData*, unsigned short);
+    void HandleReset();
     void SetActive(bool active);
 
 private:

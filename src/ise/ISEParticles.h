@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/SmallFunctionTypes.h"
+
 
 
 namespace ISE {
@@ -9,6 +11,7 @@ class ISEParticleGeometryData;
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEParticles {
 public:
+    unsigned int GetVertexNum();
     void SetModelData(ISEParticleGeometryData *data);
 
 private:

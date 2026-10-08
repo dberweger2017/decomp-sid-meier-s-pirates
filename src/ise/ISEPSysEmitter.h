@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/ReleaseHookTypes.h"
+
 
 
 namespace ISE {
@@ -8,6 +10,7 @@ namespace ISE {
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEPSysEmitter {
 public:
+    void Update(float, ISE::ISEPSysData*);
     unsigned char m_unknown_00[24];
     float m_speed; // +0x18
     unsigned char m_unknown_1c[4];

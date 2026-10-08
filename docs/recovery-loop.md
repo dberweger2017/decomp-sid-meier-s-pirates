@@ -321,3 +321,132 @@ zero and iOS runtime behavior remains unverified. Reproduce with
 Checkpoint 334 passed hosted CI with every function/data record and matching
 metric agreeing across hosts. This new 411-function checkpoint needs its own CI.
 The recovery goal continues in batches.
+
+## Connected source-first cohorts
+
+PR #4 investigates larger connected routines, retains fuzzy candidates, and adds
+`tools/cohort.py` for a whole selected source pass followed by group refinement.
+See [the experiment and measured limitations](gameplay-stress.md). The 411 exact
+functions remain preserved; bounded behavior checks and diagnostic links earn no
+additional exact or complete replacement credit.
+
+## Two hundred additional release hooks
+
+The next requested batch adds **200 exact functions / 976 code bytes**, reaching
+**611 exact functions / 5,840 code bytes** across **102 configured original
+objects**. All earlier 411 exact functions and the four-byte data allocation are
+preserved. There are 40 differing candidates, 8,526 missing functions, zero
+compile errors and zero unresolved comparisons. Inventory coverage remains
+9,177 named records in 268 original groups. Exact function coverage is 6.6579%
+by count and 0.1431% by original code bytes.
+
+This batch contains 156 observed no-op release hooks and 44 constant-return
+functions, committed separately in their 51 original groups. These bodies were
+selected from original instructions, rather than added as stubs for absent
+implementations. The hooks cover UI releases, controller lifecycle callbacks,
+particle/animation operations, disabled platform utilities and shader setters.
+They reproduce the behavior of this shipped binary, not a complete implementation
+of the corresponding APIs on other platforms. No constructors, destructors,
+address-return methods or non-virtual thunks are counted in this batch.
+
+Partial interfaces, opaque parameter types and provisional result declarations
+support ordinary C++ compilation. Symbol mangling establishes parameter names
+and types, but does not establish return types, class layouts, static-versus-
+instance ownership for unused parameters, or complete virtual hierarchies.
+Matching these tiny bodies cannot settle those source-level uncertainties.
+Do not instantiate the partial types. Original compiler flags remain unproven.
+No assembly or original-byte payloads appear in candidate source.
+
+Reproduce the selected comparison ledger with:
+
+```sh
+python tools/cohort.py build config/cohorts/release-hooks.json --output build/cohorts/release-hooks.json
+python tools/recovery_link.py config/diagnostic-links/recovery-release-hooks.json
+```
+
+The native report, the cohort ledger and objdiff adapter expose exact matching
+separately from assembly similarity and replacement linking. Full-game linking
+remains at zero completed code/data/units, and iOS runtime behavior is unverified.
+The local tooling suite passes 104 tests. Hosted CI must validate this new head;
+the earlier PR #4 historical failure was traced to nested staging falling back
+to the generic linker template, and a regression test now covers preserving the
+validated profile and its proof.
+
+The 51-group `recovery-release-hooks.json` diagnostic subset structurally links
+369 exact functions / 2,532 code bytes and 21 differing candidates. Independent
+image inspection passes with SHA-256
+`196801ea118306dd6078bf051cd588fc3a38698b62d8e4b30423efbbbdecba95`.
+It includes previously recovered contributors in selected unity groups; the
+subset's 369 exact functions are not 369 new matches. Completed replacement
+code/data/units remain zero, and runtime behavior remains unverified.
+
+## Two hundred more tiny shipped bodies
+
+The following batch adds **200 exact functions / 1,052 code bytes**, reaching
+**811 exact functions / 6,892 code bytes**, with all earlier 611 function matches
+and the four-byte data match preserved. There are 40 differing candidates,
+8,326 missing functions, no compilation errors and no unresolved comparisons.
+All 9,177 original function records and 268 groups remain covered. Definitions
+were committed separately in their **31 original compilation groups**.
+
+The new bodies comprise **113 shipped fail-fast routines**, **48 XML type
+queries**, and **39 constant-return functions**. The fail-fast routines include
+factory, animation/controller and collision entry points whose complete original
+bodies are a trap instruction. Ordinary C++ `__builtin_trap()` reproduces the
+historical compiler's exact instruction, verified first with an isolated factory
+probe and then with each configured function. This restores their observed
+failure behavior; it does not provide working implementations of those engine
+operations. No additional fail-fast fallback is supplied for other missing code.
+
+The XML queries include 24 null-returning base queries and 24 self-returning
+specialized queries across the distinct TiXml and ISEXml object families. The
+parser and other XML operations remain unrecovered. The remaining constants
+cover shipped UI releases, audio compatibility paths, rendering counters and
+animation-key allocation paths. Output-reference parameters in constant-return
+methods remain untouched where the original instruction bodies leave them alone.
+
+Source-level results and unused static-versus-instance ownership remain explicit
+hypotheses where mangling or a tiny body cannot establish them. All partial
+interfaces remain unsuitable for instantiation; no complete layout, hierarchy,
+virtual table, allocator or linking/runtime completion is claimed.
+
+```sh
+python tools/cohort.py build config/cohorts/tiny-bodies.json --output build/cohorts/tiny-bodies.json
+python tools/recovery_link.py config/diagnostic-links/recovery-tiny-bodies.json
+```
+
+The local tooling suite again passes **104 tests**. The preceding 611-function
+checkpoint passed hosted Linux/macOS tooling and historical compilation/linking
+CI; this 811-function head requires its own hosted run. Original game/SDK inputs
+and generated code images remain excluded from Git and CI artifacts.
+
+The expanded 73-group `recovery-tiny-bodies.json` subset structurally links
+590 total exact functions / 3,780 code bytes and 24 differing candidates.
+Independent image inspection passes with SHA-256
+`f6f836365b8c8271e245b674c0bf2fb17f4258d607a99ded188b0ab678e6b64b`.
+Those totals include earlier contributors in selected groups, rather than 590
+new matches. Replacement completion remains zero and runtime behavior is unverified.
+
+## Additional 500-function ABI-entry batch
+
+The next requested batch verifies **500 additional functions / 8,000 bytes**,
+reaching **1,311 exact functions / 14,892 bytes**. The earlier 811 functions and
+four-byte data allocation remain exact, with zero regressions, compile failures
+or unresolved comparisons. Inventory retains all 9,177 records / 268 groups.
+There are 40 differing candidates, 7,826 missing records and 153 configured units.
+
+The 92 separately committed original groups contain 255 complete-destructor
+wrappers, 233 method forwarders, six free-function forwarders and six
+complete-constructor wrappers. Their source consists of ordinary C++ calls with
+explicit ABI symbol declaration labels. There are no instruction/byte bodies;
+larger callee implementations and complete class models remain independent.
+This provides small-function byte progress and caller/callee structure rather
+than completing 500 gameplay algorithms. Native reports identify the recovery
+kind. See [the batch's method, scope and validation](small-function-batch.md).
+
+A three-function recovered particle LinkObject chain structurally links from
+source, with image SHA-256
+`6b014c2ac464bd1292b4d86cca9748ee234e786d0278f9468e2ff25f8d05b548`.
+Explicit live-source roots plus dead stripping keep older diagnostic graphs
+reproducible without supplying fake missing callees. Replacement linking stays
+at zero; the original image and iOS runtime remain unverified.

@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/SmallFunctionTypes.h"
+
 
 
 namespace ISE {
@@ -8,6 +10,8 @@ namespace ISE {
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEEditableMesh {
 public:
+    unsigned int GetRenderUnitNum();
+    bool UpdateUnit();
     unsigned int GetVertexNum();
     unsigned int GetPolyNum();
 

@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/ReleaseHookTypes.h"
+
 
 
 namespace ISE {
@@ -8,6 +10,7 @@ namespace ISE {
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEParticleGeometryData {
 public:
+    void SetActiveVertexCount(unsigned short);
     unsigned short GetActiveVertexCount() const;
 
 private:

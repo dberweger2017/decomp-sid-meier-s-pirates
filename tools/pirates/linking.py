@@ -261,6 +261,14 @@ def manifest_arguments(manifest, root):
             i += 2
         else:
             raise ToolError('Libraries must be SDK -l names or -framework names')
+    retained = manifest.get('retained_symbols', [])
+    if (not isinstance(retained, list) or not all(isinstance(s, str) and
+            re.fullmatch(r'_[A-Za-z_][A-Za-z_0-9.$]*', s) for s in retained)
+            or len(set(retained)) != len(retained)):
+        raise ToolError('Retained symbols must be distinct named linkage symbols')
+    flags = list(flags)
+    for name in retained:
+        flags += ['-u', name]
     return flags, libraries
 
 
@@ -332,6 +340,13 @@ def run_link(root):
             structure = inspect_image(image_path.read_bytes(), entry=manifest['entry'], imports=manifest.get('expected_imports', []),
                                       libraries=manifest.get('expected_libraries', []), min_version=version_number(minimum), sdk_version=version_number(sdk_version),
                                       expected_bindings=manifest.get('expected_bindings'))
+            retained = manifest.get('retained_symbols', [])
+            definitions = {s.name for s in MachO(image_path.read_bytes()).symbols if s.defined}
+            if set(retained) - definitions:
+                raise ToolError('Retained source symbols are absent from linked image: ' +
+                                ', '.join(sorted(set(retained) - definitions)))
+            if retained:
+                structure['retained_symbols'] = retained
             state.update(state='linked', reason='Structurally linked; original image equality and runtime behavior are unverified',
                          image_sha256=sha256(image_path), structure=structure, participating_units=order)
             # No arbitrary reference hash, copied original objects, or partial

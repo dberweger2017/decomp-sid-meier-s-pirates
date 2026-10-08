@@ -9,3 +9,5 @@ void ISEPSysEmitterPlanarAngleCtlr::SetTargetValue(float value) { m_target->m_pl
 
 float ISEPSysEmitterPlanarAngleCtlr::GetTargetValue() { return m_target->m_planarAngle; }
 } // namespace ISE
+
+#include "../recovery/abi/o-314a424024475377a06a.cpp"

@@ -9,3 +9,7 @@ unsigned int ISEDrawListRenderUnit::GetVertexNum() { return m_drawList->m_vertex
 
 ISEMaterial * ISEDrawListRenderUnit::GetMaterial() { return m_drawList->m_material; }
 } // namespace ISE
+
+#include "ISEDrawListReleaseISEDrawList.cpp"
+
+#include "ISEDrawListRenderUnitSmall_libISELib_a_ISEDrawList_.cpp"
