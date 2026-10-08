@@ -637,3 +637,11 @@ unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 78 differing
 candidates, 7,491 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Ten further `Ni*::GetRTTI` methods in `TempIncludeCpp3.o` now return their
+matching class-local common allocations. All ten relocations resolve; each
+candidate compares at 50%, and the allocation contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 88 differing
+candidates, 7,481 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

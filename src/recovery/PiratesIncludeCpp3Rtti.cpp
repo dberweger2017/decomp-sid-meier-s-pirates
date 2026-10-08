@@ -160,3 +160,83 @@ extern "C" const void * pirates_ni_directional_light_get_rtti(void const *)
 extern "C" const void * pirates_ni_directional_light_get_rtti(void const *) {
     return pirates_ni_directional_light_rtti;
 }
+
+static unsigned char pirates_ni_dither_property_rtti[8]
+    __asm__("__ZN16NiDitherProperty6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_dither_property_get_rtti(void const *)
+    __asm__("__ZNK16NiDitherProperty7GetRTTIEv");
+extern "C" const void * pirates_ni_dither_property_get_rtti(void const *) {
+    return pirates_ni_dither_property_rtti;
+}
+
+static unsigned char pirates_ni_float_extra_data_rtti[8]
+    __asm__("__ZN16NiFloatExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_float_extra_data_get_rtti(void const *)
+    __asm__("__ZNK16NiFloatExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_float_extra_data_get_rtti(void const *) {
+    return pirates_ni_float_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_floats_extra_data_rtti[8]
+    __asm__("__ZN17NiFloatsExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_floats_extra_data_get_rtti(void const *)
+    __asm__("__ZNK17NiFloatsExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_floats_extra_data_get_rtti(void const *) {
+    return pirates_ni_floats_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_fog_property_rtti[8]
+    __asm__("__ZN13NiFogProperty6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_fog_property_get_rtti(void const *)
+    __asm__("__ZNK13NiFogProperty7GetRTTIEv");
+extern "C" const void * pirates_ni_fog_property_get_rtti(void const *) {
+    return pirates_ni_fog_property_rtti;
+}
+
+static unsigned char pirates_ni_integer_extra_data_rtti[8]
+    __asm__("__ZN18NiIntegerExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_integer_extra_data_get_rtti(void const *)
+    __asm__("__ZNK18NiIntegerExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_integer_extra_data_get_rtti(void const *) {
+    return pirates_ni_integer_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_integers_extra_data_rtti[8]
+    __asm__("__ZN19NiIntegersExtraData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_integers_extra_data_get_rtti(void const *)
+    __asm__("__ZNK19NiIntegersExtraData7GetRTTIEv");
+extern "C" const void * pirates_ni_integers_extra_data_get_rtti(void const *) {
+    return pirates_ni_integers_extra_data_rtti;
+}
+
+static unsigned char pirates_ni_lines_data_rtti[8]
+    __asm__("__ZN11NiLinesData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_lines_data_get_rtti(void const *)
+    __asm__("__ZNK11NiLinesData7GetRTTIEv");
+extern "C" const void * pirates_ni_lines_data_get_rtti(void const *) {
+    return pirates_ni_lines_data_rtti;
+}
+
+static unsigned char pirates_ni_lines_rtti[8]
+    __asm__("__ZN7NiLines6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_lines_get_rtti(void const *)
+    __asm__("__ZNK7NiLines7GetRTTIEv");
+extern "C" const void * pirates_ni_lines_get_rtti(void const *) {
+    return pirates_ni_lines_rtti;
+}
+
+static unsigned char pirates_ni_lod_data_rtti[8]
+    __asm__("__ZN9NiLODData6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_lod_data_get_rtti(void const *)
+    __asm__("__ZNK9NiLODData7GetRTTIEv");
+extern "C" const void * pirates_ni_lod_data_get_rtti(void const *) {
+    return pirates_ni_lod_data_rtti;
+}
+
+static unsigned char pirates_ni_lod_node_rtti[8]
+    __asm__("__ZN9NiLODNode6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_lod_node_get_rtti(void const *)
+    __asm__("__ZNK9NiLODNode7GetRTTIEv");
+extern "C" const void * pirates_ni_lod_node_get_rtti(void const *) {
+    return pirates_ni_lod_node_rtti;
+}
