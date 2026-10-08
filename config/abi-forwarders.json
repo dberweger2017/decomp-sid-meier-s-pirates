@@ -9561,6 +9561,18 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-6e18efbe200b2faefe2a",
+      "group_id": "o-98c0a92a4cb9dba98194",
+      "symbol": "__GLOBAL__I__ZN3ISE18ISEFloatControllerD2Ev",
+      "original_name": "_GLOBAL__I__ZN3ISE18ISEFloatControllerD2Ev",
+      "target_symbol": "__ZN3ISE11ISEFloatKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEFloatKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }
