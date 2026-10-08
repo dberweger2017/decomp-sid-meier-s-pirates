@@ -28,3 +28,5 @@ float FAudioManager::GetDopplerFactor() { return m_dopplerFactor; }
 float FAudioManager::GetDistanceFactor() { return m_distanceFactor; }
 
 void FAudioManager::Set2DScripts(F2DSoundScriptData *scripts, int count) { m_scripts2D = scripts; m_numScripts2D = count; }
+
+void FAudioManager::Set3DScripts(F3DSoundScriptData *scripts, int count) { m_scripts3D = scripts; m_numScripts3D = count; }
