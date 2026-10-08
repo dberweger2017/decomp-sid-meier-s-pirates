@@ -3,3 +3,5 @@
 #include "../../game/ui/TreasureUISceneSmall_TreasureUIScene.cpp"
 
 #include "../abi/o-6d7e9115b01099792f39.cpp"
+
+#include "../leaves/o-6d7e9115b01099792f39.cpp"

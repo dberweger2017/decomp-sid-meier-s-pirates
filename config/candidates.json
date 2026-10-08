@@ -3621,13 +3621,15 @@
         "f-288c3cd356a4bf8e7b94",
         "f-24c6449732a4cae02001",
         "f-697a35008785c1bd4780",
-        "f-a0ae5a7c6d7ed3ac2c93"
+        "f-a0ae5a7c6d7ed3ac2c93",
+        "f-f9ea4ce65bbe3a403392"
       ],
       "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md.",
       "recovery_kinds": {
         "f-24c6449732a4cae02001": "method-forwarder",
         "f-697a35008785c1bd4780": "complete-destructor",
-        "f-a0ae5a7c6d7ed3ac2c93": "method-forwarder"
+        "f-a0ae5a7c6d7ed3ac2c93": "method-forwarder",
+        "f-f9ea4ce65bbe3a403392": "destruction-callback"
       }
     },
     {
