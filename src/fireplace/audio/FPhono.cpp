@@ -82,3 +82,5 @@ void FPhono::CloseStream(int stream) {
 }
 
 bool FPhono::Startup(unsigned long, long, unsigned long) { return true; }
+
+void *FPhono::GetDirectSoundObject() { return 0; }
