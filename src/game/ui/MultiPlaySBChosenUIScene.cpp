@@ -11,3 +11,5 @@ bool MultiPlaySBChosenUIScene::IsChosen() { return m_chosen; }
 void MultiPlaySBChosenUIScene::SetEnemyModelIndex(int index) { m_enemyModelIndex = index; }
 
 void MultiPlaySBChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
+
+#include "MultiPlaySBChosenUISceneSmall_MultiPlaySBChosenUIScene.cpp"
