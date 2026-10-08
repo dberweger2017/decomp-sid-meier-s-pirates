@@ -686,3 +686,12 @@ class-local `m_RTTI` allocations. All four relocations resolve and compare at
 The latest report has **1,608 exact functions / 18,012 bytes**, 132 differing
 candidates, 7,437 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Ten `GetRTTI` methods in `FireIncludeCpp.o` now point to their class-local
+`m_RTTI` symbols. The first three load the pointer value from the common slot;
+the remaining seven return the slot address. All relocations resolve and all
+ten compare at 50%; the RTTI data contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 142 differing
+candidates, 7,427 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
