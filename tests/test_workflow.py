@@ -347,6 +347,15 @@ class WorkflowTests(unittest.TestCase):
             write_json(Path(other) / 'config/linker.json', {'family': 'ld64', 'name': 'changed'})
             self.assertIn('linker baseline', linker_profile_failure(self.root, other))
 
+    def test_deleted_object_is_incrementally_rebuilt(self):
+        base, _ = self.build()
+        uid = base['functions'][0]['group_id']
+        (self.root / f'build/units/{uid}.o').unlink()
+        self.assertFalse(comparisons(self.root, self.fid)['byte_verified'])
+        head, run = self.build()
+        self.assertIn('COMPILE', run.stdout)
+        self.assertEqual(head['metrics']['matched_functions'], 1)
+
     def test_inventory_loss_and_candidate_compile_failure_fail_regression_check(self):
         base, _ = self.build()
         head = copy.deepcopy(base)

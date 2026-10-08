@@ -54,6 +54,11 @@ class DataTests(unittest.TestCase):
         self.assertEqual(result['relocations'][0]['target_address'], 0x3001)
         wrong = candidate(b'\0' * 4, relocs=[rel], extra=[symbol('_wrong', section=0, type=1)])
         self.assertEqual(compare(original, wrong)['status'], 'different')
+        inv = recover(original)
+        record = recover_data(original, inv)['records'][0]
+        overridden = compare_data(original, inv, record, wrong, placements={'symbols': {'_wrong': 0x3001}})
+        self.assertEqual(overridden['status'], 'unresolved')
+        self.assertFalse(overridden['byte_verified'])
         unknown = candidate(b'\0' * 4, relocs=[rel], extra=[symbol('_unknown', section=0, type=1)])
         self.assertEqual(compare(original, unknown)['status'], 'unresolved')
 

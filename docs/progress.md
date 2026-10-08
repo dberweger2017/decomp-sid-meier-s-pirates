@@ -23,8 +23,9 @@ This algorithm is ours, not Melee's or stock objdiff's implementation.
 Native reports preserve code and data scores separately. The objdiff protobuf
 JSON adapter uses strings for uint64 fields and combines code fuzzy similarity
 with exact data credit, weighted by their byte denominators. Data sections and
-counts have real denominators. No linking progress follows from function
-similarity or a compiler probe.
+counts have real denominators. Unattributed data has an explicit adapter storage bucket with zero compilation
+units, so unit measures reconcile without inventing another original group.
+No linking progress follows from function similarity or a compiler probe.
 
 ## Data allocations
 
@@ -54,7 +55,9 @@ Mappings must belong to their original group, or explicitly identify unattribute
 data, and cannot be duplicated across units. Named original data in the same
 STABS group resolves before globally duplicated names. Supported pointer and
 paired section-difference relocations use original addresses; wrong or unknown
-targets do not match. Instruction relocations inside non-code data are unresolved.
+targets do not match. Explicit placements cannot contradict known original symbol
+addresses. Imported dyld targets, veneers and interworking still remain unresolved
+in object comparisons until their transformations are supported. Instruction relocations inside non-code data are unresolved.
 
 The browser has a data tree, status/source filters, byte/ASCII/little-endian-word
 views, relocation targets and source editing. Display is limited to 4,096 bytes;

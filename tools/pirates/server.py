@@ -101,6 +101,14 @@ class Watcher:
                                             stderr=subprocess.STDOUT, text=True, errors='replace')
             output, _ = self.process.communicate(timeout=600)
             self.output, self.returncode = output, self.process.returncode
+            if self.returncode:
+                # Ninja may stop before its report edge (e.g. a deleted source
+                # or header). Never leave the browser showing old matches.
+                try:
+                    from .build import report
+                    report(self.root)
+                except (ToolError, OSError, ValueError, KeyError) as error:
+                    self.output += '\nReport refresh failed: ' + str(error)
         except (OSError, ToolError, subprocess.TimeoutExpired) as e:
             if self.process:
                 self.process.kill()
@@ -194,6 +202,12 @@ class Handler(BaseHTTPRequestHandler):
             elif url.path == '/api/status':
                 w = self.server.watcher
                 self.reply({'revision': w.revision, 'building': w.building, 'returncode': w.returncode, 'output': w.output})
+            elif url.path == '/api/link':
+                from .linking import current_state
+                state = current_state(self.server.root, configuration(self.server.root))
+                path = self.server.root / 'build/link/diagnostics.txt'
+                state['diagnostic_text'] = path.read_text() if path.exists() else 'No link step has run.'
+                self.reply(state)
             elif url.path == '/api/function':
                 self.reply(comparisons(self.server.root, details_id=query['id'][0]))
             elif url.path == '/api/files':

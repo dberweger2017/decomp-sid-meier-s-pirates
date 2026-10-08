@@ -186,13 +186,17 @@ for (const button of document.querySelectorAll('[data-tab]')) button.onclick = (
 };
 for (const id of ['search', 'status', 'source-filter']) $(id).addEventListener('input', renderTree);
 $('data-format').onchange = renderFunction;
-$('show-linking').onclick = () => { $('linking-panel').hidden = !$('linking-panel').hidden; };
+async function linkDiagnostics() {
+  try { const link = await api('/api/link'); $('link-diagnostics').textContent = link.diagnostic_text || 'No linker diagnostics. ' + link.reason; }
+  catch(e) { error(e.message); }
+}
+$('show-linking').onclick = async () => { $('linking-panel').hidden = !$('linking-panel').hidden; if (!$('linking-panel').hidden) await linkDiagnostics(); };
 $('record-kind').onchange = () => { if (dirty) { $('record-kind').value = selected.startsWith('d-') ? 'data' : 'code'; error('Save your source changes before changing views.'); return; } selected = ''; renderTree(); $('function-view').hidden = true; $('empty').hidden = false; };
 async function refresh() {
   try { report = await api('/api/report'); unitIndex = new Map(report.units.map(u => [u.id, u])); renderMetrics();
     if (!selectedRecord()) selected = records()[0]?.id || '';
     const f = selectedRecord(); if (f) { $('record-kind').value = f.id.startsWith('d-') ? 'data' : 'code'; openGroups.add(f.group_id); }
-    renderTree(); await renderFunction();
+    renderTree(); await renderFunction(); if (!$('linking-panel').hidden) await linkDiagnostics();
   } catch (e) { error(e.message); }
 }
 const events = new EventSource('/api/events');

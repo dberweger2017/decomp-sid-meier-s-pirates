@@ -79,6 +79,9 @@ class AddressResolver:
     def name(self, name, pointer=False):
         if name in self.explicit:
             value = self.explicit[name]
+            known = self.group_names.get(name) or self.global_names.get(name, set())
+            if known and value not in {address | int(pointer and thumb) for address, thumb in known}:
+                raise Unresolved('Explicit placement contradicts the original symbol address: ' + name)
             return value, name
         values = self.group_names.get(name) or self.global_names.get(name, set())
         if len(values) != 1:

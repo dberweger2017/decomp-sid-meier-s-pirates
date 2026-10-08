@@ -70,6 +70,14 @@ def build_one(root, ipa, sdk, output):
         process = subprocess.run(ninja_command(), cwd=root, capture_output=True, text=True)
         (output / 'build.log').write_text(process.stdout + process.stderr)
         code = process.returncode
+        if code:
+            # Missing source/headers can prevent Ninja reaching the report edge.
+            # Refresh comparison evidence before exporting useful diagnostics.
+            from tools.pirates.build import report
+            try:
+                report(root)
+            except (ToolError, OSError, ValueError, KeyError):
+                pass  # Configuration/input errors are already in build.log.
     except (ToolError, OSError, ValueError, KeyError) as e:
         (output / 'build.log').write_text(str(e) + '\n')
         code = 1

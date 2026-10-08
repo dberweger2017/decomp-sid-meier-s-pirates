@@ -136,7 +136,7 @@ def configure(root, ipa=None, fixture=None, candidates=None, profile=None, sdk=N
         uid = unit['id']
         output = f'build/units/{uid}.compile.json'
         dependencies.append(output)
-        lines += [f'build {output}: compile {ninja_path(unit["source"])} | build/config.json {sdk_dependency}{implicit}',
+        lines += [f'build {output} | build/units/{uid}.o build/units/{uid}.diagnostics.txt build/units/{uid}.deps: compile {ninja_path(unit["source"])} | build/config.json {sdk_dependency}{implicit}',
                   f'  unit = {uid}', f'  source = {ninja_path(unit["source"])}', f'  depfile = build/units/{uid}.d']
         language = language_flags(unit['source'])
         editor_flags = ['-std=gnu++98' if language[1] in ('c++', 'objective-c++') else '-std=gnu89'] if compiler.get('editor_command') else []
