@@ -53,3 +53,7 @@ void FPhono::Update(float elapsed) {
 void FPhono::Shutdown() {
     Phono2::PAudioSystem::getSingletonPtr()->ReGenSources();
 }
+
+void FPhono::SetPlaybackPosition_Stream(int stream, unsigned int position) {
+    Phono2::PAudioSystem::getSingletonPtr()->SetStreamPlaybackPosition(stream, position);
+}
