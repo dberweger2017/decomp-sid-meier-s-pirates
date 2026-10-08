@@ -1319,6 +1319,32 @@
         "f-d08f46f125e8b2e659cb"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-a70c52d41737dcc20b28",
+      "source": "src/game/unity/TempIncludeCpp.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-faca9834bda213961e95",
+        "f-02aa4881c74c98d98906",
+        "f-efc5f072aad62ae10a53",
+        "f-9c07563fd8e9199299d3",
+        "f-d95fd08654510ee02ae3",
+        "f-d3ab537a03b6f9b51d59",
+        "f-abf5bfcdfda8c9f3769e",
+        "f-9984726e47ee1147e518",
+        "f-c2e625ff85ac0a53ebc9",
+        "f-1c0bf8fbe36842e96a5e",
+        "f-c0eeb9c8e1930742a4aa",
+        "f-2b00bda2b03c7a118db0"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     }
   ]
 }
