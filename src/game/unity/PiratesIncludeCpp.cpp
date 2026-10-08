@@ -10,3 +10,27 @@
 
 #include "../battle/BattleGrid.cpp"
 #include "../world/WorldMapProjection.cpp"
+
+#include "../ui/CityInfoUISceneReleasePiratesIncludeCpp.cpp"
+
+#include "../ui/CitySearchUISceneReleasePiratesIncludeCpp.cpp"
+
+#include "../ui/DiplomacyUISceneReleasePiratesIncludeCpp.cpp"
+
+#include "../ui/RomanceUISceneReleasePiratesIncludeCpp.cpp"
+
+#include "../ui/TopTenPiratesUISceneReleasePiratesIncludeCpp.cpp"
+
+#include "../ui/UicDotsReleasePiratesIncludeCpp.cpp"
+
+#include "../../recovery/PiratesIncludeCppReleaseFunctions.cpp"
+
+#include "../../recovery/RankBarReleasePiratesIncludeCpp.cpp"
+
+#include "../../recovery/WaterReleasePiratesIncludeCpp.cpp"
+
+#include "../../recovery/agentzReleasePiratesIncludeCpp.cpp"
+
+#include "../../recovery/dolphinzReleasePiratesIncludeCpp.cpp"
+
+#include "../../recovery/gullzReleasePiratesIncludeCpp.cpp"
