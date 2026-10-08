@@ -450,3 +450,27 @@ source, with image SHA-256
 Explicit live-source roots plus dead stripping keep older diagnostic graphs
 reproducible without supplying fake missing callees. Replacement linking stays
 at zero; the original image and iOS runtime remain unverified.
+
+## Short ISE accessors and light setters
+
+Six short ISE accessors now verify exactly, adding 48 bytes across the existing
+ISECamera, ISEEditableMesh, ISENode and TriStrip object groups. Each original
+body is a single ARM `add` of `this` with a fixed offset followed by `bx lr`:
+ISECameraMgr's orthogonal-camera view uses `+4`; ISENode's name view uses `+4`;
+ISEEditableMesh returns its render-unit and material views at `+0xb4` and
+`+0x130`; TriStrip returns its render-unit and material views at `+0xb4` and
+`+0xd4`. The source uses ordinary pointer arithmetic. Return types are not
+encoded in the symbols, so the partial declarations use `void*`; the complete
+types and object hierarchies remain unrecovered.
+
+Three ISELight setters have readable source candidates but remain different at
+25% assembly similarity. The original stores `(r, g, b, 0)` at `+8` and
+`+0x18`, and `(x, y, z, 1)` at `+0x38`. The candidates express those four
+components with partial `ISELight` fields. The backend allocates the constant
+and destination registers in the opposite order from the original; these three
+functions receive no exact-match credit. This is a source-level result, not a
+claim that the partial ISELight layout is complete.
+
+The resulting report has **1,580 exact functions / 17,572 bytes**, 43 differing
+candidates, 7,554 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

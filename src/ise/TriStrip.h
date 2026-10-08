@@ -12,6 +12,8 @@ namespace ISE {
 class TriStrip {
 public:
     unsigned int GetRenderUnitNum();
+    void * GetRenderUnit(int index);
+    void * GetMaterial();
     void SetActiveVertexCount(int count);
     unsigned int GetVertexCount() const;
     unsigned int GetVertexNum();

@@ -10,6 +10,14 @@ void TriStrip::SetActiveVertexCount(int count) { m_activeVertexCount = count; }
 unsigned int TriStrip::GetVertexCount() const { return m_vertexBuffer->m_vertexCount; }
 
 unsigned int TriStrip::GetVertexNum() { return m_vertexBuffer->m_vertexCount; }
+
+void * TriStrip::GetRenderUnit(int) {
+    return reinterpret_cast<unsigned char *>(this) + 0xb4;
+}
+
+void * TriStrip::GetMaterial() {
+    return reinterpret_cast<unsigned char *>(this) + 0xd4;
+}
 } // namespace ISE
 
 unsigned int ISE::TriStrip::GetPolyNum() { return m_vertexBuffer->m_vertexCount - 2; }
