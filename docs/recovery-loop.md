@@ -57,3 +57,18 @@ descriptor `config/diagnostic-links/core-accessors.json` structurally links with
 image SHA-256 `adbbd43abc9db3cb37e586c4afdbeae089eee9f616a23de0f487385dafd6f6c7`.
 Constructors/destructors, larger methods, class hierarchies and associated data
 remain missing; the diagnostic image adds no full-game completion.
+
+## Audio accessor checkpoint
+
+All 21 selected FSound3D methods verify, reaching 75 functions / 1,188 code
+bytes. The browser watcher performed each rebuild; every verified function has
+its own commit. CPVRTString::npos also verifies as one 4-byte data allocation,
+with explicit observed __TEXT,__const placement and alignment. Default literal4
+emission was correctly rejected; original source attributes remain unknown.
+
+The five-group `audio-accessors.json` diagnostic descriptor links with image
+SHA-256 `89f3ae1c6f84ca0f20701b7fbd8f2278cbef6135eaf8bf29f26b4f7f35ed8556`.
+It includes the reconstructed sentinel and both sound classes while retaining
+zero replacement completion and unverified runtime behavior. Larger methods,
+constructors/destructors and complete class hierarchies remain unrecovered.
+Next targets are the small FAudioManager methods.
