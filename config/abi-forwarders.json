@@ -9597,6 +9597,18 @@
       "return_type": "void",
       "parameters": [],
       "target_parameters": []
+    },
+    {
+      "id": "f-018a4363ede463e63aad",
+      "group_id": "o-002788087bf756267ecd",
+      "symbol": "__GLOBAL__I__ZN3ISE20ISEPSysColorModifierC2EPKcPNS_20ISEParticleColorDataE",
+      "original_name": "_GLOBAL__I__ZN3ISE20ISEPSysColorModifierC2EPKcPNS_20ISEParticleColorDataE",
+      "target_symbol": "__ZN3ISE11ISEColorKey14RegisterLoaderEv",
+      "target_name": "ISE::ISEColorKey::RegisterLoader()",
+      "kind": "registration-forwarder",
+      "return_type": "void",
+      "parameters": [],
+      "target_parameters": []
     }
   ]
 }
