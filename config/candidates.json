@@ -272,7 +272,8 @@
         "f-fe600239a77d3075f5c7",
         "f-14202260c7e4586ce986",
         "f-e15a91a8e455975bfec3",
-        "f-ee084c6ba2c63b6d284b"
+        "f-ee084c6ba2c63b6d284b",
+        "f-784fbfb7252243fb241a"
       ],
       "flags_provenance": "Investigation profile for original integer float loads/stores. Complete class hierarchy and original flags remain unknown; see FSound3D.h."
     }

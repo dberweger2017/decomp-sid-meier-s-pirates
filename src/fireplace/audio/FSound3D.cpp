@@ -32,3 +32,5 @@ float FSound3D::GetTaperVolume() const { return m_taperVolume; }
 void FSound3D::SetTaperVolume(float value) { m_taperVolume = value; }
 
 bool FSound3D::SetVelocityMagnitude(float value) { m_velocityMagnitude = value; return true; }
+
+void FSound3D::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields |= flags; }
