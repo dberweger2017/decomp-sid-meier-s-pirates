@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     read_only: true
     cap_drop: [ALL]
+    # Official Caddy carries this file capability; its bounding set must retain it.
+    cap_add: [NET_BIND_SERVICE]
     security_opt: [no-new-privileges:true]
     ports: ["127.0.0.1:8766:80"]
     volumes:
