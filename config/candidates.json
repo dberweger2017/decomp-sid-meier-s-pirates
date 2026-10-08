@@ -1337,11 +1337,13 @@
         "f-2303ffed6007172e865e",
         "f-047e3e319579aff96b7a",
         "f-92e081ca4ce5ed7ef019",
-        "f-b580462ea59e3b6cb0ff"
+        "f-b580462ea59e3b6cb0ff",
+        "f-162f564d585caa3fa6da"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
-        "f-b580462ea59e3b6cb0ff": "method-forwarder"
+        "f-b580462ea59e3b6cb0ff": "method-forwarder",
+        "f-162f564d585caa3fa6da": "destruction-callback"
       }
     },
     {
