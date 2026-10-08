@@ -215,3 +215,55 @@ all 236 verified functions and npos. The editor API exposes all 40 contributing
 sources/headers in that unit, and the same selected function comparison remains
 exact. The live server/API check passes; T3 preview snapshot/evaluation/navigation
 time out at this checkpoint, so a fresh visual browser pass is not claimed.
+
+## Second hundred-function batch
+
+The next batch drafts 100 functions in 44 original object groups, including
+engine/game unity units, multiplayer UI, Gamebryo and namespaced ISE/Phono2
+libraries. **98 verify at 904 code bytes**, reaching **334 exact functions /
+3,804 code bytes** (318 functions / 3,176 bytes beyond main). Exact code is
+0.0932% of recovered function ranges; exact records are 3.6395%. Nine candidates
+differ, 8,834 records remain missing, and there are zero compile errors, unresolved
+comparisons or regressions of prior function/data matches. Detailed evidence is
+retained in ignored `build/recovery/batch2-*` outputs. Each original group has its
+own commit; the two failing candidates have explicit nonexact commits.
+
+These are primarily actual field reads/writes, indexed object-group/node access,
+ushort vertex/triangle counts, shared emitter-controller fields, camera/texture
+flags, audio pointers and property-type constants. The small mutex/log
+constructors verify only their observed flag initialization; neither establishes
+a complete, instantiable object layout. Nine address-return methods were deferred
+until their in-place/base-subobject layouts can be recovered.
+
+Nested target identities have additional call-site evidence: FAnimation's
+GetKFMTool constructs NiKFMTool and Initialize stores its result at +0x58;
+UicDanceStep constructs a UicDanceHalo before storing +0x54; DanceUIScene
+InitUIScene constructs UicLabel before storing +0xac; the draw-list render unit's
+DrawUnit calls ISEDrawList::Draw with its +0x10 pointer; TriStrip's constructor
+accepts VertexBuffer and stores the pointer at +0xc8. Other unencoded return
+types, names, signedness and full virtual layouts remain hypotheses. Header-only
+views earn no extra function/data progress.
+
+ISEParticles::SetModelData remains different at 57.1429%: the historical
+compiler emits additional conditional returns (16 versus 12 bytes).
+ISETexture::IsAlphaEnabled also stays at 57.1429%, using a shift-and-mask
+sequence instead of UBFX (16 versus 12 bytes). Optimization, scheduling, CPU,
+control-flow and ordinary source-shape trials did not verify either; isolated
+bitfield views narrow the load to 16 bits and also differ. The live bodies keep
+the straightforward nullable setter and unsigned bit test, with no assembly
+fallback, artificial access or exact-match credit.
+
+The fifty-seven-group `recovery-fields.json` subset structurally links with image
+SHA-256 `3ab798bd759504b0400a2785734b873be1dd3b16768899803df4c93a4566016c`.
+Its comparison report has 303 exact functions / 2,720 code bytes, two nonexact
+candidates and the four-byte npos allocation. Five selected shell callbacks
+were already in main; baseline matrix/vector groups and the Phono facade with
+missing call targets are excluded. Structural inspection passes with zero
+replacement completion and unverified iOS runtime behavior. Reproduce with
+`python tools/recovery_link.py config/diagnostic-links/recovery-fields.json`.
+
+The pushed 236-function checkpoint passes Linux/macOS tooling and historical
+candidate CI. Its native Linux artifact agrees with the saved macOS report for
+all 9,177 functions, 5,056 data records and progress/coverage metrics; compiler
+profile metadata remains separate. This 334-function checkpoint needs its own
+CI run. The recovery goal continues.

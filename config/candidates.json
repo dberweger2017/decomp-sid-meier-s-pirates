@@ -677,6 +677,21 @@
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
     {
+      "group_id": "o-22e518abce9579acfc03",
+      "source": "src/ise/ISEParticles.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-550a64b5e3249aacfbe4"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
       "group_id": "o-2722e7509289d1cd572e",
       "source": "src/fireplace/audio/FListener.cpp",
       "flags": [
@@ -1026,6 +1041,21 @@
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
     {
+      "group_id": "o-9b5e1bfcdd1c2e52775d",
+      "source": "src/ise/ISETexture.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-4d69d9f014efa7e4d2e9"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+    },
+    {
       "group_id": "o-9cdb54dcd3500115b6d3",
       "source": "src/ise/ISECamera.cpp",
       "flags": [
@@ -1244,36 +1274,6 @@
         "f-67250835350c71f98da4",
         "f-011c76cff4fec3b88cd3",
         "f-d08f46f125e8b2e659cb"
-      ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
-    },
-    {
-      "group_id": "o-22e518abce9579acfc03",
-      "source": "src/ise/ISEParticles.cpp",
-      "flags": [
-        "-O2",
-        "-marm",
-        "-mfloat-abi=soft"
-      ],
-      "sdk_required": false,
-      "functions": {},
-      "implemented_functions": [
-        "f-550a64b5e3249aacfbe4"
-      ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
-    },
-    {
-      "group_id": "o-9b5e1bfcdd1c2e52775d",
-      "source": "src/ise/ISETexture.cpp",
-      "flags": [
-        "-O2",
-        "-marm",
-        "-mfloat-abi=soft"
-      ],
-      "sdk_required": false,
-      "functions": {},
-      "implemented_functions": [
-        "f-4d69d9f014efa7e4d2e9"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     }

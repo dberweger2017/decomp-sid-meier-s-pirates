@@ -91,3 +91,13 @@ address arithmetic. The attempted non-lazy-pointer placement also remains
 unresolved. These getters are deferred rather than assigned match credit. This
 second concrete backend discrepancy reinforces the need to identify the shipped
 backend before claiming all original code can be reproduced with this profile.
+
+The simple ISETexture alpha-bit test also differs with the validated profile:
+`ARMDAGToDAGISel::SelectV6T2BitfieldExtractOp` in the bundled source recognizes
+UBFX from a right shift of a left shift, but the normal unsigned bit test
+canonicalizes to shift-and-mask and produces four instructions instead of the
+original three. Explicit shift pairs canonicalize the same way; bitfield views
+narrow the load and remain different. These bounded trials do not prove no
+possible legacy source/flag combination can match, but the candidate stays
+nonexact until its bytes verify. The adjacent nullable particle-model setter
+likewise retains extra conditional returns across the tested profiles.
