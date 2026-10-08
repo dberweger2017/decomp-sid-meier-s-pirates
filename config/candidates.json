@@ -2261,6 +2261,42 @@
         "f-67defccd4929c47a0e3b"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-a8c0c6cf62d35b007569",
+      "source": "src/recovery/units/tinyxml.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-90af8819b1a3d252b825",
+        "f-b5a5ac1f457d31677df4",
+        "f-152b596d7a872f59ca62",
+        "f-49dcf4dfbefc0c5b4602",
+        "f-ae060a9bd7c11b979a5c",
+        "f-f5c654f14fd4d991d6f3",
+        "f-7e8dd12516229cdf2d4f",
+        "f-79d936dbeb21e9d3da39",
+        "f-45a9b8899123c2938616",
+        "f-fe2e740a3d88f16b415f",
+        "f-ec843b619598a2376afe",
+        "f-dc0640cb2bb8efe0c76b",
+        "f-47c07d4d2f48bceb6970",
+        "f-2bb2190f80281652132a",
+        "f-5383ba671509ee89f64f",
+        "f-2c7269dae061269e9b67",
+        "f-d8adaf34b65268b05914",
+        "f-957d5ed87fef12772e96",
+        "f-8210ae061402bacd3515",
+        "f-703b1576c2cad54e31ed",
+        "f-e684a021324e244f6b65",
+        "f-6259a32d5e58896dad47"
+      ],
+      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
     }
   ]
 }
