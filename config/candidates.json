@@ -1902,6 +1902,21 @@
         "f-0bd93d3f55b3fb524435"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-7114dc771bc5af16a23c",
+      "source": "src/recovery/units/ISEPSysUpdateCtlr.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-79efa903fadd2d85b474"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
