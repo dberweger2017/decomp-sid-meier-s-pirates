@@ -1,6 +1,6 @@
 # First recovered source candidates
 
-This milestone adds two small PowerVR library functions from the original executable. They are compiled C++ source, not assembly or original-byte fallbacks. They verify at 2 functions / 84 bytes; the other 9,175 function records remain missing. Original object and unity groups are preserved.
+This milestone adds two small PowerVR library functions from the original executable. They are compiled C++ source, not assembly or original-byte fallbacks. The expanded batch verifies at 16 functions / 628 bytes. Five further source candidates differ, and 9,156 records remain missing. Original object and unity groups are preserved.
 
 ## PVRShellInit::ApiSet
 

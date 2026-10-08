@@ -28,12 +28,128 @@
       "functions": {
         "f-da79232dc420a34aba1b": {
           "symbol": "__Z19PVRTMatrixIdentityFR11PVRTMATRIXf"
+        },
+        "f-248465017e5b190a6081": {
+          "symbol": "__Z22PVRTMatrixTranslationFR11PVRTMATRIXffff"
+        },
+        "f-a95d54daa8058c95939d": {
+          "symbol": "__Z18PVRTMatrixScalingFR11PVRTMATRIXffff"
+        },
+        "f-1024ba705cf4e96f3a55": {
+          "symbol": "__Z19PVRTMatrixVec3LerpFR12PVRTVECTOR3fRKS_S2_f"
+        },
+        "f-8594ffda5a7ad6b10e37": {
+          "symbol": "__Z19PVRTMatrixMultiplyFR11PVRTMATRIXfRKS_S2_"
         }
       },
       "flags_provenance": "Investigation profile; see docs/first-candidates.md and reproducible tools/flags.py experiments. Exact original flags are unproven.",
       "implemented_functions": [
-        "f-da79232dc420a34aba1b"
+        "f-da79232dc420a34aba1b",
+        "f-248465017e5b190a6081",
+        "f-a95d54daa8058c95939d",
+        "f-1024ba705cf4e96f3a55",
+        "f-8594ffda5a7ad6b10e37"
       ]
+    },
+    {
+      "group_id": "o-feb30fcaaafbd5cb88dc",
+      "source": "src/powervr/PVRShell.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "functions": {
+        "f-f9f0d05fcf913b8814d3": {
+          "symbol": "__ZN8PVRShell15InitApplicationEv"
+        },
+        "f-73b9a5b8e4e3bc76fa64": {
+          "symbol": "__ZN8PVRShell15QuitApplicationEv"
+        },
+        "f-67a9f7b44c4b3574d114": {
+          "symbol": "__ZN8PVRShell8InitViewEv"
+        },
+        "f-3056ddf4a0547696fde0": {
+          "symbol": "__ZN8PVRShell11ReleaseViewEv"
+        },
+        "f-fac033c0e8e10d664bde": {
+          "symbol": "__ZN8PVRShell11RenderSceneEv"
+        }
+      },
+      "implemented_functions": [
+        "f-f9f0d05fcf913b8814d3",
+        "f-73b9a5b8e4e3bc76fa64",
+        "f-67a9f7b44c4b3574d114",
+        "f-3056ddf4a0547696fde0",
+        "f-fac033c0e8e10d664bde"
+      ],
+      "flags_provenance": "Successful investigation profile; original flags remain unknown. See docs/easy-candidates.md."
+    },
+    {
+      "group_id": "o-52bcb4cde31b44f66f8f",
+      "source": "src/powervr/PVRTQuaternionF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "functions": {
+        "f-bdec2b4851a7bb623546": {
+          "symbol": "__Z29PVRTMatrixQuaternionIdentityFR15PVRTQUATERNIONf"
+        }
+      },
+      "implemented_functions": [
+        "f-bdec2b4851a7bb623546"
+      ],
+      "flags_provenance": "Successful investigation profile; original flags remain unknown. See docs/easy-candidates.md."
+    },
+    {
+      "group_id": "o-5078d14854f3ad514e96",
+      "source": "src/powervr/PVRTVector.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "functions": {
+        "f-a84e36effead63a93467": {
+          "symbol": "__ZN8PVRTVec3C1ERK8PVRTVec4"
+        },
+        "f-0c2386105dbe1e990fd8": {
+          "symbol": "__ZN8PVRTMat3C1ERK8PVRTMat4"
+        },
+        "f-f89e4e0ef9c4d7cf9d12": {
+          "symbol": "__ZNK8PVRTMat4mlERKS_"
+        },
+        "f-b5deb57ef9de286dea43": {
+          "symbol": "__ZN8PVRTMat49RotationZEf"
+        },
+        "f-a59fafdae59489dbb624": {
+          "symbol": "__ZN8PVRTMat39RotationZEf"
+        },
+        "f-f7a0c585d45fe03d53ce": {
+          "symbol": "__ZN8PVRTMat49RotationYEf"
+        },
+        "f-67421388b6ffd3a3aada": {
+          "symbol": "__ZN8PVRTMat39RotationYEf"
+        },
+        "f-bbd56f8df54ca10f3092": {
+          "symbol": "__ZN8PVRTMat49RotationXEf"
+        },
+        "f-6626bdd50217f9d3e16e": {
+          "symbol": "__ZN8PVRTMat39RotationXEf"
+        }
+      },
+      "implemented_functions": [
+        "f-a84e36effead63a93467",
+        "f-0c2386105dbe1e990fd8",
+        "f-f89e4e0ef9c4d7cf9d12",
+        "f-b5deb57ef9de286dea43",
+        "f-a59fafdae59489dbb624",
+        "f-f7a0c585d45fe03d53ce",
+        "f-67421388b6ffd3a3aada",
+        "f-bbd56f8df54ca10f3092",
+        "f-6626bdd50217f9d3e16e"
+      ],
+      "flags_provenance": "Soft-float investigation profile reproduces the original integer float copies and all three Mat3 rotation wrappers; actual original flags remain unproven. See docs/easy-candidates.md."
     }
   ]
 }
