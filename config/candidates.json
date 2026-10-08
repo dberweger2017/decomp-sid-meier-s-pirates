@@ -2858,11 +2858,13 @@
       "functions": {},
       "implemented_functions": [
         "f-edd275878f3c4195f03f",
-        "f-ccbd4f694615f746cd36"
+        "f-ccbd4f694615f746cd36",
+        "f-b97b4d94de7e940dd645"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md.",
       "recovery_kinds": {
-        "f-ccbd4f694615f746cd36": "complete-destructor"
+        "f-ccbd4f694615f746cd36": "complete-destructor",
+        "f-b97b4d94de7e940dd645": "destruction-callback"
       }
     },
     {
