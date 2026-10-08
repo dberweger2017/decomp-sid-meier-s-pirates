@@ -18,3 +18,5 @@ bool FSound3D::IsLoaded() const { return m_loaded; }
 bool FSound3D::IsPaused() const { return m_paused; }
 
 bool FSound3D::GetToBeDestroyed() { return m_toBeDestroyed; }
+
+bool FSound3D::GetIsMusic() const { return m_isMusic; }
