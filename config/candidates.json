@@ -1036,7 +1036,8 @@
         "f-cbeac7c9ac1589f1dc8b",
         "f-9765e15a299bdbdbbc7b",
         "f-3eb88cdd23f10b26f2a8",
-        "f-d252f7fe6f1fc32fe921"
+        "f-d252f7fe6f1fc32fe921",
+        "f-8aa8df3055e669201d1b"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },

@@ -2,3 +2,5 @@
 
 #include "../../../src/game/ui/MultiPlaySFCharacterChosen.cpp"
 #include "../../../src/game/ui/MultiPlaySFStageChosen.cpp"
+
+#include "../ui/MultiPlaySFStageChosenReleaseMultiPlaySwordFightingChosen.cpp"
