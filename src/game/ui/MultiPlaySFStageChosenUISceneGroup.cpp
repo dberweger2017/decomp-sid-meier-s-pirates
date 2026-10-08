@@ -9,3 +9,5 @@ int MultiPlaySFStageChosenUISceneGroup::GetChosenStageIndex() { return m_chosenS
 #include "MultiPlaySFStagePicUISceneSmall_MultiPlaySFStageChosenUIScene.cpp"
 
 #include "../../recovery/abi/o-ecde35a48cd790293f68.cpp"
+
+#include "../../recovery/leaves/o-ecde35a48cd790293f68.cpp"
