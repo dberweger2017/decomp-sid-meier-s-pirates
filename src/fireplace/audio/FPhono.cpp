@@ -41,3 +41,7 @@ void FPhono::Stop_Sample(int sample) {
 bool FPhono::IsStreamPlaying(int stream) {
     return Phono2::PAudioSystem::getSingletonPtr()->IsStreamPlaying(stream);
 }
+
+bool FPhono::IsSamplePlaying(int sample) {
+    return Phono2::PAudioSystem::getSingletonPtr()->IsSamplePlaying(sample);
+}
