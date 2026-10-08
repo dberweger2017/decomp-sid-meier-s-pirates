@@ -14,3 +14,5 @@
 #include "../../../src/game/ui/UicPullReefCtrl.cpp"
 #include "../../../src/game/ui/WrapUpUISceneGroup.cpp"
 #include "../../../src/game/world/Object3d.cpp"
+
+#include "../ui/NPCInfoUIScene.cpp"
