@@ -38,6 +38,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('action', choices=['fetch', 'import', 'check', 'stamp'])
     parser.add_argument('--sdk', type=Path)
+    parser.add_argument('--pinned', action='store_true', help='Require the configured mirror content fingerprint')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/sdk-identity.json')
     args = parser.parse_args()
     if args.action == 'fetch':
@@ -49,7 +50,8 @@ def main():
     if args.action == 'stamp':
         write_json(args.output, inspect_sdk(args.sdk))
         return  # Preserve diagnostics/report generation even for invalid inputs.
-    identity = require_sdk(args.sdk)
+    expected = load_json(ROOT / 'config/sdk-lock.json')['manifest_sha256'] if args.pinned else None
+    identity = require_sdk(args.sdk, expected)
     if args.action == 'import':
         write_json(ROOT / 'build/sdk/provenance.json', {'identity': identity, 'source': 'Locally supplied; no Apple authentication claimed'})
         from tools.pirates.configure import configure

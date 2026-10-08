@@ -111,10 +111,28 @@ jobs:
             echo 'profile=config/compiler.json' >> "$GITHUB_OUTPUT"
           fi
           exit "$status"
+      - name: Provision the shared pinned SDK
+        id: sdk-prep
+        if: steps.candidates.outputs.present == 'true'
+        continue-on-error: true
+        working-directory: head
+        env:
+          PIRATES_SDK_PATH: ${{ vars.PIRATES_SDK_PATH }}
+        shell: bash
+        run: |
+          status=0
+          if [[ -n "$PIRATES_SDK_PATH" ]]; then
+            python tools/sdk.py check --sdk "$PIRATES_SDK_PATH" --pinned || status=$?
+            echo "path=$PIRATES_SDK_PATH" >> "$GITHUB_OUTPUT"
+          else
+            python tools/sdk.py fetch || status=$?
+            echo "path=$PWD/build/sdk/iPhoneOS5.1.sdk" >> "$GITHUB_OUTPUT"
+          fi
+          exit "$status"
       - name: Incremental base/head builds with one engine, original input and compiler profile
         shell: bash
         env:
-          PIRATES_SDK_PATH: ${{ vars.PIRATES_SDK_PATH }}
+          PIRATES_SDK_PATH: ${{ steps.sdk-prep.outputs.path }}
         run: |
           sdk_args=()
           if [[ -n "$PIRATES_SDK_PATH" ]]; then sdk_args=(--sdk "$PIRATES_SDK_PATH"); fi
@@ -154,5 +172,5 @@ jobs:
             head/build/toolchain/runtime-build.log
           if-no-files-found: warn
       - name: Fail on compiler provisioning failure after preserving reports
-        if: always() && steps.compiler-prep.outcome == 'failure'
+        if: always() && (steps.compiler-prep.outcome == 'failure' || steps.sdk-prep.outcome == 'failure')
         run: exit 1

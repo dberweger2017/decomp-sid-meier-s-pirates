@@ -8,6 +8,10 @@ on:
       - 'tools/toolchain.py'
       - 'tools/validate_compiler.py'
       - 'tools/historical_smoke.py'
+      - 'tools/sdk.py'
+      - 'tools/validate_sdk.py'
+      - 'tools/pirates/sdk.py'
+      - 'config/sdk-lock.json'
       - '.github/workflows/compiler-feasibility.yml'
 permissions:
   contents: read
@@ -52,6 +56,10 @@ jobs:
         run: python tools/toolchain.py export
       - name: Install pinned matching dependencies
         run: python -m pip install --require-hashes -r requirements.txt
+      - name: Provision pinned SDK and validate all historical languages
+        run: |
+          python tools/sdk.py fetch
+          python tools/validate_sdk.py
       - name: Verify historical incremental matching and deliberate regression
         run: python tools/historical_smoke.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -91,4 +99,6 @@ jobs:
             build/toolchain/validation.json
             build/toolchain/probes/**/diagnostics.txt
             build/toolchain/historical-smoke-*.json
+            build/sdk-validation.json
+            build/sdk-probes/**/diagnostics.txt
           if-no-files-found: warn

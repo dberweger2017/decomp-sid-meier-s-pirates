@@ -85,6 +85,16 @@ def compiler_profile_failure(base, profile, profile_path):
     return None
 
 
+def sdk_profile_failure(base, head):
+    candidates = Path(base) / 'config/candidates.json'
+    before, after = (Path(p) / 'config/sdk-lock.json' for p in (base, head))
+    if candidates.is_file() and load_json(candidates).get('units') and before.is_file() and after.is_file():
+        keys = ('manifest_sha256', 'version', 'build')
+        if any(load_json(before).get(key) != load_json(after).get(key) for key in keys):
+            return 'Shared SDK lock changed with existing candidates; establish a separate SDK baseline'
+    return None
+
+
 def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json', validation=None):
     base, head, ipa, output = map(lambda p: Path(p).resolve(), (base, head, ipa, output))
     output.mkdir(parents=True, exist_ok=True)
@@ -93,7 +103,7 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
         shutil.rmtree(stage_root)
     stage_root.mkdir(parents=True)
     profile = load_json(head / profile_path)
-    profile_failure = compiler_profile_failure(base, profile, profile_path)
+    profile_failure = compiler_profile_failure(base, profile, profile_path) or sdk_profile_failure(base, head)
     status = {}
     for name, checkout in (('base', base), ('head', head)):
         dest = stage_root / name
