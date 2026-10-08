@@ -550,3 +550,12 @@ branch around the conditional store while the original uses predication.
 The newest report has **1,605 exact functions / 17,952 bytes**, 51 differing
 candidates, 7,521 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+CPVRTString copy assignment now forwards the source buffer and length to the
+existing `assign` method. Its relocation resolves, but it compares at 44.4444%
+because the candidate emits a normal call and stack frame instead of the
+original tail branch.
+
+The current report remains at **1,605 exact functions / 17,952 bytes**, with 52
+differing candidates, 7,520 missing functions and no compile errors or
+unresolved comparisons. Full-game replacement linking remains at zero.

@@ -13,8 +13,10 @@ public:
     unsigned long size() const;
     const char &operator[](unsigned long index) const;
     char &operator[](unsigned long index);
+    CPVRTString &operator=(const CPVRTString &other);
 
 private:
+    CPVRTString &assign(const char *buffer, unsigned long length);
     char *m_buffer;
     unsigned long m_length;
     unsigned long m_capacity;
