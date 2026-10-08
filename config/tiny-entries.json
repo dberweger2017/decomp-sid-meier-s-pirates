@@ -132,6 +132,42 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-5f875d83526c2b194e09",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "___tcf_4",
+      "original_name": "__tcf_4",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-8f2fd4c883096f116e5a",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "___tcf_5",
+      "original_name": "__tcf_5",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-7cd31972c289940421e0",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "___tcf_11",
+      "original_name": "__tcf_11",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }

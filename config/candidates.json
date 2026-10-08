@@ -1558,7 +1558,14 @@
         "f-f6c998329b25cce98c36",
         "f-f7bab848a2c872c2f593",
         "f-f8c71b3c52b8fa1b61c0",
-        "f-fea35bdf958200668212"
+        "f-fea35bdf958200668212",
+        "f-40271b22482ede67c4a0",
+        "f-c8995533f3905598d8e0",
+        "f-be30c7e4e94cae81bf09",
+        "f-8a76a00b5f6794decc2b",
+        "f-5f875d83526c2b194e09",
+        "f-8f2fd4c883096f116e5a",
+        "f-7cd31972c289940421e0"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -1689,7 +1696,14 @@
         "f-f6c998329b25cce98c36": "method-forwarder",
         "f-f7bab848a2c872c2f593": "method-forwarder",
         "f-f8c71b3c52b8fa1b61c0": "method-forwarder",
-        "f-fea35bdf958200668212": "method-forwarder"
+        "f-fea35bdf958200668212": "method-forwarder",
+        "f-40271b22482ede67c4a0": "complete-constructor",
+        "f-c8995533f3905598d8e0": "complete-constructor",
+        "f-be30c7e4e94cae81bf09": "complete-constructor",
+        "f-8a76a00b5f6794decc2b": "complete-constructor",
+        "f-5f875d83526c2b194e09": "destruction-callback",
+        "f-8f2fd4c883096f116e5a": "destruction-callback",
+        "f-7cd31972c289940421e0": "destruction-callback"
       }
     },
     {

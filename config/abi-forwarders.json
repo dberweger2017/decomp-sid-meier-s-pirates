@@ -8783,6 +8783,74 @@
         "void *",
         "unsigned int"
       ]
+    },
+    {
+      "id": "f-40271b22482ede67c4a0",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN15NiPropertyStateC1ERKS_",
+      "original_name": "NiPropertyState::NiPropertyState(NiPropertyState const&)",
+      "target_symbol": "__ZN15NiPropertyStateC2ERKS_",
+      "target_name": "NiPropertyState::NiPropertyState(NiPropertyState const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-c8995533f3905598d8e0",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN19NiTexturingPropertyC1Ev",
+      "original_name": "NiTexturingProperty::NiTexturingProperty()",
+      "target_symbol": "__ZN19NiTexturingPropertyC2Ev",
+      "target_name": "NiTexturingProperty::NiTexturingProperty()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-be30c7e4e94cae81bf09",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN8NiStreamC1Ev",
+      "original_name": "NiStream::NiStream()",
+      "target_symbol": "__ZN8NiStreamC2Ev",
+      "target_name": "NiStream::NiStream()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-8a76a00b5f6794decc2b",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "symbol": "__ZN11NiPixelDataC1ERKS_",
+      "original_name": "NiPixelData::NiPixelData(NiPixelData const&)",
+      "target_symbol": "__ZN11NiPixelDataC2ERKS_",
+      "target_name": "NiPixelData::NiPixelData(NiPixelData const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }
