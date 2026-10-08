@@ -776,3 +776,9 @@ The latest report has **1,608 exact functions / 18,012 bytes**, 168 differing
 candidates, 7,401 missing functions and no compile errors or unresolved
 comparisons. Data comparisons have 13 matched records and 2,236 matched bytes,
 with no unresolved comparisons. Full-game replacement linking remains at zero.
+
+The EAGLView accessors' eight ivar offsets were corrected from the original
+data records and now compare byte-for-byte. `autoresizesSurface` also uses a
+signed-byte return to preserve the original sign-extending load. The final
+accessor candidates remain fuzzy code matches, with their ivar relocations
+resolved and zero unresolved comparisons.
