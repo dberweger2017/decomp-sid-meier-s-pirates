@@ -419,3 +419,10 @@ The local tooling suite again passes **104 tests**. The preceding 611-function
 checkpoint passed hosted Linux/macOS tooling and historical compilation/linking
 CI; this 811-function head requires its own hosted run. Original game/SDK inputs
 and generated code images remain excluded from Git and CI artifacts.
+
+The expanded 73-group `recovery-tiny-bodies.json` subset structurally links
+590 total exact functions / 3,780 code bytes and 24 differing candidates.
+Independent image inspection passes with SHA-256
+`f6f836365b8c8271e245b674c0bf2fb17f4258d607a99ded188b0ab678e6b64b`.
+Those totals include earlier contributors in selected groups, rather than 590
+new matches. Replacement completion remains zero and runtime behavior is unverified.

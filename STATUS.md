@@ -4,7 +4,7 @@
 **Merged baseline:** PR #3, merge commit `e775bfff81964190939d1679869f89e3de66be86`.  
 **Active draft:** [PR #4](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/4).
 
-The active branch adds **200 exact functions / 976 code bytes** to the merged
+The active branch adds **400 exact functions / 2,028 code bytes** to the merged
 411-function baseline. It also keeps six larger connected gameplay candidates
 visible as byte-different, with separate fuzzy scores and bounded execution
 checks. Full-game replacement linking remains at zero; no runnable replacement
@@ -14,24 +14,26 @@ or arm64 port is established.
 |---|---:|---:|
 | Inventoried named functions / original groups | 9,177 / 268 | 9,177 / 268 |
 | Original inventoried function bytes | 4,080,584 | 4,080,584 |
-| Verified exact functions | 411 | **611** |
-| Verified exact code bytes | 4,864 | **5,840** |
-| Exact functions by count | 4.4786% | **6.6579%** |
-| Exact original code bytes | 0.1192% | **0.1431%** |
-| Configured original compilation groups | 67 | 102 |
+| Verified exact functions | 411 | **811** |
+| Verified exact code bytes | 4,864 | **6,892** |
+| Exact functions by count | 4.4786% | **8.8373%** |
+| Exact original code bytes | 0.1192% | **0.1689%** |
+| Configured original compilation groups | 67 | 115 |
 | Differing candidates | 34 | 40 |
-| Missing function candidates | 8,732 | 8,526 |
+| Missing function candidates | 8,732 | 8,326 |
 | Compile errors / unresolved comparisons | 0 / 0 | 0 / 0 |
 | Matched data | One four-byte allocation | Same |
 | Completed replacement code/data/units | 0 / 0 / 0 | 0 / 0 / 0 |
 
-All earlier exact function and data matches remain verified. The new batch
-contains 156 observed no-op release hooks and 44 constant-return functions,
-committed in their 51 original groups. These tiny functions provide modest code
-coverage; their count does not estimate remaining development effort. They
-reproduce observed shipped bodies, rather than supplying stubs for absent code.
-Partial types, unencoded result types and complete virtual hierarchies remain
-unproven. See [the recovery ledger](docs/recovery-loop.md).
+All earlier exact function and data matches remain verified. The two batches
+contain 156 observed no-op release hooks, 113 shipped fail-fast routines, 48 XML
+null/self type queries, and 83 constant-return functions. Fail-fast routines
+reproduce original trap instructions with `__builtin_trap()`; this does not
+provide working factories, collision or animation operations. Their original
+groups have separate commits. These tiny bodies provide modest byte coverage;
+function counts do not estimate remaining effort. Partial types, unencoded
+results and complete virtual hierarchies remain unproven. See
+[the recovery ledger](docs/recovery-loop.md).
 
 The historical LLVM-GCC compiler cross-build is validated, but equivalence to
 Apple's exact shipped backend and original per-unit flags remain unproven.
@@ -47,16 +49,18 @@ batch. Those finite modeled trials grant no exact or runtime credit. Larger,
 interconnected exact gameplay recovery remains an open milestone. See
 [the experiment and its limits](docs/gameplay-stress.md).
 
-The latest local 51-group diagnostic subset structurally links 369 exact
-functions / 2,532 code bytes and 21 differing candidates. Its independently
+The latest local 73-group diagnostic subset structurally links 590 exact
+functions / 3,780 code bytes and 24 differing candidates. Its independently
 inspected image SHA-256 is
-`196801ea118306dd6078bf051cd588fc3a38698b62d8e4b30423efbbbdecba95`.
+`f6f836365b8c8271e245b674c0bf2fb17f4258d607a99ded188b0ab678e6b64b`.
 It verifies subset structure and SDK import bindings, with zero complete
 replacement credit and unverified iOS runtime behavior. Reproduce with
-`python tools/recovery_link.py config/diagnostic-links/recovery-release-hooks.json`.
+`python tools/recovery_link.py config/diagnostic-links/recovery-tiny-bodies.json`.
 
-Local validation passes **104 tooling tests**, the 200-function cohort ledger,
-and the source-only subset link. Hosted CI for this checkpoint is pending.
+Local validation passes **104 tooling tests**, both 200-function cohort ledgers,
+doctor and the source-only subset link. Hosted Linux/macOS and historical CI
+passed for the 611-function checkpoint. Hosted CI for this 811-function head
+is pending.
 The prior PR #4 historical CI failure came from a nested workspace replacing the
 validated linker profile with the generic template; the fix preserves the
 profile and its validation proof, with a synthetic regression test.
