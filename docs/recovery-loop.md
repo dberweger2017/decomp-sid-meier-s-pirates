@@ -695,3 +695,11 @@ ten compare at 50%; the RTTI data contents remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 142 differing
 candidates, 7,427 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+The remaining four `Fx*::GetRTTI` methods in `FireIncludeCpp.o` now return
+their class-local `m_RTTI` allocations. All four relocations resolve and the
+candidates compare at 50%; the allocation contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 146 differing
+candidates, 7,423 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

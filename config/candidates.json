@@ -640,7 +640,11 @@
         "f-3b731f3cda71cd39ad0f",
         "f-7220ba672637f23824aa",
         "f-6f520c47dd683f083086",
-        "f-792e3d1b2b7e173fc354"
+        "f-792e3d1b2b7e173fc354",
+        "f-5076ecd9ef6a47001efe",
+        "f-f093ae41b4e188a5b101",
+        "f-4be4c9760d98170755af",
+        "f-29ec06097d234bb5183c"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md.",
       "recovery_kinds": {

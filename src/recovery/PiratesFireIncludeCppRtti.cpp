@@ -79,3 +79,35 @@ extern "C" const void * pirates_fx_button_get_rtti(void const *)
 extern "C" const void * pirates_fx_button_get_rtti(void const *) {
     return pirates_fx_button_rtti;
 }
+
+static unsigned char pirates_fx_scrollbar_rtti[8]
+    __asm__("__ZN11FxScrollbar6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_fx_scrollbar_get_rtti(void const *)
+    __asm__("__ZNK11FxScrollbar7GetRTTIEv");
+extern "C" const void * pirates_fx_scrollbar_get_rtti(void const *) {
+    return pirates_fx_scrollbar_rtti;
+}
+
+static unsigned char pirates_fx_drop_down_box_rtti[8]
+    __asm__("__ZN13FxDropDownBox6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_fx_drop_down_box_get_rtti(void const *)
+    __asm__("__ZNK13FxDropDownBox7GetRTTIEv");
+extern "C" const void * pirates_fx_drop_down_box_get_rtti(void const *) {
+    return pirates_fx_drop_down_box_rtti;
+}
+
+static unsigned char pirates_fx_list_box_rtti[8]
+    __asm__("__ZN9FxListBox6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_fx_list_box_get_rtti(void const *)
+    __asm__("__ZNK9FxListBox7GetRTTIEv");
+extern "C" const void * pirates_fx_list_box_get_rtti(void const *) {
+    return pirates_fx_list_box_rtti;
+}
+
+static unsigned char pirates_fx_edit_box_rtti[8]
+    __asm__("__ZN9FxEditBox6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_fx_edit_box_get_rtti(void const *)
+    __asm__("__ZNK9FxEditBox7GetRTTIEv");
+extern "C" const void * pirates_fx_edit_box_get_rtti(void const *) {
+    return pirates_fx_edit_box_rtti;
+}
