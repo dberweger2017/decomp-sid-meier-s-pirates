@@ -160,7 +160,9 @@
       ],
       "sdk_required": false,
       "functions": {},
-      "implemented_functions": [],
+      "implemented_functions": [
+        "f-469603a6bee7ebf42102"
+      ],
       "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
     },
     {
