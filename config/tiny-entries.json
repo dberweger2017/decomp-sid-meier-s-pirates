@@ -1451,6 +1451,18 @@
       ],
       "internal": false,
       "value": 0
+    },
+    {
+      "id": "f-c351b830812630a6feaf",
+      "group_id": "o-52b48ce9025f49694dec",
+      "symbol": "__ZN3ISE11ISETriShapeD1Ev",
+      "original_name": "ISE::ISETriShape::~ISETriShape()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
     }
   ]
 }
