@@ -1540,6 +1540,19 @@
       ],
       "internal": false,
       "value": 0
+    },
+    {
+      "id": "f-9f60c80a517698dd777f",
+      "group_id": "o-c5af88b3aaa5cecb8f39",
+      "symbol": "__ZN3ISE21ISEPSysPlanarCollider7ResolveEfRfPNS_11ISEPSysDataEt",
+      "original_name": "ISE::ISEPSysPlanarCollider::Resolve(float, float&, ISE::ISEPSysData*, unsigned short)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
     }
   ]
 }
