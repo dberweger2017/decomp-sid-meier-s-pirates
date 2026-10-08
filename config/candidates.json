@@ -285,7 +285,8 @@
         "f-60bd7631e1d5f64c4d97",
         "f-a223c3ed7931f4d83764",
         "f-c28cfd26e9c7349ed05d",
-        "f-67dee9c135faecdc3650"
+        "f-67dee9c135faecdc3650",
+        "f-00233c1b5a9d2d6b7b3c"
       ],
       "flags_provenance": "Investigation profile for original integer float loads/stores. Isolated complete-unit comparison verifies the cone getter with r9 reserved and preserves all earlier methods. Original flags and complete hierarchy remain unknown; see FSound3D.h."
     },

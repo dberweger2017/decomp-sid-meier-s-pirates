@@ -66,3 +66,9 @@ bool FSound3D::GetPosition(NiPoint3 &position) const {
     position = m_position;
     return true;
 }
+
+bool FSound3D::GetOrientation(NiPoint3 &first, NiPoint3 &second) const {
+    first = m_firstOrientation;
+    second = m_secondOrientation;
+    return true;
+}
