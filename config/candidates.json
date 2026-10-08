@@ -1102,7 +1102,18 @@
         "f-e94818195a88450643d6",
         "f-ee61d3f645061fe6f205",
         "f-fd769b5e5665f977199c",
-        "f-fd90f818d468d9e44764"
+        "f-fd90f818d468d9e44764",
+        "f-a25b3ec52d90e41e3242",
+        "f-0c9240d445cc55045918",
+        "f-d2aa7dca780e78ca91ec",
+        "f-4fe1329e6c81895ed69c",
+        "f-4c1ac6090cca33f5b26f",
+        "f-017fbd46b57da1d0f83f",
+        "f-246beee04fff1fe31475",
+        "f-5ddd41cfdbbbca96d795",
+        "f-50a7e516fb13b16d766a",
+        "f-1e5de5d7dbc1effc4eda",
+        "f-f0d89751d336090df7e7"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md. Battle-grid stress profile is an investigation, validated against earlier unit matches; see docs/gameplay-stress.md.",
       "recovery_kinds": {
@@ -1138,7 +1149,18 @@
         "f-e94818195a88450643d6": "complete-destructor",
         "f-ee61d3f645061fe6f205": "complete-destructor",
         "f-fd769b5e5665f977199c": "method-forwarder",
-        "f-fd90f818d468d9e44764": "complete-destructor"
+        "f-fd90f818d468d9e44764": "complete-destructor",
+        "f-a25b3ec52d90e41e3242": "complete-constructor",
+        "f-0c9240d445cc55045918": "complete-constructor",
+        "f-d2aa7dca780e78ca91ec": "complete-constructor",
+        "f-4fe1329e6c81895ed69c": "complete-constructor",
+        "f-4c1ac6090cca33f5b26f": "complete-constructor",
+        "f-017fbd46b57da1d0f83f": "complete-constructor",
+        "f-246beee04fff1fe31475": "destruction-callback",
+        "f-5ddd41cfdbbbca96d795": "complete-constructor",
+        "f-50a7e516fb13b16d766a": "empty-body",
+        "f-1e5de5d7dbc1effc4eda": "constant-body",
+        "f-f0d89751d336090df7e7": "destruction-callback"
       }
     },
     {

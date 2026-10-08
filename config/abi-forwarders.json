@@ -9095,6 +9095,149 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-a25b3ec52d90e41e3242",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN14DanceReflectorC1Ev",
+      "original_name": "DanceReflector::DanceReflector()",
+      "target_symbol": "__ZN14DanceReflectorC2Ev",
+      "target_name": "DanceReflector::DanceReflector()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-0c9240d445cc55045918",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN10BattleGridC1Ev",
+      "original_name": "BattleGrid::BattleGrid()",
+      "target_symbol": "__ZN10BattleGridC2Ev",
+      "target_name": "BattleGrid::BattleGrid()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-d2aa7dca780e78ca91ec",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN18FleetStatusUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "FleetStatusUIScene::FleetStatusUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN18FleetStatusUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "FleetStatusUIScene::FleetStatusUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-4fe1329e6c81895ed69c",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN20TopTenPiratesUISceneC1ERK11CPVRTStringP16UISceneComponent",
+      "original_name": "TopTenPiratesUIScene::TopTenPiratesUIScene(CPVRTString const&, UISceneComponent*)",
+      "target_symbol": "__ZN20TopTenPiratesUISceneC2ERK11CPVRTStringP16UISceneComponent",
+      "target_name": "TopTenPiratesUIScene::TopTenPiratesUIScene(CPVRTString const&, UISceneComponent*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *"
+      ]
+    },
+    {
+      "id": "f-4c1ac6090cca33f5b26f",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN10MenuScreenC1Ev",
+      "original_name": "MenuScreen::MenuScreen()",
+      "target_symbol": "__ZN10MenuScreenC2Ev",
+      "target_name": "MenuScreen::MenuScreen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-017fbd46b57da1d0f83f",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN10ShipwrightC1Eii",
+      "original_name": "Shipwright::Shipwright(int, int)",
+      "target_symbol": "__ZN10ShipwrightC2Eii",
+      "target_name": "Shipwright::Shipwright(int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "id": "f-246beee04fff1fe31475",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "target_symbol": "__ZN14agentz_manager5CleanEv",
+      "target_name": "agentz_manager::Clean()",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": []
+    },
+    {
+      "id": "f-5ddd41cfdbbbca96d795",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN4WakeC1EN3ISE10ISEPointerINS0_9ISEEntityEEEf",
+      "original_name": "Wake::Wake(ISE::ISEPointer<ISE::ISEEntity>, float)",
+      "target_symbol": "__ZN4WakeC2EN3ISE10ISEPointerINS0_9ISEEntityEEEf",
+      "target_name": "Wake::Wake(ISE::ISEPointer<ISE::ISEEntity>, float)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *",
+        "float"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *",
+        "float"
+      ],
+      "argument_evidence": "Nontrivial by-value argument lowered indirectly in r1. Original C2 stores r1 and dereferences that pointer; entry forwards the same existing parameter object, not a new copy. Complete type and lifetime model remain separate."
     }
   ]
 }

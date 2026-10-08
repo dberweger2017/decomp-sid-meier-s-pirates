@@ -325,6 +325,43 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-50a7e516fb13b16d766a",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__Z11SetFogColor7NiColor",
+      "original_name": "SetFogColor(NiColor)",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-1e5de5d7dbc1effc4eda",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "__ZN5Water14GetWaterHeightEjjf",
+      "original_name": "Water::GetWaterHeight(unsigned int, unsigned int, float)",
+      "kind": "constant-body",
+      "return_type": "float",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true,
+      "value": 0
+    },
+    {
+      "id": "f-f0d89751d336090df7e7",
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "symbol": "___tcf_58",
+      "original_name": "__tcf_58",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
