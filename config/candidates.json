@@ -246,6 +246,19 @@
         "f-bebe1fa3637242172c65"
       ],
       "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
+    },
+    {
+      "group_id": "o-b2988598bdd8217340d1",
+      "source": "src/fireplace/audio/FSound3D.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [],
+      "flags_provenance": "Investigation profile for original integer float loads/stores. Complete class hierarchy and original flags remain unknown; see FSound3D.h."
     }
   ]
 }
