@@ -1292,9 +1292,15 @@
         "f-add291409542ea2cac0a",
         "f-afb42724a5d1eb4209ed",
         "f-5d93bfab784ca1172591",
-        "f-9265ef7ca63d2bc07207"
+        "f-9265ef7ca63d2bc07207",
+        "f-f5d05a9d3b80f93d79d3",
+        "f-2e75023142f92c2f377c"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-f5d05a9d3b80f93d79d3": "empty-body",
+        "f-2e75023142f92c2f377c": "empty-body"
+      }
     },
     {
       "group_id": "o-2fd332c51ac83f2c0987",

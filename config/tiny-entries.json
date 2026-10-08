@@ -1402,6 +1402,30 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-f5d05a9d3b80f93d79d3",
+      "group_id": "o-2fcdafda82e4b70e26b6",
+      "symbol": "__ZN3ISE7RSprite18RenderBaseTogetherEPsPfii13tageISE_COLORPKNS_12SCISSOR_INFOE",
+      "original_name": "ISE::RSprite::RenderBaseTogether(short*, float*, int, int, tageISE_COLOR, ISE::SCISSOR_INFO const*)",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
+    },
+    {
+      "id": "f-2e75023142f92c2f377c",
+      "group_id": "o-2fcdafda82e4b70e26b6",
+      "symbol": "__ZN3ISE7RSprite21RenderBaseTransformedEffffffffPf13tageISE_COLORPKNS_12SCISSOR_INFOENS_9TRANSINFOES6_S6_f",
+      "original_name": "ISE::RSprite::RenderBaseTransformed(float, float, float, float, float, float, float, float, float*, tageISE_COLOR, ISE::SCISSOR_INFO const*, ISE::TRANSINFO, ISE::TRANSINFO, ISE::TRANSINFO, float)",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false
     }
   ]
 }
