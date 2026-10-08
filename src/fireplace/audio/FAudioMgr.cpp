@@ -14,3 +14,5 @@ GlobalSoundData *FAudioManager::GetGlobalSoundData() { return m_globalSoundData;
 int *FAudioManager::GetContextDataBits() { return m_contextDataBits; }
 
 F2DSoundScriptData *FAudioManager::Get2DScripts() { return m_scripts2D; }
+
+F3DSoundScriptData *FAudioManager::Get3DScripts() { return m_scripts3D; }
