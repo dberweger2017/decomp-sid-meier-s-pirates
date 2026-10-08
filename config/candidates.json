@@ -758,7 +758,8 @@
       "functions": {},
       "implemented_functions": [
         "f-fd0b4ea616870c7016fd",
-        "f-f14415854ccbdca99f90"
+        "f-f14415854ccbdca99f90",
+        "f-ce57ead7c7fb75046b39"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
