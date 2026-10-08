@@ -34,3 +34,7 @@
 #include "../../recovery/dolphinzReleasePiratesIncludeCpp.cpp"
 
 #include "../../recovery/gullzReleasePiratesIncludeCpp.cpp"
+
+#include "../../recovery/abi/o-0aaf8c6270adb89d12c9.cpp"
+
+#include "../../recovery/leaves/o-0aaf8c6270adb89d12c9.cpp"

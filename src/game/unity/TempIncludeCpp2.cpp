@@ -23,3 +23,7 @@
 #include "../../gamebryo/NiPSysSphericalColliderSmall_TempIncludeCpp2.cpp"
 
 #include "../../recovery/FFileBackgroundLoaderSmall_TempIncludeCpp2.cpp"
+
+#include "../../recovery/abi/o-7d25f6180d9844d7c020.cpp"
+
+#include "../../recovery/leaves/o-7d25f6180d9844d7c020.cpp"

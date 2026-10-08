@@ -32,3 +32,7 @@
 #include "../../gamebryo/NiSqrDistanceSmall_TempIncludeCpp3.cpp"
 
 #include "../../gamebryo/NiUnionBVSmall_TempIncludeCpp3.cpp"
+
+#include "../../recovery/abi/o-bd40b68b130e820ead67.cpp"
+
+#include "../../recovery/leaves/o-bd40b68b130e820ead67.cpp"

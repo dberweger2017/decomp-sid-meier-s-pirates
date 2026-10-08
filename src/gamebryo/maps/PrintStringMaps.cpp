@@ -5,3 +5,7 @@ template unsigned int NiTMapBase<NiTPointerAllocator<unsigned int>, char const*,
 template bool NiTMapBase<NiTPointerAllocator<unsigned int>, char const*, PrintedText*>::IsKeysEqual(char const*, char const*) const;
 template void NiTMapBase<NiTPointerAllocator<unsigned int>, char const*, PrintedText*>::ClearValue(NiTMapItem<char const*, PrintedText* >*);
 template void NiTMapBase<NiTPointerAllocator<unsigned int>, char const*, PrintedText*>::SetValue(NiTMapItem<char const*, PrintedText* >*, char const*, PrintedText*);
+
+#include "../../recovery/abi/o-d2c464150a675c39482a.cpp"
+
+#include "../../recovery/leaves/o-d2c464150a675c39482a.cpp"

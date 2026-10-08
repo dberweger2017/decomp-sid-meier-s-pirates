@@ -19,3 +19,7 @@
 
 
 #include "../../gamebryo/maps/FireIncludeCppMaps.cpp"
+
+#include "../../recovery/abi/o-692e206382b21043c376.cpp"
+
+#include "../../recovery/leaves/o-692e206382b21043c376.cpp"

@@ -9,3 +9,5 @@ bool PVRShell::ReleaseView() { return true; }
 bool PVRShell::RenderScene() { return true; }
 
 #include "PVRShellInput.cpp"
+
+#include "../recovery/abi/o-feb30fcaaafbd5cb88dc.cpp"

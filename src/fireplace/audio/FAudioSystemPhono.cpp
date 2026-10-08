@@ -9,3 +9,7 @@ bool FAudioSystemPhono::RestartSound(FAudioSystem::ESoundType type, int id) { re
 bool FAudioSystemPhono::SetSoundPan(FAudioSystem::ESoundType type, int id, float pan, bool immediate) { return id != -1; }
 
 #include "FAudioSystemPhonoSmall_FAudioSystemPhono.cpp"
+
+#include "../../recovery/abi/o-d165ee5f38eff74c59ca.cpp"
+
+#include "../../recovery/leaves/o-d165ee5f38eff74c59ca.cpp"

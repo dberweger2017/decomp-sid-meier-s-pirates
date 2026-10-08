@@ -19,6 +19,15 @@ from tests.test_workflow import fixture_workspace
 
 
 class ImageTests(unittest.TestCase):
+    def test_named_source_roots_for_dead_stripping(self):
+        manifest = {'flags': ['-dead_strip'], 'retained_symbols': ['_entry', '__ZN5ProbeD2Ev']}
+        self.assertEqual(manifest_arguments(manifest, Path.cwd()),
+                         (['-dead_strip', '-u', '_entry', '-u', '__ZN5ProbeD2Ev'], []))
+        self.assertEqual(manifest['flags'], ['-dead_strip'])
+        for roots in (['_entry', '_entry'], ['-sectcreate'], ['original.o'], [0], '_entry'):
+            with self.subTest(roots=roots), self.assertRaises(ToolError):
+                manifest_arguments({'retained_symbols': roots}, Path.cwd())
+
     def test_arm_thread_entry_and_explicit_uuid_metadata(self):
         registers = [0] * 17
         registers[15] = 0x1000

@@ -98,6 +98,8 @@ def main():
         command = sub.add_parser(name, help='Report the configured cohort, optionally rebuilding first')
         command.add_argument('cohort', type=Path)
         command.add_argument('--output', type=Path, required=True)
+        command.add_argument('--require-exact', action='store_true',
+                             help='Fail after exporting diagnostics unless every selected source entry verifies')
     args = parser.parse_args()
     root = args.workspace.resolve()
     inventory = load_json(root / 'build/inventory.json')
@@ -111,6 +113,9 @@ def main():
     write_json(args.output, result)
     args.output.with_suffix('.md').write_text(markdown(result))
     print(markdown(result))
+    if args.require_exact and result['metrics']['exact_functions'] != result['metrics']['functions']:
+        raise ToolError('Required exact cohort has ' + str(result['metrics']['exact_functions']) +
+                        '/' + str(result['metrics']['functions']) + ' verified source entries; report exported')
     return code
 
 

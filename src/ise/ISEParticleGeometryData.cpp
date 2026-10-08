@@ -8,3 +8,5 @@ unsigned short ISEParticleGeometryData::GetActiveVertexCount() const { return m_
 } // namespace ISE
 
 #include "ISEParticleGeometryDataReleaseISEParticleGeometryData.cpp"
+
+#include "../recovery/abi/o-869c1fa37c759d3c89c8.cpp"

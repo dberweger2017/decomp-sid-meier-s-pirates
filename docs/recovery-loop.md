@@ -426,3 +426,27 @@ Independent image inspection passes with SHA-256
 `f6f836365b8c8271e245b674c0bf2fb17f4258d607a99ded188b0ab678e6b64b`.
 Those totals include earlier contributors in selected groups, rather than 590
 new matches. Replacement completion remains zero and runtime behavior is unverified.
+
+## Additional 500-function ABI-entry batch
+
+The next requested batch verifies **500 additional functions / 8,000 bytes**,
+reaching **1,311 exact functions / 14,892 bytes**. The earlier 811 functions and
+four-byte data allocation remain exact, with zero regressions, compile failures
+or unresolved comparisons. Inventory retains all 9,177 records / 268 groups.
+There are 40 differing candidates, 7,826 missing records and 153 configured units.
+
+The 92 separately committed original groups contain 255 complete-destructor
+wrappers, 233 method forwarders, six free-function forwarders and six
+complete-constructor wrappers. Their source consists of ordinary C++ calls with
+explicit ABI symbol declaration labels. There are no instruction/byte bodies;
+larger callee implementations and complete class models remain independent.
+This provides small-function byte progress and caller/callee structure rather
+than completing 500 gameplay algorithms. Native reports identify the recovery
+kind. See [the batch's method, scope and validation](small-function-batch.md).
+
+A three-function recovered particle LinkObject chain structurally links from
+source, with image SHA-256
+`6b014c2ac464bd1292b4d86cca9748ee234e786d0278f9468e2ff25f8d05b548`.
+Explicit live-source roots plus dead stripping keep older diagnostic graphs
+reproducible without supplying fake missing callees. Replacement linking stays
+at zero; the original image and iOS runtime remain unverified.

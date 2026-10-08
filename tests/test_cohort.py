@@ -1,4 +1,9 @@
 import copy
+import json
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
 import unittest
 from tools.cohort import select, summarize, markdown
 from tools.pirates.util import ToolError
@@ -61,6 +66,28 @@ class CohortTests(unittest.TestCase):
         self.cohort['function_ids'].reverse()
         self.assertEqual(left, summarize(self.cohort, self.inventory, self.report))
         self.assertIn('not a time estimate', markdown(left))
+
+    def test_required_exact_cohort_exports_reports_on_failure_and_passes_complete_source(self):
+        script = Path(__file__).resolve().parents[1] / 'tools/cohort.py'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'build').mkdir()
+            (root / 'build/inventory.json').write_text(json.dumps(self.inventory))
+            (root / 'cohort.json').write_text(json.dumps(self.cohort))
+            for complete in (False, True):
+                if complete:
+                    for f in self.report['functions']:
+                        f.update(status='matched', byte_verified=True, candidate_source='game.cpp', similarity=100.0)
+                (root / 'build/report.json').write_text(json.dumps(self.report))
+                output = root / 'result.json'
+                run = subprocess.run([sys.executable, str(script), '--workspace', str(root),
+                                      'report', str(root / 'cohort.json'), '--output', str(output),
+                                      '--require-exact'], capture_output=True, text=True)
+                self.assertEqual(run.returncode, 0 if complete else 1)
+                self.assertTrue(output.is_file())
+                self.assertTrue(output.with_suffix('.md').is_file())
+                if not complete:
+                    self.assertIn('1/3 verified source entries', run.stderr)
 
     def test_invalid_or_empty_selection(self):
         with self.assertRaises(ToolError):

@@ -10,3 +10,5 @@ unsigned int ISEEntity::GetPolyNum() { return m_polyCount; }
 
 ISENode * ISEEntity::GetNodeByIndex(int index) { return m_nodes[index]; }
 } // namespace ISE
+
+#include "../recovery/abi/o-fb9d7fdc1b359c53ebad.cpp"

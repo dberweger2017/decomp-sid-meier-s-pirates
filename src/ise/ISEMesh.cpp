@@ -8,3 +8,7 @@ void ISEMesh::ShowAABB(bool show) { m_showAABB = show; }
 } // namespace ISE
 
 #include "ISEMeshSmall_libISELib_a_ISEMesh_.cpp"
+
+#include "../recovery/abi/o-97ff96143a03b7b7e331.cpp"
+
+#include "../recovery/leaves/o-97ff96143a03b7b7e331.cpp"

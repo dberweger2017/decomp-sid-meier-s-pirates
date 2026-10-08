@@ -72,3 +72,7 @@ bool FSound3D::GetOrientation(NiPoint3 &first, NiPoint3 &second) const {
     second = m_secondOrientation;
     return true;
 }
+
+#include "../../recovery/abi/o-b2988598bdd8217340d1.cpp"
+
+#include "../../recovery/leaves/o-b2988598bdd8217340d1.cpp"
