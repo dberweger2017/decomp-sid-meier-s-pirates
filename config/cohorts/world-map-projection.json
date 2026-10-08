@@ -1,0 +1,11 @@
+{
+  "function_ids": [
+    "f-5f6877244e1a05413279",
+    "f-7387a1feb235bf2a934a"
+  ],
+  "name": "World-map projection",
+  "selection": {
+    "symbol_regex": "RemapPoint|WMapXY_Shi"
+  },
+  "version": 1
+}

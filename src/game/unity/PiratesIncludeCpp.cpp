@@ -7,3 +7,6 @@
 #include "../../../src/game/world/World.cpp"
 
 #include "../../gamebryo/maps/PiratesIncludeCppMaps.cpp"
+
+#include "../battle/BattleGrid.cpp"
+#include "../world/WorldMapProjection.cpp"

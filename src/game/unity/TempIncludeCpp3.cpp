@@ -6,3 +6,5 @@
 #include "../../../src/gamebryo/NiFogProperty.cpp"
 #include "../../../src/gamebryo/NiGeometryData.cpp"
 #include "../../../src/gamebryo/NiMaterialProperty.cpp"
+
+#include "../../gamebryo/NiAVObject.cpp"

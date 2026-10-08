@@ -673,7 +673,9 @@
       "flags": [
         "-O2",
         "-marm",
-        "-mfloat-abi=soft"
+        "-mfloat-abi=softfp",
+        "-mllvm",
+        "-arm-reserve-r9"
       ],
       "sdk_required": false,
       "functions": {},
@@ -697,9 +699,14 @@
         "f-d17857f46c68367026a2",
         "f-a962d2fa0f963820bde4",
         "f-b32a9c3f4cbd39b18bc1",
-        "f-c15202c0043c1052544c"
+        "f-c15202c0043c1052544c",
+        "f-c1a99306c51fa2cde8d0",
+        "f-bafb440cd2d42578fab8",
+        "f-86deb9152afba152af34",
+        "f-5f6877244e1a05413279",
+        "f-7387a1feb235bf2a934a"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md. Battle-grid stress profile is an investigation, validated against earlier unit matches; see docs/gameplay-stress.md."
     },
     {
       "group_id": "o-11c7f0138eabdedbcbfb",
@@ -1195,9 +1202,10 @@
         "f-d3826ac9e794af5137e7",
         "f-0333882fb76d365c9ab7",
         "f-dc73fc122fb12baa2040",
-        "f-986a1dcec61abf24e07f"
+        "f-986a1dcec61abf24e07f",
+        "f-d3e268b9ae2c9bb88404"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md. Battle-grid stress profile is an investigation, validated against earlier unit matches; see docs/gameplay-stress.md."
     },
     {
       "group_id": "o-bf6b54ebb60ce10f66d8",
