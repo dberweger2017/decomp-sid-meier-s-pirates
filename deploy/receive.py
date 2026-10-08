@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Restricted SSH deployment receiver; stdlib only, never runs uploaded code."""
 import fcntl
+import datetime
 import hashlib
 import json
 import os
@@ -10,6 +11,7 @@ import shutil
 import sys
 import tarfile
 import tempfile
+import time
 import urllib.request
 
 REPOSITORY = 'dberweger2017/decomp-sid-meier-s-pirates'
@@ -147,7 +149,8 @@ def activate(root, candidate, manifest, run_id, health=None):
     if not deployed.exists():
         candidate.rename(deployed)
     current = {'version': 1, 'release': release, 'commit': manifest['commit'],
-               'updated_at': manifest['updated_at'], 'run_id': int(run_id), 'run_url': manifest.get('run_url')}
+               'updated_at': manifest['updated_at'], 'run_id': int(run_id), 'run_url': manifest.get('run_url'),
+               'published_at': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}
     set_current(root, release)
     atomic_json(state, current)
     try:
@@ -191,6 +194,11 @@ def main():
                 raise ValueError('Main changed during upload; this release was superseded')
             current = activate(ROOT, candidate, manifest, run_id, serving_health)
             print('Published ' + current['release'])
+            try:
+                prune_releases(ROOT)
+            except OSError as error:
+                # Cleanup failure does not undo an already healthy deployment.
+                print('Release cleanup deferred: ' + str(error), file=sys.stderr)
 
 
 def serving_health(current):
@@ -201,6 +209,19 @@ def serving_health(current):
                 raise ValueError('Serving health check returned a different deployment')
             if path.endswith('report.json') and value.get('input_sha256') != INPUT_SHA:
                 raise ValueError('Serving health check returned a different input')
+
+
+def prune_releases(root, keep=5, grace_seconds=86400):
+    """Retain recent immutable data for existing browser requests and rollback."""
+    state = read_json(root / 'state/deployment.json')
+    releases = sorted((p for p in (root / 'releases').iterdir()
+                       if p.is_dir() and not p.is_symlink()
+                       and re.fullmatch(r'[0-9a-f]{40}-[0-9a-f]{12}', p.name)),
+                      key=lambda p: p.stat().st_mtime, reverse=True)
+    protected = {p.name for p in releases[:keep]} | {state['release']}
+    for path in releases:
+        if path.name not in protected and time.time() - path.stat().st_mtime > grace_seconds:
+            shutil.rmtree(path)
 
 
 if __name__ == '__main__':

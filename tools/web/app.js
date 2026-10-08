@@ -245,7 +245,7 @@ refresh(); api('/api/status').then(s => state(s.building, s.returncode)).catch(e
         const link = el('a', next.commit.slice(0, 12));
         link.href = 'https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/' + next.commit;
         $('build-state').replaceChildren(el('span', 'Read-only · '), link);
-        const stamp = el('span', ` · ${next.updated_at}`); $('build-state').append(stamp);
+        const stamp = el('span', ` · ${next.published_at || next.updated_at}`); $('build-state').append(stamp);
         $('build-state').title = 'Published after successful CI; checks for updates every 30 seconds.';
         await refresh();
       }

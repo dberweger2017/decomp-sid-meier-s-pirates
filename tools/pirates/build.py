@@ -241,6 +241,11 @@ def comparisons(root, details_id=None, include_link=True, details=False):
                 if data['group_id'] == 'unowned-data':
                     data.update(status='matched', byte_equal=True, byte_verified=True, linked_image_verified=True,
                                 reasons=['Verified source-only replacement image establishes this allocation'])
+                    if details:
+                        for row in data['rows']:
+                            for key in ('', '_ascii', '_words'):
+                                row['candidate' + key] = row['original' + key]
+                            row['different'] = False
             native['data_metrics'] = data_metrics(data_results)
         for unit in units:
             verified = native['linking']['state'] == 'verified' and unit['id'] in native['linking'].get('participating_units', [])

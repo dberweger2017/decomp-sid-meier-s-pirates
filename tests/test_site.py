@@ -1,16 +1,21 @@
 import json
 from pathlib import Path
+import os
 import shutil
 import subprocess
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 from tests.test_workflow import fixture_workspace
 from tools.pirates.build import comparisons
+from tools.pirates.configure import configure
+from tools.pirates.macho import MachO
+from tests.fixtures import reference
 from tools.pirates.site import export_site
 from tools.pirates.util import ToolError, load_json, write_json
 from tools.deploy_site import package
-from deploy.receive import unpack, activate, check_regressions, verify_ci, REQUIRED_JOBS, REPOSITORY
+from deploy.receive import unpack, activate, check_regressions, verify_ci, prune_releases, REQUIRED_JOBS, REPOSITORY
 
 SHA = 'a' * 40
 STAMP = '2026-10-08T00:00:00Z'
@@ -103,8 +108,44 @@ class SiteTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'inventory coverage'):
             check_regressions(old, new)
 
+    def test_bulk_details_agree_with_terminal_for_verified_unowned_data(self):
+        function = load_json(self.root / 'build/inventory.json')['functions'][0]
+        original = MachO((self.root / 'fixture.macho').read_bytes())
+        raw = original.bytes_at(function['address'], function['size'], function['section'])
+        (self.root / 'fixture.macho').write_bytes(reference(raw, 'thumb',
+            extra_sections=[('__DATA', '__data', 0x2000, b'abcd', 0, [])]))
+        configure(self.root, fixture=self.root / 'fixture.macho', profile='config/fixture-compiler.json')
+        subprocess.run(['ninja'], cwd=self.root, check=True, capture_output=True)
+        proof = {'state': 'verified', 'participating_units': [], 'complete_code': 0,
+                 'complete_data': 4, 'complete_units': 0, 'reason': 'Synthetic linked image proof'}
+        with patch('tools.pirates.linking.current_state', return_value=proof):
+            bulk = comparisons(self.root, details=True)
+            data = next(d for d in bulk['data'] if d['group_id'] == 'unowned-data')
+            terminal = comparisons(self.root, details_id=data['id'])
+            self.assertEqual(terminal['rows'], data['rows'])
+            self.assertTrue(data['byte_verified'])
+            self.assertEqual('61 62 63 64', data['rows'][0]['candidate'])
+
 
 class DeploymentSecurityTests(unittest.TestCase):
+    def test_retention_keeps_live_recent_and_last_five_without_following_symlinks(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'state').mkdir(); (root / 'releases').mkdir()
+            paths = []
+            for i in range(8):
+                path = root / 'releases' / (f'{i:040x}-{i:012x}')
+                path.mkdir(); os.utime(path, (i, i)); paths.append(path)
+            write_json(root / 'state/deployment.json', {'release': paths[0].name})
+            outside = root / 'keep-me'; outside.mkdir()
+            link = root / 'releases' / ('f' * 40 + '-' + 'f' * 12); link.symlink_to(outside)
+            with patch('deploy.receive.time.time', return_value=100000):
+                prune_releases(root)
+            self.assertTrue(paths[0].exists())
+            self.assertFalse(paths[1].exists()); self.assertFalse(paths[2].exists())
+            self.assertTrue(all(p.exists() for p in paths[3:]))
+            self.assertTrue(link.is_symlink()); self.assertTrue(outside.exists())
+
     def test_archive_rejects_links_traversal_duplicates_and_binary_inputs(self):
         for name, kind in (('../app.js', tarfile.REGTYPE), ('app.js', tarfile.SYMTYPE),
                            ('original.ipa', tarfile.REGTYPE), ('functions/f-x.json', tarfile.LNKTYPE)):
