@@ -577,3 +577,13 @@ word at `+0x104`.
 The latest report has **1,606 exact functions / 17,976 bytes**, 56 differing
 candidates, 7,515 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Two thread-exit methods now verify exactly in the existing
+`PiratesIncludeCpp4.o` unity group. `ISEThread::Exit` sets the observed byte at
+`+8` and calls the resolved `_pthread_exit` import with a null value;
+`CPiratesLoading::ExitThread` forwards its receiver to that method. Their 24-
+and 12-byte bodies match the original instructions and relocation targets.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 56 differing
+candidates, 7,513 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
