@@ -9238,6 +9238,28 @@
         "float"
       ],
       "argument_evidence": "Nontrivial by-value argument lowered indirectly in r1. Original C2 stores r1 and dereferences that pointer; entry forwards the same existing parameter object, not a new copy. Complete type and lifetime model remain separate."
+    },
+    {
+      "id": "f-2fc275d3de7cc083be3d",
+      "group_id": "o-cbb1300000f57e037386",
+      "symbol": "__ZN15SaveLoadUISceneC1ERK11CPVRTStringP16UISceneComponent13SLUISceneType",
+      "original_name": "SaveLoadUIScene::SaveLoadUIScene(CPVRTString const&, UISceneComponent*, SLUISceneType)",
+      "target_symbol": "__ZN15SaveLoadUISceneC2ERK11CPVRTStringP16UISceneComponent13SLUISceneType",
+      "target_name": "SaveLoadUIScene::SaveLoadUIScene(CPVRTString const&, UISceneComponent*, SLUISceneType)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *",
+        "void *",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *",
+        "void *",
+        "int"
+      ]
     }
   ]
 }
