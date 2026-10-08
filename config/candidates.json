@@ -1826,9 +1826,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-6d5fb405d6267895f26d"
+        "f-6d5fb405d6267895f26d",
+        "f-bf685317ac7b6e7dc942"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-bf685317ac7b6e7dc942": "complete-destructor"
+      }
     },
     {
       "group_id": "o-97ff96143a03b7b7e331",
