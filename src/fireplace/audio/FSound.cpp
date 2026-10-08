@@ -10,3 +10,5 @@ int FSound::GetStreamId() { return m_streamId; }
 unsigned int FSound::GetGlobalSoundFilenameIndex() { return m_globalSoundFilenameIndex; }
 
 bool FSound::IsStreaming() { return m_streaming; }
+
+bool FSound::IsInitialized() const { return m_initialized; }
