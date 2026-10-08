@@ -13,3 +13,5 @@ unsigned int TriStrip::GetVertexNum() { return m_vertexBuffer->m_vertexCount; }
 } // namespace ISE
 
 unsigned int ISE::TriStrip::GetPolyNum() { return m_vertexBuffer->m_vertexCount - 2; }
+
+#include "TriStripSmall_libISELib_a_ISETriStrip_.cpp"
