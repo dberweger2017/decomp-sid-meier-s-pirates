@@ -36,3 +36,5 @@
 #include "../../recovery/abi/o-bd40b68b130e820ead67.cpp"
 
 #include "../../recovery/leaves/o-bd40b68b130e820ead67.cpp"
+
+#include "../../recovery/PiratesIncludeCpp3ImageConverter.cpp"

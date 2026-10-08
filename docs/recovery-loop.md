@@ -598,3 +598,13 @@ unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 57 differing
 candidates, 7,512 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+`NiImageConverter::GetImageConverter` now returns the observed
+`ms_spConverter` singleton from its 8-byte common allocation in the same
+original unity group. The relocation resolves; the candidate compares at 50%
+because it uses a literal-pool load instead of the original `movw`/`movt`
+address sequence. The singleton data itself remains unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 58 differing
+candidates, 7,511 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

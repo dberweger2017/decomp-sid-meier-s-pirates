@@ -2396,7 +2396,8 @@
         "f-22480fa7436e99603bbf",
         "f-30377b7c02233544b42d",
         "f-a24e39a468d682944236",
-        "f-fec5b7e2ec93013a1ddd"
+        "f-fec5b7e2ec93013a1ddd",
+        "f-e3bdebc723ac03c22030"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md. Battle-grid stress profile is an investigation, validated against earlier unit matches; see docs/gameplay-stress.md.",
       "recovery_kinds": {
