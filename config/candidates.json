@@ -1965,6 +1965,22 @@
         "f-e6c3b5a4cb2ef10ddd4a"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-a0a654fc695bd72897a8",
+      "source": "src/recovery/units/ISEMaterialColorController.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-81e6a7c2ae56787ddfab",
+        "f-cf30d2254facd7823a99"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
