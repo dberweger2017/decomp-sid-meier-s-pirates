@@ -587,3 +587,14 @@ and 12-byte bodies match the original instructions and relocation targets.
 The latest report has **1,608 exact functions / 18,012 bytes**, 56 differing
 candidates, 7,513 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+`FAudioLibFactory::GetAudioMgr` now has a source candidate returning the
+observed `_gs_oAudioMgr` global. Its relocation resolves to the 8-byte common
+allocation in the same original group; the candidate compares at 50% because it
+uses a literal-pool offset instead of the original `movw`/`movt` pair. This is
+a fuzzy function candidate, not an exact match, and the global data remains
+unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 57 differing
+candidates, 7,512 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
