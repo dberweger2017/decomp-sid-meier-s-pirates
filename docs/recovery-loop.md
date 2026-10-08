@@ -764,3 +764,15 @@ The latest report has **1,608 exact functions / 18,012 bytes**, 158 differing
 candidates, 7,411 missing functions and no compile errors or unresolved
 comparisons. Data comparisons have 5 matched records and 2,204 matched bytes,
 with no unresolved comparisons. Full-game replacement linking remains at zero.
+
+Ten small `EAGLView` accessors now cover the hang flag, PowerVR shell pointer,
+context, depth and pixel formats, framebuffer, autoresize flag and delegate.
+The eight referenced Objective-C ivar-offset records match exactly in
+`__DATA,__objc_ivar`; accessor relocations resolve. Code comparisons are fuzzy
+at 20–40% because the compiler emits literal-pool loads and combines some
+addressing operations.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 168 differing
+candidates, 7,401 missing functions and no compile errors or unresolved
+comparisons. Data comparisons have 13 matched records and 2,236 matched bytes,
+with no unresolved comparisons. Full-game replacement linking remains at zero.

@@ -5756,6 +5756,52 @@
         "f-08aa7183db1262113c80"
       ],
       "flags_provenance": "Investigative ARM profile for an encoded Objective-C++ constructor symbol; original flags and complete platform type remain unproven."
+    },
+    {
+      "group_id": "o-96fd141099d518a7cb4e",
+      "source": "src/recovery/units/o-96fd141099d518a7cb4e.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-a9521dcbf367de7dc2f5",
+        "f-77cbce542bf171e65cc5",
+        "f-01a0ace2b03d1a5e4f74",
+        "f-b4fb0cecf33448947bd5",
+        "f-9558e5fe6e1d6ad54c4a",
+        "f-edd12a9a8014e465cee3",
+        "f-265bc081ad43b2c136ec",
+        "f-11adb9e09959dfd33bec",
+        "f-2b2ce1a5c2733ae1f743",
+        "f-da00421f6d2e99d8b406"
+      ],
+      "recovery_kinds": {
+        "f-a9521dcbf367de7dc2f5": "objc-ivar-setter",
+        "f-77cbce542bf171e65cc5": "objc-ivar-setter",
+        "f-01a0ace2b03d1a5e4f74": "objc-ivar-getter",
+        "f-b4fb0cecf33448947bd5": "objc-ivar-getter",
+        "f-9558e5fe6e1d6ad54c4a": "objc-ivar-getter",
+        "f-edd12a9a8014e465cee3": "objc-ivar-getter",
+        "f-265bc081ad43b2c136ec": "objc-ivar-getter",
+        "f-11adb9e09959dfd33bec": "objc-ivar-setter",
+        "f-2b2ce1a5c2733ae1f743": "objc-ivar-getter",
+        "f-da00421f6d2e99d8b406": "objc-ivar-setter"
+      },
+      "data": {
+        "d-042eb88d56494452c063": {"symbol": "_OBJC_IVAR_$_EAGLView._hang"},
+        "d-bf737a4266bc01144411": {"symbol": "_OBJC_IVAR_$_EAGLView.m_pPVRShellInit"},
+        "d-c9f6316c3a410179212d": {"symbol": "_OBJC_IVAR_$_EAGLView._context"},
+        "d-69c25d81955f38aee9f8": {"symbol": "_OBJC_IVAR_$_EAGLView._depthFormat"},
+        "d-a9c8304c24b9669a5f70": {"symbol": "_OBJC_IVAR_$_EAGLView._format"},
+        "d-a99510b473fd52ce26b5": {"symbol": "_OBJC_IVAR_$_EAGLView._framebuffer"},
+        "d-a1baa82101b43f06e47b": {"symbol": "_OBJC_IVAR_$_EAGLView._autoresize"},
+        "d-dd2f12f5b2f263bedfcc": {"symbol": "_OBJC_IVAR_$_EAGLView._delegate"}
+      },
+      "flags_provenance": "Investigative ARM profile for tiny synthesized ivar accessors; inferred sequential instance offsets remain subject to data comparison."
     }
   ]
 }
