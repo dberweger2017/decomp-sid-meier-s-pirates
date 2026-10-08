@@ -1,0 +1,42 @@
+{
+  "candidate_groups": [
+    "o-4c02a151f7f55c33fc5c",
+    "o-1f9e1182f8fd5b86d0bb",
+    "o-4268c237f42393c8bef0",
+    "o-22e9019c653c60382da6",
+    "o-b2988598bdd8217340d1",
+    "o-b9afd2a4c28d8e343b6a",
+    "o-8d47cdfc0a7351af6cc0",
+    "o-2e066eac87fdb187c28a",
+    "o-ac2c3029785c947aeb95"
+  ],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__Z14GameAudio_InitPKc",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": [
+      "o-4c02a151f7f55c33fc5c",
+      "o-1f9e1182f8fd5b86d0bb",
+      "o-4268c237f42393c8bef0",
+      "o-22e9019c653c60382da6",
+      "o-b2988598bdd8217340d1",
+      "o-b9afd2a4c28d8e343b6a",
+      "o-8d47cdfc0a7351af6cc0",
+      "o-2e066eac87fdb187c28a",
+      "o-ac2c3029785c947aeb95"
+    ],
+    "libraries": [
+      "-lSystem"
+    ],
+    "expected_imports": [],
+    "expected_libraries": [
+      "/usr/lib/libSystem.B.dylib"
+    ],
+    "sdk_objects": [],
+    "flags": [],
+    "provenance": "Recovered source from the original GameAudio, PowerVR, FireSound/FAudioManager/FAudioSystem, heap3 and FSharedSoundData groups only. Partial types remain uninstantiated; direct function entry validates structure, not iOS process startup or runtime behavior. Original full-game object order/layout and missing virtual interfaces remain unrecovered. No replacement credit."
+  }
+}

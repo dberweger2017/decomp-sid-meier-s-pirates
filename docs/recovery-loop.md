@@ -110,3 +110,9 @@ source queues and detailed comparisons retain the investigation evidence.
 The 91-function CI checkpoint passed after the repository became public and its
 billing-blocked PR workflow was retried. New checkpoints need their own CI.
 No original inputs or SDK files are tracked; replacement completion remains zero.
+
+The nine-group `recovery-core.json` descriptor now links all 86 newly recovered
+functions (844 code bytes) and npos, excluding the original 16-function baseline
+and unimplemented Phono2 targets. Its image SHA-256 is
+`8fb6a60d06e2fa0ddd1cc0385579d9fa84311f536a6c08dbbdb9a27f2fe8bbf9`.
+Structural inspection passes; replacement credit and runtime validation stay zero.
