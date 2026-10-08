@@ -1,6 +1,7 @@
 #include "ISEControllerSequence.h"
 #include "../powervr/PVRTMatrixF.h"
 #include "ISESequenceMemory.h"
+#include "ISESequenceReader.h"
 #include <string.h>
 
 namespace ISE {
@@ -51,6 +52,43 @@ void ControllerSequence::GetNodeMatrix(int node, PVRTMATRIXf &matrix) {
         GetNodeMatrix(parent, temporary);
         PVRTMatrixMultiplyF(matrix, matrix, temporary);
     }
+}
+
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer1(const char *memory, int) {
+    using namespace sequence_reader;
+    const char *cursor = memory + 16;
+    const unsigned int nameLength = Word(cursor);
+    ControllerSequence *sequence = new ControllerSequence();
+    sequence->m_name = new char[nameLength + 1]();
+    strncpy(sequence->m_name, cursor, nameLength);
+    cursor += nameLength;
+    sequence->m_unknown04 = Word(cursor);
+    sequence->m_unknown08 = Word(cursor);
+    sequence->m_propertyCount = Word(cursor);
+    if (sequence->m_propertyCount > 0) {
+        sequence->m_properties = new Node[sequence->m_propertyCount];
+        for (int i = 0; i < sequence->m_propertyCount; ++i) {
+            sequence->m_properties[i].name = Name(cursor);
+            sequence->m_properties[i].parent = Word(cursor);
+        }
+    }
+    sequence->m_nodeCount = Word(cursor);
+    if (sequence->m_nodeCount > 0) {
+        sequence->m_nodes = new Node[sequence->m_nodeCount];
+        sequence->m_keyframes = new KeyframeController[sequence->m_nodeCount];
+        for (int i = 0; i < sequence->m_nodeCount; ++i) {
+            sequence->m_nodes[i].name = Name(cursor);
+            sequence->m_nodes[i].parent = Word(cursor);
+        }
+        for (int i = 0; i < sequence->m_nodeCount; ++i) {
+            KeyframeController &controller = sequence->m_keyframes[i];
+            for (int field = 0; field < 4; ++field) controller.m_metadata[field] = Word(cursor);
+            Channel(cursor, controller.m_translation.count, controller.m_translation.times, controller.m_translation.values, false);
+            Channel(cursor, controller.m_rotation.count, controller.m_rotation.times, controller.m_rotation.values, true);
+            Channel(cursor, controller.m_scale.count, controller.m_scale.times, controller.m_scale.values, true);
+        }
+    }
+    return sequence;
 }
 
 ControllerSequence *ControllerSequence::CreateSequenceFromMemory(const char *memory, int size) {

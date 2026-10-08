@@ -20,22 +20,22 @@ public:
 bool IsThreadSet(MemoryManager::EHeapType heap);
 bool IsThisThread(MemoryManager::EHeapType heap);
 
-inline MemoryManager::EHeapType SequenceAllocationHeap() {
+inline __attribute__((always_inline)) MemoryManager::EHeapType SequenceAllocationHeap() {
     MemoryManager *manager = MemoryManager::GetSingletonInstance();
     if (manager->m_overrideHeap) return manager->m_selectedHeap;
     if (IsThreadSet(MemoryManager::SequenceHeap) && !IsThisThread(MemoryManager::SequenceHeap))
         return MemoryManager::SequenceForeignThreadHeap;
     return MemoryManager::SequenceHeap;
 }
-inline void *operator new(size_t bytes) {
+inline __attribute__((always_inline)) void *operator new(size_t bytes) {
     MemoryManager *manager = MemoryManager::GetSingletonInstance();
     return manager->AllocWithHeap(SequenceAllocationHeap(), bytes);
 }
-inline void *operator new[](size_t bytes) {
+inline __attribute__((always_inline)) void *operator new[](size_t bytes) {
     MemoryManager *manager = MemoryManager::GetSingletonInstance();
     return manager->AllocWithHeap(SequenceAllocationHeap(), bytes);
 }
-inline void operator delete[](void *block) throw() {
+inline __attribute__((always_inline)) void operator delete[](void *block) throw() {
     if (!block) return;
     if (!MemoryManager::GetSingletonInstance()->IsMyBlock(block)) free(block);
     else MemoryManager::GetSingletonInstance()->Free(block, SequenceArrayAllocation);
