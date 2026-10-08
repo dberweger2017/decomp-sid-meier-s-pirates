@@ -8,3 +8,5 @@ int FSound3D::GetSampleId() { return m_sampleId; }
 int FSound3D::GetStreamId() { return m_streamId; }
 
 unsigned int FSound3D::GetGlobalSoundFilenameIndex() { return m_globalSoundFilenameIndex; }
+
+bool FSound3D::IsStreaming() { return m_streaming; }
