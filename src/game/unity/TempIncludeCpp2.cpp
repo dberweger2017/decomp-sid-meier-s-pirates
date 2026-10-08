@@ -17,3 +17,9 @@
 #include "../../recovery/FFileBackgroundLoaderReleaseTempIncludeCpp2.cpp"
 
 #include "../../recovery/TempIncludeCpp2ReleaseFunctions.cpp"
+
+#include "../../gamebryo/NiCollisionConvertSmall_TempIncludeCpp2.cpp"
+
+#include "../../gamebryo/NiPSysSphericalColliderSmall_TempIncludeCpp2.cpp"
+
+#include "../../recovery/FFileBackgroundLoaderSmall_TempIncludeCpp2.cpp"
