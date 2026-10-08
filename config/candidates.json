@@ -1695,7 +1695,17 @@
         "f-8a76a00b5f6794decc2b",
         "f-5f875d83526c2b194e09",
         "f-8f2fd4c883096f116e5a",
-        "f-7cd31972c289940421e0"
+        "f-7cd31972c289940421e0",
+        "f-45db2f6a0bfdb87cf4cd",
+        "f-6aa1a3165037daa2e562",
+        "f-fe2cbea173f5483f93f9",
+        "f-f805eda5183910df3c93",
+        "f-bf4b7b5f3efb465217b3",
+        "f-8b7fbcec6b9fc0c55c0d",
+        "f-76cba8eb3bad087f6564",
+        "f-9d56f64244c621cc1315",
+        "f-54bf000d6a6b942d34a8",
+        "f-1b1806f3ab2808ad9c1e"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
