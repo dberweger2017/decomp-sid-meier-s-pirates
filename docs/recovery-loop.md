@@ -505,8 +505,9 @@ UicDots::SetNextDot and SetPrevDot now have grounded candidates for the state
 updates at `+0x78` and `+0x7c`. They remain fuzzy at 82.3529% and 57.1429%
 assembly similarity because the compiler emits different predicated branches
 and stores. They move two functions from missing to differing without exact
-match credit.
+match credit. UicFire::GetCommandKey now verifies exactly: it returns `0x20`
+when the state at `+0x50` is one and zero otherwise.
 
-The resulting report has **1,596 exact functions / 17,788 bytes**, 48 differing
-candidates, 7,533 missing functions and no compile errors or unresolved
+The resulting report has **1,597 exact functions / 17,808 bytes**, 48 differing
+candidates, 7,532 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.

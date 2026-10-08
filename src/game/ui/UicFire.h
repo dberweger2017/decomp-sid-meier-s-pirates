@@ -8,6 +8,7 @@
 class UicFire {
 public:
     int GetFireState();
+    int GetCommandKey();
     void SetCannonLoadInfoL(int loadInfo, int cannonType);
     void SetCannonLoadInfoR(int loadInfo, int cannonType);
 
