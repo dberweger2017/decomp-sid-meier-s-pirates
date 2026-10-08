@@ -5446,6 +5446,24 @@
       "recovery_kinds": {
         "f-53c73be93d5e99c73017": "objective-c-leaf"
       }
+    },
+    {
+      "group_id": "o-bd93b0dab2a49ba687c2",
+      "source": "src/recovery/units/o-bd93b0dab2a49ba687c2.mm",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-d6049bf52793fc03a843"
+      ],
+      "flags_provenance": "Reviewed tiny ABI bodies, SDK-defined imports or original encoded Objective-C methods. Complete types, hierarchy, lifetime registration, metadata and original flags are separate recovery work. See docs/remaining-tiny-functions.md.",
+      "recovery_kinds": {
+        "f-d6049bf52793fc03a843": "objective-c-leaf"
+      }
     }
   ]
 }
