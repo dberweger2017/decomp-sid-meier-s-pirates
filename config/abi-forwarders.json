@@ -8867,6 +8867,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-9d7c4625e656aca15e87",
+      "group_id": "o-56583387bbf08f43e2e5",
+      "symbol": "__ZN12UicDanceStepC1Ev",
+      "original_name": "UicDanceStep::UicDanceStep()",
+      "target_symbol": "__ZN12UicDanceStepC2Ev",
+      "target_name": "UicDanceStep::UicDanceStep()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
