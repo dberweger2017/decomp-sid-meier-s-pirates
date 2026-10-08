@@ -338,7 +338,9 @@
       ],
       "sdk_required": false,
       "functions": {},
-      "implemented_functions": [],
+      "implemented_functions": [
+        "f-3a84c5a5f0828be26b47"
+      ],
       "flags_provenance": "Investigation profile for original ARM heap helpers. Original flags and complete allocator remain unknown; header offsets are observed in the original heap methods."
     }
   ]

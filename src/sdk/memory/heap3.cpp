@@ -17,3 +17,5 @@ static inline HeapBlock *blockHeader(void *allocation) {
     return reinterpret_cast<HeapBlock *>(
         static_cast<unsigned char *>(allocation) - sizeof(HeapBlock));
 }
+
+void Heap_Dump(Heap *, const char *) {}
