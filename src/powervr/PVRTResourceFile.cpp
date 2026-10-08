@@ -6,3 +6,5 @@
 bool CPVRTResourceFile::IsOpen() const { return m_open; }
 
 unsigned long CPVRTResourceFile::Size() const { return m_size; }
+
+const char *CPVRTResourceFile::StringPtr() const { return m_data; }

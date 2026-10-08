@@ -203,7 +203,8 @@
       "functions": {},
       "implemented_functions": [
         "f-cdee333ec6aea15f3773",
-        "f-7e87243a0474e6974cb6"
+        "f-7e87243a0474e6974cb6",
+        "f-84e2c6dd93e8c87a6af7"
       ],
       "flags_provenance": "Initial investigation profile; original flags are unproven. See docs/recovery-loop.md."
     }
