@@ -61,8 +61,8 @@ These subset images grant zero complete replacement or iOS runtime credit.
 Local validation: **110 tooling tests pass**, doctor passes, all 500 reviewed
 forwarder sources validate, and the particle, connected-gameplay and retained
 73-group diagnostic links pass structural inspection. Native regression checks
-find exactly 500 new matches and no lost function/data matches. Hosted checks
-for the final head are pending; local success is not presented as hosted success.
+find exactly 500 new matches and no lost function/data matches. Hosted final-head checks passed on Linux and macOS, including historical
+base/head compilation, diagnostic links and the compiler cross-build.
 
 The public website reflects merged main, not unmerged recovery PRs. Original
 IPA/executable inputs, SDKs, toolchain caches and generated artifacts stay out
