@@ -17,3 +17,7 @@ unsigned int FPhono::GetPlaybackPosition_Stream(int stream) {
 unsigned int FPhono::GetPlaybackPosition_Sample(int sample) {
     return Phono2::PAudioSystem::getSingletonPtr()->GetSamplePlaybackPosition(sample);
 }
+
+float FPhono::GetVolume_Sound(int sound) {
+    return Phono2::PAudioSystem::getSingletonPtr()->GetChannelVolume(sound);
+}
