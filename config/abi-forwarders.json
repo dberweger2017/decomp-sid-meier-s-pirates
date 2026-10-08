@@ -8899,6 +8899,28 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-9d20148ec03f941643d1",
+      "group_id": "o-9aa52a401ff5225611f9",
+      "symbol": "__ZN13UicDanceHeartC1Eiii",
+      "original_name": "UicDanceHeart::UicDanceHeart(int, int, int)",
+      "target_symbol": "__ZN13UicDanceHeartC2Eiii",
+      "target_name": "UicDanceHeart::UicDanceHeart(int, int, int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ],
+      "target_parameters": [
+        "void *",
+        "int",
+        "int",
+        "int"
+      ]
     }
   ]
 }
