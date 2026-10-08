@@ -24,3 +24,11 @@
 #include "../../gamebryo/NiLogBehaviorReleaseTempIncludeCpp3.cpp"
 
 #include "../../gamebryo/NiSphereBVReleaseTempIncludeCpp3.cpp"
+
+#include "../../gamebryo/NiGeometrySmall_TempIncludeCpp3.cpp"
+
+#include "../../gamebryo/NiHalfSpaceBVSmall_TempIncludeCpp3.cpp"
+
+#include "../../gamebryo/NiSqrDistanceSmall_TempIncludeCpp3.cpp"
+
+#include "../../gamebryo/NiUnionBVSmall_TempIncludeCpp3.cpp"
