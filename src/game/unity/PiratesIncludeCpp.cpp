@@ -5,3 +5,5 @@
 #include "../../../src/game/ui/TopTenPiratesUIScene.cpp"
 #include "../../../src/game/ui/UicComboButton.cpp"
 #include "../../../src/game/world/World.cpp"
+
+#include "../../gamebryo/maps/PiratesIncludeCppMaps.cpp"
