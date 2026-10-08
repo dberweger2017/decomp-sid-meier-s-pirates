@@ -4952,6 +4952,24 @@
       "recovery_kinds": {
         "f-b9cb3ae4da6fce33cec3": "destruction-callback"
       }
+    },
+    {
+      "group_id": "o-f600d7ce0a024d1129cc",
+      "source": "src/recovery/units/o-f600d7ce0a024d1129cc.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0ca8807d0fd2bf6c8193"
+      ],
+      "flags_provenance": "Reviewed tiny ABI bodies, SDK-defined imports or original encoded Objective-C methods. Complete types, hierarchy, lifetime registration, metadata and original flags are separate recovery work. See docs/remaining-tiny-functions.md.",
+      "recovery_kinds": {
+        "f-0ca8807d0fd2bf6c8193": "destruction-callback"
+      }
     }
   ]
 }
