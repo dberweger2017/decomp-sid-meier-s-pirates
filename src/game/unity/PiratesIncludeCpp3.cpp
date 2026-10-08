@@ -2,3 +2,11 @@
 // Keep recovered contributors in this one compilation object.
 
 #include "../../../src/game/world/PreyList.cpp"
+
+#include "../ui/BombardUISceneReleasePiratesIncludeCpp3.cpp"
+
+#include "../../recovery/BombardTipsReleasePiratesIncludeCpp3.cpp"
+
+#include "../../recovery/BombardingReadyStartReleasePiratesIncludeCpp3.cpp"
+
+#include "../../recovery/PiratesIncludeCpp3ReleaseFunctions.cpp"

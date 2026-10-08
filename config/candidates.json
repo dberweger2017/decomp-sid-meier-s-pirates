@@ -663,7 +663,11 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-e023f038c9d6d3d27b6a"
+        "f-e023f038c9d6d3d27b6a",
+        "f-c65634726f47147cf459",
+        "f-80c05cf3fe76b3c605f8",
+        "f-91d4908cda552f97bb9b",
+        "f-2cfafe562cde11229645"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },
