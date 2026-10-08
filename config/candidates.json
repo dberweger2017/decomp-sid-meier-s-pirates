@@ -258,7 +258,8 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-2591ac4102480433f6a9"
+        "f-2591ac4102480433f6a9",
+        "f-0213fd071f146d8f3b63"
       ],
       "flags_provenance": "Investigation profile for original integer float loads/stores. Complete class hierarchy and original flags remain unknown; see FSound3D.h."
     }
