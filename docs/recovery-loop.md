@@ -506,8 +506,16 @@ updates at `+0x78` and `+0x7c`. They remain fuzzy at 82.3529% and 57.1429%
 assembly similarity because the compiler emits different predicated branches
 and stores. They move two functions from missing to differing without exact
 match credit. UicFire::GetCommandKey now verifies exactly: it returns `0x20`
-when the state at `+0x50` is one and zero otherwise.
+when the state at `+0x50` is one and zero otherwise. UicCSBLand::Reset also
+verifies exactly, clearing byte `+0x30`, setting byte `+0x70`, and clearing the
+words at `+0x78` and `+0x7c`.
 
-The resulting report has **1,597 exact functions / 17,808 bytes**, 48 differing
-candidates, 7,532 missing functions and no compile errors or unresolved
+UicComboButton::GetCommandKey now has a source candidate that returns the
+command key when the state at `+0xdc` is one or two, and zero otherwise. It
+compares at 61.5385% similarity; the compiler places the conditional result in
+a different register and uses a different conditional move. It remains a
+fuzzy candidate without exact-match credit.
+
+The resulting report has **1,598 exact functions / 17,836 bytes**, 49 differing
+candidates, 7,530 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
