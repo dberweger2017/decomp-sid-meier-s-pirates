@@ -479,6 +479,16 @@ and destination registers in the opposite order from the original; these three
 functions receive no exact-match credit. This is a source-level result, not a
 claim that the partial ISELight layout is complete.
 
-The resulting report has **1,587 exact functions / 17,644 bytes**, 43 differing
-candidates, 7,547 missing functions and no compile errors or unresolved
+The next short-function pass adds exact source for FFontString::SetPosition and
+UicDanceStep::cleanStates (32 bytes). It also keeps three grounded candidates
+visible: ISEEntity::GetRenderUnit uses the observed render-unit array at `+0xfc`
+with a 24-byte stride and compares at 50%; UicFire's left/right cannon setters
+write their observed fields and conditionally update the second value for
+`cannonType >= 1`, comparing at 44.4444% each. The ISEEntity candidate emits
+an `mla` for its scale while the original uses shifted adds. UicFire candidates
+use a branch around the conditional write while the original uses ARM predicated
+store instructions. These are source candidates without exact-match credit.
+
+The resulting report has **1,589 exact functions / 17,676 bytes**, 46 differing
+candidates, 7,542 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.

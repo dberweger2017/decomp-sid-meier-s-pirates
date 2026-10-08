@@ -973,7 +973,10 @@
         "f-f28aff5729b729046141",
         "f-f832911007c1bd86b241",
         "f-9d7c4625e656aca15e87",
-        "f-a5848b1cf421acd83d84"
+        "f-a5848b1cf421acd83d84",
+        "f-4ffb4421d8f535dcf33c",
+        "f-9add0022888216ad2b01",
+        "f-6df69f34d6459f982bd2"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -2688,7 +2691,8 @@
         "f-d08f46f125e8b2e659cb",
         "f-59a497767f0cd1f17675",
         "f-d8f182f1d6a37613d4d7",
-        "f-e34f1a8cd1de3f6a1d61"
+        "f-e34f1a8cd1de3f6a1d61",
+        "f-1fa16a752289d5ba88af"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -4631,7 +4635,8 @@
       "functions": {},
       "implemented_functions": [
         "f-c3aaa30c38a70fa2c057",
-        "f-aaa17701f2ad288cb414"
+        "f-aaa17701f2ad288cb414",
+        "f-9c068576718e34933e18"
       ],
       "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
       "recovery_kinds": {

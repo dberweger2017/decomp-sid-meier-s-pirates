@@ -8,6 +8,10 @@ unsigned int ISEEntity::GetRenderUnitNum() { return m_renderUnitCount; }
 
 unsigned int ISEEntity::GetPolyNum() { return m_polyCount; }
 
+void * ISEEntity::GetRenderUnit(int index) {
+    return reinterpret_cast<unsigned char *>(m_renderUnits) + index * 24;
+}
+
 ISENode * ISEEntity::GetNodeByIndex(int index) { return m_nodes[index]; }
 
 void * ISEEntityRenderUnit::GetMaterial() {
