@@ -16,3 +16,5 @@ void GameMusic_Play(AS2D_Type, int) {}
 void GameMusic_Stop() {}
 
 void GameMusic_Stop(AS2D_Type) {}
+
+void GameMusic_PlayIfNoPlaying(AS2D_Type, int) {}
