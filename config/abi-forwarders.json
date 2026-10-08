@@ -9361,6 +9361,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-d8f182f1d6a37613d4d7",
+      "group_id": "o-fb9d7fdc1b359c53ebad",
+      "symbol": "__ZN3ISE9ISEEntityC1Ev",
+      "original_name": "ISE::ISEEntity::ISEEntity()",
+      "target_symbol": "__ZN3ISE9ISEEntityC2Ev",
+      "target_name": "ISE::ISEEntity::ISEEntity()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
