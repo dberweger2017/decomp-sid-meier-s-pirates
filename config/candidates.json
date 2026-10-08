@@ -2514,9 +2514,17 @@
         "f-e422672727610038f01e",
         "f-08a91a7d3c49b8c60fb8",
         "f-a9686b048204084f51d3",
-        "f-332a243155b0e3c5284e"
+        "f-332a243155b0e3c5284e",
+        "f-2f7d14bf62c245a1ec27",
+        "f-6e894880066fcc07bfa1",
+        "f-a6abc527fb93f841fa2d"
       ],
-      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-2f7d14bf62c245a1ec27": "complete-destructor",
+        "f-6e894880066fcc07bfa1": "complete-destructor",
+        "f-a6abc527fb93f841fa2d": "complete-destructor"
+      }
     },
     {
       "group_id": "o-feb3979ea6c39b6c7f75",
