@@ -712,3 +712,12 @@ slot, matching the original indirection. All four compare at 50%.
 The latest report has **1,608 exact functions / 18,012 bytes**, 150 differing
 candidates, 7,419 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+`AudioGame::GetAudioGame` now returns the observed `gs_oAudioGame` object
+address. Its relocation resolves to the 10,112-byte zero-fill allocation in the
+same original group; the function compares at 50% due to the literal-pool
+address load.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 151 differing
+candidates, 7,418 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
