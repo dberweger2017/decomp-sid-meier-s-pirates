@@ -44,3 +44,5 @@ bool FSound::GetPitchChange(int &value) const { value = m_pitchChange; return tr
 bool FSound::GetOriginalPitch(unsigned long &value) const { value = m_originalPitch; return true; }
 
 #include "../../recovery/abi/o-22e9019c653c60382da6.cpp"
+
+#include "../../recovery/leaves/o-22e9019c653c60382da6.cpp"

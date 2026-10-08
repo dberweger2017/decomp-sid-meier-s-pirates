@@ -8991,6 +8991,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-16da49c500ee6ae0c778",
+      "group_id": "o-22e9019c653c60382da6",
+      "symbol": "__ZN6FSoundC1Ev",
+      "original_name": "FSound::FSound()",
+      "target_symbol": "__ZN6FSoundC2Ev",
+      "target_name": "FSound::FSound()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
