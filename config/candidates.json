@@ -1885,7 +1885,10 @@
         "f-023fc7b40e3f395cde17",
         "f-04b142def46e3a3fdc0d",
         "f-15e3ae2a37b21173bd02",
-        "f-22167443fa7976300cc7"
+        "f-22167443fa7976300cc7",
+        "f-ef0ce2937d6c042e1899",
+        "f-06cd58630908152543e7",
+        "f-b393ad98f73753065dc0"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     },
