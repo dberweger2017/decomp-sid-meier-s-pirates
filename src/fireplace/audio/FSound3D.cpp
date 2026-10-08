@@ -44,3 +44,5 @@ bool FSound3D::GetVelocityMagnitude(float &value) const { value = m_velocityMagn
 bool FSound3D::GetPitchChange(int &value) const { value = m_pitchChange; return true; }
 
 bool FSound3D::GetOriginalPitch(unsigned long &value) const { value = m_originalPitch; return true; }
+
+bool FSound3D::IsLooping() const { return m_loopCount != 0; }
