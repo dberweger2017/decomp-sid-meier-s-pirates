@@ -1,0 +1,56 @@
+{
+  "candidate_groups": [
+    "o-4c02a151f7f55c33fc5c",
+    "o-1f9e1182f8fd5b86d0bb",
+    "o-4268c237f42393c8bef0",
+    "o-22e9019c653c60382da6",
+    "o-b2988598bdd8217340d1",
+    "o-b9afd2a4c28d8e343b6a",
+    "o-8d47cdfc0a7351af6cc0",
+    "o-2e066eac87fdb187c28a",
+    "o-ac2c3029785c947aeb95",
+    "o-67cbdb66049bec401875",
+    "o-71a79dd832a29b589321",
+    "o-692e206382b21043c376",
+    "o-fb173e414b8edec47528",
+    "o-2d59da5048d3db995d0f",
+    "o-56583387bbf08f43e2e5",
+    "o-998eb75b8a8db9671b6e"
+  ],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__Z14GameAudio_InitPKc",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": [
+      "o-4c02a151f7f55c33fc5c",
+      "o-1f9e1182f8fd5b86d0bb",
+      "o-4268c237f42393c8bef0",
+      "o-22e9019c653c60382da6",
+      "o-b2988598bdd8217340d1",
+      "o-b9afd2a4c28d8e343b6a",
+      "o-8d47cdfc0a7351af6cc0",
+      "o-2e066eac87fdb187c28a",
+      "o-ac2c3029785c947aeb95",
+      "o-67cbdb66049bec401875",
+      "o-71a79dd832a29b589321",
+      "o-692e206382b21043c376",
+      "o-fb173e414b8edec47528",
+      "o-2d59da5048d3db995d0f",
+      "o-56583387bbf08f43e2e5",
+      "o-998eb75b8a8db9671b6e"
+    ],
+    "libraries": [
+      "-lSystem"
+    ],
+    "expected_imports": [],
+    "expected_libraries": [
+      "/usr/lib/libSystem.B.dylib"
+    ],
+    "sdk_objects": [],
+    "flags": [],
+    "provenance": "Recovered source subset from sixteen original groups, including partial knob/soundscape types and five original engine/game unity units. The one-hundred-function batch is ordinary C++ source; no game bytes or assembly fallback are emitted. Partial types remain uninstantiated; direct function entry validates structure, not iOS process startup or runtime behavior. Original full-game order/layout, missing virtual interfaces and remaining functions/data are unrecovered. No replacement credit."
+  }
+}

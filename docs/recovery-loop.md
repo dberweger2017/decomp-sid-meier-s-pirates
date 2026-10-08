@@ -9,15 +9,28 @@ groups. Empty scaffolds have empty `implemented_functions` lists and earn no
 matching progress. Unity groups retain their original grouping; see
 `src/game/unity/README.md`.
 
-For each function:
+Recovery now works in batches of about 100 easy functions, following the user's
+request to reduce repeated edit/build overhead. Inspect each selected function,
+but draft related definitions and partial headers together within the original
+compilation groups. Update their explicit implemented lists together, let Ninja
+compile each affected object, then compare every function in the batch.
 
-1. Inspect its original instructions, symbol, boundary and any relocations.
-2. Recover a readable C++ definition, recording uncertain ABI/type assumptions.
-3. Add only that function to its group's explicit implemented list.
-4. Rebuild with the validated historical compiler. Inspect the terminal diff and
-   relocation-resolved byte verification; similarity alone never accepts a match.
-5. Check all earlier matches and compilation health, then commit the verified
-   function immediately. Push small batches to the recovery PR.
+1. Inspect original instructions, names, boundaries and relocation targets.
+2. Draft ordinary C++ bodies and observed fields; document uncertain types.
+3. Preserve original unity groups and include contributing source files from
+   their corresponding unity translation unit.
+4. Use the browser watcher to rebuild the batch with historical LLVM-GCC.
+   Verify relocation-resolved bytes for each function. Similarity earns no
+   verified-match credit; unresolved cases remain unresolved.
+5. Check every earlier verified function/data match and compilation health.
+   Iterate on failed functions and flags without losing existing matches.
+6. Commit passing original groups frequently, retaining the verified IDs in
+   commit messages, and push the checkpoint to the recovery PR.
+
+A batch size is an investigation queue, not a requirement to make every function
+match before committing useful results. Header/source edits within an existing
+configured unit remain incremental. Adding units changes configuration and may
+rebuild the configured objects; batching additions avoids repeating that work.
 
 Store detailed comparison/flag evidence under ignored `build/recovery/`. Git
 commits, the live native report and PR updates provide the progress ledger.
@@ -155,3 +168,44 @@ are no compile errors or unresolved comparisons. The newest pushed checkpoint
 requires its own CI run. Source-subset linking remains diagnostic, with zero
 full-game completed units. Further small audio methods and ABI scaffolding are
 next; the recovery goal remains active.
+
+## First hundred-function batch
+
+Six further FSound3D accessors and six FKnob methods plus two FSoundScape getters
+raised the checkpoint from 122 to 136 verified functions / 2,240 code bytes.
+The FSound3D cone output needed the per-unit `-arm-reserve-r9` investigation
+flag, preserving all other methods. Recursive FKnob volume multiplication remains
+missing after an isolated 92.8571% trial; its operand order does not verify.
+
+The first 100-function batch verifies all 100 definitions at 660 code bytes in
+one watcher build. Total progress reaches **236 functions / 2,900 code bytes**,
+with 220 functions / 2,272 bytes beyond main's original baseline. Every earlier
+function/data match is retained; seven candidates differ, 8,934 functions remain
+missing, and there are zero compile errors or unresolved comparisons. The original
+9,177 records / 268 groups remain intact. The 122-function Linux/macOS and
+historical candidate CI checkpoint passed; this newer checkpoint needs its own CI.
+
+The five original unity groups are committed separately: FireIncludeCpp (23
+functions), FireIncludeCpp2 (10), PiratesIncludeCpp2 (28), PiratesIncludeCpp4
+(38), and PiratesIncludeCpp3 (1). Their included sources live under fireplace,
+game UI/world and Gamebryo directories. The batch covers typed field access,
+indexed animation/child access, boolean state resets, observed constant returns
+and empty release callbacks. Empty bodies describe original shipped instructions;
+partial headers are not safe to instantiate as complete recovered objects.
+Unknown hierarchy, virtual slots, object sizes, unencoded return types, enum
+values and signedness remain explicit. The check-box trailing animation extent
+uses a GNU zero-length declaration until its real size is recovered.
+
+Detailed comparisons and before/after reports are retained under ignored
+`build/recovery/batch-100-*`; the manifest and five commits identify every
+verified function. No original-byte or assembly bodies are used. RTTI getters
+were deferred after a probe exposed Darwin global-address lowering differences
+in the current historical backend; see [compiler limitations](toolchain.md).
+
+The sixteen-group `recovery-unity.json` diagnostic descriptor structurally links
+all 200 newly recovered functions outside the baseline/Phono facade (1,776 code
+bytes) and the four-byte npos allocation. Image SHA-256:
+`3bd6fa5feba15291ec494f7dc857df69d50f40209c430dcbc36ce0686397069b`.
+The independent image inspector passes, with zero replacement completion and
+unverified iOS runtime behavior. Reproduce it with
+`python tools/recovery_link.py config/diagnostic-links/recovery-unity.json`.

@@ -81,3 +81,13 @@ call wrappers including their resolved branch targets. The same setting leaves
 SetDopplerFactor's MOVT/register-move ordering different. Per-unit investigation
 flags and nonexact candidates stay visible; no instruction reordering is masked
 and no modern compiler or assembly fallback receives real-game source credit.
+
+The same bundled core's `LowerGlobalAddressDarwin` always materializes global
+addresses through a constant-pool load. `-arm-use-movt` controls the ELF lowering
+path, whose MOVW/MOVT route is absent from this Darwin implementation. Isolated
+NiObject::GetRTTI probes with ordinary and hidden declarations both produce
+literal-pool loads, while the original getter uses MOVW/MOVT plus PC-relative
+address arithmetic. The attempted non-lazy-pointer placement also remains
+unresolved. These getters are deferred rather than assigned match credit. This
+second concrete backend discrepancy reinforces the need to identify the shipped
+backend before claiming all original code can be reproduced with this profile.
