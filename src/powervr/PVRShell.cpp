@@ -7,3 +7,5 @@ bool PVRShell::QuitApplication() { return true; }
 bool PVRShell::InitView() { return true; }
 bool PVRShell::ReleaseView() { return true; }
 bool PVRShell::RenderScene() { return true; }
+
+#include "PVRShellInput.cpp"
