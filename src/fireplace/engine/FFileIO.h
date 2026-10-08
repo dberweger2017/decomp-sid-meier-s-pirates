@@ -1,4 +1,6 @@
 #pragma once
+#include "../../recovery/ReleaseHookTypes.h"
+
 
 
 // Partial declarations for direct function comparison only. Do not instantiate.
@@ -7,6 +9,9 @@
 // pointees and signedness remain hypotheses; matching bytes do not prove them.
 class FFileIO {
 public:
+    enum SeekMode { SeekModeUnknown = -1 }; // Enumerator values unrecovered.
+    int Write(void const*, unsigned int);
+    static bool Delete(char const*);
     unsigned int GetLength() const;
     bool IsOpen() const;
 

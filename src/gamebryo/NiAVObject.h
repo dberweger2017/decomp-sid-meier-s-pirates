@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/ReleaseHookTypes.h"
+
 
 // Observed ABI views only; do not instantiate these partial types. Virtual slots
 // before GetType, inheritance, ownership and complete object sizes are unknown.
@@ -30,6 +32,12 @@ struct BattleGridGeometryData {
 };
 class NiAVObject {
 public:
+    void UpdateNodeBound();
+    void UpdatePropertiesDownward(NiPropertyState*);
+    void UpdateEffectsDownward(NiDynamicEffectState*);
+    void ApplyTransform(NiMatrix3 const&, NiPoint3 const&, bool);
+    void Display(NiCamera*);
+    void UpdateWorldBound();
     NiProperty* GetProperty(int type);
     void SetAppCulled(bool culled) {
         unsigned short value = flags;

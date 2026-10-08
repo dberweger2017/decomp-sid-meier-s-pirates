@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/ReleaseHookTypes.h"
+
 
 class NiObjectGroup;
 class NiTexturePalette;
@@ -8,6 +10,8 @@ class NiTexturePalette;
 // return types, pointees, signedness and field names remain hypotheses.
 class NiStream {
 public:
+    void BackgroundLoadOnExit();
+    void DoThreadPause();
     NiObjectGroup * GetGroupFromID(unsigned int id);
     NiTexturePalette * GetTexturePalette() const;
     bool BackgroundLoadFinish();
