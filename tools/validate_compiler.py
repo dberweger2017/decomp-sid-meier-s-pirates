@@ -33,7 +33,10 @@ def validate(root, profile_path):
     validation['command_sha256'] = hashlib.sha256(json.dumps(invocation, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
     validation['compiler_sha256'] = profile['container']['image'].split('sha256:', 1)[1] if profile.get('container') else sha256(shutil.which(cmd[0]) or root / cmd[0])
     hashes = {}
-    for language, extension in (('c', 'c'), ('c++', 'cpp')):
+    languages = profile.get('languages', ['c', 'c++'])
+    extensions = {'c': 'c', 'c++': 'cpp', 'objective-c': 'm', 'objective-c++': 'mm'}
+    for language in languages:
+        extension = extensions[language]
         for mode in ('arm', 'thumb'):
             pair = []
             for repeat in ('a', 'b'):
@@ -42,6 +45,10 @@ def validate(root, profile_path):
                 (folder / 'value.h').write_text('#define VALUE 41\n')
                 body = ('template<int N> int add(int x){return x+N;}\nextern "C" int probe(int x){return add<VALUE>(x);}'
                         if language == 'c++' else 'int probe(int x){return x+VALUE;}')
+                if language.startswith('objective-c'):
+                    body = ('@interface Probe\n- (int)value;\n@end\n@implementation Probe\n- (int)value{return VALUE;}\n@end\n'
+                            + ('extern "C" ' if language == 'objective-c++' else '')
+                            + 'int probe(Probe *object){return [object value]+VALUE;}')
                 source = 'probe.' + extension
                 (folder / source).write_text('#include "value.h"\n' + body + '\n')
                 relative = str(folder.relative_to(root))
@@ -64,6 +71,7 @@ def validate(root, profile_path):
                 raise ToolError('Historical object bytes differ across build directories: ' + language + '/' + mode)
             hashes[extension + '/' + mode] = pair[0]
             validation[mode + '_probe'] = True
+    validation['languages'] = languages
     validation.update(validated=True, c_probe=True, cxx_probe=True, reproducible_objects=True, probe_sha256=hashes)
     write_json(root / profile['validation'], validation)
     print('Validated historical cross-build and repeatable ARM/Thumb objects. Exact original compiler equivalence remains unproven.')

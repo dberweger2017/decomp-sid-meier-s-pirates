@@ -64,6 +64,8 @@ def fingerprint(profile, root, sdk=None):
             raise ToolError('Validation belongs to a different compiler invocation')
         if not all(validation.get(k) for k in ('arm_probe', 'thumb_probe', 'reproducible_objects', 'c_probe', 'cxx_probe')):
             raise ToolError('Historical compiler smoke probes are incomplete')
+        if not set(profile.get('languages', ['c', 'c++'])).issubset(validation.get('languages', ['c', 'c++'])):
+            raise ToolError('Compiler language probes are incomplete')
         if 'LLVM' not in result['version'] or '2336.9' not in result['version'] or '4.2.1' not in result['version']:
             raise ToolError('Historical compiler version does not match 2336.9 hypothesis')
         result.update(validated=True)
