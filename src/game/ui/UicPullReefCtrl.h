@@ -9,7 +9,10 @@ class UicPullReefCtrl {
 public:
     void SetIsFullSail(bool fullSail);
 
+    int GetCommandKey();
+
 private:
     unsigned char m_unknown_00[96];
     bool m_fullSail; // +0x60
+    bool m_active; // +0x61; GetCommandKey checks this byte
 };

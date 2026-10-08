@@ -581,7 +581,19 @@
         "f-6d978b05f8227e23be1e",
         "f-f42445a1381febedf6c9",
         "f-906202e82bc8de417d45",
-        "f-fd55bb2caee85dd46335"
+        "f-fd55bb2caee85dd46335",
+        "f-3bb62dcd282ded2484c6",
+        "f-ecadc5022ace84455950",
+        "f-feb0502e45426846be9e",
+        "f-94d2cc026aa6e899e165",
+        "f-76c2f764656e3875749b",
+        "f-7dcdedbdf17dacb66aa2",
+        "f-e8aa5eee0f71d1d77b9b",
+        "f-482d488b7952121e5431",
+        "f-bca38700a4d2374024dd",
+        "f-ac3fd5e2ed319d9196e1",
+        "f-c12d6bdb05bf8501470f",
+        "f-0eb123797ac33969a280"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },

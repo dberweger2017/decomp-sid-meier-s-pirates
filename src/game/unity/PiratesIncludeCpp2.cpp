@@ -16,3 +16,5 @@
 #include "../../../src/game/world/Object3d.cpp"
 
 #include "../ui/NPCInfoUIScene.cpp"
+
+#include "../../gamebryo/maps/PiratesIncludeCpp2Maps.cpp"
