@@ -620,6 +620,28 @@
         "f-e023f038c9d6d3d27b6a"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-0aaf8c6270adb89d12c9",
+      "source": "src/game/unity/PiratesIncludeCpp.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-ae91deee47159476a8bf",
+        "f-ecbbd5f1fd16a43f528b",
+        "f-b73c7aa2ecc0438a7556",
+        "f-4ab08f8f13d92de10f3e",
+        "f-7106e17a82d37b77042f",
+        "f-4078ce6dc87355609440",
+        "f-c2bf5102afd2ec3498fd",
+        "f-a6d502a085114b22bac3"
+      ],
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     }
   ]
 }
