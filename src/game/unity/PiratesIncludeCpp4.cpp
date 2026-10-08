@@ -22,3 +22,5 @@
 #include "../../../src/game/ui/UicWindDir.cpp"
 
 #include "../ui/UicRudder.cpp"
+
+#include "../../recovery/PiratesIncludeCpp4ReleaseFunctions.cpp"
