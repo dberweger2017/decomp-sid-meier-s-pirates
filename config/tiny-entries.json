@@ -524,6 +524,19 @@
       ],
       "internal": false,
       "value": 1
+    },
+    {
+      "id": "f-1c00cbcc4878b67709c0",
+      "group_id": "o-a0a654fc695bd72897a8",
+      "symbol": "__ZN3ISE26ISEMaterialColorController21GetSequenceControllerEffb",
+      "original_name": "ISE::ISEMaterialColorController::GetSequenceController(float, float, bool)",
+      "kind": "constant-body",
+      "return_type": "void *",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
     }
   ]
 }
