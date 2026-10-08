@@ -176,15 +176,27 @@ def import_runtime(directory, compiler_path, sdk):
     if profile.get('template_sha256') != digest(load_json(ROOT / 'config/linker.json')):
         raise ToolError('Exported linker template differs from this checkout')
     out = ROOT / 'build/linker'
+    write_json(out / 'runtime-import.json', {'validated': False, 'reason': 'Receiving-host import has not completed'})
     write_json(out / 'validation.json', {'validated': False, 'reason': 'Receiving-host link probes have not completed'})
     loaded = subprocess.run(['docker', 'load', '-i', str(archive)], capture_output=True, text=True, check=True)
     identities = set(re.findall(r'Loaded image ID: (sha256:[0-9a-f]{64})', loaded.stdout))
-    if identities != {exported['image']}:
-        raise ToolError('Expected the one declared immutable linker image')
-    metadata = json.loads(subprocess.run(['docker', 'image', 'inspect', exported['image']], capture_output=True, text=True, check=True).stdout)[0]
-    if metadata.get('Os') != 'linux' or metadata.get('Architecture') != 'amd64':
+    # Docker/containerd can re-identify an exported image during format
+    # conversion. Pin the receiving-host ID, verify the installed binary, and
+    # revalidate image/layout hashes rather than trusting a tag or new ID alone.
+    if not identities:
+        tags = re.findall(r'^Loaded image: (\S+)$', loaded.stdout, re.MULTILINE)
+        for tag in tags:
+            item = json.loads(subprocess.run(['docker', 'image', 'inspect', tag], capture_output=True, text=True, check=True).stdout)[0]
+            identities.add(item['Id'])
+    if len(identities) != 1:
+        raise ToolError('Expected one loaded linker image identity')
+    image = identities.pop()
+    metadata = json.loads(subprocess.run(['docker', 'image', 'inspect', image], capture_output=True, text=True, check=True).stdout)[0]
+    if metadata.get('Id') != image or metadata.get('Os') != 'linux' or metadata.get('Architecture') != 'amd64':
         raise ToolError('Linker image must be Linux amd64')
-    if identity(profile, ROOT) != previous['identity']:
+    profile['container']['image'] = image
+    received = identity(profile, ROOT)
+    if any(received[k] != previous['identity'][k] for k in ('family', 'version', 'binary_sha256')):
         raise ToolError('Imported linker binary fingerprint differs')
     path = 'build/linker/linker.json'
     write_json(ROOT / path, profile)
@@ -193,6 +205,9 @@ def import_runtime(directory, compiler_path, sdk):
     if current['probes'] != previous['probes']:
         write_json(ROOT / profile['validation'], {'validated': False, 'reason': 'Receiving-host image hashes/layout differ from exported probes'})
         raise ToolError('Receiving-host link probes differ from native/exported probes')
+    write_json(out / 'runtime-import.json', {'validated': True, 'archive_sha256': exported['sha256'],
+               'exported_image': exported['image'], 'receiving_image': image,
+               'binary_sha256': received['binary_sha256'], 'identical_probes': True})
     print('Imported linker and revalidated identical images/layout on this host.')
 
 

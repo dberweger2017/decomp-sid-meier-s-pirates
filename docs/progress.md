@@ -97,6 +97,16 @@ and validation manifest, excluding SDK and original inputs. CI publishes it as
 `validated-ld64-linux-amd64`; `python tools/linker.py import <directory>` verifies
 and revalidates a downloaded artifact on Linux or macOS/Apple Silicon.
 
+The exported native Linux runtime was imported and revalidated on Apple Silicon:
+the linker binary and all eight SDK-dependent ARM/Thumb image hashes and
+inspected layouts agreed, including SDK startup, C++ initialization and Objective-C
+metadata. Docker/containerd may assign a different immutable image ID on import.
+The importer pins that receiving ID only after verifying the binary fingerprint
+and repeating the probes; `build/linker/runtime-import.json` records both IDs,
+archive hash and validation result. Changed images or linker binaries cannot retain
+validation. These probes establish reproducible structural linking, not iOS runtime
+behavior or exact equivalence to the game's original linker.
+
 ## Manifest and incremental loop
 
 `config/link.json` records object order, libraries, deployment/SDK load-command
