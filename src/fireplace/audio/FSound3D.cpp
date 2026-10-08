@@ -61,3 +61,8 @@ bool FSound3D::GetCone(int &firstAngle, int &secondAngle, float &gain) const {
     gain = m_coneGain;
     return true;
 }
+
+bool FSound3D::GetPosition(NiPoint3 &position) const {
+    position = m_position;
+    return true;
+}
