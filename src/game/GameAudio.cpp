@@ -6,3 +6,5 @@
 void GameAudio_Update() {}
 
 void GameAudio_Play(AS2D_Type, int) {}
+
+void GameAudio_PlayIfNoPlaying(AS2D_Type, int) {}
