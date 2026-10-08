@@ -57,3 +57,7 @@ void FPhono::Shutdown() {
 void FPhono::SetPlaybackPosition_Stream(int stream, unsigned int position) {
     Phono2::PAudioSystem::getSingletonPtr()->SetStreamPlaybackPosition(stream, position);
 }
+
+void FPhono::SetPlaybackPosition_Sample(int sample, unsigned int position) {
+    Phono2::PAudioSystem::getSingletonPtr()->SetSamplePlaybackPosition(sample, position);
+}
