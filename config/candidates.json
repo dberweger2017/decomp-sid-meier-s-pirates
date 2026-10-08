@@ -363,9 +363,13 @@
       "functions": {},
       "implemented_functions": [
         "f-942a81d72dfbd87dcb97",
-        "f-e314a11b0e36558c05ab"
+        "f-e314a11b0e36558c05ab",
+        "f-1ec4f080c987b977a548"
       ],
-      "flags_provenance": "Investigation profile for original release-build constant bodies. Original flags and full virtual interface remain unknown; see FAudioSystem.h."
+      "flags_provenance": "Investigation profile for original release-build constant bodies. Original flags and full virtual interface remain unknown; see FAudioSystem.h.",
+      "recovery_kinds": {
+        "f-1ec4f080c987b977a548": "destruction-callback"
+      }
     },
     {
       "group_id": "o-2e066eac87fdb187c28a",
