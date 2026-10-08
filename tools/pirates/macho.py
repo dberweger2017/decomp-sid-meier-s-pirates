@@ -68,6 +68,8 @@ class MachO:
         self.uuid = None
         # Keep alignment separately so the locked function inventory is unchanged.
         self.alignments = {}
+        self.imported_stubs = []
+        indirect_sections = {}
         magic, cpu, subtype, self.filetype, count, cmdbytes, self.flags = self.unpack('<7I', 0)
         if magic != 0xfeedface or cpu != 12 or subtype & 0xffffff != 9:
             raise ToolError('Expected a thin little-endian 32-bit ARMv7 Mach-O')
@@ -76,7 +78,7 @@ class MachO:
         self.check(28, cmdbytes)
         if count > cmdbytes // 8:
             raise ToolError('Load command count exceeds command region')
-        symtab = None
+        symtab = dysymtab = None
         pos, end = 28, 28 + cmdbytes
         for _ in range(count):
             cmd, size = self.unpack('<II', pos)
@@ -111,10 +113,16 @@ class MachO:
                             raise ToolError('Relocation outside section')
                         section.relocations.append(rel)
                     self.sections.append(section)
+                    if flags & 0xff in (6, 7, 8):
+                        indirect_sections[section.index] = (r1, r2)
             elif cmd == 2:
                 if symtab is not None or size != 24:
                     raise ToolError('Malformed/duplicate symbol table command')
                 symtab = self.unpack('<4I', pos + 8)
+            elif cmd == 11:  # LC_DYSYMTAB
+                if dysymtab is not None or size != 80:
+                    raise ToolError('Malformed/duplicate dynamic symbol table command')
+                dysymtab = self.unpack('<18I', pos + 8)
             elif cmd == 0x21:
                 if size < 20:
                     raise ToolError('Truncated encryption info')
@@ -155,6 +163,47 @@ class MachO:
                 if s > len(self.sections) and not t & 0xe0:
                     raise ToolError('Invalid symbol section index')
                 self.symbols.append(Symbol(i, name, t, s, d, v))
+        if dysymtab is not None:
+            off, n = dysymtab[12:14]
+            self.check(off, n * 4)
+            indirect = self.unpack('<' + str(n) + 'I', off)
+            for index, (start, stride) in indirect_sections.items():
+                section = self.section(index)
+                width = stride if section.flags & 0xff == 8 else 4
+                if not width or section.size % width or start + section.size // width > n:
+                    raise ToolError('Invalid indirect symbol section range/stride')
+                for symbol_index in indirect[start:start + section.size // width]:
+                    if not symbol_index & 0xc0000000 and symbol_index >= len(self.symbols):
+                        raise ToolError('Invalid indirect symbol index')
+            # Only the observed 12-byte ARM absolute stub is supported. Verify
+            # its pointer slot's indirect name as well; arbitrary executable
+            # bytes, Thumb stubs and other linker encodings prove no address.
+            if self.filetype == 2:
+                for section in self.sections:
+                    if section.flags & 0xff != 8:
+                        continue
+                    start, width = indirect_sections[section.index]
+                    if width != 12:
+                        continue
+                    for i in range(section.size // width):
+                        ix = indirect[start + i]
+                        if ix & 0xc0000000:
+                            continue
+                        symbol = self.symbols[ix]
+                        if symbol.type & 0xe0 or symbol.type & 0x0e != 0 or symbol.section or symbol.value or not symbol.name:
+                            continue
+                        address = section.address + i * width
+                        first, second, pointer = self.unpack('<3I', section.offset + i * width)
+                        if address % 4 or (first, second) != (0xe59fc000, 0xe59cf000):
+                            continue
+                        slots = [s for s in self.sections if s.flags & 0xff == 7 and
+                                 s.address <= pointer and pointer + 4 <= s.address + s.size]
+                        if len(slots) != 1 or (pointer - slots[0].address) % 4:
+                            continue
+                        slot = slots[0]
+                        slot_start = indirect_sections[slot.index][0]
+                        if indirect[slot_start + (pointer - slot.address) // 4] == ix:
+                            self.imported_stubs.append({'symbol': symbol.name, 'address': address, 'mode': 'arm'})
         for section in self.sections:
             for r in section.relocations:
                 if r.type == 1 or r.scattered:
