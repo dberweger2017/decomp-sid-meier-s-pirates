@@ -8709,6 +8709,80 @@
         "void *",
         "void *"
       ]
+    },
+    {
+      "id": "f-6ea8215c1656ace0af35",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN13NiObjectGroupC1Ej",
+      "original_name": "NiObjectGroup::NiObjectGroup(unsigned int)",
+      "target_symbol": "__ZN13NiObjectGroupC2Ej",
+      "target_name": "NiObjectGroup::NiObjectGroup(unsigned int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int"
+      ]
+    },
+    {
+      "id": "f-122ab6652421c3268166",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN9NiPaletteC1ERKS_",
+      "original_name": "NiPalette::NiPalette(NiPalette const&)",
+      "target_symbol": "__ZN9NiPaletteC2ERKS_",
+      "target_name": "NiPalette::NiPalette(NiPalette const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-0e94e4d730b92977f769",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN17NiFloatsExtraDataC1EjPKf",
+      "original_name": "NiFloatsExtraData::NiFloatsExtraData(unsigned int, float const*)",
+      "target_symbol": "__ZN17NiFloatsExtraDataC2EjPKf",
+      "target_name": "NiFloatsExtraData::NiFloatsExtraData(unsigned int, float const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int",
+        "const void *"
+      ]
+    },
+    {
+      "id": "f-212ee5ffa36d088b6e70",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "__ZN6NiNodeC1Ej",
+      "original_name": "NiNode::NiNode(unsigned int)",
+      "target_symbol": "__ZN6NiNodeC2Ej",
+      "target_name": "NiNode::NiNode(unsigned int)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "unsigned int"
+      ],
+      "target_parameters": [
+        "void *",
+        "unsigned int"
+      ]
     }
   ]
 }

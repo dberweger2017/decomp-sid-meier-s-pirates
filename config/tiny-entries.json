@@ -84,6 +84,54 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-22480fa7436e99603bbf",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-30377b7c02233544b42d",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "___tcf_2",
+      "original_name": "__tcf_2",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-a24e39a468d682944236",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "___tcf_8",
+      "original_name": "__tcf_8",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-fec5b7e2ec93013a1ddd",
+      "group_id": "o-bd40b68b130e820ead67",
+      "symbol": "___tcf_9",
+      "original_name": "__tcf_9",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
