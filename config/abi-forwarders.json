@@ -9292,6 +9292,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-9b7d5113ba1832d86c02",
+      "group_id": "o-861bacac8f6b0b675b76",
+      "symbol": "__ZN24MultiPlaySeaBattleChosenC1Ev",
+      "original_name": "MultiPlaySeaBattleChosen::MultiPlaySeaBattleChosen()",
+      "target_symbol": "__ZN24MultiPlaySeaBattleChosenC2Ev",
+      "target_name": "MultiPlaySeaBattleChosen::MultiPlaySeaBattleChosen()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
