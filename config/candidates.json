@@ -2854,6 +2854,24 @@
       "recovery_kinds": {
         "f-99f36fdefd9e39f22796": "complete-destructor"
       }
+    },
+    {
+      "group_id": "o-4e9f3e3fd00b8faaadd9",
+      "source": "src/recovery/abi/o-4e9f3e3fd00b8faaadd9.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-704c17586b87a47e44c8"
+      ],
+      "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
+      "recovery_kinds": {
+        "f-704c17586b87a47e44c8": "method-forwarder"
+      }
     }
   ]
 }
