@@ -325,9 +325,13 @@
         "f-35b9dee445e743b52e1a",
         "f-ff039682ecdcc80386d0",
         "f-d251ead770b5a890e6ea",
-        "f-a507755deaaacfc3ca29"
+        "f-a507755deaaacfc3ca29",
+        "f-d0822c0ba2da4f9802f0"
       ],
-      "flags_provenance": "Investigation profile for original ARM integer copies of float/pointer fields. Original flags and complete hierarchy remain unknown; see FAudioMgr.h."
+      "flags_provenance": "Investigation profile for original ARM integer copies of float/pointer fields. Original flags and complete hierarchy remain unknown; see FAudioMgr.h.",
+      "recovery_kinds": {
+        "f-d0822c0ba2da4f9802f0": "complete-destructor"
+      }
     },
     {
       "group_id": "o-8d47cdfc0a7351af6cc0",
