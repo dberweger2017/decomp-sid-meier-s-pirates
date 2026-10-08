@@ -507,6 +507,48 @@
         "f-b396b04d74c8994334cf"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-2d59da5048d3db995d0f",
+      "source": "src/game/unity/PiratesIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-26387ae46680d22c2b90",
+        "f-1e232a921e58547bcba6",
+        "f-10143d025f197b41ec5c",
+        "f-3b4356a0a080840bbc4e",
+        "f-cf6c68a86e5fbe755f86",
+        "f-07b56f9c95a7f62cd298",
+        "f-aebfd085fbc96c9e5b3f",
+        "f-5e1357cdf2d951af3cfa",
+        "f-c7862a06a0f16ff31dc0",
+        "f-19cd9bdb61dfca10bd5a",
+        "f-4c2cf1af3f84babc860a",
+        "f-06c4f1f9dd4bb2104173",
+        "f-5cd7b644dcf9a3303287",
+        "f-52de0d51185937519378",
+        "f-5f1220984e6341974bd2",
+        "f-bbf958230a33fd2939b3",
+        "f-1ec10db6fab16d8be19f",
+        "f-4c69182f61c7638f2681",
+        "f-0f53974fa036d158837e",
+        "f-489770faf5e672c5eb16",
+        "f-f44e1ec0bd7ed207714b",
+        "f-0c4cfa71514e2f5882f9",
+        "f-a98daaabe0d1a7825550",
+        "f-4e0503861dd665abb115",
+        "f-514ff9fc875db3f8c768",
+        "f-6d978b05f8227e23be1e",
+        "f-f42445a1381febedf6c9",
+        "f-906202e82bc8de417d45"
+      ],
+      "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     }
   ]
 }
