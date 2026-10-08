@@ -9479,6 +9479,24 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-7470cb8ea9083161595e",
+      "group_id": "o-681bab6a7ca374876967",
+      "symbol": "__ZN3ISE8TriStripC1EPNS_12VertexBufferE",
+      "original_name": "ISE::TriStrip::TriStrip(ISE::VertexBuffer*)",
+      "target_symbol": "__ZN3ISE8TriStripC2EPNS_12VertexBufferE",
+      "target_name": "ISE::TriStrip::TriStrip(ISE::VertexBuffer*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "void *"
+      ]
     }
   ]
 }
