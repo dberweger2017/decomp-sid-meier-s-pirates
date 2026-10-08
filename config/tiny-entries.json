@@ -802,6 +802,18 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-c49127c3fbd5597bc99f",
+      "group_id": "o-aa2cd45009f7b58b8aa4",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
