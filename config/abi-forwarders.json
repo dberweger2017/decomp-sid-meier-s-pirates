@@ -9427,6 +9427,22 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-b68dd33dcc84154a3322",
+      "group_id": "o-35bbe3f92f752bec5d19",
+      "symbol": "__ZN3ISE15ISEOrthoManagerC1Ev",
+      "original_name": "ISE::ISEOrthoManager::ISEOrthoManager()",
+      "target_symbol": "__ZN3ISE15ISEOrthoManagerC2Ev",
+      "target_name": "ISE::ISEOrthoManager::ISEOrthoManager()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
     }
   ]
 }
