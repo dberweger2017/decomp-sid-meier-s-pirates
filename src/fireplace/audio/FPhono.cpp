@@ -25,3 +25,7 @@ float FPhono::GetVolume_Sound(int sound) {
 bool FPhono::GetLooping_Stream(int stream) {
     return Phono2::PAudioSystem::getSingletonPtr()->IsStreamLooping(stream);
 }
+
+bool FPhono::GetLooping_Sample(int sample) {
+    return Phono2::PAudioSystem::getSingletonPtr()->IsSampleLooping(sample);
+}
