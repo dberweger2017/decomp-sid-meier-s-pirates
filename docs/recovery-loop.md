@@ -618,3 +618,13 @@ The `m_RTTI` allocations themselves remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 63 differing
 candidates, 7,506 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Five more RTTI getters in the same object now return the class-local
+`m_RTTI` allocations for `NiGeometry`, `NiMaterialProperty`,
+`NiBackToFrontAccumulator`, `NiAlphaAccumulator` and `NiAlphaProperty`. All
+five relocations resolve to the expected data symbols and compare at 50%; the
+allocation contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 68 differing
+candidates, 7,501 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.

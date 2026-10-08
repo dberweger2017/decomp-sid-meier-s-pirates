@@ -40,3 +40,43 @@ extern "C" const void * pirates_ni_accumulator_get_rtti(void const *)
 extern "C" const void * pirates_ni_accumulator_get_rtti(void const *) {
     return pirates_ni_accumulator_rtti;
 }
+
+static unsigned char pirates_ni_geometry_rtti[8]
+    __asm__("__ZN10NiGeometry6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_geometry_get_rtti(void const *)
+    __asm__("__ZNK10NiGeometry7GetRTTIEv");
+extern "C" const void * pirates_ni_geometry_get_rtti(void const *) {
+    return pirates_ni_geometry_rtti;
+}
+
+static unsigned char pirates_ni_material_property_rtti[8]
+    __asm__("__ZN18NiMaterialProperty6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_material_property_get_rtti(void const *)
+    __asm__("__ZNK18NiMaterialProperty7GetRTTIEv");
+extern "C" const void * pirates_ni_material_property_get_rtti(void const *) {
+    return pirates_ni_material_property_rtti;
+}
+
+static unsigned char pirates_ni_back_to_front_accumulator_rtti[8]
+    __asm__("__ZN24NiBackToFrontAccumulator6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_back_to_front_accumulator_get_rtti(void const *)
+    __asm__("__ZNK24NiBackToFrontAccumulator7GetRTTIEv");
+extern "C" const void * pirates_ni_back_to_front_accumulator_get_rtti(void const *) {
+    return pirates_ni_back_to_front_accumulator_rtti;
+}
+
+static unsigned char pirates_ni_alpha_accumulator_rtti[8]
+    __asm__("__ZN18NiAlphaAccumulator6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_alpha_accumulator_get_rtti(void const *)
+    __asm__("__ZNK18NiAlphaAccumulator7GetRTTIEv");
+extern "C" const void * pirates_ni_alpha_accumulator_get_rtti(void const *) {
+    return pirates_ni_alpha_accumulator_rtti;
+}
+
+static unsigned char pirates_ni_alpha_property_rtti[8]
+    __asm__("__ZN15NiAlphaProperty6m_RTTIE") __attribute__((aligned(16)));
+extern "C" const void * pirates_ni_alpha_property_get_rtti(void const *)
+    __asm__("__ZNK15NiAlphaProperty7GetRTTIEv");
+extern "C" const void * pirates_ni_alpha_property_get_rtti(void const *) {
+    return pirates_ni_alpha_property_rtti;
+}
