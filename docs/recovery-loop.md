@@ -29,9 +29,24 @@ linker. Record structural diagnostics and image hashes. Such subset links earn
 zero full-game completion and do not claim iOS runtime behavior. Re-run the full
 replacement coverage gate periodically to make remaining blockers visible.
 
+After recovering GameAudio, reproduce its subset check with
+`python tools/recovery_link.py config/diagnostic-links/gameaudio.json`.
+This runs the same historical compiler, Ninja, pinned linker and independent
+image inspector in `build/recovery-link/workspace`, retaining logs and reports
+without changing the active candidate manifest or replacement-link state.
+The direct function entry establishes structural linking only, not process startup.
+
 The original GameAudio unit contains eight `bx lr` entry points and an initializer
 returning zero. Recovering those observed no-op bodies describes this shipped
 release build; it does not restore another audio implementation. Enum identifiers
 and Init's source return type remain hypotheses even when emitted bytes match.
 PowerVR class declarations are partial ABI reconstructions, not complete recovered
 types or allocator implementations.
+
+## First checkpoint
+
+All nine GameAudio entry points verify at 40 bytes, raising the baseline to 25
+functions / 668 bytes. Each recovered function has its own verified commit. Its
+isolated diagnostic link passes with image SHA-256
+`5ad5b00e850fffae58dc4a93d5e12548e2962249796305d53fe520dc0087e4c3`.
+Root replacement linking remains blocked with zero completed units.
