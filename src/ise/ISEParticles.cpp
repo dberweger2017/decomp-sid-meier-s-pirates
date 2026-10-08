@@ -8,3 +8,5 @@ void ISEParticles::SetModelData(ISEParticleGeometryData *data) { if (data) m_mod
 } // namespace ISE
 
 #include "ISEParticlesSmall_libISELib_a_ISEParticles_.cpp"
+
+#include "../recovery/abi/o-22e518abce9579acfc03.cpp"
