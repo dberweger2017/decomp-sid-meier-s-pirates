@@ -6,3 +6,5 @@
 int FSound::GetSampleId() { return m_sampleId; }
 
 int FSound::GetStreamId() { return m_streamId; }
+
+unsigned int FSound::GetGlobalSoundFilenameIndex() { return m_globalSoundFilenameIndex; }
