@@ -9509,6 +9509,24 @@
       "return_type": "void",
       "parameters": [],
       "target_parameters": []
+    },
+    {
+      "id": "f-a3b1d6407fe4190f42d3",
+      "group_id": "o-2a5e32cd8b6ff40a7cd7",
+      "symbol": "__ZN3ISE16TextureAnimationC1ERKS0_",
+      "original_name": "ISE::TextureAnimation::TextureAnimation(ISE::TextureAnimation const&)",
+      "target_symbol": "__ZN3ISE16TextureAnimationC2ERKS0_",
+      "target_name": "ISE::TextureAnimation::TextureAnimation(ISE::TextureAnimation const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }

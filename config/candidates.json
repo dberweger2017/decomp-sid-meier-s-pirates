@@ -3858,11 +3858,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-b23898f71696d83309f3"
+        "f-b23898f71696d83309f3",
+        "f-a3b1d6407fe4190f42d3"
       ],
       "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
       "recovery_kinds": {
-        "f-b23898f71696d83309f3": "complete-destructor"
+        "f-b23898f71696d83309f3": "complete-destructor",
+        "f-a3b1d6407fe4190f42d3": "complete-constructor"
       }
     },
     {
