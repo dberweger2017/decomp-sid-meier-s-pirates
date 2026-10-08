@@ -75,3 +75,5 @@
 #include "../../gamebryo/NiVisControllerSmall_TempIncludeCpp.cpp"
 
 #include "../../gamebryo/NiVisDataSmall_TempIncludeCpp.cpp"
+
+#include "../../recovery/abi/o-a70c52d41737dcc20b28.cpp"
