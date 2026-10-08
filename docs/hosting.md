@@ -133,6 +133,36 @@ for a real release switch and checks selection preservation. It does not edit
 sources or publish anything. The smoke test checks the first verified API
 candidate and the recovered `CPVRTString::npos` data allocation.
 
+## Progress treemap
+
+Each overview block represents an original STABS compilation object, including
+unity units. Its area follows the union of recovered function byte ranges.
+Select a block to see individual functions, sized by their original record
+length (including literal pools), then select a function to open its comparison.
+Archive filtering groups original `lib*.a(object)` records without inventing new
+compilation boundaries. Unattributed data has a separate group in data mode.
+
+The grouping follows the object/function overview used by
+[decomp.dev](https://github.com/encounter/decomp.dev/blob/main/crates/web/src/handlers/report.rs).
+The binary layout and canvas renderer here are independent implementations.
+Block colours interpolate continuously from grey at 0% to green at 100%:
+
+- **Exact code:** verified byte equality; group colour is byte-weighted progress.
+- **Fuzzy code:** byte-weighted assembly similarity, including unresolved
+  comparisons. A green fuzzy block does not establish an exact match.
+- **Exact data:** verified whole-allocation equality, including padding and
+  zero-fill; area follows original data bytes.
+- **Replacement linking:** green only for verified complete replacement units.
+  Diagnostic subset links receive no credit.
+
+Hover/tap a block for its name, size and percentage. Use arrow keys to select,
+Enter to open, and Escape to return to objects. Filters support names/source
+paths and constraints such as `camera <70% >10kb`. Zero-size records remain in
+the function browser but have no treemap area. The browser smoke test checks
+colour, drill-down, each measure, archive filtering and mobile layout; the
+synthetic Node test checks proportional area, non-overlap and deterministic
+layout.
+
 For an operator rollback, select a retained, previously successful release;
 under `.deploy.lock`, restore both `current` and its `state/deployment.json`
 metadata from that release's manifest/CI identity. Do not bypass receiver checks
