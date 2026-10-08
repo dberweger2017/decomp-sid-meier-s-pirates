@@ -18,3 +18,5 @@
 #include "../ui/NPCInfoUIScene.cpp"
 
 #include "../../gamebryo/maps/PiratesIncludeCpp2Maps.cpp"
+
+#include "../../recovery/PiratesIncludeCpp2ReleaseFunctions.cpp"
