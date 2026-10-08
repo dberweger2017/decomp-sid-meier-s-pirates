@@ -3142,9 +3142,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-e7fca27a9e3830f26f0d"
+        "f-e7fca27a9e3830f26f0d",
+        "f-973f6579fd01f0b20316"
       ],
-      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-973f6579fd01f0b20316": "registration-forwarder"
+      }
     },
     {
       "group_id": "o-8d4eb47fc88f8420219a",
