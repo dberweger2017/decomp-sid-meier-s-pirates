@@ -1392,6 +1392,22 @@
         "f-332a243155b0e3c5284e"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-feb3979ea6c39b6c7f75",
+      "source": "src/fireplace/audio/FFadeSound.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0c9fa406bcb43b93c093",
+        "f-ef481f5175295b1b5c45"
+      ],
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     }
   ]
 }
