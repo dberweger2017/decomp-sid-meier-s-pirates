@@ -682,6 +682,18 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-fe944c2d54024841d3ea",
+      "group_id": "o-25d67634e28e542174f5",
+      "symbol": "___tcf_1",
+      "original_name": "__tcf_1",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }
