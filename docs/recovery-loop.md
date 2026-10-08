@@ -559,3 +559,13 @@ original tail branch.
 The current report remains at **1,605 exact functions / 17,952 bytes**, with 52
 differing candidates, 7,520 missing functions and no compile errors or
 unresolved comparisons. Full-game replacement linking remains at zero.
+
+Four direction wrappers now call the already matched scene methods for
+`clearDir` and `IsChooseDir`, using the observed scene pointers at `+0x18` and
+`+0x28` on the two chosen-state objects. All four calls resolve and compare at
+80% similarity; the compiler places the receiver load before the frame-pointer
+move, unlike the original instruction order.
+
+The updated report remains at **1,605 exact functions / 17,952 bytes**, with 56
+differing candidates, 7,516 missing functions and no compile errors or
+unresolved comparisons. Full-game replacement linking remains at zero.
