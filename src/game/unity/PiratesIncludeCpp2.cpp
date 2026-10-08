@@ -11,6 +11,7 @@
 #include "../../../src/game/ui/UISceneComponent.cpp"
 #include "../../../src/game/ui/UicBoard.cpp"
 #include "../../../src/game/ui/UicKeyboard.cpp"
+#include "../../../src/game/ui/UicMap.cpp"
 #include "../../../src/game/ui/UicPullReefCtrl.cpp"
 #include "../../../src/game/ui/WrapUpUISceneGroup.cpp"
 #include "../../../src/game/world/Object3d.cpp"

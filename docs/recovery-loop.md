@@ -569,3 +569,11 @@ move, unlike the original instruction order.
 The updated report remains at **1,605 exact functions / 17,952 bytes**, with 56
 differing candidates, 7,516 missing functions and no compile errors or
 unresolved comparisons. Full-game replacement linking remains at zero.
+
+UicMap::GoToCityReport now matches exactly. The 24-byte method stores the city
+report mode value `6` at `+0xb0`, the city index at `+0x100`, and clears the
+word at `+0x104`.
+
+The latest report has **1,606 exact functions / 17,976 bytes**, 56 differing
+candidates, 7,515 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
