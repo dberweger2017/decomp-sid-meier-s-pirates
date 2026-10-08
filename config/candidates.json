@@ -3688,11 +3688,21 @@
       "implemented_functions": [
         "f-cdc357cf28ba390685e2",
         "f-67defccd4929c47a0e3b",
-        "f-6da90208fdac8c8b0b93"
+        "f-6da90208fdac8c8b0b93",
+        "f-0bf2aa7a4d17c3c4d2ce",
+        "f-0721f2787d1b99d5e9b4"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md.",
       "recovery_kinds": {
         "f-6da90208fdac8c8b0b93": "empty-body"
+      },
+      "data": {
+        "d-f8d39521aece212f6714": {
+          "symbol": "_g_pzXiTempReadPath"
+        },
+        "d-8e8dcafe165dfb2d8731": {
+          "symbol": "_g_pTempSaveDataPath"
+        }
       }
     },
     {

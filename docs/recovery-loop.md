@@ -742,3 +742,14 @@ The emitted candidate spans include a trailing `bx lr`, so each compares at
 The latest report has **1,608 exact functions / 18,012 bytes**, 154 differing
 candidates, 7,415 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+`xiTempGetReadPath` and `TempGetSaveDataPath` now return their observed
+zero-filled, 1,024-byte path buffers. Both buffer symbols match the original
+data exactly, with 16-byte alignment. Their address loads resolve to those
+symbols; the functions compare at 50% because the compiler uses literal-pool
+loads instead of the original `movw`/`movt` sequence.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 156 differing
+candidates, 7,413 missing functions and no compile errors or unresolved
+comparisons. Data comparisons have 3 matched records and 2,052 matched bytes,
+with no unresolved comparisons. Full-game replacement linking remains at zero.
