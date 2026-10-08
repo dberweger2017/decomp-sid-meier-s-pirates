@@ -4231,12 +4231,14 @@
       "functions": {},
       "implemented_functions": [
         "f-2343a191fd82aec74a56",
-        "f-b74f42298952ebe2c71e"
+        "f-b74f42298952ebe2c71e",
+        "f-1d573d92aab8c210cc4d"
       ],
       "flags_provenance": "Register-only ABI forwarder investigation profile. Calls use named original symbols; callee implementations, full types and unencoded result types remain separate. No instruction/byte source bodies. See docs/small-function-batch.md.",
       "recovery_kinds": {
         "f-2343a191fd82aec74a56": "method-forwarder",
-        "f-b74f42298952ebe2c71e": "method-forwarder"
+        "f-b74f42298952ebe2c71e": "method-forwarder",
+        "f-1d573d92aab8c210cc4d": "registration-forwarder"
       }
     },
     {
