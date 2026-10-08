@@ -400,9 +400,13 @@
         "f-8718a8dc98d1ba0fd611",
         "f-4aaa02a079627f7446e5",
         "f-36ed279b951346ead917",
-        "f-08c82798ec54c59bdc7f"
+        "f-08c82798ec54c59bdc7f",
+        "f-caf5c070a828b3b14d71"
       ],
-      "flags_provenance": "Investigation profile for original ARM shared-sound field access. Original flags, missing methods and initialization payload remain unknown; see FSharedSoundData.h."
+      "flags_provenance": "Investigation profile for original ARM shared-sound field access. Original flags, missing methods and initialization payload remain unknown; see FSharedSoundData.h.",
+      "recovery_kinds": {
+        "f-caf5c070a828b3b14d71": "destruction-callback"
+      }
     },
     {
       "group_id": "o-78c5a9284f33537c011b",
