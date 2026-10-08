@@ -9527,6 +9527,24 @@
         "void *",
         "const void *"
       ]
+    },
+    {
+      "id": "f-f91ceaa1551743162ec9",
+      "group_id": "o-920a762c76e2ccdc3d41",
+      "symbol": "__ZN3ISE14AlphaAnimationC1ERKS0_",
+      "original_name": "ISE::AlphaAnimation::AlphaAnimation(ISE::AlphaAnimation const&)",
+      "target_symbol": "__ZN3ISE14AlphaAnimationC2ERKS0_",
+      "target_name": "ISE::AlphaAnimation::AlphaAnimation(ISE::AlphaAnimation const&)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }
