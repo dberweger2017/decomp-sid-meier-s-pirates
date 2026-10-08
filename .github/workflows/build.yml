@@ -158,7 +158,7 @@ jobs:
         if: steps.candidates.outputs.present == 'true'
         shell: bash
         run: |
-          for cohort in battle-grid world-map-projection release-hooks; do
+          for cohort in battle-grid world-map-projection release-hooks tiny-bodies; do
             python head/tools/cohort.py --workspace head/build/ci-workspaces/head report "head/config/cohorts/$cohort.json" --output "artifacts/gameplay/$cohort.json"
             cat "artifacts/gameplay/$cohort.md" >> "$GITHUB_STEP_SUMMARY"
           done

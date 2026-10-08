@@ -379,3 +379,43 @@ image inspection passes with SHA-256
 It includes previously recovered contributors in selected unity groups; the
 subset's 369 exact functions are not 369 new matches. Completed replacement
 code/data/units remain zero, and runtime behavior remains unverified.
+
+## Two hundred more tiny shipped bodies
+
+The following batch adds **200 exact functions / 1,052 code bytes**, reaching
+**811 exact functions / 6,892 code bytes**, with all earlier 611 function matches
+and the four-byte data match preserved. There are 40 differing candidates,
+8,326 missing functions, no compilation errors and no unresolved comparisons.
+All 9,177 original function records and 268 groups remain covered. Definitions
+were committed separately in their **31 original compilation groups**.
+
+The new bodies comprise **113 shipped fail-fast routines**, **48 XML type
+queries**, and **39 constant-return functions**. The fail-fast routines include
+factory, animation/controller and collision entry points whose complete original
+bodies are a trap instruction. Ordinary C++ `__builtin_trap()` reproduces the
+historical compiler's exact instruction, verified first with an isolated factory
+probe and then with each configured function. This restores their observed
+failure behavior; it does not provide working implementations of those engine
+operations. No additional fail-fast fallback is supplied for other missing code.
+
+The XML queries include 24 null-returning base queries and 24 self-returning
+specialized queries across the distinct TiXml and ISEXml object families. The
+parser and other XML operations remain unrecovered. The remaining constants
+cover shipped UI releases, audio compatibility paths, rendering counters and
+animation-key allocation paths. Output-reference parameters in constant-return
+methods remain untouched where the original instruction bodies leave them alone.
+
+Source-level results and unused static-versus-instance ownership remain explicit
+hypotheses where mangling or a tiny body cannot establish them. All partial
+interfaces remain unsuitable for instantiation; no complete layout, hierarchy,
+virtual table, allocator or linking/runtime completion is claimed.
+
+```sh
+python tools/cohort.py build config/cohorts/tiny-bodies.json --output build/cohorts/tiny-bodies.json
+python tools/recovery_link.py config/diagnostic-links/recovery-tiny-bodies.json
+```
+
+The local tooling suite again passes **104 tests**. The preceding 611-function
+checkpoint passed hosted Linux/macOS tooling and historical compilation/linking
+CI; this 811-function head requires its own hosted run. Original game/SDK inputs
+and generated code images remain excluded from Git and CI artifacts.
