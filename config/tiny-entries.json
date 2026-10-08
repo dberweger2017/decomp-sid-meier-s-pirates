@@ -1475,6 +1475,19 @@
         "void *"
       ],
       "internal": false
+    },
+    {
+      "id": "f-dfe3817b2afe073e2957",
+      "group_id": "o-c9cabf4f01ae50f0085d",
+      "symbol": "__ZN3ISE14ISEBezFloatKey6InsertEfRPNS_15ISEAnimationKeyERj",
+      "original_name": "ISE::ISEBezFloatKey::Insert(float, ISE::ISEAnimationKey*&, unsigned int&)",
+      "kind": "constant-body",
+      "return_type": "bool",
+      "parameters": [
+        "void *"
+      ],
+      "internal": false,
+      "value": 0
     }
   ]
 }
