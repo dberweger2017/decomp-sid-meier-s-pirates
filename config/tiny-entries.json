@@ -549,6 +549,43 @@
         "void *"
       ],
       "internal": true
+    },
+    {
+      "id": "f-91b23f87b1acc3b84567",
+      "group_id": "o-7d25f6180d9844d7c020",
+      "symbol": "__ZN8NiObject11CreateCloneER16NiCloningProcess",
+      "original_name": "NiObject::CreateClone(NiCloningProcess&)",
+      "kind": "identity-body",
+      "return_type": "void *",
+      "parameters": [
+        "void *",
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-325915df37d024c1a40f",
+      "group_id": "o-7d25f6180d9844d7c020",
+      "symbol": "__ZN16NiOldParticleSDMC1Ev",
+      "original_name": "NiOldParticleSDM::NiOldParticleSDM()",
+      "kind": "empty-body",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
+    },
+    {
+      "id": "f-7507749553df69a9fa71",
+      "group_id": "o-7d25f6180d9844d7c020",
+      "symbol": "___tcf_3",
+      "original_name": "__tcf_3",
+      "kind": "destruction-callback",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "internal": true
     }
   ]
 }

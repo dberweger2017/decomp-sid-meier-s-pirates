@@ -1984,7 +1984,10 @@
         "f-8f42fa828b34c70f360c",
         "f-bc5af2caeedf7941a3cb",
         "f-f3b4d0cbdc9568b63d7e",
-        "f-fda4f8b1db2d7520b0c6"
+        "f-fda4f8b1db2d7520b0c6",
+        "f-91b23f87b1acc3b84567",
+        "f-325915df37d024c1a40f",
+        "f-7507749553df69a9fa71"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
       "recovery_kinds": {
@@ -1994,7 +1997,10 @@
         "f-8f42fa828b34c70f360c": "function-forwarder",
         "f-bc5af2caeedf7941a3cb": "complete-destructor",
         "f-f3b4d0cbdc9568b63d7e": "complete-destructor",
-        "f-fda4f8b1db2d7520b0c6": "complete-destructor"
+        "f-fda4f8b1db2d7520b0c6": "complete-destructor",
+        "f-91b23f87b1acc3b84567": "identity-body",
+        "f-325915df37d024c1a40f": "empty-body",
+        "f-7507749553df69a9fa71": "destruction-callback"
       }
     },
     {
