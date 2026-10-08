@@ -46,3 +46,5 @@ bool FSound3D::GetPitchChange(int &value) const { value = m_pitchChange; return 
 bool FSound3D::GetOriginalPitch(unsigned long &value) const { value = m_originalPitch; return true; }
 
 bool FSound3D::IsLooping() const { return m_loopCount != 0; }
+
+bool FSound3D::GetShortCircuitScriptField(int flags) { return (m_shortCircuitScriptFields & flags) != 0; }
