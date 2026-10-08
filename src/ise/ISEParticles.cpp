@@ -6,3 +6,5 @@ namespace ISE {
 
 void ISEParticles::SetModelData(ISEParticleGeometryData *data) { if (data) m_modelData = data; }
 } // namespace ISE
+
+#include "ISEParticlesSmall_libISELib_a_ISEParticles_.cpp"
