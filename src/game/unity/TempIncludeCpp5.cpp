@@ -82,3 +82,5 @@
 #include "../../gamebryo/NiPSysUpdateCtlrSmall_TempIncludeCpp5.cpp"
 
 #include "../../gamebryo/NiParticleSystemSmall_TempIncludeCpp5.cpp"
+
+#include "../../recovery/abi/o-d483319aef7bde0860fd.cpp"
