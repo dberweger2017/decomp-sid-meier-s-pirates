@@ -292,7 +292,9 @@
       ],
       "sdk_required": false,
       "functions": {},
-      "implemented_functions": [],
+      "implemented_functions": [
+        "f-388ae0e8e3028c44dae1"
+      ],
       "flags_provenance": "Investigation profile for original ARM integer copies of float/pointer fields. Original flags and complete hierarchy remain unknown; see FAudioMgr.h."
     }
   ]
