@@ -2506,9 +2506,13 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-7dd79ca35738e8ff64c5"
+        "f-7dd79ca35738e8ff64c5",
+        "f-b4da24b324f19a819193"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-b4da24b324f19a819193": "destruction-callback"
+      }
     },
     {
       "group_id": "o-e3c04b8f58296776dbea",
