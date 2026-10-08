@@ -15,3 +15,5 @@ void MultiPlaySBChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelInd
 #include "MultiPlaySBChosenUISceneSmall_MultiPlaySBChosenUIScene.cpp"
 
 #include "../../recovery/abi/o-2fd332c51ac83f2c0987.cpp"
+
+#include "../../recovery/leaves/o-2fd332c51ac83f2c0987.cpp"
