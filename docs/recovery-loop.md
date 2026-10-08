@@ -661,3 +661,11 @@ symbol and compares at 50%; their allocation contents remain unmatched.
 The latest report has **1,608 exact functions / 18,012 bytes**, 108 differing
 candidates, 7,461 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
+
+Ten more RTTI getters in `TempIncludeCpp4.o` now return their class-local
+allocations. Their relocations all resolve to the corresponding `m_RTTI`
+symbols; each compares at 50% and the data contents remain unmatched.
+
+The latest report has **1,608 exact functions / 18,012 bytes**, 118 differing
+candidates, 7,451 missing functions and no compile errors or unresolved
+comparisons. Full-game replacement linking remains at zero.
