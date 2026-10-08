@@ -1742,6 +1742,26 @@
         "f-22167443fa7976300cc7"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-e1f5f41cc556d5391a98",
+      "source": "src/recovery/units/ISEFloatKey.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-4f6594d8e4f622677894",
+        "f-dc7268e71d086eabd86d",
+        "f-15a020ab11f075751e92",
+        "f-4d3e870d6e5dfd66b992",
+        "f-a203badbce7362864b02",
+        "f-5096f9f7550900358d15"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
