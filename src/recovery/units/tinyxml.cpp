@@ -11,3 +11,5 @@
 #include "../../xml/TiXmlTextSmall_tinyxml.cpp"
 
 #include "../../xml/TiXmlUnknownSmall_tinyxml.cpp"
+
+#include "../abi/o-a8c0c6cf62d35b007569.cpp"
