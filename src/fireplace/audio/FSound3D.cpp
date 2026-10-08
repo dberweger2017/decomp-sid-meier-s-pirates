@@ -54,3 +54,10 @@ bool FSound3D::GetDistances(float &first, float &second) const {
     second = m_secondDistance;
     return true;
 }
+
+bool FSound3D::GetCone(int &firstAngle, int &secondAngle, float &gain) const {
+    firstAngle = m_firstConeAngle;
+    secondAngle = m_secondConeAngle;
+    gain = m_coneGain;
+    return true;
+}

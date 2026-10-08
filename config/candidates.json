@@ -253,7 +253,9 @@
       "flags": [
         "-O2",
         "-marm",
-        "-mfloat-abi=soft"
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-arm-reserve-r9"
       ],
       "sdk_required": false,
       "functions": {},
@@ -281,9 +283,10 @@
         "f-412f7b27663754a4e170",
         "f-a472e466fd930f5e3697",
         "f-60bd7631e1d5f64c4d97",
-        "f-a223c3ed7931f4d83764"
+        "f-a223c3ed7931f4d83764",
+        "f-c28cfd26e9c7349ed05d"
       ],
-      "flags_provenance": "Investigation profile for original integer float loads/stores. Complete class hierarchy and original flags remain unknown; see FSound3D.h."
+      "flags_provenance": "Investigation profile for original integer float loads/stores. Isolated complete-unit comparison verifies the cone getter with r9 reserved and preserves all earlier methods. Original flags and complete hierarchy remain unknown; see FSound3D.h."
     },
     {
       "group_id": "o-b9afd2a4c28d8e343b6a",
