@@ -48,3 +48,9 @@ bool FSound3D::GetOriginalPitch(unsigned long &value) const { value = m_original
 bool FSound3D::IsLooping() const { return m_loopCount != 0; }
 
 bool FSound3D::GetShortCircuitScriptField(int flags) { return (m_shortCircuitScriptFields & flags) != 0; }
+
+bool FSound3D::GetDistances(float &first, float &second) const {
+    first = m_firstDistance;
+    second = m_secondDistance;
+    return true;
+}
