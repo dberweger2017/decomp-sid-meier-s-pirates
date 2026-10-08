@@ -40,3 +40,5 @@ bool FSound::GetVolume(float &value) const { value = m_volume; return true; }
 bool FSound::GetPan(float &value) const { value = m_pan; return true; }
 
 bool FSound::GetPitchChange(int &value) const { value = m_pitchChange; return true; }
+
+bool FSound::GetOriginalPitch(unsigned long &value) const { value = m_originalPitch; return true; }
