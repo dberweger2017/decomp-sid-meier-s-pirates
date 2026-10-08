@@ -45,3 +45,7 @@ bool FPhono::IsStreamPlaying(int stream) {
 bool FPhono::IsSamplePlaying(int sample) {
     return Phono2::PAudioSystem::getSingletonPtr()->IsSamplePlaying(sample);
 }
+
+void FPhono::Update(float elapsed) {
+    Phono2::PAudioSystem::getSingletonPtr()->Update(elapsed);
+}
