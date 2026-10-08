@@ -9377,6 +9377,40 @@
       "target_parameters": [
         "void *"
       ]
+    },
+    {
+      "id": "f-31e0ab7991bda7cde924",
+      "group_id": "o-0ae9e92e1c7f2e027e25",
+      "symbol": "__ZN14ISEXmlDocumentC1Ev",
+      "original_name": "ISEXmlDocument::ISEXmlDocument()",
+      "target_symbol": "__ZN14ISEXmlDocumentC2Ev",
+      "target_name": "ISEXmlDocument::ISEXmlDocument()",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *"
+      ],
+      "target_parameters": [
+        "void *"
+      ]
+    },
+    {
+      "id": "f-d84dca93834434a4ce44",
+      "group_id": "o-0ae9e92e1c7f2e027e25",
+      "symbol": "__ZN13ISEXmlElementC1EPKc",
+      "original_name": "ISEXmlElement::ISEXmlElement(char const*)",
+      "target_symbol": "__ZN13ISEXmlElementC2EPKc",
+      "target_name": "ISEXmlElement::ISEXmlElement(char const*)",
+      "kind": "complete-constructor",
+      "return_type": "void",
+      "parameters": [
+        "void *",
+        "const void *"
+      ],
+      "target_parameters": [
+        "void *",
+        "const void *"
+      ]
     }
   ]
 }

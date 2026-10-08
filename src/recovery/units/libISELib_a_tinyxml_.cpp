@@ -11,3 +11,5 @@
 #include "../../xml/ISEXmlTextSmall_libISELib_a_tinyxml_.cpp"
 
 #include "../../xml/ISEXmlUnknownSmall_libISELib_a_tinyxml_.cpp"
+
+#include "../abi/o-0ae9e92e1c7f2e027e25.cpp"

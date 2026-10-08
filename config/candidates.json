@@ -3519,9 +3519,15 @@
         "f-3f3d221e257b6ace51e1",
         "f-50314082d47c96a2caea",
         "f-9f4882bfc4db56fed01a",
-        "f-a5914176cfc781668e36"
+        "f-a5914176cfc781668e36",
+        "f-31e0ab7991bda7cde924",
+        "f-d84dca93834434a4ce44"
       ],
-      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md."
+      "flags_provenance": "Inspected shipped fail-fast, XML query and constant-return profile. Original flags and complete types remain unknown. Traps preserve shipped fail-fast behavior; see docs/recovery-loop.md.",
+      "recovery_kinds": {
+        "f-31e0ab7991bda7cde924": "complete-constructor",
+        "f-d84dca93834434a4ce44": "complete-constructor"
+      }
     },
     {
       "group_id": "o-404381576a822b3213c8",
