@@ -13,6 +13,8 @@ public:
     unsigned int GetVertexCount() const;
     unsigned int GetVertexNum();
 
+    unsigned int GetPolyNum();
+
 private:
     unsigned char m_unknown_00[200];
     VertexBuffer * m_vertexBuffer; // +0xc8

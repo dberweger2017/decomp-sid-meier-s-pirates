@@ -11,3 +11,5 @@ unsigned int TriStrip::GetVertexCount() const { return m_vertexBuffer->m_vertexC
 
 unsigned int TriStrip::GetVertexNum() { return m_vertexBuffer->m_vertexCount; }
 } // namespace ISE
+
+unsigned int ISE::TriStrip::GetPolyNum() { return m_vertexBuffer->m_vertexCount - 2; }
