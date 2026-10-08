@@ -2099,6 +2099,28 @@
         "f-28f668828e7039dd3aca"
       ],
       "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
+    },
+    {
+      "group_id": "o-00ae6e0f33b278f46faf",
+      "source": "src/recovery/units/ISEShipReflectionShader.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-060b016581ca89d5022e",
+        "f-dfda611c79b8e371a43c",
+        "f-e4a62a77a8322b488efc",
+        "f-027d8f95f6e5f2c5eecb",
+        "f-79466cd86a4c7c218b2e",
+        "f-b5798fb62622c4ca219d",
+        "f-7d19e7e29cf56179b5a4",
+        "f-cfd4df59f5c60dee1f9b"
+      ],
+      "flags_provenance": "Observed release-hook investigation profile. Original flags, unencoded result types and complete class hierarchies remain unproven; see docs/recovery-loop.md."
     }
   ]
 }
