@@ -489,6 +489,11 @@ an `mla` for its scale while the original uses shifted adds. UicFire candidates
 use a branch around the conditional write while the original uses ARM predicated
 store instructions. These are source candidates without exact-match credit.
 
-The resulting report has **1,589 exact functions / 17,676 bytes**, 46 differing
-candidates, 7,542 missing functions and no compile errors or unresolved
+Three more small routines now verify exactly: UicMoveLabel::startMove stores the
+input byte at `+0x94` and sets `+0x9c` to one; NiMemStream::Str sets its access
+flag at `+0x15` and returns the string pointer at `+4`; Phono2::PThread's
+constructor initializes its first two words to zero and ten. These add 48 bytes.
+
+The resulting report has **1,592 exact functions / 17,724 bytes**, 46 differing
+candidates, 7,539 missing functions and no compile errors or unresolved
 comparisons. Full-game replacement linking remains at zero.
