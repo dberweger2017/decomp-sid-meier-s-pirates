@@ -1298,13 +1298,15 @@
       "source": "src/ise/ISELogInfo.cpp",
       "flags": [
         "-O2",
-        "-marm",
-        "-mfloat-abi=soft"
+        "-marm"
       ],
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-bcd08aa451a214c88945"
+        "f-bcd08aa451a214c88945",
+        "f-a7efc232079d5f92ba02",
+        "f-31b1f1a5dc1422fbfeb2",
+        "f-0c316cb6656638ceec7a"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1469,6 +1471,44 @@
         "f-84f8d7b3d6084c933d3d",
         "f-a4bd3c36779aaccbfd02"
       ]
+    },
+    {
+      "group_id": "o-404381576a822b3213c8",
+      "source": "src/ise/tinyxmlparser.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-34ec3e976d9e84797f66",
+        "f-45b396842d7f4985f6d4",
+        "f-d900d7660cfe10399996",
+        "f-50a9a8eceafa6ae64588",
+        "f-2ee53b5d169452a09453"
+      ],
+      "flags_provenance": "TinyXML parser recovery profile."
+    },
+    {
+      "group_id": "o-66fe1076df3a0c4f9e7e",
+      "source": "src/game/AudioGame.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-b71caead8ef23ec27bb5",
+        "f-a9487fd14c981a9d8b79",
+        "f-21b1add68b6952588e6d",
+        "f-eef286a022141e2a0184",
+        "f-31df46566cf5142fd9a1",
+        "f-020cb0534425e3e39843",
+        "f-b7af402e7d21ceaff0d4"
+      ],
+      "flags_provenance": "AudioGame audio manager recovery profile."
     }
   ]
 }
