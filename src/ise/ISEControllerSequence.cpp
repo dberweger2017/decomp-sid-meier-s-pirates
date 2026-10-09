@@ -40,7 +40,8 @@ ControllerSequence::~ControllerSequence() {
 
 void ControllerSequence::GetNodeMatrix(int node, PVRTMATRIXf &matrix) {
     if (node < 0 || node >= m_nodeCount) return;
-    KeyframeController *controller = &m_keyframes[node];
+    register int stride asm("r0") = sizeof(KeyframeController);
+    KeyframeController *controller = (KeyframeController *)((char *)m_keyframes + node * stride);
     PVRTMATRIXf temporary;
     if (controller) {
         controller->GetScaleMatrix(m_time, matrix);
@@ -163,31 +164,28 @@ ControllerSequence *ControllerSequence::CreateSequenceFromMemory(const char *mem
 }
 
 ControllerSequence *ControllerSequence::CreateSequenceFromFile(const char *path) {
-    CPVRTString filename(path);
-    CPVRTString group("");
-    ISEFile *file = gISEFileManager.AddObject(filename, group);
-    if (!file)
-        return 0;
-    const char *buffer = reinterpret_cast<const char *>(file->BufferPtr());
-    file->Size();
-    if (!buffer)
-        return 0;
-    const unsigned int version = reinterpret_cast<const unsigned int *>(buffer)[2];
-    switch (version) {
-    case 1:
-        return CreateSequenceFromMemoryVer1(buffer, 0);
-    case 2:
-        return CreateSequenceFromMemoryVer2(buffer, 0);
-    case 3:
-        return CreateSequenceFromMemoryVer3(buffer, 0);
-    case 4:
-        return CreateSequenceFromMemoryVer4(buffer, 0);
-    case 5:
-        return CreateSequenceFromMemoryVer5(buffer, 0);
-    case 6:
-        return CreateSequenceFromMemoryVer6(buffer, 0);
-    default:
-        return 0;
+    ISEFile *file = gISEFileManager.AddObject(CPVRTString(path), CPVRTString(""));
+    if (file) {
+        const char *buffer = reinterpret_cast<const char *>(file->BufferPtr());
+        file->Size();
+        if (buffer) {
+            int size;
+            switch (reinterpret_cast<const unsigned int *>(buffer)[2]) {
+            case 1:
+                return CreateSequenceFromMemoryVer1(buffer, size);
+            case 2:
+                return CreateSequenceFromMemoryVer2(buffer, size);
+            case 3:
+                return CreateSequenceFromMemoryVer3(buffer, size);
+            case 4:
+                return CreateSequenceFromMemoryVer4(buffer, size);
+            case 5:
+                return CreateSequenceFromMemoryVer5(buffer, size);
+            case 6:
+                return CreateSequenceFromMemoryVer6(buffer, size);
+            }
+        }
     }
+    return 0;
 }
 } // namespace ISE
