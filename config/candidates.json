@@ -1509,6 +1509,80 @@
         "f-b7af402e7d21ceaff0d4"
       ],
       "flags_provenance": "AudioGame audio manager recovery profile."
+    },
+    {
+      "group_id": "o-68bf0725e8cfa38f4e41",
+      "source": "src/ise/ISEParticlePlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-6b475cfca14f63ad14c8"
+      ],
+      "flags_provenance": "ISEParticlePlane recovery profile."
+    },
+    {
+      "group_id": "o-6fc673363c5278413290",
+      "source": "src/ise/ISEIndexBuffer.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-57f6caaf956d181852be",
+        "f-288234536f6a1193aec5"
+      ],
+      "flags_provenance": "IndexBuffer recovery profile."
+    },
+    {
+      "group_id": "o-d0728268a4b50f53168e",
+      "source": "src/ise/ISEVisKey.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-c8c35ca7c01c37314eeb",
+        "f-3bd2696690dd285b9461"
+      ],
+      "flags_provenance": "ISEVisKey recovery profile."
+    },
+    {
+      "group_id": "o-ed797dc8037519569362",
+      "source": "src/ise/tinystr.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-ece559b3a39cc4dc6dbc",
+        "f-765b392820db04c3b653",
+        "f-5bdd41ae1b8957d35b71"
+      ],
+      "flags_provenance": "tinystr recovery profile."
+    },
+    {
+      "group_id": "o-9d6495d5b7de5d9d762a",
+      "source": "src/ise/ISEUtility.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-0a9b74ea35b86081b7a8"
+      ],
+      "flags_provenance": "ISEUtility recovery profile."
     }
   ]
 }
