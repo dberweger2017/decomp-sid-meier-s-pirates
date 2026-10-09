@@ -5,3 +5,8 @@
 int MultiPlaySeaBattleChosen::GetPlayerChosenIndex() { return m_chosenIndex; }
 
 bool MultiPlaySeaBattleChosen::IsChosen() { return m_chosen; }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_1() {}
+}

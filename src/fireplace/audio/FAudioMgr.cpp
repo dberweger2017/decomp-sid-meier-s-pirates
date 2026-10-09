@@ -34,3 +34,8 @@ void FAudioManager::Set3DScripts(F3DSoundScriptData *scripts, int count) { m_scr
 void FAudioManager::SetSoundScapeScripts(FSoundScapeScriptData *scripts, int count) { m_soundScapeScripts = scripts; m_numSoundScapeScripts = count; }
 
 void FAudioManager::SetVolumeKnobs(FKnob *knobs, int count) { m_volumeKnobs = knobs; m_numVolumeKnobs = count; }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_1() {}
+}

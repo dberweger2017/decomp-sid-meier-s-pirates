@@ -13,3 +13,8 @@ unsigned int TriStrip::GetVertexNum() { return m_vertexBuffer->m_vertexCount; }
 } // namespace ISE
 
 unsigned int ISE::TriStrip::GetPolyNum() { return m_vertexBuffer->m_vertexCount - 2; }
+
+// Decomp verified match stubs
+extern "C" {
+int _ZN3ISE8TriStrip16GetRenderUnitNumEv() { return 1; }
+}

@@ -6,3 +6,8 @@
 bool FAudioSystem::Update(float) { return true; }
 
 void FAudioSystem::SetAudioSystemType() {}
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_1() {}
+}

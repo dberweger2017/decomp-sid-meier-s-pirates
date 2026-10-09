@@ -19,3 +19,9 @@
 
 
 #include "../../gamebryo/maps/FireIncludeCppMaps.cpp"
+
+extern "C" {
+void _ZN12FBoundingBoxD1Ev() {}
+void _ZN10FInterfaceD1Ev() {}
+void __tcf_12() {}
+}

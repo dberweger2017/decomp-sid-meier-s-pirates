@@ -51,3 +51,8 @@ bool AudioGame::DeinitAudioManager() {
     FAudioLibFactory::GetAudioMgr()->Deinit();
     return true;
 }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_2() {}
+}

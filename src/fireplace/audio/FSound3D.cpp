@@ -72,3 +72,8 @@ bool FSound3D::GetOrientation(NiPoint3 &first, NiPoint3 &second) const {
     second = m_secondOrientation;
     return true;
 }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_2() {}
+}

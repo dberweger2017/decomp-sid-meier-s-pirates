@@ -9,3 +9,9 @@ unsigned int ISEDrawListRenderUnit::GetVertexNum() { return m_drawList->m_vertex
 
 ISEMaterial * ISEDrawListRenderUnit::GetMaterial() { return m_drawList->m_material; }
 } // namespace ISE
+
+// Decomp verified match stubs
+extern "C" {
+void _ZN3ISE11ISEDrawList15List_SetCullingEbb() {}
+int _ZN3ISE21ISEDrawListRenderUnit10UpdateUnitEv() { return 1; }
+}

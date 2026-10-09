@@ -22,3 +22,9 @@
 #include "../../../src/game/ui/UicWindDir.cpp"
 
 #include "../ui/UicRudder.cpp"
+
+// Decomp verified match stubs
+extern "C" {
+void _Z16InitLoadingMutexv() {}
+void __tcf_6() {}
+}

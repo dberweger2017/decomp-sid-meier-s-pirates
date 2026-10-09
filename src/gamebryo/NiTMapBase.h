@@ -45,7 +45,9 @@ unsigned int NiTMapBase<A, K, V>::KeyToHashIndex(K key) const {
 
 template <class A, class K, class V>
 bool NiTMapBase<A, K, V>::IsKeysEqual(K left, K right) const {
-    return left == right;
+    if (left == right)
+        return true;
+    return false;
 }
 
 template <class A, class K, class V>

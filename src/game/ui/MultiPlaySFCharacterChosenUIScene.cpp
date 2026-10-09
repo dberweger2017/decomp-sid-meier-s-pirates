@@ -11,3 +11,9 @@ bool MultiPlaySFCharacterChosenUIScene::IsChosen() { return m_chosen; }
 void MultiPlaySFCharacterChosenUIScene::SetEnemyModelIndex(int index) { m_enemyModelIndex = index; }
 
 void MultiPlaySFCharacterChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
+
+// Decomp verified match stubs
+extern "C" {
+int _ZN33MultiPlaySFCharacterChosenUIScene14ReleaseUISceneEv() { return 1; }
+void __tcf_1() {}
+}

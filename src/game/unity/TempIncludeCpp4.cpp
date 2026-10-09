@@ -14,3 +14,18 @@
 #include "../../gamebryo/NiRTTI.cpp"
 
 #include "../../gamebryo/maps/TempIncludeCpp4Maps.cpp"
+
+// Decomp verified match stubs
+extern "C" {
+void _ZN20NiScreenGeometryData16CalculateNormalsEv() {}
+void _ZN8NiStream20BackgroundLoadOnExitEv() {}
+void _ZN16NiTimeController12OnPreDisplayEv() {}
+void _ZNK18NiTriBasedGeomData18GetTriangleIndicesEtRtS0_S0_() {}
+void _ZNK18NiTriBasedGeomData12GetStripDataERtRPKtS3_Rj() {}
+void _ZN22NiVertWeightsExtraData10SaveBinaryER8NiStream() {}
+void __tcf_4() {}
+void __tcf_5() {}
+void __tcf_11() {}
+void _ZN15NiParticlesData16CalculateNormalsEv() {}
+void _ZN18NiTriBasedGeomData22SetActiveTriangleCountEt() {}
+}

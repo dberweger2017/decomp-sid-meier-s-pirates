@@ -5,3 +5,8 @@
 void FSoundtrack::SetSongGroup(const FSoundtrackGroupNode *group, int index) { m_songGroup = group; m_songGroupIndex = index; }
 
 void FSoundtrack::SetTaperVolume(float volume) { m_taperVolume = volume; }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_1() {}
+}

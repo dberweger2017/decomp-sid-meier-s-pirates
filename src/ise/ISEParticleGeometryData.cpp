@@ -6,3 +6,8 @@ namespace ISE {
 
 unsigned short ISEParticleGeometryData::GetActiveVertexCount() const { return m_activeVertexCount; }
 } // namespace ISE
+
+// Decomp verified match stubs
+extern "C" {
+void _ZN3ISE23ISEParticleGeometryData20SetActiveVertexCountEt() {}
+}

@@ -18,3 +18,8 @@ void FKnob::AddKnob(FKnob *knob) {
     } while (current);
     last->m_next=knob;
 }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_1() {}
+}

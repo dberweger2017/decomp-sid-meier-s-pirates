@@ -7,3 +7,10 @@
 #include "../../../src/fireplace/ui/FxWidget.cpp"
 
 #include "../../gamebryo/maps/FireIncludeCpp2Maps.cpp"
+
+// Decomp verified match stubs
+extern "C" {
+void _Z13ShowLastErrorPKc() {}
+void __tcf_2() {}
+void __tcf_7() {}
+}

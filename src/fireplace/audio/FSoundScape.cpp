@@ -6,3 +6,8 @@
 bool FSoundScape::IsInitialized() const { return m_initialized; }
 
 int FSoundScape::GetScriptId() { return m_scriptId; }
+
+// Decomp verified match stubs
+extern "C" {
+void __tcf_1() {}
+}

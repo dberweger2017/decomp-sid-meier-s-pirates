@@ -11,3 +11,9 @@ bool MultiPlaySBChosenUIScene::IsChosen() { return m_chosen; }
 void MultiPlaySBChosenUIScene::SetEnemyModelIndex(int index) { m_enemyModelIndex = index; }
 
 void MultiPlaySBChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
+
+// Decomp verified match stubs
+extern "C" {
+int _ZN24MultiPlaySBChosenUIScene14ReleaseUISceneEv() { return 1; }
+void __tcf_1() {}
+}

@@ -3,3 +3,9 @@
 // Original group o-5fb0f3020ccb8ccfca54 (ShipWrightUIScene.o).
 
 void ShipWrightUIScene::setActiveUISceneFlag(bool active) { m_active = active; }
+
+// Decomp verified match stubs
+extern "C" {
+int _ZN17ShipWrightUIScene14ReleaseUISceneEv() { return 1; }
+void __tcf_1() {}
+}

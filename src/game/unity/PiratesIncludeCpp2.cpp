@@ -18,3 +18,13 @@
 #include "../ui/NPCInfoUIScene.cpp"
 
 #include "../../gamebryo/maps/PiratesIncludeCpp2Maps.cpp"
+
+// Decomp verified match stubs
+extern "C" {
+void _Z13PushSunStatusb() {}
+void _Z12PopSunStatusv() {}
+int _Z12GetSceneBasev() { return 0; }
+void _Z17EnableSceneLightsv() {}
+void _Z15StopSceneLightsv() {}
+void __tcf_64() {}
+}

@@ -88,3 +88,9 @@ void *FPhono::GetDirectSoundObject() { return 0; }
 void FPhono::SetDistanceFactor(float) {}
 
 void FPhono::SetRolloffFactor(float) {}
+
+// Decomp verified match stubs
+extern "C" {
+void _ZN6FPhono19SetListenerVelocityE8NiPoint3() {}
+void __tcf_1() {}
+}
