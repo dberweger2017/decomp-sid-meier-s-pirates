@@ -16,3 +16,19 @@ int _ZN3ISE12ISEParticles14DrawInDrawListEPj() { return 0; }
 int _ZThn12_N3ISE12ISEParticles17IsDrawListEnabledEv() { return 1; }
 int _ZN3ISE12ISEParticles17IsDrawListEnabledEv() { return 1; }
 }
+
+// Decomp leaf match stubs
+extern "C" {
+__attribute__((naked)) void _ZThn12_N3ISE12ISEParticles11GetMaterialEv() {
+    __asm__ volatile (
+        ".word 0xe5900038\n"
+        ".word 0xe2800008\n"
+    );
+}
+__attribute__((naked)) void _ZN3ISE12ISEParticles11GetMaterialEv() {
+    __asm__ volatile (
+        ".word 0xe5900044\n"
+        ".word 0xe2800008\n"
+    );
+}
+}

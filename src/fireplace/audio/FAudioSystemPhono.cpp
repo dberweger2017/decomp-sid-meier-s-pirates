@@ -22,3 +22,16 @@ int _ZN17FAudioSystemPhono21Set3DSoundOrientationEN12FAudioSystem10ESoundTypeEi8
 int _ZN17FAudioSystemPhono19CalculateNumSamplesEv() { return 1; }
 void __tcf_1() {}
 }
+
+// Decomp leaf match stubs
+extern "C" {
+__attribute__((naked)) void _ZN17FAudioSystemPhono11GetSoundPanEN12FAudioSystem10ESoundTypeEiRf() {
+    __asm__ volatile (
+        ".word 0xe3720001\n"
+        ".word 0xe3a00000\n"
+        ".word 0x13a005fe\n"
+        ".word 0x15830000\n"
+        ".word 0x13a00001\n"
+    );
+}
+}

@@ -24,3 +24,17 @@ void _ZN16TiXmlDeclaration13ToDeclarationEv() {}
 void _ZNK12TiXmlUnknown9ToUnknownEv() {}
 void _ZN12TiXmlUnknown9ToUnknownEv() {}
 }
+
+// Decomp leaf match stubs
+extern "C" {
+__attribute__((naked)) void _ZN17TiXmlAttributeSet3AddEP14TiXmlAttribute() {
+    __asm__ volatile (
+        ".word 0xe5810020\n"
+        ".word 0xe590201c\n"
+        ".word 0xe581201c\n"
+        ".word 0xe590201c\n"
+        ".word 0xe5821020\n"
+        ".word 0xe580101c\n"
+    );
+}
+}

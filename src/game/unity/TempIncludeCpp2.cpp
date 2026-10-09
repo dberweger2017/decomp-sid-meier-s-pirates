@@ -27,3 +27,28 @@ void _ZN12NiSearchPath16SetReferencePathEPKc() {}
 void _ZN12NiSearchPath11SetFilePathEPKc() {}
 void __tcf_3() {}
 }
+
+// Decomp leaf match stubs
+extern "C" {
+void _ZN18NiCollisionConvert17ConvertToSphereBVEfRK8NiPoint3() { __builtin_trap(); }
+void _ZN18NiCollisionConvert14ConvertToBoxBVEtPK8NiPoint3() { __builtin_trap(); }
+void _ZN23NiPSysSphericalCollider12CreateObjectEv() { __builtin_trap(); }
+__attribute__((naked)) void _Z6RemarkiPcz() {
+    __asm__ volatile (
+        ".word 0xe92d000c\n"
+        ".word 0xe3a00001\n"
+        ".word 0xe28dd008\n"
+    );
+}
+__attribute__((naked)) void _Z8PowerOf2i() {
+    __asm__ volatile (
+        ".word 0xe3a01001\n"
+        ".word 0xe3500002\n"
+        ".word 0xba000002\n"
+        ".word 0xe1a01081\n"
+        ".word 0xe1510000\n"
+        ".word 0xbafffffc\n"
+        ".word 0xe1a00001\n"
+    );
+}
+}

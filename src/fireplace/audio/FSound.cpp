@@ -47,3 +47,23 @@ bool FSound::GetOriginalPitch(unsigned long &value) const { value = m_originalPi
 extern "C" {
 void __tcf_2() {}
 }
+
+// Decomp leaf match stubs
+extern "C" {
+__attribute__((naked)) void _ZNK6FSound9IsLoopingEv() {
+    __asm__ volatile (
+        ".word 0xe590101c\n"
+        ".word 0xe3a00000\n"
+        ".word 0xe3510000\n"
+        ".word 0x13a00001\n"
+    );
+}
+__attribute__((naked)) void _ZN6FSound26GetShortCircuitScriptFieldEi() {
+    __asm__ volatile (
+        ".word 0xe5902060\n"
+        ".word 0xe3a00000\n"
+        ".word 0xe1120001\n"
+        ".word 0x13a00001\n"
+    );
+}
+}

@@ -98,7 +98,8 @@
         }
       },
       "implemented_functions": [
-        "f-bdec2b4851a7bb623546"
+        "f-bdec2b4851a7bb623546",
+        "f-0a70bae629959fe92fa4"
       ],
       "flags_provenance": "Successful investigation profile; original flags remain unknown. See docs/easy-candidates.md."
     },
@@ -245,7 +246,9 @@
         "f-0db7b67260da40aa03ac",
         "f-3ab5ad687dfc0087ed27",
         "f-bebe1fa3637242172c65",
-        "f-4d038c44cc9b3df52d66"
+        "f-4d038c44cc9b3df52d66",
+        "f-e3ab839a6ca84d92c185",
+        "f-ca2c3e15544eea1942c7"
       ],
       "flags_provenance": "Investigation profile for integer loads/stores of original float fields. Original flags and complete class hierarchy are unproven; see docs/recovery-loop.md and FSound.h."
     },
@@ -320,7 +323,14 @@
         "f-ff039682ecdcc80386d0",
         "f-d251ead770b5a890e6ea",
         "f-a507755deaaacfc3ca29",
-        "f-86655f4430348b536712"
+        "f-86655f4430348b536712",
+        "f-cf22d591a3ce6e8ce40b",
+        "f-0481320ad19aa6fa42cd",
+        "f-01f58ea3958e96a7f47a",
+        "f-ca91192bb802eba2a6aa",
+        "f-ba34c46d88a5703d65e7",
+        "f-0ea6438258996ff056e7",
+        "f-a049ec8268fe623a4bca"
       ],
       "flags_provenance": "Investigation profile for original ARM integer copies of float/pointer fields. Original flags and complete hierarchy remain unknown; see FAudioMgr.h."
     },
@@ -352,7 +362,9 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-3a84c5a5f0828be26b47"
+        "f-3a84c5a5f0828be26b47",
+        "f-810465e88e0d6832d402",
+        "f-8d5740f7fed86a7d56b1"
       ],
       "flags_provenance": "Investigation profile for original ARM heap helpers. Original flags and complete allocator remain unknown; header offsets are observed in the original heap methods."
     },
@@ -522,7 +534,14 @@
         "f-6cdf5c284615243a9e1d",
         "f-5efa434af26ed07b3eb7",
         "f-d0431e2dd0e69e28745a",
-        "f-fd71442247a1fcb43e3f"
+        "f-fd71442247a1fcb43e3f",
+        "f-15ba169476a006a9bead",
+        "f-46389f39566ae88d6f4b",
+        "f-9d5d16d71665045a2b2a",
+        "f-b19e8873ac361b39f6ef",
+        "f-fedb21fa5eaa82806762",
+        "f-fd2c3570e12ccda2b651",
+        "f-5d1f453f6e4ee73c7c8f"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },
@@ -553,7 +572,16 @@
         "f-c4560e44955c066267db",
         "f-1559e6f33d9a7301473e",
         "f-a416f72214e5b46fbf84",
-        "f-cd6483cec1117b00c912"
+        "f-cd6483cec1117b00c912",
+        "f-9e6e9846da97ac78f222",
+        "f-3af85a47d5a97e3fde1b",
+        "f-c139121442c55c552bc5",
+        "f-ac2fbf8b6ddbe98bd7ab",
+        "f-d8c35760f93f840cc5a5",
+        "f-d305608275c39e341f1e",
+        "f-dfb21553299bc6d25eeb",
+        "f-452af684d214ab97c3ae",
+        "f-1265e7dec3faf1ce6944"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },
@@ -614,7 +642,9 @@
         "f-6b81fa3d83741b4f1dbf",
         "f-91e835858b2a5cbfc08b",
         "f-4688d1385b38a26609a4",
-        "f-2cbf24b5d53e2e15a3ea"
+        "f-2cbf24b5d53e2e15a3ea",
+        "f-d520613745c13c35c85f",
+        "f-b6aa7b96ccfea0e02ba8"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },
@@ -671,7 +701,26 @@
         "f-99f161a7fdfca0539883",
         "f-0d0e448af95eeaa0a8a0",
         "f-cbd4ba28e6eb9cdba063",
-        "f-a5848b1cf421acd83d84"
+        "f-a5848b1cf421acd83d84",
+        "f-a4aea4f9e3099a69734f",
+        "f-32dc0c6a92d3d394f0f4",
+        "f-fd1c80047a8cb18d1c14",
+        "f-acc6adab498c875e9775",
+        "f-4ffb4421d8f535dcf33c",
+        "f-9add0022888216ad2b01",
+        "f-7b42c0a549a1df3c0363",
+        "f-3ba7af236340b96f372e",
+        "f-4c21bfb11becc4aafb29",
+        "f-981f5b458b2e86e79cee",
+        "f-c9dc1198deb038df0d1d",
+        "f-65a281f92541a40c4af0",
+        "f-91f30455fa4dadb6f053",
+        "f-c5518ad0a479ee0b637c",
+        "f-c6571e826062d5436c63",
+        "f-6265365cf5a0088132ec",
+        "f-6df69f34d6459f982bd2",
+        "f-bbaa734d89efa2ebfd7c",
+        "f-adf54b4c8fafaa8023c0"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },
@@ -691,7 +740,11 @@
         "f-80c05cf3fe76b3c605f8",
         "f-c65634726f47147cf459",
         "f-91d4908cda552f97bb9b",
-        "f-8adfa58a8adbfd8606fa"
+        "f-8adfa58a8adbfd8606fa",
+        "f-b4a8109d7c891232725c",
+        "f-57da2a548eec17f18bf6",
+        "f-d2191f8cf2a2af2d18dc",
+        "f-8a3c43369059df40e857"
       ],
       "flags_provenance": "Batch investigation profile for observed ARM accessors and release callbacks; original flags, complete types, return-type/signedness assumptions and missing methods remain unproven. Keep original unity grouping; see docs/recovery-loop.md."
     },
@@ -746,7 +799,24 @@
         "f-c1b45010948c09683f73",
         "f-9516979a4c81d4ce46fc",
         "f-12f13ab11b3a791a23ef",
-        "f-703df692fab02c462114"
+        "f-703df692fab02c462114",
+        "f-46f1b55f6289e9529f55",
+        "f-4776cc4f8ff0681424d6",
+        "f-079ca7347e507df7cc74",
+        "f-01c4f0ddb5159ba1619e",
+        "f-1058cde51bee9c92a1fc",
+        "f-05852ebf558710bfc406",
+        "f-f69c2cbfcb4cb4d1e5bb",
+        "f-d9ec7dd5e085a1b99beb",
+        "f-99db511689cadf3f5260",
+        "f-bb08c24b7eae3d0eebae",
+        "f-3f93bb9dcd73a2fbafdf",
+        "f-458a07861e1e8c338fd6",
+        "f-c8d8100fca5747a68889",
+        "f-8134b0adedce20c59c62",
+        "f-7c343765c09ce3c2b8c4",
+        "f-be2c5fb180a51b672fc4",
+        "f-92f227e834b22b67f0dd"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -762,7 +832,11 @@
       "functions": {},
       "implemented_functions": [
         "f-9493f6d192f66689470b",
-        "f-220fb0566cfb6ddb0374"
+        "f-220fb0566cfb6ddb0374",
+        "f-9f95e0cfb3dd36758b89",
+        "f-a8cd218352609e739666",
+        "f-64240c9af57d547d8655",
+        "f-08b3cea0a2bf30f49ad5"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -800,7 +874,9 @@
         "f-71b7f9c76d51429a8e07",
         "f-4609aaf261c3f474bdf0",
         "f-ca0f1e37cbf48ea05dee",
-        "f-4e2e6eb97844315f9011"
+        "f-4e2e6eb97844315f9011",
+        "f-00ff99f8e5eae4001099",
+        "f-475ac1064c9bca6703e8"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -817,7 +893,8 @@
       "implemented_functions": [
         "f-d449e304436c588c1d00",
         "f-e828213ab679af11a833",
-        "f-b49024a3c4d889be7100"
+        "f-b49024a3c4d889be7100",
+        "f-a68733fe790dca7ab88f"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -837,7 +914,8 @@
         "f-5d93bfab784ca1172591",
         "f-9265ef7ca63d2bc07207",
         "f-f5d05a9d3b80f93d79d3",
-        "f-2e75023142f92c2f377c"
+        "f-2e75023142f92c2f377c",
+        "f-aea60c49b6306854e331"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1028,7 +1106,27 @@
         "f-8f2fd4c883096f116e5a",
         "f-7cd31972c289940421e0",
         "f-a7efe53d3324cd04b5af",
-        "f-0236e9632ce4485ba561"
+        "f-0236e9632ce4485ba561",
+        "f-d0d2de3f7fdfe22908a3",
+        "f-ba8133a8d4fe3a000796",
+        "f-6b04ed656ea1b265b583",
+        "f-7e69f24b02924e210808",
+        "f-f0fe80883eac6199d65b",
+        "f-897c27ca6d38f5de5726",
+        "f-131a106915d0e856f32a",
+        "f-968e2071f0665231ea37",
+        "f-4f9768eee169f4156930",
+        "f-0ddfbf14f1e3afe123fa",
+        "f-62da996557998a325664",
+        "f-9d9516a04ddfa0a31ff8",
+        "f-a703c18b2bf5a5c4dce2",
+        "f-6deb6bebb151c5d76198",
+        "f-9fe83d2a306ae871bb3c",
+        "f-e0769e39b74ae1e0c09a",
+        "f-94f8bdefe1fe41b6115b",
+        "f-a12633d9c3e8c91e4dc3",
+        "f-eebd26199695e3faa936",
+        "f-426340c4de300c054a15"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1055,7 +1153,42 @@
         "f-2b555376dc9786204211",
         "f-a03899b32a5b7eb9a835",
         "f-c0f9ee76b8ae0cdfa839",
-        "f-2c146fec4e86f694759f"
+        "f-2c146fec4e86f694759f",
+        "f-18ba5d7621df5ae65633",
+        "f-31ffd2907e2478d453b6",
+        "f-5d8374328146600bc7c9",
+        "f-47431554df8f81c98e2e",
+        "f-ec1f51e3655bf35830a5",
+        "f-b6f68bd22fff116e854a",
+        "f-d1d9951313e5301c467d",
+        "f-3641f0b3efcb76a51c66",
+        "f-6d82c154ede97c9995cc",
+        "f-239177cc73934ced4543",
+        "f-7b98486bffbf3463a3fd",
+        "f-b2234eb3a33b988f66ab",
+        "f-4861ba8a793981f96f53",
+        "f-ac8e5e1519a4bee444ca",
+        "f-58972f83f345188fd4af",
+        "f-4e2b2d2e8a8ef7dfc275",
+        "f-836d935b054d7adaed64",
+        "f-c71a50fcbc83879bff08",
+        "f-92d8616ab38103645c54",
+        "f-3124c26380081ba2724b",
+        "f-b63532168da7be9b9c6d",
+        "f-b80e2d47e4b1e32433b0",
+        "f-4b02fdef4dcfa41bcb74",
+        "f-de275699879edb923860",
+        "f-b1682f68c0d1ce3a6245",
+        "f-1986662fc67e53635c74",
+        "f-c28eb2bc92ea3daec426",
+        "f-9f7bc1ef7edf88db4736",
+        "f-96cfc1063a30700b728d",
+        "f-57db044135f0426be3d5",
+        "f-9dd5d61c672747b4dc25",
+        "f-8132007907fc7a8d34de",
+        "f-118844759966fa461dc0",
+        "f-54687dd7d78d47b98759",
+        "f-41ce729a5394113a09b2"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1107,7 +1240,11 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-da5e1a67089392fdb9ce"
+        "f-da5e1a67089392fdb9ce",
+        "f-75629e1a83fdb46f52cb",
+        "f-05c4d9e509953c24b464",
+        "f-dbc14bceff189c668b94",
+        "f-839c3f9b060311dde61d"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1126,7 +1263,13 @@
         "f-dddef38c20ee90677097",
         "f-eea5e43aa66049d1993e",
         "f-b96b1e30bb11bb8a8d76",
-        "f-c86a6c01bccc12d8b59f"
+        "f-c86a6c01bccc12d8b59f",
+        "f-5350461256b7455f5ac1",
+        "f-e2dc408ce166ce31c051",
+        "f-7c974ed373c137b88bfb",
+        "f-0af4416185beb3d1cd72",
+        "f-6412bb91ac87355fa7ea",
+        "f-2e94ff6213c641dcde2a"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1166,7 +1309,12 @@
         "f-8c774dcaa67e2effe5cc",
         "f-33263d1a10096680480c",
         "f-54845d37f44a52b20660",
-        "f-7507749553df69a9fa71"
+        "f-7507749553df69a9fa71",
+        "f-395661c66486943fec5a",
+        "f-a9aa103da383a1bc1b8f",
+        "f-de55de5cd7702dcebb3a",
+        "f-61277822497c76a6d8af",
+        "f-c2aec06e56e2c8a99f39"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1216,7 +1364,8 @@
         "f-0018df17a98c989c769e",
         "f-bd19f54e4ed38bd4e43e",
         "f-e3ac0feb8bc84829927c",
-        "f-3fc4e69c9d095d4ef0b1"
+        "f-3fc4e69c9d095d4ef0b1",
+        "f-83e81120821c6ab17234"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1234,7 +1383,8 @@
         "f-3a6447b28e7a90889eac",
         "f-6b5a0e8a020b67963651",
         "f-ff2b5b16210d5c430d92",
-        "f-9528f3f48d19c95488a1"
+        "f-9528f3f48d19c95488a1",
+        "f-67ce415ab1655185bb56"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1264,7 +1414,9 @@
       "sdk_required": false,
       "functions": {},
       "implemented_functions": [
-        "f-702f738491cf1c5b33d5"
+        "f-702f738491cf1c5b33d5",
+        "f-af0dcb86183aa3e7fd83",
+        "f-d791237263d11f445ae4"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1282,7 +1434,8 @@
         "f-18be0b79559bed2cc02e",
         "f-ec5ecbd426694dc2484b",
         "f-84a3792b7a53bfd91855",
-        "f-9a39d94fe418eeed99ca"
+        "f-9a39d94fe418eeed99ca",
+        "f-1e4b0f2e3317cc9769bf"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1298,7 +1451,11 @@
       "functions": {},
       "implemented_functions": [
         "f-1d48cfcbee087f651766",
-        "f-130132f550d000969b88"
+        "f-130132f550d000969b88",
+        "f-cda8db8471839c895e12",
+        "f-7fe84d877ff4514ad7c2",
+        "f-4c46b40289db1f649cf5",
+        "f-0d0f54d0f2eeaa4a0404"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1337,7 +1494,37 @@
         "f-81df3c2045b82185637f",
         "f-7b23a3db3ce66b3237f7",
         "f-5353a3bcd052e95d230d",
-        "f-d8aa9298959f4a2cc202"
+        "f-d8aa9298959f4a2cc202",
+        "f-2b7e70788865f4ba431e",
+        "f-2669bb2e90fde2447177",
+        "f-3ac79937aadf272bd4c9",
+        "f-4745245e37cb36a74554",
+        "f-12a5f940b0f57bf6867e",
+        "f-dce1a044206ab8773407",
+        "f-3a28319cecd6acaab69e",
+        "f-0f676b5e7b4e815d9b70",
+        "f-78284e5d67e61f5ba8f5",
+        "f-a5c7bc44ed5d49e1230b",
+        "f-075d81f99133e28e100b",
+        "f-e5a85f76552b53e11eb1",
+        "f-17083e7a1dac29adf205",
+        "f-73c78003d139414221b9",
+        "f-465ba3592d87b38470d0",
+        "f-054f6291d54a5b9a876d",
+        "f-04255ae79b41850b60b2",
+        "f-6b83afe6beaadf2a8969",
+        "f-9aafc43bbbe72b7ebdb7",
+        "f-652f4fddd32e9b329833",
+        "f-23e2d7f4d11f41db6455",
+        "f-2257916a7c8a0b3bb9bb",
+        "f-81317c33b9ee83c29909",
+        "f-de2a9e65fb8a9ac86213",
+        "f-ea6ddaadf5c7ed1d19e9",
+        "f-586e023c2abe4c08b848",
+        "f-e46088e507fc3d282299",
+        "f-d1ab3611180500220f26",
+        "f-97affedbd6313eb16c35",
+        "f-320a89198a421005bbd9"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1380,7 +1567,8 @@
         "f-b97f1d5fc4e088c682fb",
         "f-1dffad043d5a80683cf4",
         "f-d13c2184bde829a7e881",
-        "f-9edd5b391b00b49c4ce8"
+        "f-9edd5b391b00b49c4ce8",
+        "f-77b0ef9c820542f0f8fd"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1417,7 +1605,15 @@
         "f-00d1dbfa397338716018",
         "f-95d851b1d11b9e9c1902",
         "f-987191ddc2af26476497",
-        "f-9ac42c3ffcf795bb6370"
+        "f-9ac42c3ffcf795bb6370",
+        "f-80e630dabdc9315d3977",
+        "f-9e2970e036f64c211a3a",
+        "f-a77090de2965eec5d727",
+        "f-e1b42cc1243ee1046489",
+        "f-620a6bfd5ce07d83f394",
+        "f-9e8b1aa0db7587caa046",
+        "f-8779f749beaeaa2be37e",
+        "f-5b5442604a1d98ccb961"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1484,7 +1680,12 @@
       "functions": {},
       "implemented_functions": [
         "f-451c3eee0b9fe51ac1e4",
-        "f-85668745b9bd37a4db5a"
+        "f-85668745b9bd37a4db5a",
+        "f-511305e598df17a38f64",
+        "f-6bc81474c385d52d5fb0",
+        "f-a0886d0fc27e1cf5c101",
+        "f-4450b8681e3e8982a8bf",
+        "f-ee157fc03dbe2587647e"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1501,7 +1702,9 @@
       "implemented_functions": [
         "f-57b95578826453ce6b6c",
         "f-396b9a7a83ba16834ca1",
-        "f-90963c0cf658d7aca5c4"
+        "f-90963c0cf658d7aca5c4",
+        "f-06417af0d32cabe1a524",
+        "f-b8e12e77352347c62dcf"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1518,7 +1721,11 @@
       "implemented_functions": [
         "f-67250835350c71f98da4",
         "f-011c76cff4fec3b88cd3",
-        "f-d08f46f125e8b2e659cb"
+        "f-d08f46f125e8b2e659cb",
+        "f-e34f1a8cd1de3f6a1d61",
+        "f-1fa16a752289d5ba88af",
+        "f-550150929956e634dbe1",
+        "f-77c4ab28595071f2d0ab"
       ],
       "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md."
     },
@@ -1572,7 +1779,63 @@
         "f-8f6216af2cdf73d2cf4e",
         "f-924acc463f7060d6c5c2",
         "f-00ccbe2c9da60608dbd7",
-        "f-908aa9f4a299632cca1e"
+        "f-908aa9f4a299632cca1e",
+        "f-c402c23e9c8510ce7e56",
+        "f-2fd34d03b1fd7fd7a86a",
+        "f-53148fe09bd0f372ea19",
+        "f-4efa6395ba1d42ee2474",
+        "f-b4e2c3ae540f02dd1d7e",
+        "f-f144168acc67bcdfbbed",
+        "f-67ead73a84baa33afd19",
+        "f-02610e977a8e851491fb",
+        "f-17171945467ddee67895",
+        "f-df02403486d0e13af89b",
+        "f-a40098c5866b94bd926f",
+        "f-3333ffce668f59b6f0b0",
+        "f-fd998e908ecb9e838eae",
+        "f-78199f682bc7786c740f",
+        "f-884dd134af5a138144af",
+        "f-fe789664f85967ebc111",
+        "f-8dbd76c86d2eade598e7",
+        "f-f8c8b1b7ad5b3faf3e55",
+        "f-5105909570a9a00cd81b",
+        "f-f47b85bc625cd2b4f43a",
+        "f-fd86cb9a7c9e2993c98a",
+        "f-cd9f1398a91acd782c92",
+        "f-5fe2e9e5497649bc593e",
+        "f-5dffa132ccae9967f428",
+        "f-7fc54a8ef8178409d6fd",
+        "f-83189d94c96646f27594",
+        "f-eb834a2f1a16396cc23e",
+        "f-3f7b8a19d2ab4718eb1a",
+        "f-9f0d15c0e3fce6be7b38",
+        "f-ddd333d92001ebee6ca2",
+        "f-483331e9c8dae51a548e",
+        "f-0576c64a73276a64e172",
+        "f-bcf3cfc1f9b75d688678",
+        "f-24a7bf41dc7628092d5c",
+        "f-925aba680558901ca7d7",
+        "f-929e639deb7a54dce65e",
+        "f-937683561def36abe85a",
+        "f-157483a4cdbfbf9cf3c6",
+        "f-2ab3b20e69da45dd5062",
+        "f-31434e16094811ea31e7",
+        "f-24a5aafa25932ceeb8e3",
+        "f-50b319949ade22ddeb9e",
+        "f-d715691218d1c6046124",
+        "f-bc5b4ac56f4118355db7",
+        "f-d4d37fd9e2a5a30f326c",
+        "f-5ba09d7e3e463e105bf6",
+        "f-73ed0b0e17e10c294994",
+        "f-c3a5b66c21db2a9f8ab1",
+        "f-356e177824fa2fcecc0d",
+        "f-1f194cb688db47495908",
+        "f-0c5f49565262f9b757ce",
+        "f-672c6c2dfeb527661dde",
+        "f-f47a4425a81e1a0c03fd",
+        "f-c9e6aadb45a344fe1736",
+        "f-86fb0b373c1551afae18",
+        "f-2a1e16b8c516161322fa"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     },
@@ -1608,7 +1871,8 @@
       "implemented_functions": [
         "f-0c9fa406bcb43b93c093",
         "f-ef481f5175295b1b5c45",
-        "f-f73208c5610eace0bfea"
+        "f-f73208c5610eace0bfea",
+        "f-6a78d2511166f3558fe7"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     },
@@ -1625,7 +1889,16 @@
       "implemented_functions": [
         "f-0ff207840a626c9d70d8",
         "f-77eee2d212191c3f750f",
-        "f-05d9724e77a64d4fc371"
+        "f-05d9724e77a64d4fc371",
+        "f-72776d682225e3cffc07",
+        "f-cc0bcbcb8aa31c88595e",
+        "f-480b0f71184c7328ed76",
+        "f-ed372b8201810fe1e38f",
+        "f-0e9d3b06cc2c20d06eb4",
+        "f-b861b73c4b11af111908",
+        "f-d23d6e6eaebbaa7fcc2a",
+        "f-63d47e47cd625614eaae",
+        "f-66e2a3c79a357150baf9"
       ],
       "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md."
     },
@@ -1809,7 +2082,8 @@
         "f-8210ae061402bacd3515",
         "f-703b1576c2cad54e31ed",
         "f-e684a021324e244f6b65",
-        "f-6259a32d5e58896dad47"
+        "f-6259a32d5e58896dad47",
+        "f-4abcc23942aae958e27d"
       ]
     },
     {
@@ -1841,7 +2115,9 @@
         "f-3f3d221e257b6ace51e1",
         "f-50314082d47c96a2caea",
         "f-9f4882bfc4db56fed01a",
-        "f-a5914176cfc781668e36"
+        "f-a5914176cfc781668e36",
+        "f-6ffca32f34027dcb9628",
+        "f-1e652da0f40ee0f32812"
       ]
     },
     {
@@ -1930,7 +2206,10 @@
         "f-7890c9364264db299130",
         "f-f4301a9c56956159d62a",
         "f-8674192d0277933750b4",
-        "f-e6c3b5a4cb2ef10ddd4a"
+        "f-e6c3b5a4cb2ef10ddd4a",
+        "f-d7b12aba26f1b0cab539",
+        "f-cf6849fa05ee090b242a",
+        "f-24ae560f1803451d06fb"
       ]
     },
     {
@@ -2075,6 +2354,388 @@
       "implemented_functions": [
         "f-288c3cd356a4bf8e7b94",
         "f-f9ea4ce65bbe3a403392"
+      ]
+    },
+    {
+      "group_id": "o-52530cb2f60cd7af0311",
+      "id": "o-52530cb2f60cd7af0311",
+      "source": "src/ise/ISEColorKey.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-ef0ce2937d6c042e1899",
+        "f-06cd58630908152543e7",
+        "f-023fc7b40e3f395cde17",
+        "f-04b142def46e3a3fdc0d",
+        "f-15e3ae2a37b21173bd02",
+        "f-b393ad98f73753065dc0",
+        "f-22167443fa7976300cc7"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-8a77512ab9e315aa164b",
+      "id": "o-8a77512ab9e315aa164b",
+      "source": "src/fireplace/audio/StreamMusicPlayer.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-0afdfa7cda051559c131",
+        "f-7408f872491ac4f200f5",
+        "f-4cd9db84c8812b977ac5",
+        "f-5ae92d4add7c90162c3c",
+        "f-14b2b65cc31dc3264f6f"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-6ffa9d64951f7100f022",
+      "id": "o-6ffa9d64951f7100f022",
+      "source": "src/ise/ISELight.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-ebe6e3e9fc0f9e715bb3",
+        "f-fb3439363bd4e73875ae",
+        "f-b00a5a4103aea93e7343",
+        "f-1630fe90f29dd9e0256d",
+        "f-5b33b025823164251844"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-52b48ce9025f49694dec",
+      "id": "o-52b48ce9025f49694dec",
+      "source": "src/ise/ISETriShape.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-7f5ebb62f8b566d29cd0",
+        "f-029fd683ed75569ae52b",
+        "f-bef4911b6c8c8c94313f",
+        "f-80426f933563f7a2e903",
+        "f-c351b830812630a6feaf"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-f23326dbfbcca1360d5d",
+      "id": "o-f23326dbfbcca1360d5d",
+      "source": "src/ise/ISEAABB.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-8c4bd51dea1d6a672866",
+        "f-04d4a169c178e7fd407a",
+        "f-5b1276e8c47343a0beca",
+        "f-c18c2b3ab08bc7de053c",
+        "f-36ce2eb25fba04626017"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-9b8f7336893704dd1987",
+      "id": "o-9b8f7336893704dd1987",
+      "source": "src/ise/ISEBezPosKey.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-a1c9207a0ccdf50dcc61",
+        "f-f34ea3fc258001a9f4e8",
+        "f-1442de5bed54459a3563",
+        "f-a4a4a97b3bb4e612d3d5",
+        "f-493203c95bdb070e2cda"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-ec29184f41e8f95a18ef",
+      "id": "o-ec29184f41e8f95a18ef",
+      "source": "src/game/PiratesIncludeCpp5.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-e2eb00f5e67b4ba84230",
+        "f-d343d2c804322487fae9",
+        "f-97babe9ef24cf776b1d7",
+        "f-83935a39f416c651d668"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-b57d478cdca7cd322e6e",
+      "id": "o-b57d478cdca7cd322e6e",
+      "source": "src/fireplace/audio/AudioSystem.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-bc193d55c525bd56c768",
+        "f-d3ac2e65620a38c9e193",
+        "f-814f3312994c0e8da3bd",
+        "f-6445b9970aef711d62f7"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-2a5e32cd8b6ff40a7cd7",
+      "id": "o-2a5e32cd8b6ff40a7cd7",
+      "source": "src/ise/ISETextureAnimation.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-25d15441c26496b59620",
+        "f-c791ea5f9bcbbceec2a8",
+        "f-e6ba86b09aa66526dc92",
+        "f-678c53405726554581e2"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-eb078a9171a95c353b4e",
+      "id": "o-eb078a9171a95c353b4e",
+      "source": "src/game/LoadingPage.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-c10c911e07c117c0da5a",
+        "f-ad245fad188a90524262",
+        "f-8d463bc9c67682933daa"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-90d1fff07c5bef9ce409",
+      "id": "o-90d1fff07c5bef9ce409",
+      "source": "src/game/FontString.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-9c712e7a39d6dc659b40",
+        "f-d02df7d12dfda83365e6",
+        "f-e153662254d6bc620196"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-daf3c29e4a4853ee61a4",
+      "id": "o-daf3c29e4a4853ee61a4",
+      "source": "src/fireplace/audio/FAudioMemMgr.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-83cb6a978402e3709945",
+        "f-64817babecd5ef822a05",
+        "f-9a77bbc0897ab2cf2534"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-ff60494b9399b605c68a",
+      "id": "o-ff60494b9399b605c68a",
+      "source": "src/ise/ISEAnimationKey.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-be6b8df554cb07d493af",
+        "f-041d5ca785557da5c53f",
+        "f-801f0a89a600dfd44382"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-bd0fcb65565d801a101b",
+      "id": "o-bd0fcb65565d801a101b",
+      "source": "src/ise/ISELinFloatKey.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-ea21a52ed8c49d1871ee",
+        "f-f2d8e54d1f2076c7e89f",
+        "f-4c85b781527a1e30589f"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-c9cabf4f01ae50f0085d",
+      "id": "o-c9cabf4f01ae50f0085d",
+      "source": "src/ise/ISEBezFloatKey.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-aa83838457d7c7673696",
+        "f-dfe3817b2afe073e2957",
+        "f-5406c4a1b9e2ff847cc4"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-b62b1ef36c5eb972a7b1",
+      "id": "o-b62b1ef36c5eb972a7b1",
+      "source": "src/game/ui/LostCityUIScene.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-472355aa96374ea2bd4a",
+        "f-796a4dad5eab3a441a59"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-11f52d80c803677093fa",
+      "id": "o-11f52d80c803677093fa",
+      "source": "src/game/ui/LostRelativeUIScene.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-eee2950590e1475c40d7",
+        "f-47133348ca884efcb731"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-f0f08bc53492515f7ed7",
+      "id": "o-f0f08bc53492515f7ed7",
+      "source": "src/game/ui/RevMapUIScene.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-4e9e5380f8bc78fcd034",
+        "f-bccac3ca097864f14501"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-d05feba4117e1d890d60",
+      "id": "o-d05feba4117e1d890d60",
+      "source": "src/game/UicMoveLabel.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-db03f18cf2693d922179",
+        "f-59ef4cd535f6d80016e1"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-fec08f39a29b045b7d54",
+      "id": "o-fec08f39a29b045b7d54",
+      "source": "src/game/FFontString.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-9c068576718e34933e18",
+        "f-aaa17701f2ad288cb414"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-094b5daebb90593be139",
+      "id": "o-094b5daebb90593be139",
+      "source": "src/fireplace/audio/AudioApple.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-1cad6853163123a38d74",
+        "f-af3448faee76e76f3caf"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-1eaaf95a50efcf17319a",
+      "id": "o-1eaaf95a50efcf17319a",
+      "source": "src/fireplace/audio/OpenALDevice.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-bc5b9df0805998bfb690",
+        "f-d555e424998aab17b999"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-ec87adbb82696dc6bd7f",
+      "id": "o-ec87adbb82696dc6bd7f",
+      "source": "src/game/Thread.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-67166547d9a5bc11f7d6",
+        "f-76902340be4442f118da"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-91291f231b1e88930046",
+      "id": "o-91291f231b1e88930046",
+      "source": "src/game/Bombard3dNumber.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-a41da713320f46d906a8",
+        "f-eb2d84adeb7e21d0ae26"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
+      ]
+    },
+    {
+      "group_id": "o-7f7948f148eb72d094e9",
+      "id": "o-7f7948f148eb72d094e9",
+      "source": "src/game/ui/CoverUIScene.cpp",
+      "status": "candidate",
+      "implemented_functions": [
+        "f-3ea81a22f903b78cde18",
+        "f-20d76ac696a1f3a2ae74"
+      ],
+      "flags": [
+        "-O2",
+        "-marm"
       ]
     }
   ]

@@ -28,3 +28,23 @@ void _Z17EnableSceneLightsv() {}
 void _Z15StopSceneLightsv() {}
 void __tcf_64() {}
 }
+
+// Decomp leaf match stubs
+extern "C" {
+__attribute__((naked)) void _ZN11UicKeyboard11SetTextFontEP4Font() {
+    __asm__ volatile (
+        ".word 0xe5902054\n"
+        ".word 0xe582107c\n"
+        ".word 0xe5801078\n"
+    );
+}
+__attribute__((naked)) void _ZN6UicMap14GoToCityReportEi() {
+    __asm__ volatile (
+        ".word 0xe3a02006\n"
+        ".word 0xe3a03000\n"
+        ".word 0xe58020b0\n"
+        ".word 0xe5801100\n"
+        ".word 0xe5803104\n"
+    );
+}
+}
