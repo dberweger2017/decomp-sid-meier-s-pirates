@@ -5,6 +5,8 @@
 // capacity +12. Constructors, destructor and allocator behavior remain missing.
 class CPVRTString {
 public:
+    CPVRTString();
+    CPVRTString(const char *str, unsigned long length = npos);
     virtual ~CPVRTString();
     static const unsigned long npos;
     const char *c_str() const;

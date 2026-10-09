@@ -1,5 +1,7 @@
 #include "ISEControllerSequence.h"
 #include "../powervr/PVRTMatrixF.h"
+#include "ISEFile.h"
+#include "ISEManagerBase.h"
 #include "ISESequenceMemory.h"
 #include "ISESequenceReader.h"
 #include <string.h>
@@ -97,22 +99,95 @@ inline __attribute__((always_inline)) ControllerSequence *ControllerSequence::Re
 ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer1(const char *memory, int) {
     return ReadSequence<1>(memory);
 }
+
 ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer2(const char *memory, int size) {
     if (reinterpret_cast<const unsigned int *>(memory)[2] == 1)
         return CreateSequenceFromMemoryVer1(memory, size);
     return ReadSequence<2>(memory);
 }
 
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer3(const char *memory, int size) {
+    const unsigned int version = reinterpret_cast<const unsigned int *>(memory)[2];
+    if (version == 2)
+        return CreateSequenceFromMemoryVer2(memory, size);
+    if (version == 1)
+        return CreateSequenceFromMemoryVer1(memory, size);
+    return ReadSequence<3>(memory);
+}
+
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer4(const char *memory, int size) {
+    const unsigned int version = reinterpret_cast<const unsigned int *>(memory)[2];
+    if (version == 3)
+        return CreateSequenceFromMemoryVer3(memory, size);
+    if (version == 2)
+        return CreateSequenceFromMemoryVer2(memory, size);
+    if (version == 1)
+        return CreateSequenceFromMemoryVer1(memory, size);
+    return ReadSequence<4>(memory);
+}
+
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer5(const char *memory, int) {
+    return ReadSequence<5>(memory);
+}
+
+ControllerSequence *ControllerSequence::CreateSequenceFromMemoryVer6(const char *memory, int) {
+    return ReadSequence<6>(memory);
+}
+
 ControllerSequence *ControllerSequence::CreateSequenceFromMemory(const char *memory, int size) {
+    register ControllerSequence *result asm("r2") = 0;
     const unsigned int version = reinterpret_cast<const unsigned int *>(memory)[2];
     switch (version) {
-    case 1: return CreateSequenceFromMemoryVer1(memory, size);
-    case 2: return CreateSequenceFromMemoryVer2(memory, size);
-    case 3: return CreateSequenceFromMemoryVer3(memory, size);
-    case 4: return CreateSequenceFromMemoryVer4(memory, size);
-    case 5: return CreateSequenceFromMemoryVer5(memory, size);
-    case 6: return CreateSequenceFromMemoryVer6(memory, size);
-    default: return 0;
+    case 1:
+        result = CreateSequenceFromMemoryVer1(memory, size);
+        break;
+    case 2:
+        result = CreateSequenceFromMemoryVer2(memory, size);
+        break;
+    case 3:
+        result = CreateSequenceFromMemoryVer3(memory, size);
+        break;
+    case 4:
+        result = CreateSequenceFromMemoryVer4(memory, size);
+        break;
+    case 5:
+        result = CreateSequenceFromMemoryVer5(memory, size);
+        break;
+    case 6:
+        result = CreateSequenceFromMemoryVer6(memory, size);
+        break;
+    default:
+        break;
+    }
+    return result;
+}
+
+ControllerSequence *ControllerSequence::CreateSequenceFromFile(const char *path) {
+    CPVRTString filename(path);
+    CPVRTString group("");
+    ISEFile *file = gISEFileManager.AddObject(filename, group);
+    if (!file)
+        return 0;
+    const char *buffer = reinterpret_cast<const char *>(file->BufferPtr());
+    file->Size();
+    if (!buffer)
+        return 0;
+    const unsigned int version = reinterpret_cast<const unsigned int *>(buffer)[2];
+    switch (version) {
+    case 1:
+        return CreateSequenceFromMemoryVer1(buffer, 0);
+    case 2:
+        return CreateSequenceFromMemoryVer2(buffer, 0);
+    case 3:
+        return CreateSequenceFromMemoryVer3(buffer, 0);
+    case 4:
+        return CreateSequenceFromMemoryVer4(buffer, 0);
+    case 5:
+        return CreateSequenceFromMemoryVer5(buffer, 0);
+    case 6:
+        return CreateSequenceFromMemoryVer6(buffer, 0);
+    default:
+        return 0;
     }
 }
 } // namespace ISE

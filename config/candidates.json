@@ -1457,12 +1457,17 @@
         "-marm"
       ],
       "implemented_functions": [
-        "f-22bbae78b612022df758",
-        "f-84f8d7b3d6084c933d3d",
         "f-6abf10bd5f7e60bd38a7",
         "f-c6da5fa7fbbd4ee36e29",
+        "f-22bbae78b612022df758",
         "f-0c45d12c4f00b8a22621",
-        "f-9e95cac3146a545ac17b"
+        "f-9e95cac3146a545ac17b",
+        "f-f87055510479b978e92c",
+        "f-f65056a1a2381b055203",
+        "f-816e10913c473e8bb530",
+        "f-ef49b13679163843185d",
+        "f-84f8d7b3d6084c933d3d",
+        "f-a4bd3c36779aaccbfd02"
       ]
     }
   ]
