@@ -6,8 +6,8 @@ bool MultiPlaySFStageChosenUISceneGroup::IsChosen() { return m_chosen; }
 
 int MultiPlaySFStageChosenUISceneGroup::GetChosenStageIndex() { return m_chosenStageIndex; }
 
-// Decomp verified match stubs
-extern "C" {
-int _ZN26MultiPlaySFStagePicUIScene14ReleaseUISceneEv() { return 1; }
-void __tcf_1() {}
-}
+#include "MultiPlaySFStagePicUISceneSmall_MultiPlaySFStageChosenUIScene.cpp"
+
+#include "../../recovery/abi/o-ecde35a48cd790293f68.cpp"
+
+#include "../../recovery/leaves/o-ecde35a48cd790293f68.cpp"

@@ -43,3 +43,11 @@ Outputs are deterministic for identical inputs, compiler artifacts/profiles, fla
 The current local verification imported the real archive, accounted for all 9,177 function records and 268 groups, started at zero game matches and now verifies 16 source functions at 628 bytes, and detected a deliberate synthetic verified-match regression. Browser automation verified source and included-header saves update the selected comparison without a page reload. Hosted macOS/Linux synthetic jobs and the real-archive progress job also passed; CI uses pinned Python 3.13.16 packages available on macOS ARM64 and Ubuntu x64.
 
 The game-progress job runs `tools/first_candidate_smoke.py` in the staged head workspace. It deliberately loses the real ApiSet match, verifies that the regression checker fails, and restores the match after an included-header rebuild. Those reports and its summary are uploaded separately from base/head progress.
+
+The gameplay stress checkpoint also installs optional hash-pinned
+`requirements-emulation.txt`, exercises synthetic ARM call/negative scenarios on
+both tooling hosts, and reports the battle-grid and world-map projection cohorts
+in the historical progress job. Bounded execution checks use source candidates
+and explicitly modeled external calls; they never affect verified matching or
+replacement-link credit. Cohort reports, execution outcomes and the two-group
+diagnostic link status/diagnostics are retained in `pirates-progress`.

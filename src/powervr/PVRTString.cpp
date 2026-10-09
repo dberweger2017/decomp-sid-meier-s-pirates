@@ -15,6 +15,10 @@ char &CPVRTString::operator[](unsigned long index) { return m_buffer[index]; }
 
 bool CPVRTString::empty() const { return m_length == 0; }
 
+CPVRTString &CPVRTString::operator=(const CPVRTString &other) {
+    return assign(other.m_buffer, other.m_length);
+}
+
 // npos is the all-ones unsigned length sentinel; constructors test -1.
 // Section/alignment reproduce the observed original allocation; original source
 // attributes and compilation flags remain unknown. Default emission is literal4.

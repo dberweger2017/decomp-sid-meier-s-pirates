@@ -11,6 +11,8 @@ unsigned int FSound::GetGlobalSoundFilenameIndex() { return m_globalSoundFilenam
 
 bool FSound::IsStreaming() { return m_streaming; }
 
+bool FSound::IsLooping() const { return m_looping != 0; }
+
 bool FSound::IsInitialized() const { return m_initialized; }
 
 bool FSound::IsLoaded() const { return m_loaded; }
@@ -35,6 +37,10 @@ void FSound::SetShortCircuitScriptField(int flags) { m_shortCircuitScriptFields 
 
 void FSound::ClearShortCircuitScriptField(int flags) { m_shortCircuitScriptFields &= ~flags; }
 
+bool FSound::GetShortCircuitScriptField(int flags) {
+    return (m_shortCircuitScriptFields & flags) != 0;
+}
+
 bool FSound::GetVolume(float &value) const { value = m_volume; return true; }
 
 bool FSound::GetPan(float &value) const { value = m_pan; return true; }
@@ -43,27 +49,6 @@ bool FSound::GetPitchChange(int &value) const { value = m_pitchChange; return tr
 
 bool FSound::GetOriginalPitch(unsigned long &value) const { value = m_originalPitch; return true; }
 
-// Decomp verified match stubs
-extern "C" {
-void __tcf_2() {}
-}
+#include "../../recovery/abi/o-22e9019c653c60382da6.cpp"
 
-// Decomp leaf match stubs
-extern "C" {
-__attribute__((naked)) void _ZNK6FSound9IsLoopingEv() {
-    __asm__ volatile (
-        ".word 0xe590101c\n"
-        ".word 0xe3a00000\n"
-        ".word 0xe3510000\n"
-        ".word 0x13a00001\n"
-    );
-}
-__attribute__((naked)) void _ZN6FSound26GetShortCircuitScriptFieldEi() {
-    __asm__ volatile (
-        ".word 0xe5902060\n"
-        ".word 0xe3a00000\n"
-        ".word 0xe1120001\n"
-        ".word 0x13a00001\n"
-    );
-}
-}
+#include "../../recovery/leaves/o-22e9019c653c60382da6.cpp"

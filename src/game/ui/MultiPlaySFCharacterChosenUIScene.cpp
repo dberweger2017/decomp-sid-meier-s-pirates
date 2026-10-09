@@ -12,8 +12,8 @@ void MultiPlaySFCharacterChosenUIScene::SetEnemyModelIndex(int index) { m_enemyM
 
 void MultiPlaySFCharacterChosenUIScene::SetPlayerModelIndex(int index) { m_playerModelIndex = index; }
 
-// Decomp verified match stubs
-extern "C" {
-int _ZN33MultiPlaySFCharacterChosenUIScene14ReleaseUISceneEv() { return 1; }
-void __tcf_1() {}
-}
+#include "MultiPlaySFCharacterChosenUISceneSmall_MultiPlaySFCharacterChosenUIScene.cpp"
+
+#include "../../recovery/abi/o-615f11e1c3ff7aa6b275.cpp"
+
+#include "../../recovery/leaves/o-615f11e1c3ff7aa6b275.cpp"

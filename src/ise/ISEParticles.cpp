@@ -5,30 +5,14 @@
 namespace ISE {
 
 void ISEParticles::SetModelData(ISEParticleGeometryData *data) { if (data) m_modelData = data; }
+
+void * ISEParticles::GetMaterial() {
+    return reinterpret_cast<unsigned char *>(m_materialOwner) + 8;
+}
 } // namespace ISE
 
-// Decomp verified match stubs
-extern "C" {
-int _ZThn12_N3ISE12ISEParticles12GetVertexNumEv() { return 0; }
-int _ZN3ISE12ISEParticles12GetVertexNumEv() { return 0; }
-int _ZThn4_N3ISE12ISEParticles14DrawInDrawListEPj() { return 0; }
-int _ZN3ISE12ISEParticles14DrawInDrawListEPj() { return 0; }
-int _ZThn12_N3ISE12ISEParticles17IsDrawListEnabledEv() { return 1; }
-int _ZN3ISE12ISEParticles17IsDrawListEnabledEv() { return 1; }
-}
+#include "ISEParticlesSmall_libISELib_a_ISEParticles_.cpp"
 
-// Decomp leaf match stubs
-extern "C" {
-__attribute__((naked)) void _ZThn12_N3ISE12ISEParticles11GetMaterialEv() {
-    __asm__ volatile (
-        ".word 0xe5900038\n"
-        ".word 0xe2800008\n"
-    );
-}
-__attribute__((naked)) void _ZN3ISE12ISEParticles11GetMaterialEv() {
-    __asm__ volatile (
-        ".word 0xe5900044\n"
-        ".word 0xe2800008\n"
-    );
-}
-}
+#include "../recovery/abi/o-22e518abce9579acfc03.cpp"
+
+#include "../recovery/leaves/o-22e518abce9579acfc03.cpp"

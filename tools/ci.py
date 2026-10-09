@@ -54,7 +54,9 @@ def stage(checkout, dest, tool_source, profile, validation=None):
         write_json(dest / 'config/candidates.json', {'version': 1, 'units': []})
     if validation and Path(validation).is_file():
         write_json(dest / profile['validation'], load_json(validation))
-    # Nested staged workspaces must retain their validated CI linker profile.
+    # A staged CI workspace already carries the validated host/container profile.
+    # Preserve it when staging a nested diagnostic link; the repository template
+    # only names ld64 and is not an executable profile on the hosted runner.
     linker_path = next((tool_source / name for name in
                         ('build/linker/linker.json', 'config/ci-linker.json', 'config/linker.json')
                         if (tool_source / name).is_file()), None)

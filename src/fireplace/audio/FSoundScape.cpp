@@ -7,7 +7,6 @@ bool FSoundScape::IsInitialized() const { return m_initialized; }
 
 int FSoundScape::GetScriptId() { return m_scriptId; }
 
-// Decomp verified match stubs
-extern "C" {
-void __tcf_1() {}
-}
+#include "../../recovery/abi/o-71a79dd832a29b589321.cpp"
+
+#include "../../recovery/leaves/o-71a79dd832a29b589321.cpp"

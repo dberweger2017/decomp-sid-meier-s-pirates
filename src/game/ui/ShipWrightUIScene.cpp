@@ -4,8 +4,6 @@
 
 void ShipWrightUIScene::setActiveUISceneFlag(bool active) { m_active = active; }
 
-// Decomp verified match stubs
-extern "C" {
-int _ZN17ShipWrightUIScene14ReleaseUISceneEv() { return 1; }
-void __tcf_1() {}
-}
+#include "ShipWrightUISceneSmall_ShipWrightUIScene.cpp"
+
+#include "../../recovery/leaves/o-5fb0f3020ccb8ccfca54.cpp"

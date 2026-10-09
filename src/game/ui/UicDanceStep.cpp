@@ -12,3 +12,8 @@ void UicDanceStep::Render(PVRTVec2 *position, PVRTVec2 *size) {  }
 #include "UicDanceHalo.h"
 
 void UicDanceStep::setDurationTime(int duration) { m_halo->m_durationTime = duration; }
+
+void UicDanceStep::cleanStates() {
+    m_state64 = 0;
+    m_state71 = 0;
+}

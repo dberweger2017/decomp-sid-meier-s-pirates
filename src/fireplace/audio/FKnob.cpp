@@ -19,7 +19,4 @@ void FKnob::AddKnob(FKnob *knob) {
     last->m_next=knob;
 }
 
-// Decomp verified match stubs
-extern "C" {
-void __tcf_1() {}
-}
+#include "../../recovery/leaves/o-67cbdb66049bec401875.cpp"

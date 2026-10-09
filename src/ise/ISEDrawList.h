@@ -1,4 +1,6 @@
 #pragma once
+#include "../recovery/ReleaseHookTypes.h"
+
 
 
 namespace ISE {
@@ -9,6 +11,7 @@ class ISEMaterial;
 // return types, pointees, signedness and field names remain hypotheses.
 class ISEDrawList {
 public:
+    void List_SetCulling(bool, bool);
     unsigned char m_unknown_00[120];
     unsigned int m_vertexCount; // +0x78
     unsigned char m_unknown_7c[64];

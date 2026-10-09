@@ -11,9 +11,10 @@ from tools.pirates.util import ToolError
 BX = bytes.fromhex('1eff2fe1')
 
 
-def imported_image(names=('_import',), indices=None, opcode=0xe59fc000, stride=12):
-    code = struct.pack('<I', 0xeb000000 | ((0x2000 - 0x1000 - 8) >> 2)) + BX
-    symbols = executable_symbols([('_probe', 0x1000, 8, 'arm', 'unit')])
+def imported_image(names=('_import',), indices=None, opcode=0xe59fc000, stride=12, code=None):
+    if code is None:
+        code = struct.pack('<I', 0xeb000000 | ((0x2000 - 0x1000 - 8) >> 2)) + BX
+    symbols = executable_symbols([('_probe', 0x1000, len(code), 'arm', 'unit')])
     start = len(symbols)
     symbols += [symbol(name, section=0, type=1) for name in names]
     stubs = b''.join(struct.pack('<III', opcode, 0xe59cf000, 0x3000 + i * 4)

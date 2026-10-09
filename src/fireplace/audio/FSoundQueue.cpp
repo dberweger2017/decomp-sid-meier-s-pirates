@@ -4,7 +4,4 @@
 
 bool FSoundQueue::QueueIsActive() { return m_active; }
 
-// Decomp verified match stubs
-extern "C" {
-void __tcf_1() {}
-}
+#include "../../recovery/leaves/o-547c118a5632decb45cb.cpp"

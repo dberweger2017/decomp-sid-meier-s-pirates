@@ -79,7 +79,7 @@ Fetch the pinned third-party SDK with `python tools/sdk.py fetch`, or supply SDK
 - `build/objdiff-report.json`: an adapter to the pinned objdiff v2 protobuf JSON schema. It exports progress; stock objdiff does not perform these ARMv7 Mach-O comparisons.
 - `build/units/`: candidate objects, dependency records, compilation results, and diagnostics.
 
-[Matching semantics](docs/matching.md) describe supported relocations and conservative unresolved cases. Non-code data matching and guarded image linking have separate measures. Current data matching and full-game linking remain at zero; replacement linking is supported but blocked by missing coverage and original layout. [Progress and linking setup](docs/progress.md) explains the pinned linker and manifest.
+[Matching semantics](docs/matching.md) describe supported relocations and conservative unresolved cases. Non-code data matching and guarded image linking have separate measures. One four-byte data allocation is verified; full-game replacement linking remains at zero; replacement linking is supported but blocked by missing coverage and original layout. [Progress and linking setup](docs/progress.md) explains the pinned linker and manifest.
 
 [CI configuration](docs/ci.md) runs synthetic tests on macOS and Linux, checks a fixed report digest on both hosts, and builds PR base/head with a shared verified IPA and profile. Previously verified matches, compilation health, and inventory coverage are regression gates. Native reports, adapters, summaries, and diagnostics are retained on failure; original inputs and SDKs are excluded from uploads. The compiler workflow runs on relevant PR changes and manual dispatch, caches the pinned source build, validates the historical loop, and exports a compiler image. Candidate-progress CI provisions the same compiler when source units are present and retains reports if provisioning fails.
 
@@ -92,5 +92,10 @@ python tools/ci.py demo-regression
 It intentionally exits with status 1 and writes the before/after reports and summary under `build/ci-demo/`. Hosted decomp.dev registration is outside this milestone.
 
 See [progress, data and linking](docs/progress.md) for separate fuzzy/exact/data measures, the pinned linker, CI gates and [the first 16 exact source matches](docs/easy-candidates.md).
+
+For a source-first pass over connected routines, use
+`python tools/cohort.py build config/cohorts/world-map-projection.json --output build/cohorts/projection.json`.
+The [gameplay stress experiment](docs/gameplay-stress.md) documents fuzzy/exact
+results, bounded ARM execution checks, incremental timings and linking limits.
 
 The [public browser](https://pirates.davideb.ch) shows the latest successful `main` build. See [hosting and automatic deployment](docs/hosting.md) for the read-only export, CI gates, Caddy setup, rollback and browser checks.

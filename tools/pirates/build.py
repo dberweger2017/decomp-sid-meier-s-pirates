@@ -198,6 +198,8 @@ def comparisons(root, details_id=None, include_link=True, details=False):
         compared.update({k: f[k] for k in ('group_id', 'symbol', 'address', 'size', 'mode', 'source_path', 'section', 'ambiguities')})
         compared['section_offset'] = f['address'] - original.section(f['section']).address
         compared['candidate_source'] = u.get('source') if implemented else None
+        if implemented and f['id'] in u.get('recovery_kinds', {}):
+            compared['recovery_kind'] = u['recovery_kinds'][f['id']]
         compared['byte_verified'] = compared['status'] == 'matched'
         if details:
             compared['compiler'] = info

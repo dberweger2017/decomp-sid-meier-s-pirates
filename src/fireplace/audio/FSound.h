@@ -13,6 +13,7 @@ public:
     int GetStreamId();
     unsigned int GetGlobalSoundFilenameIndex();
     bool IsStreaming();
+    bool IsLooping() const;
     bool IsInitialized() const;
     bool IsLoaded() const;
     bool IsPaused() const;
@@ -29,6 +30,7 @@ public:
     bool GetOriginalPitch(unsigned long &value) const;
     void SetShortCircuitScriptField(int flags);
     void ClearShortCircuitScriptField(int flags);
+    bool GetShortCircuitScriptField(int flags);
 
 private:
     unsigned char m_unknown_04[8];
@@ -36,7 +38,9 @@ private:
     int m_streamId;                            // +0x10
     unsigned int m_globalSoundFilenameIndex;   // +0x14
     bool m_streaming;                         // +0x18
-    unsigned char m_unknown_19[11];
+    unsigned char m_unknown_19[3];
+    int m_looping;                            // +0x1c
+    unsigned char m_unknown_20[4];
     float m_volume;                           // +0x24
     float m_pan;                              // +0x28
     int m_pitchChange;                        // +0x2c

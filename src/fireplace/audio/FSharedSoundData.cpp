@@ -25,7 +25,4 @@ unsigned int FSharedSoundData::GetTotalBufferSize() {
     return total;
 }
 
-// Decomp verified match stubs
-extern "C" {
-void __tcf_2() {}
-}
+#include "../../recovery/leaves/o-ac2c3029785c947aeb95.cpp"

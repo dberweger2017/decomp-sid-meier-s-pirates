@@ -10,20 +10,6 @@ unsigned int ISEDrawListRenderUnit::GetVertexNum() { return m_drawList->m_vertex
 ISEMaterial * ISEDrawListRenderUnit::GetMaterial() { return m_drawList->m_material; }
 } // namespace ISE
 
-// Decomp verified match stubs
-extern "C" {
-void _ZN3ISE11ISEDrawList15List_SetCullingEbb() {}
-int _ZN3ISE21ISEDrawListRenderUnit10UpdateUnitEv() { return 1; }
-}
+#include "ISEDrawListReleaseISEDrawList.cpp"
 
-// Decomp leaf match stubs
-extern "C" {
-__attribute__((naked)) void _ZN3ISE21ISEDrawListRenderUnit14GetCenterPointEv() {
-    __asm__ volatile (
-        ".word 0xe3a01000\n"
-        ".word 0xe5801000\n"
-        ".word 0xe5801004\n"
-        ".word 0xe5801008\n"
-    );
-}
-}
+#include "ISEDrawListRenderUnitSmall_libISELib_a_ISEDrawList_.cpp"

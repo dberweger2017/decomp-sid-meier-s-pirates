@@ -10,6 +10,7 @@ class ISEEntity;
 class ISENode {
 public:
     ISENode * SetParent(ISENode *parent);
+    void * GetName();
     void SetEntity(ISEEntity *entity);
 
 private:

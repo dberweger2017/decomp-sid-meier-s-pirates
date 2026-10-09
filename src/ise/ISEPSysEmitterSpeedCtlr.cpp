@@ -9,3 +9,5 @@ void ISEPSysEmitterSpeedCtlr::SetTargetValue(float value) { m_target->m_speed = 
 
 float ISEPSysEmitterSpeedCtlr::GetTargetValue() { return m_target->m_speed; }
 } // namespace ISE
+
+#include "../recovery/abi/o-777452410bf5df8e8644.cpp"

@@ -5,61 +5,86 @@
 
 #include "../../gamebryo/NiFile.cpp"
 
-// Decomp verified match stubs
-extern "C" {
-int _ZN12NiMessageBox17DefaultMessageBoxEPKcS1_Pv() { return 0; }
-void _ZN8NiStream13DoThreadPauseEv() {}
-void _ZNK10NiFilename11GetFullPathEPc() {}
-int _ZNK11NiMemStreamcvbEv() { return 1; }
-int _Z23OS_InterlockedDecrementPl() { return 0; }
-int _Z21OS_GetCurrentThreadIdv() { return 0; }
-int _Z12OS_VkKeyScanc() { return 0; }
-int _Z19OS_GetAsyncKeyStatei() { return 0; }
-int _Z15OS_GetTickCountv() { return 0; }
-void __tcf_0() {}
-}
+#include "../../gamebryo/NiFilenameReleaseTempIncludeCpp5.cpp"
 
-// Decomp leaf match stubs
-extern "C" {
-void _ZN20NiMeshParticleSystem12CreateObjectEv() { __builtin_trap(); }
-void _ZN14NiMeshPSysData12CreateObjectEv() { __builtin_trap(); }
-void _ZN16NiParticleSystem12CreateObjectEv() { __builtin_trap(); }
-void _ZN22NiPSysAgeDeathModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN18NiPSysBombModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN25NiPSysBoundUpdateModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN16NiPSysBoxEmitter12CreateObjectEv() { __builtin_trap(); }
-void _ZN21NiPSysColliderManager12CreateObjectEv() { __builtin_trap(); }
-void _ZN19NiPSysColorModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN21NiPSysCylinderEmitter12CreateObjectEv() { __builtin_trap(); }
-void _ZN10NiPSysData12CreateObjectEv() { __builtin_trap(); }
-void _ZN23NiPSysDragFieldModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN18NiPSysDragModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN17NiPSysEmitterCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN21NiPSysEmitterCtlrData12CreateObjectEv() { __builtin_trap(); }
-void _ZN28NiPSysEmitterDeclinationCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN30NiPSysEmitterInitialRadiusCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN25NiPSysEmitterLifeSpanCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN28NiPSysEmitterPlanarAngleCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN22NiPSysEmitterSpeedCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN21NiPSysGravityModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN25NiPSysGravityStrengthCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN22NiPSysGrowFadeModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN17NiPSysMeshEmitter12CreateObjectEv() { __builtin_trap(); }
-void _ZN24NiPSysMeshUpdateModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN24NiPSysModifierActiveCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN20NiPSysPlanarCollider12CreateObjectEv() { __builtin_trap(); }
-void _ZN22NiPSysPositionModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN21NiPSysResetOnLoopCtlr12CreateObjectEv() { __builtin_trap(); }
-void _ZN22NiPSysRotationModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN19NiPSysSpawnModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN19NiPSysSphereEmitter12CreateObjectEv() { __builtin_trap(); }
-void _ZN29NiPSysTurbulenceFieldModifier12CreateObjectEv() { __builtin_trap(); }
-void _ZN16NiPSysUpdateCtlr12CreateObjectEv() { __builtin_trap(); }
-__attribute__((naked)) void _ZN11NiMemStream3StrEv() {
-    __asm__ volatile (
-        ".word 0xe3a01001\n"
-        ".word 0xe5c01015\n"
-        ".word 0xe5900004\n"
-    );
-}
-}
+#include "../../gamebryo/NiMemStreamReleaseTempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiMessageBoxReleaseTempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiStreamReleaseTempIncludeCpp5.cpp"
+
+#include "../../recovery/TempIncludeCpp5ReleaseFunctions.cpp"
+
+#include "../../gamebryo/NiMeshPSysDataSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiMeshParticleSystemSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysAgeDeathModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysBombModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysBoundUpdateModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysBoxEmitterSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysColliderManagerSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysColorModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysCylinderEmitterSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysDataSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysDragFieldModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysDragModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterCtlrDataSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterDeclinationCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterInitialRadiusCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterLifeSpanCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterPlanarAngleCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysEmitterSpeedCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysGravityModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysGravityStrengthCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysGrowFadeModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysMeshEmitterSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysMeshUpdateModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysModifierActiveCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysPlanarColliderSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysPositionModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysResetOnLoopCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysRotationModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysSpawnModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysSphereEmitterSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysTurbulenceFieldModifierSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiPSysUpdateCtlrSmall_TempIncludeCpp5.cpp"
+
+#include "../../gamebryo/NiParticleSystemSmall_TempIncludeCpp5.cpp"
+
+#include "../../recovery/abi/o-d483319aef7bde0860fd.cpp"
+
+#include "../../recovery/leaves/o-d483319aef7bde0860fd.cpp"
+
+#include "../../recovery/OSOutputDebugString.cpp"

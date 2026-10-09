@@ -1,0 +1,26 @@
+{
+  "function_ids": [
+    "f-01c4f0ddb5159ba1619e",
+    "f-079ca7347e507df7cc74",
+    "f-0c9240d445cc55045918",
+    "f-1d88a0bd685573d2720a",
+    "f-236500840a50b89c66a0",
+    "f-3d3ace0666022327f7e5",
+    "f-7c7aa38fe95f8a3135d4",
+    "f-86deb9152afba152af34",
+    "f-8c03e4329702f6324c9c",
+    "f-a7e2ead0fd289132e948",
+    "f-b53c7b717c2fb12b303d",
+    "f-bafb440cd2d42578fab8",
+    "f-c1a99306c51fa2cde8d0",
+    "f-cf0892af1758f47bc638",
+    "f-d29576bba16946a09915",
+    "f-d3e268b9ae2c9bb88404",
+    "f-fa5d6b4f01aa23199201"
+  ],
+  "name": "Land-battle grid display",
+  "selection": {
+    "symbol_regex": "BattleGrid|NiAVObject11GetProperty"
+  },
+  "version": 1
+}

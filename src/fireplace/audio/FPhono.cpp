@@ -89,8 +89,4 @@ void FPhono::SetDistanceFactor(float) {}
 
 void FPhono::SetRolloffFactor(float) {}
 
-// Decomp verified match stubs
-extern "C" {
-void _ZN6FPhono19SetListenerVelocityE8NiPoint3() {}
-void __tcf_1() {}
-}
+#include "../../recovery/leaves/o-78c5a9284f33537c011b.cpp"

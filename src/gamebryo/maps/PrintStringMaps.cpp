@@ -6,7 +6,6 @@ template bool NiTMapBase<NiTPointerAllocator<unsigned int>, char const*, Printed
 template void NiTMapBase<NiTPointerAllocator<unsigned int>, char const*, PrintedText*>::ClearValue(NiTMapItem<char const*, PrintedText* >*);
 template void NiTMapBase<NiTPointerAllocator<unsigned int>, char const*, PrintedText*>::SetValue(NiTMapItem<char const*, PrintedText* >*, char const*, PrintedText*);
 
-// Decomp verified match stubs
-extern "C" {
-void __tcf_2() {}
-}
+#include "../../recovery/abi/o-d2c464150a675c39482a.cpp"
+
+#include "../../recovery/leaves/o-d2c464150a675c39482a.cpp"

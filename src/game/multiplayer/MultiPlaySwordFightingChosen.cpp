@@ -3,8 +3,8 @@
 #include "../../../src/game/ui/MultiPlaySFCharacterChosen.cpp"
 #include "../../../src/game/ui/MultiPlaySFStageChosen.cpp"
 
-// Decomp verified match stubs
-extern "C" {
-void _ZN22MultiPlaySFStageChosen4DrawEv() {}
-void __tcf_1() {}
-}
+#include "../ui/MultiPlaySFStageChosenReleaseMultiPlaySwordFightingChosen.cpp"
+
+#include "../../recovery/abi/o-61a2257f0bd26f37502a.cpp"
+
+#include "../../recovery/leaves/o-61a2257f0bd26f37502a.cpp"

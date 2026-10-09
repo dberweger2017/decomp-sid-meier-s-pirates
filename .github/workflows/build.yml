@@ -23,7 +23,7 @@ jobs:
           python-version: '3.13.16'
           cache: pip
       - name: Install hash-pinned tooling
-        run: python -m pip install --require-hashes -r requirements.txt
+        run: python -m pip install --require-hashes -r requirements.txt -r requirements-emulation.txt
       - name: Parser, relocations, watcher, builds, deterministic reports, and regression tests
         run: python -m unittest discover -v
       - name: Prove deliberate regression fails the CI checker
@@ -58,9 +58,11 @@ jobs:
         with:
           python-version: '3.13.16'
           cache: pip
-          cache-dependency-path: head/requirements.txt
+          cache-dependency-path: |
+            head/requirements.txt
+            head/requirements-emulation.txt
       - name: Install hash-pinned tooling
-        run: python -m pip install --require-hashes -r head/requirements.txt
+        run: python -m pip install --require-hashes -r head/requirements.txt -r head/requirements-emulation.txt
       - name: Obtain one shared verified original input
         shell: bash
         run: |
@@ -152,6 +154,22 @@ jobs:
             echo 'Historical linker provisioning failed; see retained reports and linker diagnostics.' >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
+      - name: Report connected gameplay cohorts and bounded ARM execution
+        if: steps.candidates.outputs.present == 'true'
+        shell: bash
+        run: |
+          python head/tools/abi_forwarders.py head/config/abi-forwarders.json --workspace head/build/ci-workspaces/head --check-source
+          python head/tools/tiny_entries.py head/config/tiny-entries.json --workspace head/build/ci-workspaces/head --check-source
+          for cohort in battle-grid world-map-projection release-hooks tiny-bodies abi-forwarders; do
+            python head/tools/cohort.py --workspace head/build/ci-workspaces/head report "head/config/cohorts/$cohort.json" --output "artifacts/gameplay/$cohort.json"
+            cat "artifacts/gameplay/$cohort.md" >> "$GITHUB_STEP_SUMMARY"
+          done
+          python head/tools/cohort.py --workspace head/build/ci-workspaces/head report head/config/cohorts/remaining-tiny.json --output artifacts/gameplay/remaining-tiny.json --require-exact
+          cat artifacts/gameplay/remaining-tiny.md >> "$GITHUB_STEP_SUMMARY"
+          python head/tools/battle_grid_probe.py --workspace head/build/ci-workspaces/head --output artifacts/gameplay/battle-grid-execution.json | tee -a "$GITHUB_STEP_SUMMARY"
+          python head/tools/world_map_probe.py --workspace head/build/ci-workspaces/head --output artifacts/gameplay/projection-execution.json | tee -a "$GITHUB_STEP_SUMMARY"
+          python head/build/ci-workspaces/head/tools/recovery_link.py config/diagnostic-links/gameplay-stress.json | tee -a "$GITHUB_STEP_SUMMARY"
+          python head/build/ci-workspaces/head/tools/recovery_link.py config/diagnostic-links/abi-particle-chain.json | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Prove real candidate/header regression handling
         if: steps.candidates.outputs.present == 'true'
         shell: bash
@@ -201,6 +219,12 @@ jobs:
             artifacts/head/linking/
             artifacts/delta.json
             artifacts/build-status.json
+            artifacts/gameplay/*.json
+            artifacts/gameplay/*.md
+            head/build/ci-workspaces/head/build/recovery-link/status.json
+            head/build/ci-workspaces/head/build/recovery-link/diagnostics.txt
+            head/build/ci-workspaces/head/build/recovery-link/build.log
+            head/build/ci-workspaces/head/build/recovery-link/report.json
             artifacts/summary.md
             head/build/ci-workspaces/head/build/candidate-smoke/*.json
             head/build/ci-workspaces/head/build/candidate-smoke/summary.md
