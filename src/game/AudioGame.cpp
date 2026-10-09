@@ -21,22 +21,21 @@ AudioGame* AudioGame::GetAudioGame() {
 }
 
 int AudioGame::GetPlayTime() {
-    return *(int*)((char*)FAudioLibFactory::GetAudioMgr() + 0x750);
+    return *((int*)((char*)FAudioLibFactory::GetAudioMgr() + 0x750));
 }
 
 ESoundContextType AudioGame::GetCurrentSoundContext() {
-    if (!m_soundContexts.empty()) {
-        return m_soundContexts.back();
+    if (m_soundContexts.empty()) {
+        return SOUND_CONTEXT_NONE;
     }
-    return (ESoundContextType)-1;
+    return m_soundContexts.back();
 }
 
 int AudioGame::GetAudioCueTime(int index) {
-    if ((unsigned int)index < (unsigned int)m_audioCueCount) {
-        char* cues = (char*)m_audioCues;
-        return *(int*)(cues + index * 24 + 4);
+    if (index >= 0 && index < m_audioCueCount && m_audioCues != 0) {
+        return *((int*)((char*)m_audioCues + index * 24 + 4));
     }
-    return -1;
+    return 0;
 }
 
 bool AudioGame::QueueIsEmpty() {
@@ -47,7 +46,8 @@ float AudioGame::GetVolumeKnob(int knob) {
     return FAudioLibFactory::GetAudioMgr()->GetVolumeKnob(knob);
 }
 
-void AudioGame::DeinitAudioManager() {
+bool AudioGame::DeinitAudioManager() {
     UnloadAll(0, 0);
     FAudioLibFactory::GetAudioMgr()->Deinit();
+    return true;
 }

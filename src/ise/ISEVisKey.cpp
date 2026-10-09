@@ -1,14 +1,14 @@
 #include "ISEVisKey.h"
-#include <string.h>
-
-// Original group o-d0728268a4b50f53168e (libISELib.a(ISEVisKey.o)).
+#include <cstring>
+#include <cstddef>
 
 namespace ISE {
 
-struct StreamBuffer {
+class StreamBuffer {
+public:
     char* base;
-    char* ptr;
     size_t size;
+    char* ptr;
 };
 
 class ISEParticleEntity {
@@ -17,9 +17,9 @@ public:
     StreamBuffer* stream;
 };
 
-ISEVisKey::ISEVisKey() : m_time(0.0f), m_vis(false) {}
+ISEVisKey::ISEVisKey() : m_time(0.0f), m_vis(0) {}
 
-bool ISEVisKey::GenInterp(float time, ISEVisKey* keys, unsigned int numKeys, unsigned int& lastIndex) {
+unsigned char ISEVisKey::GenInterp(float time, ISEVisKey* keys, unsigned int numKeys, unsigned int& lastIndex) {
     if (numKeys == 1) {
         return keys[0].m_vis;
     }
@@ -28,13 +28,14 @@ bool ISEVisKey::GenInterp(float time, ISEVisKey* keys, unsigned int numKeys, uns
         lastIndex = 0;
         idx = 0;
     }
-    for (unsigned int i = idx + 1; i <= numKeys - 1; ++i) {
+    unsigned int maxKey = numKeys - 1;
+    for (unsigned int i = idx + 1; i <= maxKey; ++i) {
         if (keys[i].m_time > time) {
             return keys[i - 1].m_vis;
         }
         lastIndex = i;
     }
-    return keys[numKeys - 1].m_vis;
+    return keys[maxKey].m_vis;
 }
 
 void ISEVisKey::LoadBinary(ISEParticleEntity& entity) {
@@ -45,16 +46,11 @@ void ISEVisKey::LoadBinary(ISEParticleEntity& entity) {
         memcpy(&m_time, sb->ptr, toRead);
         sb->ptr += toRead;
     }
-
-    sb = entity.stream;
     avail = (sb->base + sb->size) - sb->ptr;
-    toRead = avail > 1 ? 1 : avail;
-    char b = 0;
-    if (toRead > 0) {
-        memcpy(&b, sb->ptr, toRead);
-        sb->ptr += toRead;
+    if (avail > 0) {
+        m_vis = *reinterpret_cast<unsigned char*>(sb->ptr);
+        sb->ptr += 1;
     }
-    m_vis = (b != 0);
 }
 
 } // namespace ISE

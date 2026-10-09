@@ -7,10 +7,10 @@ class ISEParticleEntity;
 class ISEVisKey {
 public:
     float m_time;
-    bool m_vis;
+    unsigned char m_vis;
 
     ISEVisKey();
-    static bool GenInterp(float time, ISEVisKey* keys, unsigned int numKeys, unsigned int& lastIndex);
+    static unsigned char GenInterp(float time, ISEVisKey* keys, unsigned int numKeys, unsigned int& lastIndex);
     void LoadBinary(ISEParticleEntity& entity);
 };
 

@@ -1298,7 +1298,8 @@
       "source": "src/ise/ISELogInfo.cpp",
       "flags": [
         "-O2",
-        "-marm"
+        "-marm",
+        "-fno-omit-frame-pointer"
       ],
       "sdk_required": false,
       "functions": {},
