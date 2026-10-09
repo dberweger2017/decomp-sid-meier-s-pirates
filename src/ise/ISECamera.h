@@ -14,4 +14,10 @@ private:
     unsigned char m_unknown_00[288];
     bool m_perspective; // +0x120
 };
+
+// Only the embedded-camera view used by this accessor is represented.
+class ISECameraMgr {
+public:
+    void * GetISEOrthogonalCameraPtr();
+};
 } // namespace ISE

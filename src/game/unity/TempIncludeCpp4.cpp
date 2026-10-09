@@ -42,3 +42,5 @@
 #include "../../recovery/abi/o-6031b6c2de40a8188a31.cpp"
 
 #include "../../recovery/leaves/o-6031b6c2de40a8188a31.cpp"
+
+#include "../../recovery/PiratesIncludeCpp4Rtti.cpp"

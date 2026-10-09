@@ -4,6 +4,7 @@
 #include "../../../src/game/ui/StoreAndItemUIScene.cpp"
 #include "../../../src/game/ui/TopTenPiratesUIScene.cpp"
 #include "../../../src/game/ui/UicComboButton.cpp"
+#include "../../../src/game/ui/UicCSBLand.cpp"
 #include "../../../src/game/world/World.cpp"
 
 #include "../../gamebryo/maps/PiratesIncludeCppMaps.cpp"
@@ -38,3 +39,5 @@
 #include "../../recovery/abi/o-0aaf8c6270adb89d12c9.cpp"
 
 #include "../../recovery/leaves/o-0aaf8c6270adb89d12c9.cpp"
+
+#include "../../recovery/PiratesIncludeCppSailPicture.cpp"

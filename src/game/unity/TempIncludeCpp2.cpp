@@ -27,3 +27,5 @@
 #include "../../recovery/abi/o-7d25f6180d9844d7c020.cpp"
 
 #include "../../recovery/leaves/o-7d25f6180d9844d7c020.cpp"
+
+#include "../../recovery/PiratesTempIncludeCpp2Rtti.cpp"

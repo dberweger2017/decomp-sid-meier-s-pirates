@@ -9,6 +9,7 @@ class UicComboButton {
 public:
     void Reset();
     ButtonState GetButtonState();
+    int GetCommandKey();
     void SetCommandKey(int key);
     void SetFontSize(int size);
 

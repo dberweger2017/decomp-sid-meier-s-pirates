@@ -26,6 +26,14 @@ extern "C" void pirates_complete_constructor_81c5e9fc0aa556bfff02(void * a0) {
     pirates_complete_constructor_81c5e9fc0aa556bfff02_target(a0);
 }
 
+// f-a77090de2965eec5d727 — adjusted subobject getter.
+// The original thunk adds 0x7c to the incoming subobject view.
+extern "C" void * pirates_adjusted_getter_a77090de2965eec5d727(void * a0)
+    __asm__("__ZThn180_N3ISE15ISEEditableMesh11GetMaterialEv");
+extern "C" void * pirates_adjusted_getter_a77090de2965eec5d727(void * a0) {
+    return static_cast<unsigned char *>(a0) + 0x7c;
+}
+
 // f-a9e97dd7f5dfce23f8f3 — complete-destructor
 // ISE::ISEEditableMesh::~ISEEditableMesh()
 // Calls: ISE::ISEEditableMesh::~ISEEditableMesh()

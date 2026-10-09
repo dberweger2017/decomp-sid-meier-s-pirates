@@ -28,3 +28,11 @@ extern "C" void pirates_complete_destructor_fdf6117e6371a24afc9a(void * a0)
 extern "C" void pirates_complete_destructor_fdf6117e6371a24afc9a(void * a0) {
     pirates_complete_destructor_fdf6117e6371a24afc9a_target(a0);
 }
+
+// f-00ff99f8e5eae4001099 — subobject-view material getter.
+extern "C" void * pirates_particles_material_thunk_00ff99f8e5eae4001099(void * a0)
+    __asm__("__ZThn12_N3ISE12ISEParticles11GetMaterialEv");
+extern "C" void * pirates_particles_material_thunk_00ff99f8e5eae4001099(void * a0) {
+    void * owner = *reinterpret_cast<void **>(static_cast<unsigned char *>(a0) + 0x38);
+    return static_cast<unsigned char *>(owner) + 8;
+}

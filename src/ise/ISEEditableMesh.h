@@ -11,6 +11,8 @@ namespace ISE {
 class ISEEditableMesh {
 public:
     unsigned int GetRenderUnitNum();
+    void * GetRenderUnit(int index);
+    void * GetMaterial();
     bool UpdateUnit();
     unsigned int GetVertexNum();
     unsigned int GetPolyNum();

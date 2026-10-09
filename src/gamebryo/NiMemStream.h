@@ -8,4 +8,11 @@
 class NiMemStream {
 public:
     operator bool() const;
+    char * Str();
+
+private:
+    unsigned char m_unknown_00[4];
+    char * m_data; // +0x04
+    unsigned char m_unknown_08[13];
+    unsigned char m_stringRequested; // +0x15
 };
