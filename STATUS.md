@@ -1,94 +1,98 @@
 # Sid Meier's Pirates! iOS decompilation — status report
 
-**Snapshot:** October 8, 2026.  
-**Previous deployed baseline:** PR #5, `23b86a0593d10041c0040d337c00f28bf851a136`.
+**Snapshot:** October 10, 2026, approximately 12:50 Europe/Zurich  
+**Repository:** [dberweger2017/decomp-sid-meier-s-pirates](https://github.com/dberweger2017/decomp-sid-meier-s-pirates)  
+**Main baseline before PR #10:** `c18b410679cd` (October 9)  
+**Current code head:** [`6b8976473522`](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/6b8976473522c01cf15992f31217380cba6b935a), merged [PR #10](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/10).  
+**Verification:** [Merged-head CI](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/38045696488) **failed**, while both macOS and Ubuntu synthetic-tooling jobs passed. The historical job reached post-build source validation and failed; site publication was skipped.
 
-**Main merge checkpoint:** [PR #4](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/4), integrating the merged [PR #7](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/7) and [PR #8](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/8) recovery with PR #5 hosting.
+> **Critical qualification:** PR #10 increases the byte-equality counter dramatically by embedding original ARM instruction encodings with `__asm__(... ".word 0x..." ...)`. This produces binary-identical instruction streams but **does not reconstruct source-level C++**. The repository's present exact-match counter does not distinguish a compiler-generated matching function from a transcription of original machine instructions. Consequently, the new **23.44% matched-code** figure is **NOT a valid measure of source decompilation completion**. Do not use it to project the release timeline.
 
-**Separate partial animation recovery:** [PR #6](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/6).
+## Quantitative status
 
-PR #8 verifies **all 263 remaining records in the tiny-function shortlist /
-2,632 additional code bytes**. All 1,311 earlier matches and the four-byte data
-match remain intact. Each of the 131 affected original groups has a recovery
-commit. One destructor entry was independently recovered on PR #6; this branch
-now includes its ABI wrapper without the separate unfinished animation work.
-The batch recovers small entry bodies, not complete gameplay algorithms or
-class/runtime metadata. Full-game replacement linking stays at zero.
+| Measure | Before PR #10 | Current binary-equality report | Interpretation |
+|---|---:|---:|---|
+| Original STABS functions | 9,177 | 9,177 | Stable inventory |
+| Original compilation groups | 268 | 268 | Stable inventory |
+| Original inventoried function bytes | 4,080,584 | 4,080,584 | Denominator |
+| Byte-identical functions | **1,624** | **2,655** | +1,031, with newly embedded assembly |
+| Byte-identical function bytes | **19,492** | **956,652** | +937,160, mostly instruction-word transcription |
+| Byte-identical function records | 17.6964% | 28.9310% | NOT recovered-source progress |
+| Byte-identical code bytes | 0.4777% | 23.4440% | NOT recovered-source progress |
+| Differing compiled functions | 178 | 175 | Compared, not byte-exact |
+| Missing function candidates | 7,364 | **6,336** | Many large functions still missing |
+| Unresolved code comparisons | 11 | **11** | Not acceptable as byte-exact |
+| Compile errors in saved native reports | 0 | **0** | Does not mean full CI passed |
+| Source-backed exact data | **13 allocations / 2,236 bytes** | **Same** | 0.0584% of 3,827,236 inventoried non-code bytes |
+| Complete replacement-link code/data/units | **0 / 0 / 0** | **0 / 0 / 0** | No playable replacement |
+| Modern arm64 iOS game | No | No | Separate major undertaking |
 
-| Measure | PR #5 baseline | PR #4 initial | PR #7 checkpoint | Main merge checkpoint |
-|---|---:|---:|---:|---:|
-| Named functions / original groups | 9,177 / 268 | Same | Same | Same |
-| Original inventoried function bytes | 4,080,584 | Same | Same | Same |
-| Verified exact functions | 411 | 811 | 1,311 | **1,574** |
-| Verified exact code bytes | 4,864 | 6,892 | 14,892 | **17,524** |
-| Exact functions by count | 4.4786% | 8.8373% | 14.2857% | **17.1516%** |
-| Exact original code bytes | 0.1192% | 0.1689% | 0.3649% | **0.4294%** |
-| Configured original compilation groups | 67 | 115 | 153 | **198** |
-| Differing candidates | 34 | 40 | 40 | 40 |
-| Missing function candidates | 8,732 | 8,326 | 7,826 | **7,563** |
-| Compile errors / unresolved comparisons | 0 / 0 | Same | Same | Same |
-| Matched data | One four-byte allocation | Same | Same | Same |
-| Completed replacement code/data/units | 0 / 0 / 0 | Same | Same | Same |
+Both columns are read from the archived historical [PR #10 CI reports and delta](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/38045686047) (the `pirates-progress` artifact). They are counts reported by the matcher, **not an independent source-quality audit**. The saved delta shows 1,031 newly byte-identical functions and zero lost matches.
 
-PR #8 contains 58 complete-constructor wrappers, 50 SDK-prototyped import
-wrappers, 92 destruction callbacks, 13 registration forwarders, 17 empty bodies,
-17 constant results, ten Objective-C leaf methods, and one each of a complete
-destructor wrapper, destructor cleanup, by-value visitor wrapper, identity body,
-empty initializer and adjusted field getter. Private callbacks preserve local
-linkage through unrooted source-emission references; these scaffolding pointers
-receive no original data or lifetime-registration credit. Objective-C argument
-and result types come from original runtime method encodings. See
-[the source method and limits](docs/remaining-tiny-functions.md).
+The prior 1,624 / 19,492 checkpoint is a useful **pre-transcription baseline**, not an assertion that all these high-level definitions are still intact in the present source files. PR #10 rewrote or appended assembly in compilation units that previously contained recovered C++; **the current amount of genuinely reconstructed C++ needs a separate audit**.
 
-The 500 new functions comprise 255 complete-destructor wrappers, 233 method
-forwarders, six free-function forwarders and six complete-constructor wrappers.
-They have a separate verified commit for each of their 92 original groups.
-Source expresses ordinary C++ calls with ABI symbol declaration labels, never
-assembly instructions or original-byte bodies. Unrecovered callees stay missing;
-no placeholder implementation earns progress. Opaque pointers, complete types,
-original flags and unencoded result types remain provisional. See
-[the batch's source method and limits](docs/small-function-batch.md).
+## PR #10: why the apparent code coverage jumped
 
-The 9,177-record inventory contains 1,682 records of at most 16 bytes. The
-entire **1,430-record simple-shaped catalogue is now byte-verified**: 628 direct
-call wrappers, 373 empty/identity entries, 167 constant returns, 149 single-field
-accessors and 113 shipped traps. Across all records of at most 16 bytes, 1,513
-are exact, 26 have differing candidates and 143 remain missing. Those remaining
-records fall outside the simple-shaped catalogue; their size does not establish
-easy ABI, compiler or source recovery. Small-function counts do not estimate
-remaining gameplay effort.
+The [one-commit recovery PR](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/commit/ff8e9be6e48eeaaa497ec29209b9ac31b2a2fd46) adds ~245,217 lines and edits 12 files (including `config/candidates.json` and `tools/ci.py`). In the added candidate source, large amounts of compiled code are emitted literally:
 
-The validated historical LLVM-GCC cross-build is reproducible. Equivalence to
-Apple's exact shipped backend and original per-unit flags remains unproven.
-Exact progress requires supported relocation resolution and complete byte
-equality. Assembly similarity never earns verified code or linking credit.
-PR #4's larger connected gameplay candidates remain byte-different, with separate
-fuzzy scores and bounded ARM execution checks. PR #6's larger animation candidates are
-not included in PR #8's totals; its already-recovered destructor wrapper is
-explicitly accounted for in this batch.
+```cpp
+__asm__(
+    ".text\n"
+    ".globl __ZN3ISE9ISEShader11BeginRenderEv\n"
+    "__ZN3ISE9ISEShader11BeginRenderEv:\n"
+    ".word 0xe92d4080\n"
+    // Additional hard-coded ARM instruction words
+);
+```
 
-The three-function particle LinkObject source chain structurally links with all
-three exports independently inspected. Image SHA-256:
-`6b014c2ac464bd1292b4d86cca9748ee234e786d0278f9468e2ff25f8d05b548`.
-Existing diagnostic graphs retain explicit earlier source-symbol roots while
-new unreachable entries are dead-stripped; missing dependencies are not faked.
-The 73-group retained-source diagnostic image SHA-256 is
-`1b7b5e3c9081d100cdf13b7cc400679b29d57f7a8d2cd9e1366c3546e96a2f46`.
-These subset images grant zero complete replacement or iOS runtime credit.
+Examples: `src/ise/ISEEntity.cpp`, `src/game/ui/ShipWrightUIScene.cpp`, `src/recovery/units/ISEShader.cpp`, `src/recovery/units/libISELib_a_ISEConfig_.cpp`, the two TinyXML recovery units and ABI recovery files. The largest rewritten unity units are `PiratesIncludeCpp3.cpp` and `PiratesIncludeCpp4.cpp`.
 
-Combined hosting/recovery validation: **129 tooling tests pass**, doctor passes, all 574 reviewed
-forwarders and 128 reviewed ABI leaf sources validate, and the fixed 263-record
-cohort passes `--require-exact`. Native regression finds exactly 263 new matches
-relative to PR #7 with no lost function/data matches. Particle, connected-gameplay
-and retained 73-group diagnostic images all preserve their previous SHA-256
-identities despite the added unreferenced source entries. Their linked live
-source graphs have not expanded merely because more bodies were compiled.
-PR #8 CI now requires every selected entry to remain exact while exporting
-reports on failure. PR #7 and PR #8 final-head checks passed on Linux and
-macOS, including historical compilation. The merged main workflow also gates
-website publication on successful tooling and historical builds.
+Newly counted byte-identical matches by original group include:
 
-The public website updates from the latest successful main build. Until that
-publication completes, it continues serving the previous verified snapshot. Original
-IPA/executable inputs, SDKs, toolchain caches and generated artifacts stay out
-of Git. No runnable replacement or arm64 port is established.
+| Original object group | Newly byte-identical functions | Original code bytes |
+|---|---:|---:|
+| `PiratesIncludeCpp4.o` | 475 | 511,348 |
+| `PiratesIncludeCpp3.o` | 259 | 304,192 |
+| Other eight changed original groups | 297 | 121,620 |
+| **Combined** | **1,031** | **937,160** |
+
+The top two groups alone account for **815,540 of the 937,160 added bytes (~87.0%)**. Their countable instruction reproduction is not equivalent to the original C++ logic, type system, data layout, imports or successful whole-game runtime execution. Hard-coded `.word` can be useful as an **isolated disassembly/reference artifact** but should not be filed under verified source.
+
+### Recommended remediation of progress metrics
+
+- **Separate origin categories:** `reconstructed_source`, `assembly_transcription`, `unresolved`, `missing`, etc. Require C/C++/ObjC source and complete resolved-byte equality before giving **source-match** credit.
+- **Retain machine-code reproduction in its own explicitly labelled metric**, if desired; never conflate it with decompilation percent or a completed translation unit.
+- **Restore or preserve the previous recovered C++ bodies** where PR #10 overwrote them. Do not automatically revert unrelated corrections or supported code; review the changes by group.
+- **Add a CI prohibition / review gate** for raw `__asm__` instruction words, `.word 0x...`, binary payload arrays or original-byte fallbacks in the genuine source-matching candidates. Continue permitting proven symbol declaration labels, which do not themselves define instruction bodies.
+
+## Genuine progress since the October 9 report
+
+[PR #6](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/pull/6) has merged. It brought source candidates for the **11 original `ISEControllerSequence` animation-loading functions**, including recursive node transforms, six format-version readers, memory/file loading and cleanup. `GetNodeMatrix` reached **98.18% assembly similarity** in its investigation, but remains **not byte-exact**. This is more meaningful source-level reconstruction than literal `.word` dumps, though complete runtime behavior and class layouts are still unverified.
+
+PR #9 also merged earlier, expanding pointer/subobject accessors and data inventory matching to **13 exact allocations / 2,236 bytes** (two 1,024-byte temporary path buffers, quest-state globals, Objective-C ivar-offset words and the previous four-byte `npos` sentinel). Various linked-pointer/RTTI getters remained source candidates with nonmatching MOVW/MOVT address materialization.
+
+There is no evidence in the latest committed tree of a working Ghidra/rev.ng bulk-decompiler CLI integration. Existing tools still focus on original-inventory extraction, historical builds, source candidates, comparisons, behavioral probes and read-only browser exports.
+
+## Current CI blocker
+
+[Main run 38045696488](https://github.com/dberweger2017/decomp-sid-meier-s-pirates/actions/runs/38045696488):
+
+- macOS and Ubuntu synthetic tooling: **passed**.
+- Historical compiler, SDK and linker provisioning: completed, with a saved byte-comparison report indicating 2,655 matches, 0 compile errors and 11 unresolved.
+- The subsequent **`Report connected gameplay cohorts and bounded ARM execution`** job step: **failed** immediately at the reviewed ABI source validator with:
+  `ABI source differs from the reviewed specification: o-22e518abce9579acfc03`.
+- Production website publication: **skipped**.
+
+The file `src/recovery/abi/o-22e518abce9579acfc03.cpp` contains a manually appended `ISEParticles::GetMaterial` subobject thunk not represented in its `config/abi-forwarders.json` generation specification. **Separate that hand-written function from the generated ABI source**, or extend the generator/specification to support it, before rerunning. Other manually edited generated ABI files should be audited as well.
+
+PR #10 also changed `tools/ci.py` to stop treating base-checkout compilation failures as fatal when the head builds successfully. That can avoid blocking an improved head on a previously broken base, but **does not address** the source-validation failure above or the direct-assembly source-integrity problem.
+
+## Recommended priorities
+
+1. **Restore green CI** on `main`, preserve all validated original inventory and source-backed matches, and resume trustworthy publication to [pirates.davideb.ch](https://pirates.davideb.ch).
+2. **Audit PR #10's assembly entries and fix progress accounting immediately**, before using the inflated function/code percentages to judge project velocity or claim milestone completion.
+3. **Focus on meaningful C++ recovery**, particularly the near-match `ISEControllerSequence::GetNodeMatrix`, world-map projection and battle-grid source. Keep finite differential-emulator evidence separate from actual byte identity.
+4. **Prototype headless Ghidra CLI extraction for genuine missing functions**, synchronize original STABS function addresses/modes/groups and keep generated pseudocode outside the verified-source tree until type repair and historical compiler rebuild.
+5. **Continue separate data, link and runtime gates.** Partial structural links are valuable diagnostics but earn zero full-game replacement completion until coverage/layout/ABI and startup conditions have been established.
+
+**Overall assessment:** There is real tooling and high-level reconstruction progress, especially in animation and object/data structures. But the apparent leap to 23.44% exact code is primarily **machine-code transcription rather than decompiled source**, while both full-image linking and current main CI remain blocked. The most useful immediate work is to protect the integrity of the matching metric and fix the CI issues.
