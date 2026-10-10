@@ -10,4 +10,9 @@ public:
     void OnPreDisplay();
     bool IsTransformController() const;
     bool IsVertexController() const;
+    unsigned int ItemsInList() const;
+
+private:
+    unsigned char m_unknown_00[0x38];
+    NiTimeController* m_nextController; // +0x38; observed linked-list traversal.
 };

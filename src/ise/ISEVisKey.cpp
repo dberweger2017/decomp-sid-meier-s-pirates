@@ -1,13 +1,13 @@
 #include "ISEVisKey.h"
-#include <cstring>
-#include <cstddef>
+
+extern "C" void* memcpy(void*, const void*, unsigned int);
 
 namespace ISE {
 
 class StreamBuffer {
 public:
     char* base;
-    size_t size;
+    unsigned int size;
     char* ptr;
 };
 
@@ -40,15 +40,16 @@ unsigned char ISEVisKey::GenInterp(float time, ISEVisKey* keys, unsigned int num
 
 void ISEVisKey::LoadBinary(ISEParticleEntity& entity) {
     StreamBuffer* sb = entity.stream;
-    size_t avail = (sb->base + sb->size) - sb->ptr;
-    size_t toRead = avail > 4 ? 4 : avail;
+    unsigned int avail = (sb->base + sb->size) - sb->ptr;
+    unsigned int toRead = avail > 4 ? 4 : avail;
     if (toRead > 0) {
         memcpy(&m_time, sb->ptr, toRead);
         sb->ptr += toRead;
     }
     avail = (sb->base + sb->size) - sb->ptr;
     if (avail > 0) {
-        m_vis = *reinterpret_cast<unsigned char*>(sb->ptr);
+        unsigned char visibility = *reinterpret_cast<unsigned char*>(sb->ptr);
+        m_vis = visibility != 0;
         sb->ptr += 1;
     }
 }
