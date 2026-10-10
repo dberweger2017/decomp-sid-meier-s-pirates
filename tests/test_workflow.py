@@ -95,6 +95,62 @@ class WorkflowTests(unittest.TestCase):
         (self.root / 'src/value.h').write_text('#define VALUE 41\n')
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
 
+    def test_original_byte_body_cannot_earn_match_credit(self):
+        from tools.pirates.compare import compare_function
+        base, _ = self.build()
+        original = MachO((self.root / 'fixture.macho').read_bytes())
+        raw = original.bytes_at(0x1000, original.sections[0].size, 1)
+        payload = '.text\n.globl _probe\n.thumb\n.thumb_func _probe\n_probe:\n.byte ' + ','.join(str(b) for b in raw) + '\n'
+        (self.root / 'src/probe.c').write_text('__asm__(' + json.dumps(payload) + ');\n')
+        # Establish the exploit: compiling these bytes directly yields a match.
+        subprocess.run(['clang', '-target', 'armv7-apple-ios4.2', '-c', 'src/probe.c', '-o', 'shortcut.o'],
+                       cwd=self.root, check=True, capture_output=True)
+        inventory = recover(original)
+        shortcut = MachO((self.root / 'shortcut.o').read_bytes())
+        self.assertEqual(compare_function(original, inventory, inventory['functions'][0], shortcut)['status'], 'matched')
+        # The normal build must fail and remove the previous successful object.
+        failed, _ = self.build(ok=False)
+        self.assertEqual(failed['metrics']['matched_functions'], 0)
+        self.assertEqual(failed['functions'][0]['status'], 'compile_error')
+        self.assertFalse(failed['functions'][0]['byte_verified'])
+        self.assertFalse(list((self.root / 'build/units').glob('*.o')))
+        diagnostics = next((self.root / 'build/units').glob('*.diagnostics.txt')).read_text()
+        self.assertIn('assembly statements and original-byte payloads', diagnostics)
+        self.assertTrue(regression(base, failed)['failures'])
+        (self.root / 'src/probe.c').write_text('#include "value.h"\nint probe(int x) { return x + VALUE; }\n')
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+
+    def test_macro_payload_in_forced_include_cannot_bypass_policy(self):
+        self.build()
+        (self.root / 'src/payload.h').write_text('#define EMIT(name, body) __##name##__(body)\nEMIT(asm, ".word 0xe12fff1e\\n")\n')
+        manifest = load_json(self.root / 'config/candidates.json')
+        manifest['units'][0]['flags'] = ['-include', 'src/payload.h']
+        write_json(self.root / 'config/candidates.json', manifest)
+        configure(self.root)
+        failed, _ = self.build(ok=False)
+        self.assertEqual(failed['metrics']['matched_functions'], 0)
+        diagnostics = next((self.root / 'build/units').glob('*.diagnostics.txt')).read_text()
+        self.assertIn('src/payload.h:2', diagnostics)
+        self.assertIn('Source policy violation', diagnostics)
+        # A rejected include remains a Ninja dependency, so editing it repairs
+        # the unit even when the main source and flags remain unchanged.
+        (self.root / 'src/payload.h').write_text('/* recovered source only */\n')
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+
+    def test_cached_object_without_current_policy_cannot_earn_credit(self):
+        self.build()
+        path = next((self.root / 'build/units').glob('*.compile.json'))
+        compiled = load_json(path)
+        for evidence in (None, {'version': 0, 'validated': True}, {'version': 1, 'validated': False}):
+            compiled['source_policy'] = evidence
+            write_json(path, compiled)
+            result = comparisons(self.root, self.fid)
+            self.assertEqual(result['status'], 'unresolved')
+            self.assertFalse(result['byte_verified'])
+            self.assertTrue(any('source policy validation' in reason for reason in result['reasons']))
+        from tools.pirates.build import report
+        self.assertEqual(report(self.root), 1)
+
     def test_reports_deterministic_across_workspace_paths(self):
         first, _ = self.build()
         with tempfile.TemporaryDirectory(prefix='pirates other host ') as tmp:

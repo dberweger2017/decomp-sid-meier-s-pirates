@@ -14,6 +14,7 @@ from pathlib import Path
 from .macho import MachO
 from .sdk import inspect_sdk
 from .util import load_json, write_json, sha256, ToolError, local_path
+from .source_policy import SOURCE_POLICY
 
 
 def digest(value):
@@ -225,7 +226,7 @@ Dyld bind bytecode is bounds checked and resolved to named library ordinals.
 
 def inputs(root, config):
     values = {'configuration': digest(config), 'original': config['provenance']['executable_sha256'],
-              'sdk': inspect_sdk(config.get('sdk'))}
+              'sdk': inspect_sdk(config.get('sdk')), 'source_policy': dict(SOURCE_POLICY)}
     for unit in config['units']:
         path = Path(root) / ('build/units/' + unit['id'] + '.compile.json')
         values[unit['id']] = sha256(path) if path.exists() else None

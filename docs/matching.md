@@ -14,6 +14,20 @@ The current verified input recovers all 9,177 records with explicit sizes and mo
 
 A candidate is a compiled C, C++, or Objective-C translation unit associated with its original object group. Assembly files and original-byte fallbacks are not game source candidates. Missing symbols remain missing. The candidate boundary is conservatively taken from its next non-local named code symbol or section end; aliases and duplicate candidate definitions require explicit disambiguation. Padding is included rather than silently trimmed to obtain a match. Inferred spans often produce size differences; this can reject an otherwise promising candidate without ever accepting fewer bytes than the full candidate span.
 
+The build enforces this source policy on the matching compiler's preprocessed
+translation unit before compiling an object. This covers included files, forced
+includes and macro expansions. Assembly statements (including instruction
+bodies, `.word`/`.byte` payloads and `.incbin`) and explicit executable-section
+data placement are rejected. Plain GNU declaration labels for ABI symbol names
+and register bindings remain allowed; ordinary constant/data arrays remain
+allowed. Policy violations fail the build, remove stale objects and receive no
+match credit. Cached objects without the current policy validation must be
+rebuilt. The rule also applies to synthetic candidate builds, so CI can exercise
+the rejection without original game inputs; independently encoded Mach-O test
+fixtures and toolchain probes are unaffected. There is no per-unit bypass or
+grandfathering of existing assembly implementations. This check enforces source
+form; byte equality and bounded execution remain separate evidence of correctness.
+
 The matching core applies relocations at their exact sites, using proven original addresses. It never masks address bytes. Supported cases:
 
 - 32-bit absolute `ARM_RELOC_VANILLA` pointers, including literal pools.

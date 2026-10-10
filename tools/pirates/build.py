@@ -5,6 +5,7 @@ from pathlib import Path
 from .macho import MachO
 from .sdk import inspect_sdk, header_flags
 from .compiler import command, fingerprint, permitted, language_flags
+from .source_policy import SOURCE_POLICY, validate_source
 from .report import native_report, objdiff_adapter
 from .util import load_json, write_json, ToolError, sha256, local_path, depfile_paths
 
@@ -51,6 +52,7 @@ def compile_unit(root, uid):
     result = {'id': uid, 'source': unit['source'], 'flags': flags, 'compiler': info,
               'sdk_required': bool(unit.get('sdk_required', config['compiler'].get('sdk_required'))),
               'status': 'compile_error', 'object': f'build/units/{uid}.o', 'object_sha256': None,
+              'source_policy': {'version': SOURCE_POLICY['version'], 'validated': False},
               'source_sha256': None, 'dependencies': {}, 'diagnostics': f'build/units/{uid}.diagnostics.txt'}
     sdk = inspect_sdk(config.get('sdk'))
     result['sdk'] = sdk
@@ -65,9 +67,18 @@ def compile_unit(root, uid):
             allowed = False
             diagnostics += '\nSupply a local iPhoneOS5.1.sdk with configure.py --sdk <path>'
         if allowed:
-            cmd = command(config['compiler'], root, config.get('sdk')) + flags + ['-MMD', '-MP', '-MF', str(dep.relative_to(root)),
-                  '-MT', f'build/units/{uid}.compile.json', '-c', unit['source'], '-o', str(obj.relative_to(root))]
+            driver = command(config['compiler'], root, config.get('sdk')) + flags
+            dependencies = ['-MMD', '-MP', '-MF', str(dep.relative_to(root)),
+                            '-MT', f'build/units/{uid}.compile.json']
             env = {**os.environ, 'LC_ALL': 'C', 'TZ': 'UTC', 'SOURCE_DATE_EPOCH': '0'}
+            preprocessed = subprocess.run(driver + dependencies + ['-E', unit['source']], cwd=root, env=env,
+                                          capture_output=True, text=True, errors='replace', timeout=300)
+            diagnostics, code = preprocessed.stderr, preprocessed.returncode
+            if code:
+                raise ToolError('Candidate preprocessing failed; source policy could not be checked')
+            validate_source(preprocessed.stdout)
+            result['source_policy'] = dict(SOURCE_POLICY)
+            cmd = driver + dependencies + ['-c', unit['source'], '-o', str(obj.relative_to(root))]
             process = subprocess.run(cmd, cwd=root, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                      text=True, errors='replace', timeout=300)
             diagnostics, code = process.stdout, process.returncode
@@ -119,6 +130,8 @@ def comparisons(root, details_id=None, include_link=True, details=False):
             compile_results[uid] = result
             if result['status'] != 'compiled':
                 raise ToolError('Candidate compilation failed; see unit diagnostics')
+            if result.get('source_policy') != SOURCE_POLICY:
+                raise ToolError('Candidate has no current source policy validation; rebuild')
             if result.get('sdk') != sdk:
                 raise ToolError('SDK content changed since compilation; rebuild')
             if result['compiler'] != info:
