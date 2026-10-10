@@ -782,3 +782,24 @@ data records and now compare byte-for-byte. `autoresizesSurface` also uses a
 signed-byte return to preserve the original sign-extending load. The final
 accessor candidates remain fuzzy code matches, with their ivar relocations
 resolved and zero unresolved comparisons.
+
+## Small source pass from the main baseline
+
+`NiParticlesData::SetActiveVertexCount` now clamps the requested count to the
+observed vertex count at offset `0x0c`, then stores it at offset `0x3c`. The
+ordinary C++ candidate matches all five original ARM instructions (20 bytes).
+These two field offsets are grounded in the original loads and stores; the
+remainder of `NiParticlesData`'s layout is still partial.
+
+`NiTimeController::ItemsInList` now walks the observed next-controller pointer
+at offset `0x38` and counts entries. The source compiles and compares at
+42.1053%; its count and list traversal match the observed control flow, while
+the compiler lays out the loop differently. The partial class declaration
+does not establish the full hierarchy or object layout.
+
+`ISEVisKey::LoadBinary` no longer includes `<cstring>`. The header pulled SDK
+assembly into the preprocessed source-policy scan, so the candidate declares
+the narrow C `memcpy` signature locally and retains the bounded copy. It also
+normalizes the loaded visibility byte to zero or one, as the original does.
+Both visibility-key routines now compile, but remain nonmatching; no
+source-match credit is claimed for this change.

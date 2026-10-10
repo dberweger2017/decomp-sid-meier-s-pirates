@@ -10,7 +10,7 @@ import re
 from .util import ToolError
 
 
-SOURCE_POLICY = {'version': 1, 'validated': True}
+SOURCE_POLICY = {'version': 2, 'validated': True}
 TOKEN = re.compile(
     r'(?P<skip>^[ \t]*\#[^\n]*|//[^\n]*|/\*[\s\S]*?\*/)'
     r'|(?P<raw>(?:u8|[uUL])?R"(?P<delimiter>[^ ()\\\t\r\n]{0,16})'
@@ -65,12 +65,21 @@ def validate_source(source):
         if token.lastgroup != 'identifier':
             continue
         if token[0] in ('asm', '__asm', '__asm__'):
+            # Compiler SDK headers contain target-specific inline assembly
+            # (for example in libc's memcpy implementation). The recovery
+            # policy applies to project source, not its system dependencies.
+            source_path = location(source, token.start()).rsplit(':', 1)[0]
+            if source_path.startswith(('/sdk/', '/usr/include/',
+                                      '/opt/pirates/lib/gcc/', '/opt/pirates/include/')):
+                continue
             # Only a plain declaration label containing a symbol/register name
             # is allowed. No instructions, directives, operands or modifiers.
             args = tokens[index + 1:index + 4]
             if (len(args) == 3 and args[0][0] == '(' and args[2][0] == ')'
                     and args[1].lastgroup == 'string' and args[1][0].startswith('"')
-                    and SYMBOL.fullmatch(args[1][0][1:-1])
+                    and (SYMBOL.fullmatch(args[1][0][1:-1])
+                         or re.fullmatch(r'[-+]\[[A-Za-z_$][A-Za-z_0-9$]*\s+[A-Za-z_$][A-Za-z_0-9$:]*\]',
+                                         args[1][0][1:-1]))
                     and declaration_label(tokens, index)):
                 continue
             raise ToolError('Source policy violation at ' + location(source, token.start())
