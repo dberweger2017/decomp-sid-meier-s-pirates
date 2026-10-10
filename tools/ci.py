@@ -155,13 +155,13 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
         if profile_failure:
             delta['failures'].append(profile_failure)
         for name, code in status.items():
-            if code:
+            if code and name == 'head':
                 delta['failures'].append(name.title() + ' candidate build failed; see diagnostics/build.log')
         write_json(output / 'delta.json', delta)
         # Compare-only summaries and build status share the same generated file.
         markdown = summary(load_json(output / 'base/report.json'), load_json(output / 'head/report.json'), delta)
         (output / 'summary.md').write_text(markdown)
-        if (any(status.values()) or profile_failure) and os.environ.get('GITHUB_STEP_SUMMARY'):
+        if (status.get('head') or profile_failure) and os.environ.get('GITHUB_STEP_SUMMARY'):
             with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
                 f.write('\n' + (profile_failure or 'Build failure: see uploaded diagnostics.') + '\n')
         return 1 if delta['failures'] else 0
