@@ -26,6 +26,7 @@ class SourcePolicyTests(unittest.TestCase):
 extern "C" void target(void *) __asm__("__ZN5ProbeD2Ev");
 extern "C" void entry(void *a) __asm__("_probe");
 extern "C" void entry(void *a) { target(a); }
+int getrlimit(int, void *) __asm("_" "getrlimit" "$UNIX2003");
 static unsigned char rtti[8] __asm__("__ZN5Probe6m_RTTIE") __attribute__((aligned(16)));
 void register_binding() { register int stride asm("r0") = 32; }
 const int table[2] __attribute__((section("__TEXT,__const"))) = {1, 2};
@@ -35,7 +36,7 @@ const int table[2] __attribute__((section("__TEXT,__const"))) = {1, 2};
         validate_source('''
 // __asm__(".word 0xe12fff1e");
 /* asm volatile(".incbin original.bin"); */
-const char *note = "__asm__(\\\".word 0xe12fff1e\\\");";
+const char *note = "__asm__(\\".word 0xe12fff1e\\");";
 const char *raw = R"note(asm(".word 0xe12fff1e"))note";
 int probe(int x) { return x + 41; }
 ''')

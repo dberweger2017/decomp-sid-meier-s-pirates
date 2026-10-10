@@ -2051,7 +2051,9 @@
       "flags": [
         "-O2",
         "-marm",
-        "-mfloat-abi=soft"
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
       ],
       "sdk_required": false,
       "functions": {},
@@ -2082,7 +2084,9 @@
       "flags": [
         "-O2",
         "-marm",
-        "-mfloat-abi=soft"
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
       ],
       "sdk_required": false,
       "functions": {},
