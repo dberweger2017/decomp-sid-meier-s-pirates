@@ -4,7 +4,12 @@
 
 Choose a function, edit its candidate source, rebuild with Ninja, and inspect ARMv7 assembly and verified byte equality. The local browser watches sources and included headers; CI compares base and head progress using identical original inputs and compiler profiles.
 
-**Current status:** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. Recovered PowerVR C++ source verifies at **16 matched functions and 628 matched bytes**; five candidates differ and 9,156 remain missing. [Candidate evidence and flag experiments](docs/easy-candidates.md) explain the scope. Unity compilation units remain intact. No replacement game is linked.
+**Current status (October 13, 2026):** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. The historical build verifies **1,614 exact functions / 18,260 bytes**; 182 candidates differ, 7,370 remain missing, and 11 comparisons are unresolved. Code and data compile errors are zero. Exact function records cover **17.5874%**, but exact recorded code bytes cover only **0.4475%**: most matches are small ABI entries and release hooks. Unity compilation units remain intact. No replacement game is linked.
+
+The [decompilation roadmap](docs/decompilation-roadmap.md) recommends completing
+connected foundations, their data and callers, alongside bounded compiler
+calibration. The [recovery ledger](docs/recovery-loop.md) records exact and fuzzy
+candidate evidence separately.
 
 **Historical compiler:** Apple’s open-source LLVM-GCC 2336.9 now builds and passes C/C++ ARM and Thumb Mach-O probes on native Linux and through Docker emulation on Apple Silicon. The pinned container also passes the synthetic Ninja match/header-edit/regression loop. Exact equivalence to the shipped Xcode compiler and original flags remains unproven. C, C++, Objective-C and Objective-C++ object probes pass with SDK 5.1/build 9B176. The separately pinned ld64 linker passes eight SDK-dependent ARM/Thumb structural probes on native Linux and Apple Silicon emulation; full-game linking remains blocked by incomplete source/data/layout. [Compiler evidence](docs/toolchain.md) records the results. Modern Clang supplies synthetic fixtures and editor indexing only.
 
@@ -48,7 +53,7 @@ The importer checks the recorded IPA and executable SHA-256, bundle/version/buil
 
 ## Candidate configuration
 
-[config/candidates.json](config/candidates.json) contains five partial original compilation groups with 21 source candidates. Map a source translation unit to an original object group. Use group IDs from `build/inventory.json`; compile unity sources as a unit rather than splitting them into artificial objects.
+[config/candidates.json](config/candidates.json) configures 208 original compilation groups with partial source recovery. Many candidates are ABI entries, accessors or release hooks; complete types and larger bodies remain unrecovered. Map a source translation unit to an original object group. Use group IDs from `build/inventory.json`; compile unity sources as a unit rather than splitting them into artificial objects.
 
 ```json
 {
@@ -79,7 +84,7 @@ Fetch the pinned third-party SDK with `python tools/sdk.py fetch`, or supply SDK
 - `build/objdiff-report.json`: an adapter to the pinned objdiff v2 protobuf JSON schema. It exports progress; stock objdiff does not perform these ARMv7 Mach-O comparisons.
 - `build/units/`: candidate objects, dependency records, compilation results, and diagnostics.
 
-[Matching semantics](docs/matching.md) describe supported relocations and conservative unresolved cases. Non-code data matching and guarded image linking have separate measures. One four-byte data allocation is verified; full-game replacement linking remains at zero; replacement linking is supported but blocked by missing coverage and original layout. [Progress and linking setup](docs/progress.md) explains the pinned linker and manifest.
+[Matching semantics](docs/matching.md) describe supported relocations and conservative unresolved cases. Non-code data matching and guarded image linking have separate measures. Thirteen data records totaling 2,236 bytes are verified; full-game replacement linking remains at zero; replacement linking is supported but blocked by missing coverage and original layout. [Progress and linking setup](docs/progress.md) explains the pinned linker and manifest.
 
 [CI configuration](docs/ci.md) runs synthetic tests on macOS and Linux, checks a fixed report digest on both hosts, and builds PR base/head with a shared verified IPA and profile. Previously verified matches, compilation health, and inventory coverage are regression gates. Native reports, adapters, summaries, and diagnostics are retained on failure; original inputs and SDKs are excluded from uploads. The compiler workflow runs on relevant PR changes and manual dispatch, caches the pinned source build, validates the historical loop, and exports a compiler image. Candidate-progress CI provisions the same compiler when source units are present and retains reports if provisioning fails.
 

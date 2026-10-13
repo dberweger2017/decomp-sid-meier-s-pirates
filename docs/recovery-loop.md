@@ -813,3 +813,33 @@ normal declaration without allowing instruction bodies. Regression tests cover
 forged system paths in both the main source and forced includes, and confirm
 that rejected payloads cannot retain a matching object or byte-verification
 credit.
+
+## Bounds foundation checkpoint — October 13, 2026
+
+Seven `ISEAABBBox` routines now have ordinary C++ source: two constructors,
+`getBox`, `merge`, `getCenterPoint`, `getHalfSize`, and `saveExtents`. Original
+loads and stores establish upper/lower bounds at `+0x00`/`+0x0c`, saved bounds at
+`+0x18`/`+0x24`, and the empty flag at `+0x30`. The constructors leave saved
+extents untouched, and the first merge initializes both bounds even when the
+two-argument constructor supplied bounds. Host tests cover those details,
+negative coordinates, center/half-size calculations, saved extents and NaNs.
+These seven source candidates cover 472 recorded bytes and compare at
+17.1429–85.3659%; none receives exact-match credit. `transform` remains missing.
+
+Disabling post-register-allocation scheduling in the original ISELog unit
+restores `InitRenderStates`' frame-pointer order and verifies its 136 bytes.
+All previous exact matches remain. Its nonmatching `ISELogInfo::Log` sibling's
+similarity decreases from 83.3333% to 77.7778%; this is an explicit fuzzy
+tradeoff, not a lost exact match or a behavioral result.
+
+The full historical build passes at **1,614 exact functions / 18,260 bytes**,
+182 differing candidates, 7,370 missing, 11 unresolved comparisons, and zero
+code/data compile errors. All 142 tests pass. The common-profile regression
+report has no failing gates or lost exact matches. The explicit
+`config/cohorts/bounds-foundation.json` cohort has eight candidates, one exact
+function, and 67.5836% byte-weighted assembly similarity. It earns zero
+full-game linking credit. Bounded flag trials and detailed reports are retained
+under ignored `build/decomp-probes/` and `build/bounds-foundation.json`.
+
+See [the roadmap](decompilation-roadmap.md) for the next connected batches:
+bounds transforms/camera visibility, then animation and sequence loading.
