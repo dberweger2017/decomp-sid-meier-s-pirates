@@ -14,5 +14,6 @@ void * ISEParticles::GetMaterial() {
 #include "ISEParticlesSmall_libISELib_a_ISEParticles_.cpp"
 
 #include "../recovery/abi/o-22e518abce9579acfc03.cpp"
+#include "../recovery/manual/o-22e518abce9579acfc03.cpp"
 
 #include "../recovery/leaves/o-22e518abce9579acfc03.cpp"
