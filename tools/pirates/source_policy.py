@@ -67,12 +67,16 @@ def validate_source(source):
         if token[0] in ('asm', '__asm', '__asm__'):
             # Only a plain declaration label containing a symbol/register name
             # is allowed. No instructions, directives, operands or modifiers.
-            args = tokens[index + 1:index + 4]
-            if (len(args) == 3 and args[0][0] == '(' and args[2][0] == ')'
-                    and args[1].lastgroup == 'string' and args[1][0].startswith('"')
-                    and SYMBOL.fullmatch(args[1][0][1:-1])
-                    and declaration_label(tokens, index)):
-                continue
+            if index + 1 < len(tokens) and tokens[index + 1][0] == '(':
+                close_pos = index + 2
+                while close_pos < len(tokens) and tokens[close_pos][0] != ')':
+                    close_pos += 1
+                if close_pos < len(tokens) and close_pos > index + 2:
+                    string_args = tokens[index + 2:close_pos]
+                    if (all(t.lastgroup == 'string' and t[0].startswith('"') for t in string_args)
+                            and SYMBOL.fullmatch(''.join(t[0][1:-1] for t in string_args))
+                            and declaration_label(tokens, index)):
+                        continue
             raise ToolError('Source policy violation at ' + location(source, token.start())
                             + ': assembly statements and original-byte payloads are not recovered source;'
                             + ' only declaration labels and register bindings are allowed')
