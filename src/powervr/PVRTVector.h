@@ -7,6 +7,9 @@ struct PVRTVec4 {
 
 struct PVRTVec3 {
     float x, y, z;
+    PVRTVec3() {}
+    PVRTVec3(float xValue, float yValue, float zValue)
+        : x(xValue), y(yValue), z(zValue) {}
     explicit PVRTVec3(const PVRTVec4 &vector);
 };
 
