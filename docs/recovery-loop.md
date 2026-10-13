@@ -797,9 +797,19 @@ at offset `0x38` and counts entries. The source compiles and compares at
 the compiler lays out the loop differently. The partial class declaration
 does not establish the full hierarchy or object layout.
 
-`ISEVisKey::LoadBinary` no longer includes `<cstring>`. The header pulled SDK
-assembly into the preprocessed source-policy scan, so the candidate declares
-the narrow C `memcpy` signature locally and retains the bounded copy. It also
-normalizes the loaded visibility byte to zero or one, as the original does.
-Both visibility-key routines now compile, but remain nonmatching; no
-source-match credit is claimed for this change.
+`ISEVisKey::LoadBinary` uses the observed stream layout: base pointer at `+0x00`,
+cursor at `+0x04`, and length at `+0x08`. Its inlined reader clamps the signed
+remaining count, conditionally copies to a non-null destination, and advances
+the cursor. The routine reloads the entity's stream after the time read and
+stores zero when no visibility byte is available; otherwise it normalizes the
+byte to zero or one. These operations follow the original ARM control flow.
+The candidate remains fuzzy and receives no exact-match credit.
+
+Source policy version 3 checks assembly throughout preprocessed source regardless
+of its reported filename. SDK and compiler paths are no longer exempt: project code
+can forge those paths with `#line`. Darwin's concatenated declaration labels
+and Objective-C method labels remain permitted, so `<cstring>` can supply its
+normal declaration without allowing instruction bodies. Regression tests cover
+forged system paths in both the main source and forced includes, and confirm
+that rejected payloads cannot retain a matching object or byte-verification
+credit.

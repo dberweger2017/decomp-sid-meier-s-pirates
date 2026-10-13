@@ -1,14 +1,26 @@
 #include "ISEVisKey.h"
-
-extern "C" void* memcpy(void*, const void*, unsigned int);
+#include <cstring>
+#include <cstddef>
 
 namespace ISE {
 
 class StreamBuffer {
 public:
-    char* base;
-    unsigned int size;
-    char* ptr;
+    char* base; // +0x00
+    char* ptr; // +0x04
+    size_t size; // +0x08
+
+    int Read(void* destination, int requested) {
+        int avail = (base + size) - ptr;
+        int toRead = avail > requested ? requested : avail;
+        if (toRead != 0) {
+            if (destination) {
+                memcpy(destination, ptr, toRead);
+            }
+            ptr += toRead;
+        }
+        return toRead;
+    }
 };
 
 class ISEParticleEntity {
@@ -39,19 +51,9 @@ unsigned char ISEVisKey::GenInterp(float time, ISEVisKey* keys, unsigned int num
 }
 
 void ISEVisKey::LoadBinary(ISEParticleEntity& entity) {
-    StreamBuffer* sb = entity.stream;
-    unsigned int avail = (sb->base + sb->size) - sb->ptr;
-    unsigned int toRead = avail > 4 ? 4 : avail;
-    if (toRead > 0) {
-        memcpy(&m_time, sb->ptr, toRead);
-        sb->ptr += toRead;
-    }
-    avail = (sb->base + sb->size) - sb->ptr;
-    if (avail > 0) {
-        unsigned char visibility = *reinterpret_cast<unsigned char*>(sb->ptr);
-        m_vis = visibility != 0;
-        sb->ptr += 1;
-    }
+    entity.stream->Read(&m_time, 4);
+    unsigned char visibility;
+    m_vis = entity.stream->Read(&visibility, 1) ? visibility != 0 : 0;
 }
 
 } // namespace ISE

@@ -137,6 +137,34 @@ class WorkflowTests(unittest.TestCase):
         (self.root / 'src/payload.h').write_text('/* recovered source only */\n')
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
 
+    def test_forged_sdk_line_path_cannot_earn_match_credit(self):
+        self.build()
+        original = MachO((self.root / 'fixture.macho').read_bytes())
+        raw = original.bytes_at(0x1000, original.sections[0].size, 1)
+        payload = '.text\n.globl _probe\n.thumb\n.thumb_func _probe\n_probe:\n.byte ' + ','.join(str(b) for b in raw) + '\n'
+        for path in ('/sdk/pretend.h', '/usr/include/pretend.h', '/opt/pirates/include/pretend.h'):
+            for forced in (False, True):
+                with self.subTest(path=path, forced=forced):
+                    source = '#line 1 "' + path + '"\n__asm__(' + json.dumps(payload) + ');\n'
+                    manifest = load_json(self.root / 'config/candidates.json')
+                    manifest['units'][0]['flags'] = ['-include', 'src/payload.h'] if forced else []
+                    write_json(self.root / 'config/candidates.json', manifest)
+                    (self.root / 'src/probe.c').write_text('/* payload is in forced header */\n' if forced else source)
+                    if forced:
+                        (self.root / 'src/payload.h').write_text(source)
+                    configure(self.root)
+                    failed, _ = self.build(ok=False)
+                    self.assertEqual(failed['metrics']['matched_functions'], 0)
+                    self.assertFalse(failed['functions'][0]['byte_verified'])
+                    self.assertFalse(list((self.root / 'build/units').glob('*.o')))
+                    diagnostics = next((self.root / 'build/units').glob('*.diagnostics.txt')).read_text()
+                    self.assertIn('assembly statements and original-byte payloads', diagnostics)
+        manifest['units'][0]['flags'] = []
+        write_json(self.root / 'config/candidates.json', manifest)
+        (self.root / 'src/probe.c').write_text('#include "value.h"\nint probe(int x) { return x + VALUE; }\n')
+        configure(self.root)
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+
     def test_cached_object_without_current_policy_cannot_earn_credit(self):
         self.build()
         path = next((self.root / 'build/units').glob('*.compile.json'))
