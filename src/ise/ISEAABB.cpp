@@ -51,4 +51,41 @@ void ISEAABBBox::saveExtents() {
     m_savedLower = m_lower;
 }
 
+void ISEAABBBox::transform(const PVRTMat4& matrix) {
+    if (m_empty) return;
+    float upperX = m_savedUpper.x;
+    float upperY = m_savedUpper.y;
+    float upperZ = m_savedUpper.z;
+    float lowerX = m_savedLower.x;
+    float lowerY = m_savedLower.y;
+    float lowerZ = m_savedLower.z;
+    m_empty = true;
+    // Observed corner order: LLL, LLU, LUU, LUL, UUL, UUU, ULU, ULL.
+    float point[4] = {lowerX, lowerY, lowerZ, 1.0f};
+    float transformed[4];
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[2] = upperZ;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[1] = upperY;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[2] = lowerZ;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[0] = upperX;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[2] = upperZ;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[1] = lowerY;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+    point[2] = lowerZ;
+    NEON_Matrix4Vector4Mul(matrix.f, point, transformed);
+    merge(transformed[0], transformed[1], transformed[2]);
+}
+
 } // namespace ISE

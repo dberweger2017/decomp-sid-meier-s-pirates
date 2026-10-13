@@ -2345,19 +2345,27 @@
       "flags": [
         "-O2",
         "-marm",
-        "-mfloat-abi=soft"
+        "-mfloat-abi=softfp"
       ],
-      "sdk_required": false,
+      "sdk_required": true,
       "functions": {},
       "implemented_functions": [
+        "f-0463bcf9e919fa149a68",
         "f-112907bd166abb68b0b8",
         "f-702f738491cf1c5b33d5",
+        "f-aeedaaa14823593e31e4",
         "f-af0dcb86183aa3e7fd83",
         "f-d791237263d11f445ae4"
       ],
-      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md.",
+      "flags_provenance": "Field-access investigation profile. Original compiler flags, complete class layouts/hierarchies, unencoded return types and signedness remain unknown. Related bodies stay in their original object/unity groups; see docs/recovery-loop.md. Use softfp register passing with hardware floating-point instructions, as observed in these math bodies. Exception-table section placement follows original PC-relative references and byte-identical compiler-emitted tables; the personality slot is confirmed by the original indirect-symbol table. See docs/bounds-camera.md.",
       "recovery_kinds": {
         "f-112907bd166abb68b0b8": "complete-constructor"
+      },
+      "placements": {
+        "sections": {
+          "__TEXT,__gcc_except_tab": 4174760,
+          "__DATA,__nl_symbol_ptr": 4548288
+        }
       }
     },
     {
@@ -3131,7 +3139,8 @@
       "flags": [
         "-O2",
         "-marm",
-        "-mfloat-abi=soft"
+        "-mfloat-abi=softfp",
+        "-fno-math-errno"
       ],
       "sdk_required": false,
       "functions": {},
@@ -3149,7 +3158,7 @@
         "f-d23d6e6eaebbaa7fcc2a",
         "f-ed372b8201810fe1e38f"
       ],
-      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md.",
+      "flags_provenance": "Shared map-helper and field investigation profile. Complete layouts/hierarchies, virtual dispatch, unencoded return types and original flags remain unproven. Imports resolve only through independently validated original stubs; see docs/matching.md and docs/recovery-loop.md. Vector arithmetic recovery uses -fno-math-errno to lower the observed square-root instruction; original flags remain unproven. Use softfp register passing with hardware floating-point instructions, as observed in these math bodies.",
       "recovery_kinds": {
         "f-05d9724e77a64d4fc371": "empty-body"
       }
@@ -6088,19 +6097,64 @@
       "source": "src/ise/ISEAABB.cpp",
       "status": "candidate",
       "implemented_functions": [
-        "f-8c4bd51dea1d6a672866",
         "f-04d4a169c178e7fd407a",
-        "f-5b1276e8c47343a0beca",
-        "f-c18c2b3ab08bc7de053c",
         "f-36ce2eb25fba04626017",
+        "f-5042eb27f3cf2af69936",
         "f-598a1992a7d6a519cd6a",
-        "f-905ed397956de91d7c04"
+        "f-5b1276e8c47343a0beca",
+        "f-8c4bd51dea1d6a672866",
+        "f-905ed397956de91d7c04",
+        "f-c18c2b3ab08bc7de053c"
       ],
       "flags": [
         "-O2",
         "-marm"
       ],
       "flags_provenance": "ISE AABB source reconstruction profile; bounds layout is observed, original compiler flags and complete type remain unproven."
+    },
+    {
+      "group_id": "o-94d8c4649937bf6c3116",
+      "source": "src/ise/ISEPlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-toplevel-reorder",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-cd9c87fd0f791f08dcf4",
+        "f-3336460a270c9109c990",
+        "f-179c34f8026d8c790a93",
+        "f-702c44056209ec37bf20",
+        "f-296bd6cc78ff559db6a8",
+        "f-95e2383d7bd62f9de9ca"
+      ],
+      "flags_provenance": "Observed ordinary-source math dependencies for bounds-to-visibility; original compiler flags and full runtime types remain unproven. Use softfp register passing with hardware floating-point instructions, as observed in these math bodies. Exception-table section placement follows original PC-relative references and byte-identical compiler-emitted tables; the personality slot is confirmed by the original indirect-symbol table. See docs/bounds-camera.md. Keep source order to reproduce the original contiguous plane exception tables; disable post-RA scheduling to restore the constructor frame-pointer order.",
+      "placements": {
+        "sections": {
+          "__TEXT,__gcc_except_tab": 4177264,
+          "__DATA,__nl_symbol_ptr": 4548288
+        }
+      }
+    },
+    {
+      "group_id": "o-eb8b66dc6827453889af",
+      "source": "src/powervr/NEONMatrix.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp"
+      ],
+      "sdk_required": false,
+      "functions": {},
+      "implemented_functions": [
+        "f-b7b6c82f41597d127bbb"
+      ],
+      "flags_provenance": "Observed ordinary-source math dependencies for bounds-to-visibility; original compiler flags and full runtime types remain unproven. Use softfp register passing with hardware floating-point instructions, as observed in these math bodies."
     }
   ],
   "version": 1

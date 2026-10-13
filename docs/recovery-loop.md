@@ -843,3 +843,24 @@ under ignored `build/decomp-probes/` and `build/bounds-foundation.json`.
 
 See [the roadmap](decompilation-roadmap.md) for the next connected batches:
 bounds transforms/camera visibility, then animation and sequence loading.
+
+## Bounds to visibility checkpoint — October 13, 2026
+
+The saved-bound transform, matrix/vector helper, eight vector math bodies, six
+plane bodies, frustum refresh and AABB visibility now have ordinary source.
+These 18 previously missing candidates cover 6,872 recorded bytes. The default
+plane constructor is newly exact (40 bytes); the other 17 remain fuzzy. The
+22-entry cohort includes four prior vector matches and compares at 40.8181%
+byte-weighted assembly similarity. Its calls resolve, including independently
+verified compiler-generated exception tables and the SDK personality slot.
+
+Historical compilation passes at **1,615 exact functions / 18,300 bytes**,
+199 differing candidates, 7,352 missing and 11 unresolved comparisons, with
+zero code/data compilation errors. Against the preceding foundation checkpoint
+there are no lost exact/data matches, similarity regressions or failing gates.
+All 142 tests pass. A five-group diagnostic source subset links, and all 127
+bounded original-versus-linked-candidate ARM fixtures pass with identical float
+outputs in these cases. No mandatory CI jobs or full-game linking credit were
+added. See [layout, relocation and acceptance evidence](bounds-camera.md) for
+the remaining limitations and reproduction commands. Controller/keyframe and
+versioned sequence loading is the next connected roadmap batch.

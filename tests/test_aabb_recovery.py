@@ -64,6 +64,26 @@ int main() {
     supplied.getBox(upper, lower);
     equal(upper, 1, 2, 3);
     equal(lower, 1, 2, 3);
+
+    // Translation and reflection must use the saved bounds on every call.
+    // A non-unit output w must not cause perspective division.
+    PVRTMat4 matrix;
+    const float values[16] = {-2,0,0,0, 0,3,0,0, 0,0,1,0, 3,-4,2,2};
+    std::memcpy(matrix.f, values, sizeof(values));
+    box.transform(matrix);
+    box.getBox(upper, lower);
+    equal(upper, 7, 11, 6);
+    equal(lower, -1, -13, 3);
+    box.transform(matrix);
+    box.getBox(upper, lower);
+    equal(upper, 7, 11, 6);
+    equal(lower, -1, -13, 3);
+    assert(std::memcmp(saved, storage + 24, sizeof(saved)) == 0);
+    ISE::ISEAABBBox empty;
+    unsigned char before[sizeof(empty)];
+    std::memcpy(before, &empty, sizeof(empty));
+    empty.transform(matrix);
+    assert(std::memcmp(before, &empty, sizeof(empty)) == 0);
 }
 '''
         with tempfile.TemporaryDirectory(prefix='pirates aabb behavior ') as directory:
@@ -72,7 +92,8 @@ int main() {
             probe.write_text(source)
             compile_run = subprocess.run(
                 ['clang++', '-std=c++11', '-O2', '-I', str(ROOT), str(probe),
-                 str(ROOT / 'src/ise/ISEAABB.cpp'), '-o', str(binary)],
+                 str(ROOT / 'src/ise/ISEAABB.cpp'),
+                 str(ROOT / 'src/powervr/NEONMatrix.cpp'), '-o', str(binary)],
                 capture_output=True, text=True)
             self.assertEqual(compile_run.returncode, 0, compile_run.stdout + compile_run.stderr)
             run = subprocess.run([str(binary)], capture_output=True, text=True)

@@ -4,7 +4,7 @@
 
 Choose a function, edit its candidate source, rebuild with Ninja, and inspect ARMv7 assembly and verified byte equality. The local browser watches sources and included headers; CI compares base and head progress using identical original inputs and compiler profiles.
 
-**Current status (October 13, 2026):** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. The historical build verifies **1,614 exact functions / 18,260 bytes**; 182 candidates differ, 7,370 remain missing, and 11 comparisons are unresolved. Code and data compile errors are zero. Exact function records cover **17.5874%**, but exact recorded code bytes cover only **0.4475%**: most matches are small ABI entries and release hooks. Unity compilation units remain intact. No replacement game is linked.
+**Current status (October 13, 2026):** the verified archive yields **9,177 function records, 268 original object groups, and 4,080,584 function bytes**. The historical build verifies **1,615 exact functions / 18,300 bytes**; 199 candidates differ, 7,352 remain missing, and 11 comparisons are unresolved. Code and data compile errors are zero. Exact function records cover **17.5983%**, but exact recorded code bytes cover only **0.4485%**: most matches are small ABI entries and release hooks. Unity compilation units remain intact. No replacement game is linked.
 
 The [decompilation roadmap](docs/decompilation-roadmap.md) recommends completing
 connected foundations, their data and callers, alongside bounded compiler
@@ -53,7 +53,7 @@ The importer checks the recorded IPA and executable SHA-256, bundle/version/buil
 
 ## Candidate configuration
 
-[config/candidates.json](config/candidates.json) configures 208 original compilation groups with partial source recovery. Many candidates are ABI entries, accessors or release hooks; complete types and larger bodies remain unrecovered. Map a source translation unit to an original object group. Use group IDs from `build/inventory.json`; compile unity sources as a unit rather than splitting them into artificial objects.
+[config/candidates.json](config/candidates.json) configures 210 original compilation groups with partial source recovery. Many candidates are ABI entries, accessors or release hooks; complete types and larger bodies remain unrecovered. Map a source translation unit to an original object group. Use group IDs from `build/inventory.json`; compile unity sources as a unit rather than splitting them into artificial objects.
 
 ```json
 {
