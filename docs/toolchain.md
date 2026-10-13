@@ -101,3 +101,14 @@ narrow the load and remain different. These bounded trials do not prove no
 possible legacy source/flag combination can match, but the candidate stays
 nonexact until its bytes verify. The adjacent nullable particle-model setter
 likewise retains extra conditional returns across the tested profiles.
+
+## Compiler identity investigation (October 13)
+
+The [compiler-forensics report](compiler-forensics.md) supersedes version-banner
+inferences: Apple's build script accepts an external LLVM installation and an
+explicit submission version, while our recipe selects a 2.7svn bundled core.
+A nearby Apple Clang 318.0.45 / LLVM 3.1svn source build reproduces all three
+problem instruction sequences under explicit flags/source hypotheses. Genuine
+Xcode 4.3.2 remains authentication-blocked, so neither source build establishes
+shipped identity. Keep the production profile unchanged pending that comparison;
+use `tools/compiler_forensics.py` for diagnostic multi-compiler experiments.

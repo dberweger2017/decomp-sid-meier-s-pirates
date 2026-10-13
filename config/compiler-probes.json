@@ -1,0 +1,607 @@
+{
+  "version": 1,
+  "description": "43 preregistered diagnostic functions across independent original groups. Same complete partial TU compiled by all compilers. Nontrivial bounds, math, animation and globals; small controls are explicitly labeled. No progress credit.",
+  "baseline_commit": "16022a0",
+  "functions": [
+    {
+      "id": "f-da79232dc420a34aba1b",
+      "group_id": "o-2e5708a72f51f12d7e6a",
+      "source": "src/powervr/PVRTMatrixF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__Z19PVRTMatrixIdentityFR11PVRTMATRIXf"
+      }
+    },
+    {
+      "id": "f-248465017e5b190a6081",
+      "group_id": "o-2e5708a72f51f12d7e6a",
+      "source": "src/powervr/PVRTMatrixF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__Z22PVRTMatrixTranslationFR11PVRTMATRIXffff"
+      }
+    },
+    {
+      "id": "f-a95d54daa8058c95939d",
+      "group_id": "o-2e5708a72f51f12d7e6a",
+      "source": "src/powervr/PVRTMatrixF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__Z18PVRTMatrixScalingFR11PVRTMATRIXffff"
+      }
+    },
+    {
+      "id": "f-1024ba705cf4e96f3a55",
+      "group_id": "o-2e5708a72f51f12d7e6a",
+      "source": "src/powervr/PVRTMatrixF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__Z19PVRTMatrixVec3LerpFR12PVRTVECTOR3fRKS_S2_f"
+      }
+    },
+    {
+      "id": "f-8594ffda5a7ad6b10e37",
+      "group_id": "o-2e5708a72f51f12d7e6a",
+      "source": "src/powervr/PVRTMatrixF.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__Z19PVRTMatrixMultiplyFR11PVRTMATRIXfRKS_S2_"
+      }
+    },
+    {
+      "id": "f-a84e36effead63a93467",
+      "group_id": "o-5078d14854f3ad514e96",
+      "source": "src/powervr/PVRTVector.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__ZN8PVRTVec3C1ERK8PVRTVec4"
+      }
+    },
+    {
+      "id": "f-0c2386105dbe1e990fd8",
+      "group_id": "o-5078d14854f3ad514e96",
+      "source": "src/powervr/PVRTVector.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__ZN8PVRTMat3C1ERK8PVRTMat4"
+      }
+    },
+    {
+      "id": "f-f89e4e0ef9c4d7cf9d12",
+      "group_id": "o-5078d14854f3ad514e96",
+      "source": "src/powervr/PVRTVector.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__ZNK8PVRTMat4mlERKS_"
+      }
+    },
+    {
+      "id": "f-a59fafdae59489dbb624",
+      "group_id": "o-5078d14854f3ad514e96",
+      "source": "src/powervr/PVRTVector.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "mapping": {
+        "symbol": "__ZN8PVRTMat39RotationZEf"
+      }
+    },
+    {
+      "id": "f-54578a701e66d918a5ca",
+      "group_id": "o-78c5a9284f33537c011b",
+      "source": "src/fireplace/audio/FPhono.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-fb1df64bb1bdfd94576d",
+      "group_id": "o-78c5a9284f33537c011b",
+      "source": "src/fireplace/audio/FPhono.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-ebedf9448a6dbf4874ec",
+      "group_id": "o-78c5a9284f33537c011b",
+      "source": "src/fireplace/audio/FPhono.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-905ed397956de91d7c04",
+      "group_id": "o-f23326dbfbcca1360d5d",
+      "source": "src/ise/ISEAABB.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-5042eb27f3cf2af69936",
+      "group_id": "o-f23326dbfbcca1360d5d",
+      "source": "src/ise/ISEAABB.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-5b1276e8c47343a0beca",
+      "group_id": "o-f23326dbfbcca1360d5d",
+      "source": "src/ise/ISEAABB.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-aeedaaa14823593e31e4",
+      "group_id": "o-9cdb54dcd3500115b6d3",
+      "source": "src/ise/ISECamera.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4174760
+        }
+      }
+    },
+    {
+      "id": "f-0463bcf9e919fa149a68",
+      "group_id": "o-9cdb54dcd3500115b6d3",
+      "source": "src/ise/ISECamera.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4174760
+        }
+      }
+    },
+    {
+      "id": "f-cd9c87fd0f791f08dcf4",
+      "group_id": "o-94d8c4649937bf6c3116",
+      "source": "src/ise/ISEPlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-toplevel-reorder",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4177264
+        }
+      }
+    },
+    {
+      "id": "f-3336460a270c9109c990",
+      "group_id": "o-94d8c4649937bf6c3116",
+      "source": "src/ise/ISEPlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-toplevel-reorder",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4177264
+        }
+      }
+    },
+    {
+      "id": "f-179c34f8026d8c790a93",
+      "group_id": "o-94d8c4649937bf6c3116",
+      "source": "src/ise/ISEPlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-toplevel-reorder",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4177264
+        }
+      }
+    },
+    {
+      "id": "f-702c44056209ec37bf20",
+      "group_id": "o-94d8c4649937bf6c3116",
+      "source": "src/ise/ISEPlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-toplevel-reorder",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4177264
+        }
+      }
+    },
+    {
+      "id": "f-95e2383d7bd62f9de9ca",
+      "group_id": "o-94d8c4649937bf6c3116",
+      "source": "src/ise/ISEPlane.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-toplevel-reorder",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests",
+      "placements": {
+        "sections": {
+          "__DATA,__nl_symbol_ptr": 4548288,
+          "__TEXT,__gcc_except_tab": 4177264
+        }
+      }
+    },
+    {
+      "id": "f-77eee2d212191c3f750f",
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "source": "src/ise/ISEVector3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-math-errno"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-cc0bcbcb8aa31c88595e",
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "source": "src/ise/ISEVector3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-math-errno"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-d23d6e6eaebbaa7fcc2a",
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "source": "src/ise/ISEVector3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-math-errno"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-63d47e47cd625614eaae",
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "source": "src/ise/ISEVector3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-math-errno"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-66e2a3c79a357150baf9",
+      "group_id": "o-24e80dfe1ffffdcc1a74",
+      "source": "src/ise/ISEVector3.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=softfp",
+        "-fno-math-errno"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-6abf10bd5f7e60bd38a7",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Speculative partial animation reconstruction; ABI register binding in GetNodeMatrix/dispatcher; file loader has uninitialized size; excluded from semantic proof",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-22bbae78b612022df758",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Speculative partial animation reconstruction; ABI register binding in GetNodeMatrix/dispatcher; file loader has uninitialized size; excluded from semantic proof",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-0c45d12c4f00b8a22621",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Speculative partial animation reconstruction; ABI register binding in GetNodeMatrix/dispatcher; file loader has uninitialized size; excluded from semantic proof",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-9e95cac3146a545ac17b",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Speculative partial animation reconstruction; ABI register binding in GetNodeMatrix/dispatcher; file loader has uninitialized size; excluded from semantic proof",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-84f8d7b3d6084c933d3d",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Speculative partial animation reconstruction; ABI register binding in GetNodeMatrix/dispatcher; file loader has uninitialized size; excluded from semantic proof",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-a4bd3c36779aaccbfd02",
+      "group_id": "o-96b4cf750eccae8b6ad9",
+      "source": "src/ise/ISEControllerSequence.cpp",
+      "flags": [
+        "-O2",
+        "-marm"
+      ],
+      "source_confidence": "Speculative partial animation reconstruction; ABI register binding in GetNodeMatrix/dispatcher; file loader has uninitialized size; excluded from semantic proof",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-4ff6700e3624d5a0fb96",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "source": "src/game/unity/TempIncludeCpp4.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-6deb6bebb151c5d76198",
+      "group_id": "o-6031b6c2de40a8188a31",
+      "source": "src/game/unity/TempIncludeCpp4.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-31b1f1a5dc1422fbfeb2",
+      "group_id": "o-f322f9eddf22cd22fca0",
+      "source": "src/ise/ISELogInfo.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft",
+        "-mllvm",
+        "-post-RA-scheduler=false"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-3bb62dcd282ded2484c6",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "source": "src/game/unity/PiratesIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "ABI stub reconstructed integer hash arithmetic; synthetic class layout, original template source unavailable",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-76c2f764656e3875749b",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "source": "src/game/unity/PiratesIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "ABI stub reconstructed integer hash arithmetic; synthetic class layout, original template source unavailable",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-482d488b7952121e5431",
+      "group_id": "o-2d59da5048d3db995d0f",
+      "source": "src/game/unity/PiratesIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "ABI stub reconstructed integer hash arithmetic; synthetic class layout, original template source unavailable",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-6500be4e6808a0d14bc7",
+      "group_id": "o-7982e12332dea1372150",
+      "source": "src/recovery/units/o-7982e12332dea1372150.mm",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-953c7ef4d331975ab2ee",
+      "group_id": "o-7982e12332dea1372150",
+      "source": "src/recovery/units/o-7982e12332dea1372150.mm",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-4d69d9f014efa7e4d2e9",
+      "group_id": "o-9b5e1bfcdd1c2e52775d",
+      "source": "src/ise/ISETexture.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Reconstructed ABI and body; unknown original source spelling",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    },
+    {
+      "id": "f-5a027fbd3240a6a0e288",
+      "group_id": "o-7d25f6180d9844d7c020",
+      "source": "src/game/unity/TempIncludeCpp2.cpp",
+      "flags": [
+        "-O2",
+        "-marm",
+        "-mfloat-abi=soft"
+      ],
+      "source_confidence": "Existing original-group partial unity TU; address getter and named RTTI allocation, contents unproven",
+      "semantics": "No universal semantic equivalence claimed; see source and subsystem probe tests"
+    }
+  ],
+  "selection_note": "Initial draft included unrecovered NiTriShapeData::GetTriangleIndices. Replaced after missing-source audit with genuine NiTimeController::ItemsInList linked-list loop; no output-guided source changes."
+}
