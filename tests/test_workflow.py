@@ -83,6 +83,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertTrue(delta['failures'])
         (self.root / 'src/value.h').write_text('#define VALUE 41\n')
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+
         (self.root / 'src/probe.c').write_text('#include "value.h"\nint probe(int x) { return x + VALUE + 1; }\n')
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'different')
         (self.root / 'src/probe.c').write_text('#include "value.h"\nint probe(int x) { return x + VALUE; }\n')
@@ -94,6 +95,31 @@ class WorkflowTests(unittest.TestCase):
         self.assertTrue(list((self.root / 'build/units').glob('*.diagnostics.txt')))
         (self.root / 'src/value.h').write_text('#define VALUE 41\n')
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+
+    def test_ci_accepts_a_repaired_compilation_baseline_only(self):
+        from tools.ci import candidate_build_failures
+        self.build()
+        (self.root / 'src/value.h').write_text('#define VALUE invalid source\n')
+        base, _ = self.build(ok=False)
+        (self.root / 'src/value.h').write_text('#define VALUE 41\n')
+        head, _ = self.build()
+        self.assertEqual(candidate_build_failures({'base': 1, 'head': 0}, base), [])
+        self.assertEqual(regression(base, head)['failures'], [])
+        self.assertTrue(candidate_build_failures({'base': 1, 'head': 1}, base))
+        self.assertTrue(candidate_build_failures({'base': 1, 'head': 0}, head))
+        untrusted = copy.deepcopy(base)
+        untrusted.update(kind='original')
+        untrusted['compiler']['validated'] = False
+        self.assertTrue(candidate_build_failures({'base': 1, 'head': 0}, untrusted))
+        broken_link = copy.deepcopy(base)
+        broken_link['linking']['state'] = 'failed'
+        self.assertTrue(candidate_build_failures({'base': 1, 'head': 0}, broken_link))
+        stale = copy.deepcopy(base)
+        next(u for u in stale['units'] if u['error'])['compile']['status'] = 'compiled'
+        self.assertTrue(candidate_build_failures({'base': 1, 'head': 0}, stale))
+        changed_input = copy.deepcopy(head)
+        changed_input['input_sha256'] = '0' * 64
+        self.assertTrue(regression(base, changed_input)['failures'])
 
     def test_original_byte_body_cannot_earn_match_credit(self):
         from tools.pirates.compare import compare_function
@@ -135,6 +161,34 @@ class WorkflowTests(unittest.TestCase):
         # A rejected include remains a Ninja dependency, so editing it repairs
         # the unit even when the main source and flags remain unchanged.
         (self.root / 'src/payload.h').write_text('/* recovered source only */\n')
+        self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
+
+    def test_forged_sdk_line_path_cannot_earn_match_credit(self):
+        self.build()
+        original = MachO((self.root / 'fixture.macho').read_bytes())
+        raw = original.bytes_at(0x1000, original.sections[0].size, 1)
+        payload = '.text\n.globl _probe\n.thumb\n.thumb_func _probe\n_probe:\n.byte ' + ','.join(str(b) for b in raw) + '\n'
+        for path in ('/sdk/pretend.h', '/usr/include/pretend.h', '/opt/pirates/include/pretend.h'):
+            for forced in (False, True):
+                with self.subTest(path=path, forced=forced):
+                    source = '#line 1 "' + path + '"\n__asm__(' + json.dumps(payload) + ');\n'
+                    manifest = load_json(self.root / 'config/candidates.json')
+                    manifest['units'][0]['flags'] = ['-include', 'src/payload.h'] if forced else []
+                    write_json(self.root / 'config/candidates.json', manifest)
+                    (self.root / 'src/probe.c').write_text('/* payload is in forced header */\n' if forced else source)
+                    if forced:
+                        (self.root / 'src/payload.h').write_text(source)
+                    configure(self.root)
+                    failed, _ = self.build(ok=False)
+                    self.assertEqual(failed['metrics']['matched_functions'], 0)
+                    self.assertFalse(failed['functions'][0]['byte_verified'])
+                    self.assertFalse(list((self.root / 'build/units').glob('*.o')))
+                    diagnostics = next((self.root / 'build/units').glob('*.diagnostics.txt')).read_text()
+                    self.assertIn('assembly statements and original-byte payloads', diagnostics)
+        manifest['units'][0]['flags'] = []
+        write_json(self.root / 'config/candidates.json', manifest)
+        (self.root / 'src/probe.c').write_text('#include "value.h"\nint probe(int x) { return x + VALUE; }\n')
+        configure(self.root)
         self.assertEqual(self.build()[0]['functions'][0]['status'], 'matched')
 
     def test_cached_object_without_current_policy_cannot_earn_credit(self):

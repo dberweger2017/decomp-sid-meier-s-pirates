@@ -25,3 +25,4 @@ unsigned int ISE::TriStrip::GetPolyNum() { return m_vertexBuffer->m_vertexCount 
 #include "TriStripSmall_libISELib_a_ISETriStrip_.cpp"
 
 #include "../recovery/abi/o-681bab6a7ca374876967.cpp"
+#include "../recovery/manual/o-681bab6a7ca374876967.cpp"

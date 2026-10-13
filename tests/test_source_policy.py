@@ -27,6 +27,8 @@ extern "C" void target(void *) __asm__("__ZN5ProbeD2Ev");
 extern "C" void entry(void *a) __asm__("_probe");
 extern "C" void entry(void *a) { target(a); }
 int getrlimit(int, void *) __asm("_" "getrlimit" "$UNIX2003");
+extern "C" void objc_method(void *) __asm__("-[Probe setValue:]");
+extern "C" void objc_class_method(void *) __asm__("+[Probe shared]");
 static unsigned char rtti[8] __asm__("__ZN5Probe6m_RTTIE") __attribute__((aligned(16)));
 void register_binding() { register int stride asm("r0") = 32; }
 const int table[2] __attribute__((section("__TEXT,__const"))) = {1, 2};
@@ -56,3 +58,17 @@ int probe(int x) { return x + 41; }
         source = '# 1 "src/unity.cpp"\n# 17 "src/payload.h" 1\n\n__asm__(".word 0xe12fff1e");\n'
         with self.assertRaisesRegex(ToolError, r'src/payload.h:18'):
             validate_source(source)
+
+    def test_system_paths_cannot_exempt_instruction_payloads(self):
+        # Line markers are diagnostics, not proof that code belongs to a
+        # trusted dependency: project source can emit them with #line.
+        for path in ('/sdk/usr/include/string.h', '/usr/include/string.h',
+                     '/opt/pirates/lib/gcc/include/stdio.h', '/opt/pirates/include/stdio.h'):
+            for flags in ('', ' 1 3'):
+                source = '# 1 "' + path + '"' + flags + '\nvoid probe() { asm volatile(".word 0xe12fff1e"); }\n'
+                with self.subTest(path=path, flags=flags), self.assertRaisesRegex(ToolError, 'assembly statements'):
+                    validate_source(source)
+
+    def test_system_paths_preserve_declaration_labels(self):
+        validate_source('# 1 "/sdk/usr/include/sys/resource.h" 1 3\n'
+                        'int getrlimit(int, void *) __asm("_" "getrlimit" "$UNIX2003");\n')

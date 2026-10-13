@@ -10,8 +10,10 @@ unsigned long CPVRTResourceFile::Size() const { return m_size; }
 const char *CPVRTResourceFile::StringPtr() const { return m_data; }
 
 // f-43c051ba9889a12d9302 — forward static cleanup to the registered target.
+extern "C" void pirates_static_cleanup_target(void)
+    __asm__("__ZN21CPVRTMemoryFileSystem7CAtExitD1Ev");
 extern "C" void pirates_static_cleanup_43c051ba9889a12d9302(void)
-    __asm__("___tcf_1") __attribute__((naked));
+    __asm__("___tcf_1");
 extern "C" void pirates_static_cleanup_43c051ba9889a12d9302(void) {
-    __asm__ volatile("b __ZN21CPVRTMemoryFileSystem7CAtExitD1Ev");
+    pirates_static_cleanup_target();
 }

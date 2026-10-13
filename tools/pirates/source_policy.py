@@ -10,7 +10,7 @@ import re
 from .util import ToolError
 
 
-SOURCE_POLICY = {'version': 1, 'validated': True}
+SOURCE_POLICY = {'version': 3, 'validated': True}
 TOKEN = re.compile(
     r'(?P<skip>^[ \t]*\#[^\n]*|//[^\n]*|/\*[\s\S]*?\*/)'
     r'|(?P<raw>(?:u8|[uUL])?R"(?P<delimiter>[^ ()\\\t\r\n]{0,16})'
@@ -73,10 +73,12 @@ def validate_source(source):
                     close_pos += 1
                 if close_pos < len(tokens) and close_pos > index + 2:
                     string_args = tokens[index + 2:close_pos]
-                    if (all(t.lastgroup == 'string' and t[0].startswith('"') for t in string_args)
-                            and SYMBOL.fullmatch(''.join(t[0][1:-1] for t in string_args))
-                            and declaration_label(tokens, index)):
-                        continue
+                    if all(t.lastgroup == 'string' and t[0].startswith('"') for t in string_args):
+                        label = ''.join(t[0][1:-1] for t in string_args)
+                        if ((SYMBOL.fullmatch(label)
+                             or re.fullmatch(r'[-+]\[[A-Za-z_$][A-Za-z_0-9$]*\s+[A-Za-z_$][A-Za-z_0-9$:]*\]', label))
+                                and declaration_label(tokens, index)):
+                            continue
             raise ToolError('Source policy violation at ' + location(source, token.start())
                             + ': assembly statements and original-byte payloads are not recovered source;'
                             + ' only declaration labels and register bindings are allowed')

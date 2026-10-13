@@ -10,8 +10,11 @@ class NiParticlesData {
 public:
     void CalculateNormals();
     unsigned short GetActiveVertexCount() const;
+    void SetActiveVertexCount(unsigned short count);
 
 private:
-    unsigned char m_unknown_00[60];
+    unsigned char m_unknown_00[12];
+    unsigned short m_vertexCount; // +0x0c; caps the requested active count.
+    unsigned char m_unknown_0e[46];
     unsigned short m_activeCount; // +0x3c
 };

@@ -782,3 +782,34 @@ data records and now compare byte-for-byte. `autoresizesSurface` also uses a
 signed-byte return to preserve the original sign-extending load. The final
 accessor candidates remain fuzzy code matches, with their ivar relocations
 resolved and zero unresolved comparisons.
+
+## Small source pass from the main baseline
+
+`NiParticlesData::SetActiveVertexCount` now clamps the requested count to the
+observed vertex count at offset `0x0c`, then stores it at offset `0x3c`. The
+ordinary C++ candidate matches all five original ARM instructions (20 bytes).
+These two field offsets are grounded in the original loads and stores; the
+remainder of `NiParticlesData`'s layout is still partial.
+
+`NiTimeController::ItemsInList` now walks the observed next-controller pointer
+at offset `0x38` and counts entries. The source compiles and compares at
+42.1053%; its count and list traversal match the observed control flow, while
+the compiler lays out the loop differently. The partial class declaration
+does not establish the full hierarchy or object layout.
+
+`ISEVisKey::LoadBinary` uses the observed stream layout: base pointer at `+0x00`,
+cursor at `+0x04`, and length at `+0x08`. Its inlined reader clamps the signed
+remaining count, conditionally copies to a non-null destination, and advances
+the cursor. The routine reloads the entity's stream after the time read and
+stores zero when no visibility byte is available; otherwise it normalizes the
+byte to zero or one. These operations follow the original ARM control flow.
+The candidate remains fuzzy and receives no exact-match credit.
+
+Source policy version 3 checks assembly throughout preprocessed source regardless
+of its reported filename. SDK and compiler paths are no longer exempt: project code
+can forge those paths with `#line`. Darwin's concatenated declaration labels
+and Objective-C method labels remain permitted, so `<cstring>` can supply its
+normal declaration without allowing instruction bodies. Regression tests cover
+forged system paths in both the main source and forced includes, and confirm
+that rejected payloads cannot retain a matching object or byte-verification
+credit.
