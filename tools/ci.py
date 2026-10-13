@@ -135,6 +135,24 @@ def linker_profile_failure(base, head):
     return None
 
 
+def candidate_build_failures(status, base_report):
+    """Permit a repaired compilation baseline, preserving all other gates."""
+    compiler = base_report.get('compiler') or {}
+    trustworthy_compiler = (compiler.get('validated')
+                            or (base_report.get('kind') == 'synthetic'
+                                and compiler.get('family') == 'clang-fixture'))
+    compile_errors = (base_report.get('metrics', {}).get('compile_errors', 0)
+                      + base_report.get('data_metrics', {}).get('compile_errors', 0))
+    failed_units = [unit for unit in base_report.get('units', []) if unit.get('error')]
+    compilation_baseline = (trustworthy_compiler and compile_errors > 0
+                            and base_report.get('linking', {}).get('state') != 'failed'
+                            and all((unit.get('compile') or {}).get('status') == 'compile_error'
+                                    for unit in failed_units))
+    return [name.title() + ' candidate build failed; see diagnostics/build.log'
+            for name, code in status.items()
+            if code and not (name == 'base' and compilation_baseline and status.get('head') == 0)]
+
+
 def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json', validation=None):
     base, head, ipa, output = map(lambda p: Path(p).resolve(), (base, head, ipa, output))
     output.mkdir(parents=True, exist_ok=True)
@@ -154,14 +172,15 @@ def build(base, head, ipa, output, sdk=None, profile_path='config/compiler.json'
         delta = compare(output / 'base/report.json', output / 'head/report.json', output)
         if profile_failure:
             delta['failures'].append(profile_failure)
-        for name, code in status.items():
-            if code:
-                delta['failures'].append(name.title() + ' candidate build failed; see diagnostics/build.log')
+        delta['failures'].extend(candidate_build_failures(status, load_json(output / 'base/report.json')))
         write_json(output / 'delta.json', delta)
         # Compare-only summaries and build status share the same generated file.
         markdown = summary(load_json(output / 'base/report.json'), load_json(output / 'head/report.json'), delta)
+        if status['base'] and not delta['failures']:
+            markdown += '\nThe base revision has candidate compilation errors repaired by the head. '
+            markdown += 'Its nonzero build status and diagnostics are retained; shared-input/profile and regression gates passed.\n'
         (output / 'summary.md').write_text(markdown)
-        if (any(status.values()) or profile_failure) and os.environ.get('GITHUB_STEP_SUMMARY'):
+        if delta['failures'] and os.environ.get('GITHUB_STEP_SUMMARY'):
             with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
                 f.write('\n' + (profile_failure or 'Build failure: see uploaded diagnostics.') + '\n')
         return 1 if delta['failures'] else 0

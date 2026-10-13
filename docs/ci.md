@@ -12,6 +12,15 @@ The progress job obtains one archival IPA and checks the fixed SHA-256 before an
 
 Ninja compiles incrementally inside each workspace. Source/header depfiles keep unaffected objects intact. Candidate compile rules retain structured results and diagnostics even on failure; the report rule subsequently fails the build if any unit cannot compile. The final comparison fails when a verified function loses its match, a candidate cannot compile, or recovered function/object coverage disappears. Similarity-only regressions are displayed but do not constitute loss of a verified match.
 
+An old base revision may fail candidate compilation when the head repairs it.
+CI accepts that case only with complete base/head reports, a validated matching
+compiler (or an explicitly synthetic fixture), compilation errors recorded in
+the base, no non-compilation unit errors or failed base link, and a successful
+head build. Shared input/profile/SDK identity, coverage and verified-match
+regression gates still apply. The nonzero base status and diagnostics remain
+visible; configuration, provisioning, stale-object and head failures still fail
+CI.
+
 Job summaries show matched bytes/functions, missing source, unresolved comparisons, compile errors, similarity, newly matched IDs, improvements, and regressions. Full-game linking remains distinct at zero completed units. Reports/diagnostics upload on failure. Artifact paths are explicitly limited to JSON, text diagnostics, and summaries; they exclude the IPA, original executable, SDK, source caches, candidate object files, and toolchain binaries.
 
 ## Historical compiler and SDK boundary
