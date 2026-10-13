@@ -1,0 +1,80 @@
+{
+  "candidate_groups": [
+    "o-f23326dbfbcca1360d5d",
+    "o-9cdb54dcd3500115b6d3",
+    "o-24e80dfe1ffffdcc1a74",
+    "o-94d8c4649937bf6c3116",
+    "o-eb8b66dc6827453889af"
+  ],
+  "link": {
+    "version": 1,
+    "enabled": true,
+    "scope": "diagnostic",
+    "entry": "__ZN3ISE9ISECamera9IsVisibleERNS_10ISEAABBBoxE",
+    "deployment_target": "4.2",
+    "sdk_version": "5.1",
+    "object_order": [
+      "o-f23326dbfbcca1360d5d",
+      "o-9cdb54dcd3500115b6d3",
+      "o-24e80dfe1ffffdcc1a74",
+      "o-94d8c4649937bf6c3116",
+      "o-eb8b66dc6827453889af"
+    ],
+    "libraries": [
+      "-lSystem",
+      "-lstdc++",
+      "-lgcc_s.1"
+    ],
+    "expected_imports": [
+      "_tan",
+      "___gxx_personality_sj0",
+      "__Unwind_SjLj_Register",
+      "__Unwind_SjLj_Unregister",
+      "__Unwind_SjLj_Resume",
+      "__ZSt9terminatev"
+    ],
+    "expected_libraries": [
+      "/usr/lib/libSystem.B.dylib",
+      "/usr/lib/libstdc++.6.dylib",
+      "/usr/lib/libgcc_s.1.dylib"
+    ],
+    "expected_bindings": {
+      "___gxx_personality_sj0": "/usr/lib/libstdc++.6.dylib",
+      "_tan": "/usr/lib/libSystem.B.dylib",
+      "__ZSt9terminatev": "/usr/lib/libstdc++.6.dylib",
+      "__Unwind_SjLj_Register": "/usr/lib/libgcc_s.1.dylib",
+      "__Unwind_SjLj_Resume": "/usr/lib/libgcc_s.1.dylib",
+      "__Unwind_SjLj_Unregister": "/usr/lib/libgcc_s.1.dylib"
+    },
+    "sdk_objects": [],
+    "flags": [
+      "-dead_strip"
+    ],
+    "retained_symbols": [
+      "__Z22NEON_Matrix4Vector4MulPKfS0_Pf",
+      "__ZN3ISE10ISEAABBBox11saveExtentsEv",
+      "__ZN3ISE10ISEAABBBox9transformERK8PVRTMat4",
+      "__ZN3ISE10ISEVector310DotProductERS0_",
+      "__ZN3ISE10ISEVector312CrossProductERS0_",
+      "__ZN3ISE10ISEVector313absDotProductERKS0_",
+      "__ZN3ISE10ISEVector39NormalizeEv",
+      "__ZN3ISE10ISEVector3C1Efff",
+      "__ZN3ISE10ISEVector3C1Ev",
+      "__ZN3ISE10ISEVector3D1Ev",
+      "__ZN3ISE10ISEVector3aSERS0_",
+      "__ZN3ISE10ISEVector3miERS0_",
+      "__ZN3ISE10ISEVector3mlEf",
+      "__ZN3ISE10ISEVector3pLERS0_",
+      "__ZN3ISE10ISEVector3plERS0_",
+      "__ZN3ISE8ISEPlane11GetDistanceERNS_10ISEVector3E",
+      "__ZN3ISE8ISEPlane11GetDistanceEfff",
+      "__ZN3ISE8ISEPlane13ClassifyPointERKNS_10ISEVector3ES3_",
+      "__ZN3ISE8ISEPlane18CreateFromTriangleERNS_10ISEVector3ES2_S2_",
+      "__ZN3ISE8ISEPlaneC1Effff",
+      "__ZN3ISE8ISEPlaneC1Ev",
+      "__ZN3ISE9ISECamera18updateFrustumPlaneEv",
+      "__ZN3ISE9ISECamera9IsVisibleERNS_10ISEAABBBoxE"
+    ],
+    "provenance": "Ordinary source closure for saved-bound transforms, frustum rebuilding and box-plane classification. All math callees are reconstructed source, with the existing observed empty vector destructor. SDK libraries supply tan and C++ exception services. Unreachable camera construction remains unrecovered and is dead-stripped. This is a diagnostic subset, not process startup, iOS runtime validation or whole-game replacement; no fake dependency bodies."
+  }
+}

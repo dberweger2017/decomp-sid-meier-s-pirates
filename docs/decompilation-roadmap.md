@@ -67,6 +67,14 @@ libraries may use other profiles. See [compiler evidence](toolchain.md) and the
 [recovery ledger](recovery-loop.md) before adopting new flags. Use
 `tools/cohort.py` to keep each batch's explicit inventory IDs and progress.
 
+The foundation and bounds-to-visibility source checkpoints now pass their
+acceptance checks. [Bounds-to-visibility evidence](bounds-camera.md) records
+the partial layouts, new exact constructor, fuzzy bodies, 127 ARM fixtures and
+diagnostic subset link. Those methods still need byte matching and complete
+runtime integration. The next source batch is animation and assets; keep its
+version, bounds and ownership dependencies together rather than accumulating
+unconnected wrappers.
+
 ## Repeatable batch workflow
 
 1. Select one original group or a small connected cohort and save its baseline

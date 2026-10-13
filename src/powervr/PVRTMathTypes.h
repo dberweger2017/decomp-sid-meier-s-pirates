@@ -17,3 +17,4 @@ struct PVRTMATRIXf {
 
 // The original calls resolve to this named ARM definition at the named NEON_Matrix4Mul definition.
 void NEON_Matrix4Mul(const float *left, const float *right, float *result);
+void NEON_Matrix4Vector4Mul(const float *matrix, const float *vector, float *result);

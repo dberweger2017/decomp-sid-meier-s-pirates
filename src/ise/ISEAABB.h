@@ -3,8 +3,8 @@
 
 namespace ISE {
 
-// Partial layout observed in libISELib.a(ISEAABB.o). The transform routine
-// and the role of the saved bounds remain unrecovered.
+// Partial layout observed in libISELib.a(ISEAABB.o). Transform rebuilds the
+// current bounds from saved extents; complete runtime integration is separate.
 class ISEAABBBox {
 public:
     ISEAABBBox();
@@ -14,6 +14,7 @@ public:
     PVRTVec3 getCenterPoint();
     PVRTVec3 getHalfSize();
     void saveExtents();
+    void transform(const PVRTMat4& matrix);
 
 private:
     PVRTVec3 m_upper; // +0x00; merge takes the component maxima.
