@@ -1,0 +1,15 @@
+{
+  "files": {
+    "benchmark.json": "0c9da99f6d4a3883d13fea462f967d56f182b42e56ec1c64f5ef3d6dff241b77",
+    "clang318-probes.json": "7a26acf35739a5c5cff260e24553a7d74f2645e60bcfdb83be3f6f2d07a547e5",
+    "execution.json": "91e3dbc66e96dd542f74627d0785eda657232e568a48f8d7a4dda3928b749432",
+    "flags.json": "b66af499a2675cc94ef8a475711771c07f14f3a66e640511e23e349df3ccedb1",
+    "object-group-hypotheses.json": "df9a1e928fad272362f2ca672d1b20f522c0e12b5f9d4fb591d953aee8b33231",
+    "original-census.json": "64fedf8e5bdd3c13e06cf695b28e8f88c6cbbb535a676a682cd8e51b1c5fca51",
+    "problem-variants.json": "d832a238bfff2545d9942bd77f01bb40fc91bafe28bd98cd4ffe4378ef288529",
+    "reconstructed-probes.json": "14842b3bb8e7a856be4b465ea615a97cacdf42fc8dcc34ef096ed21c9c89df6e",
+    "source-audit.json": "74a1e1eaa8fef0a8940f8dd941b8b0ca576a88bbdc59e2dcf00bcf85529bcb6d"
+  },
+  "note": "Measurements and hashes only; original instructions, binaries, SDK contents and compiler binaries stay local.",
+  "version": 1
+}

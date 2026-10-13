@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "apple_clang318": {
+    "tag": "clang-318.0.45",
+    "commit": "7731212dc84f391254f376e8f03753437b83f242",
+    "url": "https://codeload.github.com/apple-oss-distributions/clang/tar.gz/7731212dc84f391254f376e8f03753437b83f242",
+    "sha256": "c6cb665ad5b245cd3ff1b1ba8a69d183472173ad1fb416ec8c790a092d62943c",
+    "scope": "Nearby historical Apple Clang source with bundled LLVM 3.1svn. NOT a reproduction of the genuine Xcode 4.3.2 clang-318.0.58 executable. Host build repairs are recorded separately."
+  },
+  "rejected_core2358": {
+    "tag": "llvmCore-2358.3",
+    "commit": "68543faf1f6643da519335f9026f1748b95ae01f",
+    "url": "https://codeload.github.com/apple-oss-distributions/llvmCore/tar.gz/68543faf1f6643da519335f9026f1748b95ae01f",
+    "sha256": "5222d32170c589067ac3598e3b1cfc9eb7bca301af127026574166bcbe3269ab",
+    "scope": "Source inspection only: ARM tail calls remain disabled and Darwin global lowering retains pools; newer submission number is insufficient. Not built as a candidate."
+  }
+}

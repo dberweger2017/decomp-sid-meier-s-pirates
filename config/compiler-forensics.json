@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "compilers": {
+    "reconstructed": {"profile": "build/toolchain/compiler.json", "provenance": "Source build of llvmgcc42-2336.9 with its bundled 2.7svn core; shipped equivalence unproven"},
+    "xcode432-llvmgcc": {"profile": "build/compiler-forensics/xcode432-llvmgcc.json", "provenance": "Requires inventory of genuine Xcode 4.3.2 iPhoneOS compiler", "unavailable_reason": "Official download requires Apple authentication; supply extracted build 4E2002 and run inspect_xcode.py"},
+    "xcode432-clang": {"profile": "build/compiler-forensics/xcode432-clang.json", "provenance": "Requires genuine Xcode 4.3.2 Clang; not inferred from published nearby revisions", "unavailable_reason": "Genuine distribution unavailable"},
+    "apple-clang318-source": {"profile": "build/compiler-forensics/clang318.json", "provenance": "Apple open-source clang-318.0.45, commit 7731212dc84f391254f376e8f03753437b83f242; near contemporary, NOT the shipped 318.0.58"},
+    "modern-control": {"family": "clang-control", "name": "modern-apple-clang-control", "command": ["clang++", "--target=armv7-apple-ios4.2"], "flags": ["-march=armv7-a", "-mfloat-abi=softfp", "-miphoneos-version-min=4.2"], "provenance": "Modern compiler instruction capability control only; never compiler identity evidence"}
+  }
+}
